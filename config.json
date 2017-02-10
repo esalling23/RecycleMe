@@ -1,0 +1,9 @@
+{
+	"name": "RecycleMe",
+	"directory": "recycle-me",
+	"database": "recycle-me",
+	"subdomain": "recycle",
+	"admin_nav": { 
+									"index": ["Index"]
+								}
+}

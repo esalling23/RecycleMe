@@ -1,0 +1,37 @@
+{{!< default}}
+{{!--
+/**
+* Engagement Lab Web Suite
+* Developed by Engagement Lab, 2016
+* ==============
+*
+* Index Page sample Template
+* ==========
+*/
+--}}
+
+
+<div class="container-fluid home">
+	<div class="row">
+		
+	</div>
+
+	<div class="row">
+
+		<section id="tinderslide">
+		<ul>
+			{{#each items}}
+			<li>
+				{{> item this}}
+			</li>
+			{{/each}}
+		</ul>
+		</section>
+		
+	</div>
+	<div class="row">
+		<input id="btn-no" data-keep_enabled="true" data-event="recycle:no" class="submit" type="submit" name="submit" value="trash">
+		<input id="btn-yes" data-keep_enabled="true" data-event="recycle:yes" class="submit" type="submit" name="submit" value="recylce">
+	</div>
+
+</div> <!-- .container-fluid -->
