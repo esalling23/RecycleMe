@@ -13,25 +13,23 @@
 
 <div class="container-fluid home">
 	<div class="row">
-		
+		<h2>Single Stream</h2>
 	</div>
 
-	<div class="row">
 
-		<section id="tinderslide">
-		<ul>
-			{{#each items}}
-			<li>
-				{{> item this}}
-			</li>
-			{{/each}}
-		</ul>
+		<section class="row" id="tinderslide">
+			<ul style="height:100%;">
+				{{#each items}}
+				<li class="item">
+					{{> item this}}
+				</li>
+				{{/each}}
+			</ul>
 		</section>
 		
-	</div>
-	<div class="row">
-		<input id="btn-no" data-keep_enabled="true" data-event="recycle:no" class="submit" type="submit" name="submit" value="trash">
-		<input id="btn-yes" data-keep_enabled="true" data-event="recycle:yes" class="submit" type="submit" name="submit" value="recylce">
+	<div class="row buttons">
+			<input id="trash" data-keep_enabled="true" data-event="recycle:no" class="submit" type="submit" name="submit" value="trash">
+			<input id="recycle" data-keep_enabled="true" data-event="recycle:yes" class="submit" type="submit" name="submit" value="recylce">
 	</div>
 
 </div> <!-- .container-fluid -->

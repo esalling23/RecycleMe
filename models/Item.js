@@ -37,12 +37,45 @@ Item.add({
 
 	info: { type: Types.Markdown, label: 'Item Info'},
 	image: { type: Types.CloudinaryImage, label: 'Item Image'},
-	isRecycle: { type: Types.Boolean, label: 'Is Recyclable?'},
-	//material field with relationship to materials?
+	material: {
+		type: Types.Relationship, 
+		ref: 'Material', 
+		label: 'Material(s)',
+		many: true
+	},
 	
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 
 });
+
+Item.schema.statics.removeResourceRef = function(resourceId, callback) {
+
+    Item.model.update({
+            $or: [{
+                'material': resourceId
+            }]
+        },
+
+        {
+            $pull: {
+                'material': resourceId
+            }
+        },
+
+        {
+            multi: true
+        },
+
+        function(err, result) {
+
+            callback(err, result);
+
+            if (err)
+                console.error(err);
+        }
+    );
+
+};
 
 /**
  * Model Registration

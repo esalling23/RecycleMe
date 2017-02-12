@@ -24,17 +24,17 @@ $(document).ready(function() {
     animationRevertSpeed: 200,
     animationSpeed: 400,
     threshold: 1,
-    likeSelector: '.recycle',
-    dislikeSelector: '.trash'
+    likeSelector: '#recycle',
+    dislikeSelector: '#trash'
   });
 
 	// If a player chooses to trash an item
-  $('#btn-no').click(function() {
+  $('#trash').click(function() {
 		
   });
 
   // If a player chooses to recycle
-  $('#btn-yes').click(function() {
+  $('#recycle').click(function() {
   	$('#tinderslide').jTinder('recycle');
   });
 
