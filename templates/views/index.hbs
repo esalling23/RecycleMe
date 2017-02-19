@@ -15,17 +15,16 @@
 	<div class="row">
 		<h2>Single Stream</h2>
 	</div>
+	<div id="points-counter">0</div>
 
 
-		<section class="row" id="tinderslide">
-			<ul style="height:100%;">
-				{{#each items}}
-				<li class="item">
-					{{> item this}}
-				</li>
-				{{/each}}
-			</ul>
-		</section>
+	<section class="row" id="tinderslide">
+		<ul style="height:100%;">
+			{{#each item}}
+				{{> item this}}
+			{{/each}}
+		</ul>
+	</section>
 		
 	<div class="row buttons">
 			<input id="trash" data-keep_enabled="true" data-event="recycle:no" class="submit" type="submit" name="submit" value="trash">

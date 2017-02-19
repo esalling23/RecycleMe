@@ -1,5 +1,10 @@
-<div class="pane{{@index}}">
-<img src="{{{cloudinaryUrl image width=350 height=350 quality=80}}}" />
-{{{info.html}}}
+<li class="item {{status}}">
+	<div class="pane{{@index}}" id="{{item_key}}">
+		<img src="{{{cloudinaryUrl image width=350 height=350 quality=80}}}" />
+		{{{info.html}}}
+		{{material.name}}
 
-</div>
+		<div class="status hidden">{{status}}</div>
+
+	</div>
+</li>

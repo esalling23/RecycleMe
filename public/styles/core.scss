@@ -16,6 +16,11 @@
   font-family: "HalisLight";
 }
 
+.page-wrapper, .container-fluid, ul{
+	height: 100%;
+	text-align: center;
+}
+
 .desktop-only {
 	// Hide for mobile
 	@include mobile-only {
@@ -49,21 +54,31 @@
 // Game front end
 
 section#tinderslide {
-width: 100%;
-text-align: center;
+	// width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	background: black;
 		
 	ul {
 		height: 100%;
+		width: 100%;
+		margin: 0 auto;
+		padding: 0px;
+		width: $tinder-width;
 
 	}
 
 	.item {
-		min-height: 450px;
-		max-height: 450px;
-		max-width: 400px;
+		min-height: $tinder-height;
+		max-height: $tinder-height;
+		max-width: $tinder-width;
 
 	}
 
+}
+
+#points-counter {
+	font-size: 36px;
 }
 
 .buttons {

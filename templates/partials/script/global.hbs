@@ -14,12 +14,14 @@
 
 $(document).ready(function() {
 
+	var points = 0;
+
 	$('#tinderslide').jTinder({
-		onTrash: function (item) {
-        alert('Trash image ' + (item.index()+1));
+		onDislike: function (item) {
+        CheckTrash(item);
     },
-    onRecycle: function (item) {
-        alert('Recycle image ' + (item.index()+1));
+    onLike: function (item) {
+        CheckRecycle(item);
     },
     animationRevertSpeed: 200,
     animationSpeed: 400,
@@ -30,23 +32,45 @@ $(document).ready(function() {
 
 	// If a player chooses to trash an item
   $('#trash').click(function() {
-		
+  	$('#tinderslide').jTinder('dislike');
   });
+
+  function CheckTrash(item) {
+  	// check if item is trash
+  	if (item.hasClass('Trash')) {
+  		console.log('CORRECT - dis trash');
+  		UpdateScore(1);
+  	} else {
+  		UpdateScore(-1);
+  		console.log ('WRONG - dis recyclable');
+  	}
+  }
 
   // If a player chooses to recycle
   $('#recycle').click(function() {
-  	$('#tinderslide').jTinder('recycle');
+  	$('#tinderslide').jTinder('like');
   });
 
-  // Swipe Functionality -- ADD IN
-
-  // Bind the swipeHandler callback function to the swipe event on div.box
-  $( "div.box" ).on( "swipe", swipeHandler );
- 
-  // Callback function references the event target and adds the 'swipe' class to it
-  function swipeHandler( event ){
-    $( event.target ).addClass( "swipe" );
+  function CheckRecycle(item) {
+  	// check if item is recyclable
+  	if (item.hasClass('Recycle')) {
+  		UpdateScore(1);
+  		console.log('CORRECT - dis recyclable');
+  	} else {
+  		UpdateScore(-1);
+  		console.log ('WRONG - dis trash');
+  	}
   }
+
+  function UpdateScore(num) {
+  	points = points + num;
+
+  	console.log(points);
+
+  	$('#points-counter').html(points);
+
+  }
+
 
 });
 

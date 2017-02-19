@@ -47,7 +47,25 @@ exports = module.exports = function(req, res) {
             queryItem.exec(function(err, result) {
                 if (err) throw err;
 
-                locals.items = result;
+                locals.item = result;
+
+                // _.each (locals.item, function(item){
+
+                //     var status = _.countBy(item.material, function (material) {
+                //         return material.status ? 'trash' : 'recycle';
+                //     });
+                //     console.log(status);
+
+                //     if (status.recycle) {
+                //         item.status = 'recycle';
+                //     } else {
+                //         item.status = 'trash';
+                //     }
+
+                //     console.log(item.status);
+
+                // });
+                
 
                 // var queryMaterials = Material.model.findOne({}, {}, {
                 //     sort: {

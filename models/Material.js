@@ -37,7 +37,7 @@ Material.add({
 
 	info: { type: Types.Markdown, label: 'Material Info', required: true, initial: true},
 	image: { type: Types.CloudinaryImage, label: 'Material Image'},
-	status: { type: Types.Select, label: 'What should be done with this material?', options: 'Recycle, Trash, Compost', required: true, initial: true},
+	status: { type: Types.Select, label: 'What should be done with this material?', options: 'Recycle, Trash', required: true, initial: true},
 	rationale: { type: Types.Markdown, label: 'Why do you do this with this material?'},
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 
