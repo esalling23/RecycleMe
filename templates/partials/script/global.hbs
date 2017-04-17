@@ -30,12 +30,11 @@ $(document).ready(function() {
 		} else {
 			console.log("checking login info");
 
-			$.get("/api/find/", data, function(data){})
+			$.get("/api/find/", data, function(data){
+				window.location = data;
+			})
 			.fail(function() {
 			    alert( "error" );
-			})
-			.always(function() {
-			    alert( "finished" );
 			});
 		}
 

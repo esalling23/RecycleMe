@@ -12,9 +12,7 @@
  * ==========
  */
 var keystone = require('keystone'),
-    Index = keystone.list('Index'),
-    Item = keystone.list('Item'),
-    Material = keystone.list('Material'),
+    Player = keystone.list('Player'),
     _ = require('underscore');
 
 exports = module.exports = function(req, res) {
@@ -27,34 +25,17 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
 
-        var queryIndex = Index.model.findOne({}, {}, {
-            sort: {
-                'createdAt': -1
-            }
-        });
-        queryIndex.exec(function(err, resultIndex) {
+        var queryPlayer = Player.model.findOne({ 'id': req.params.id }, {}, {});
+
+        queryPlayer.exec(function(err, result) {
             if (err) throw err;
 
-            locals.index = resultIndex;
+            locals.player = result;
 
-            var queryItem = Item.model.find({}, {}, {
-                sort: {
-                    'createdAt': -1
-                }
-            })
-            .populate('material');
-
-            queryItem.exec(function(err, result) {
-                if (err) throw err;
-
-                locals.item = result;
-
-                
-                    next();
-
-            });
+            next();
 
         });
+
     });
 
     // Render the view

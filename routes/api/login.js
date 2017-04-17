@@ -15,13 +15,15 @@ exports.get = function(req, res) {
 
 	    if (err || !player) return res.json({ msg: "we have not found your profile" });
 
+	    var data = player.id;
+
 	    player._.password.compare(req.query.password, function(err, result){
 
 			if (result) {
 
 				console.log("login successful");
 
-		  		res.send('/profile/' + result.id);
+		  		res.send('/profile/' + data);
 			    
 			  } else {
 

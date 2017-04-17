@@ -37,11 +37,10 @@ exports = module.exports = function(req, res) {
 
             locals.index = resultIndex;
 
-                next();
-
-            });
+            next();
 
         });
+
     });
 
     // Render the view
