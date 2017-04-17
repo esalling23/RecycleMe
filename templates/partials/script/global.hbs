@@ -12,7 +12,35 @@
 
 <script type="text/javascript">
 
+var socket;
+var socketEvents;
+var gameCode;
+
 $(document).ready(function() {
+
+	$('#btn_login').click(function(evt) {
+		var data = {};
+		data.email = $('#email_input').val();
+		data.password = $('#password_input').val();
+		console.log(data);
+
+		if (!data.password || !data.email) {
+			console.log ("empty fields");
+			  
+		} else {
+			console.log("checking login info");
+
+			$.get("/api/find/", data, function(data){})
+			.fail(function() {
+			    alert( "error" );
+			})
+			.always(function() {
+			    alert( "finished" );
+			});
+		}
+
+	});
+
 
 	var points = 0;
 
@@ -56,6 +84,7 @@ $(document).ready(function() {
   	if (item.hasClass('Recycle')) {
   		UpdateScore(1);
   		console.log('CORRECT - dis recyclable');
+
   	} else {
   		UpdateScore(-1);
   		console.log ('WRONG - dis trash');
@@ -73,8 +102,6 @@ $(document).ready(function() {
 
 
 });
-
-
 
 
 

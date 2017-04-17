@@ -14,21 +14,14 @@
 <div class="container-fluid home">
 	<div class="row">
 		<h2>Single Stream</h2>
+		<h3>Welcome!</h3>
 	</div>
-	<div id="points-counter">0</div>
+	<div class="row">
+		<input class="hidden-el" type="text" id="email_input" placeholder="email" tabindex="1"> <br />
+	    <input class="hidden-el" type="text" id="password_input" placeholder="password" tabindex="2"> <br />
+	    <div class="error">Error!</div>
+	    <input id="btn_login" data-event="game:entry" data-package='{"email": "#email_input", "pass": "#password_input"}' class="btn btn-default desktop-only game_login hidden-el" type="submit" name="submit" value="play">
 
-
-	<section class="row" id="tinderslide">
-		<ul style="height:100%;">
-			{{#each item}}
-				{{> item this}}
-			{{/each}}
-		</ul>
-	</section>
-		
-	<div class="row buttons">
-			<input id="trash" data-keep_enabled="true" data-event="recycle:no" class="submit" type="submit" name="submit" value="trash">
-			<input id="recycle" data-keep_enabled="true" data-event="recycle:yes" class="submit" type="submit" name="submit" value="recylce">
 	</div>
 
 </div> <!-- .container-fluid -->

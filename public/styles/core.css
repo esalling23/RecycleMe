@@ -2,8 +2,8 @@
   visibility: hidden; }
 
 .body {
-  background-color: #000;
-  color: #fff;
+  background-color: white;
+  color: blue;
   font-family: "HalisLight"; }
 
 .page-wrapper, .container-fluid, ul {

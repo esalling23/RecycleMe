@@ -29,7 +29,6 @@ appStart = function(app) {
 	var keystone = require('keystone');
 	var appServer = keystone.get('appServer');
 	var rootDir = require('app-root-path');
-	var io = require(rootDir + '/sockets/')(appServer);
 
 };
 

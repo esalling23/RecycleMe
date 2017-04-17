@@ -23,7 +23,7 @@ exports = module.exports = function(req, res) {
         locals = res.locals;
 
     // Init locals
-    locals.section = 'index';
+    locals.section = 'profile';
 
     view.on('init', function(next) {
 
@@ -37,7 +37,20 @@ exports = module.exports = function(req, res) {
 
             locals.index = resultIndex;
 
-                next();
+            var queryItem = Item.model.find({}, {}, {
+                sort: {
+                    'createdAt': -1
+                }
+            })
+            .populate('material');
+
+            queryItem.exec(function(err, result) {
+                if (err) throw err;
+
+                locals.item = result;
+
+                
+                    next();
 
             });
 
@@ -45,6 +58,6 @@ exports = module.exports = function(req, res) {
     });
 
     // Render the view
-    view.render('index');
+    view.render('profile');
 
 };

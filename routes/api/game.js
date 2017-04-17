@@ -13,7 +13,7 @@ exports.create = function(req, res) {
 
 	console.log(req.body);
 
-	var game = req.body.username + '-game';
+	var game = req.body.userame + '-game';
 	
     new Game.model({
    	  name: game

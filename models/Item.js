@@ -25,7 +25,7 @@ var Item = new keystone.List('Item',
 		label: 'Items',
 		singular: 'Item',
 		track: true,
-		autokey: { path: 'item_key', from: 'name', unique: true },
+		autokey: { path: 'item_key', from: 'name', unique: true }
 	});
 
 /**
@@ -35,7 +35,6 @@ var Item = new keystone.List('Item',
 Item.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
-
 	info: { type: Types.Markdown, label: 'Item Info'},
 	image: { type: Types.CloudinaryImage, label: 'Item Image'},
 	material: {
@@ -46,6 +45,7 @@ Item.add({
 	},
 	status: { type: Types.Select, label: 'What should be done with this material?', options: 'Recycle, Trash, Compost, E-Waste', required: true, initial: true},
 	rationale: { type: Types.Markdown, label: 'Why do you do this with this item?'},
+	level: { type: Types.Select, label: 'On which level will this appear?', options: 'One, Two, Three'},
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 
 });
