@@ -44,54 +44,10 @@ Item.add({
 		label: 'Material(s)',
 		many: true
 	},
-	status: { type: Types.Select, label: 'Status', note: 'This is determined by item materials', options: 'Recycle, Trash', noedit: true },
+	status: { type: Types.Select, label: 'What should be done with this material?', options: 'Recycle, Trash, Compost, E-Waste', required: true, initial: true},
+	rationale: { type: Types.Markdown, label: 'Why do you do this with this item?'},
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 
-});
-
-Item.schema.post('save', function(next){
-	var status;
-		Item.model.findOne({item_key: this.item_key}).populate('material').exec(function(err, result){
-			console.log(result, " is the resulty");
-			
-	    var matStat = _.countBy(result.material, function (material) {
-	        return material.status;
-	    });
-
-	    console.log(matStat, " status options");
-
-	    if (matStat.Recycle > matStat.Trash) {
-	        result.status = 'Recycle';
-	        status = result.status;
-	        console.log(status, " status");
-	    } else {
-	        result.status = 'Trash';
-	        status = result.status;
-	        console.log(status, " status");
-	    }
-
-	    Item.model.update({item_key: result.item_key}, 
-		    {
-		    	$set: {
-		    		status: status
-		    	}
-		    }, 
-		    {
-					multi: false
-		    }, 
-		    function(err, result) {
-
-		    	console.log(status, " updating");
-
-          if (err)
-              console.error(err);
-	      }
-      );
-	  
-		});
-
-		
-		
 });
 
 Item.schema.statics.removeResourceRef = function(resourceId, callback) {
