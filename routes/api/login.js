@@ -7,11 +7,7 @@ exports.get = function(req, res) {
 	var locals = res.locals;
 	var query = Player.model.findOne({email:req.query.email});	
 
-	console.log(req.query)
-
 	query.exec(function (err, player) {
-
-		console.log(player, " is the player")
 
 	    if (err || !player) return res.json({ msg: "we have not found your profile" });
 
@@ -21,11 +17,9 @@ exports.get = function(req, res) {
 
 			if (result) {
 
-				console.log("login successful");
-
 		  		res.send('/profile/' + data);
 			    
-			  } else {
+			} else {
 
 			  	console.log("wrong password");
 
@@ -34,7 +28,9 @@ exports.get = function(req, res) {
 			        msg: 'Sorry, wrong password'
 			    });
 			  	
-			  }
+			}
+
 	    });
+	    
 	});
 };

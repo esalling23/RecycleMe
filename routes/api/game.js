@@ -1,32 +1,24 @@
 var keystone = require('keystone');
-var Game = keystone.list('Game');
-var appRoot = require('app-root-path');
-var TemplateLoader = require('../../lib/TemplateLoader');
-var Templates = new TemplateLoader();
+var Player = keystone.list('Player');
 var _ = require('underscore');
 
+exports.update = function(req, res) {
 
-exports.create = function(req, res) {
+    console.log(req, res);
 
-	var locals = res.locals;
-	locals.section = 'newGame';
+    Player.model.findOne({ '_id': req.query.id }).exec(function(err, player) {
+        if (err) throw err;
 
-	console.log(req.body);
+        if(player.leader)
+	        player.leader = player.leader + parseInt(req.query.score);
+	    else 
+	    	player.leader = parseInt(req.query.score);
+	    
+        player.save();
 
-	var game = req.body.userame + '-game';
-	
-    new Game.model({
-   	  name: game
+        res.send('did it')
 
-    })
-    .save(function(err) {
-
-		if (err)
-	    console.log(err);
-	  else 
-	  	console.log ("success");
-
-	});
+    });
 
 };
 

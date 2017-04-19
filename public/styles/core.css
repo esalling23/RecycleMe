@@ -21,6 +21,9 @@
 .buffer {
   margin-top: 5%; }
 
+.hide {
+  display: none; }
+
 section#tinderslide {
   margin: 0 auto;
   text-align: center;

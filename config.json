@@ -4,6 +4,7 @@
 	"database": "recycle-me",
 	"subdomain": "recycle",
 	"admin_nav": { 
-									"index": ["Index"]
-								}
+					"Game Content": ["Item", "Material"], 
+					"Game Other": ["Player", "Game"]
+				 }
 }
