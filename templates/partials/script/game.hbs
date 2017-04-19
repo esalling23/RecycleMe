@@ -1,4 +1,5 @@
 	// GAME LOGIC
+	var levelItems;
 
 	$('.levels [data-level]').click(function(evt) {
 
@@ -11,9 +12,11 @@
 
 	$('#tinderslide').jTinder({
 		onDislike: function (item) {
+			$(item).addClass('gone');
 	        CheckTrash(item);
 	    },
 	    onLike: function (item) {
+	    	$(item).addClass('gone');
 	        CheckRecycle(item);
 	    },
 	    animationRevertSpeed: 200,
@@ -56,37 +59,67 @@
   	}
   }
 
+  // If a player chooses to compost
+  $('#compost').click(function() {
+  	var item = $('.item').last()
+  	CheckCompost(item);
+  	$(item).animate({
+  		'top': "-1000px", 
+  		'height': "200px"
+  	}, 1000, function(){
+  		console.log("done");
+  	});
+  });
+
+  function CheckCompost(item) {
+  	// check if item is recyclable
+  	if (item.hasClass('Compost')) {
+  		UpdateScore(1);
+  		console.log('CORRECT - dis compost');
+
+  	} else {
+  		UpdateScore(-1);
+  		console.log ('WRONG - dis something ELSe');
+  	}
+  }
+
   function StartLevel(num) {
   	// Fade in the game, out the profile
   	$('.profile').fadeOut(function(){
   		$('.game').fadeIn();
   		// Fade in the level
-  		console.log(num);
-  		console.log($('.game').find(".level[data-level=" + num + "]"));
 		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
-			console.log("fading in");
+			$('ACTIVE').removeClass('ACTIVE');
+			$(this).addClass('ACTIVE');
+
 		});
   	});
 
   }
 
-  function UpdateScore(num) {
+  function UpdateScore(num, leader) {
   	points = points + num;
 
-  	console.log(points);
+  	if (leader) {
+	  	// Send player data
+	  	var data = {};
+			data.id = "{{playerId}}";
+			data.score = points;
+			console.log(data);
 
-  	var data = {};
-		data.id = "{{playerId}}";
-		data.score = points;
-		console.log(data);
-
-  	$.get("/api/update/", data, function(data){
-  		console.log("here we goooo :", data)
-  		$('#points-counter').html(points);
-	})
-	.fail(function(err) {
-	    alert( "error" + err );
-	});
+	  	$.get("/api/update/", data, function(data){
+	  		// Update player score on this end
+	  		$('#points-counter').html(points);
+		})
+		.fail(function(err) {
+		    alert( "error" + err );
+		});
+	} else {
+		// Update player score
+		$('#points-counter').html(points);
+	}
 
   }
+
+  // 
 
