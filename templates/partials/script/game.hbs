@@ -12,12 +12,20 @@
 
 	$('#tinderslide').jTinder({
 		onDislike: function (item) {
-			$(item).addClass('gone');
-	        CheckTrash(item);
+			if ($(item).hasClass('gone'))
+				return
+			else {
+				$(item).addClass('gone');
+		        CheckTrash(item);
+			}
 	    },
 	    onLike: function (item) {
-	    	$(item).addClass('gone');
-	        CheckRecycle(item);
+	    	if ($(item).hasClass('gone'))
+				return
+			else {
+				$(item).addClass('gone');
+		        CheckRecycle(item);
+			}
 	    },
 	    animationRevertSpeed: 200,
 	    animationSpeed: 400,
@@ -61,13 +69,14 @@
 
   // If a player chooses to compost
   $('#compost').click(function() {
-  	var item = $('.item').last()
-  	CheckCompost(item);
+  	var item = $('.level.ACTIVE .item').last();
   	$(item).animate({
-  		'top': "-1000px", 
-  		'height': "200px"
-  	}, 1000, function(){
-  		console.log("done");
+  		'top': "-1000px"
+  	}, 500, function(){
+  		$(item).addClass('gone');
+  		CheckCompost(item);
+  		// Like it - this will do nothing
+  		$('#tinderslide').jTinder('like');
   	});
   });
 
@@ -97,10 +106,17 @@
 
   }
 
-  function UpdateScore(num, leader) {
+  function UpdateScore(num) {
+  	var end;
   	points = points + num;
 
-  	if (leader) {
+  	// Check if this is the last card in the stack - end the level
+	if ($('.level.ACTIVE .item:not(.gone)').length == 0){
+		console.log('this is the end')
+		end = true;
+	}
+
+  	if (end) {
 	  	// Send player data
 	  	var data = {};
 			data.id = "{{playerId}}";
@@ -120,6 +136,3 @@
 	}
 
   }
-
-  // 
-

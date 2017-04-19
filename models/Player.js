@@ -24,7 +24,7 @@ Player.add({
 	gradeTwo: { type: Number, label: 'Level Two Grade (%)', noedit:true },
 	levelThree: { type: Boolean, label: 'Level Two Completed?', noedit: true }, 
 	gradeThree: { type: Number, label: 'Level Two Grade (%)', noedit:true }, 
-	leader: { type: Number, label: 'Leaderboard Points', noedit:true }, 
+	leader: { type: Number, label: 'Leaderboard Points'}, 
 	completed: { type: Boolean, label: 'Game Completed?' }
 });
 
