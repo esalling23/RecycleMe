@@ -43,7 +43,8 @@ Item.add({
 		label: 'Material(s)',
 		many: true
 	},
-	status: { type: Types.Select, label: 'What should be done with this material?', options: 'Recycle, Trash, Compost, E-Waste', required: true, initial: true},
+	status: { type: Types.Select, label: 'What should be done with this item?', options: 'Recycle, Trash, Compost, Special', required: true, initial: true},
+	special: { type: String, label: 'What kind of special thing should be done with this item?', dependsOn: {status:'Special'}},
 	rationale: { type: Types.Markdown, label: 'Why do you do this with this item?'},
 	level: { type: Types.Select, label: 'On which level will this appear?', options: 'One, Two, Three'},
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
@@ -82,6 +83,6 @@ Item.schema.statics.removeResourceRef = function(resourceId, callback) {
 /**
  * Model Registration
  */
-Item.defaultSort = '-createdAt';
-Item.defaultColumns = 'name, updatedAt';
+Item.defaultSort = 'level';
+Item.defaultColumns = 'name, level, status, updatedAt';
 Item.register();

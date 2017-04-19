@@ -18,13 +18,13 @@ Player.add({
 	email: { type: Types.Email, initial: true, required: true, index: true },
 	password: { type: Types.Password, initial: true, required: true }
 }, 'Player Data', {
-	levelOne: { type: Boolean, label: 'Level Two Completed?', noedit: true },
+	levelOne: { type: Boolean, label: 'Level One Completed?', note: 'Based on score of 70% or higher', noedit: true },
 	gradeOne: { type: Number, label: 'Level One Grade (%)', noedit:true }, 
-	levelTwo: { type: Boolean, label: 'Level Two Completed?', noedit: true }, 
+	levelTwo: { type: Boolean, label: 'Level Two Completed?', note: 'Based on score of 70% or higher', noedit: true }, 
 	gradeTwo: { type: Number, label: 'Level Two Grade (%)', noedit:true },
-	levelThree: { type: Boolean, label: 'Level Two Completed?', noedit: true }, 
-	gradeThree: { type: Number, label: 'Level Two Grade (%)', noedit:true }, 
-	leader: { type: Number, label: 'Leaderboard Points'}, 
+	levelThree: { type: Boolean, label: 'Level Three Completed?', note: 'Based on score of 70% or higher', noedit: true }, 
+	gradeThree: { type: Number, label: 'Level Three Grade (%)', noedit:true }, 
+	leader: { type: Number, label: 'Leaderboard Points' }, 
 	completed: { type: Boolean, label: 'Game Completed?' }
 });
 

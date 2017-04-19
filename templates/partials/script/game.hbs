@@ -107,7 +107,7 @@
   }
 
   function UpdateScore(num) {
-  	var end;
+  	var end = false;
   	points = points + num;
 
   	// Check if this is the last card in the stack - end the level
@@ -117,19 +117,25 @@
 	}
 
   	if (end) {
+  		var grade = points/$('.level.ACTIVE .item.gone').length;
 	  	// Send player data
 	  	var data = {};
 			data.id = "{{playerId}}";
-			data.score = points;
+			data.score = points, 
+			data.grade = grade,
+			data.level = $('.level.ACTIVE').data('level');
 			console.log(data);
 
 	  	$.get("/api/update/", data, function(data){
+	  		// Show that end-of-level modal
+	  		$('.modal#level-over').fadeIn();
 	  		// Update player score on this end
-	  		$('#points-counter').html(points);
+	  		$('#points-counter').html(data);
 		})
 		.fail(function(err) {
 		    alert( "error" + err );
 		});
+
 	} else {
 		// Update player score
 		$('#points-counter').html(points);
