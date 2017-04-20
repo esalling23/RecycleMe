@@ -12,26 +12,26 @@
 
 	$('#tinderslide').jTinder({
 		onDislike: function (item) {
-			if ($(item).hasClass('gone'))
-				return
+			if (item.hasClass('gone'))
+				return;
 			else {
-				$(item).addClass('gone');
-		        CheckTrash(item);
+				item.addClass('gone');
+		    CheckTrash(item);
 			}
-	    },
-	    onLike: function (item) {
-	    	if ($(item).hasClass('gone'))
-				return
+    },
+    onLike: function (item) {
+	    if (item.hasClass('gone'))
+				return;
 			else {
-				$(item).addClass('gone');
-		        CheckRecycle(item);
+				item.addClass('gone');
+		    CheckRecycle(item);
 			}
-	    },
-	    animationRevertSpeed: 200,
-	    animationSpeed: 400,
-	    threshold: 1,
-	    likeSelector: '#recycle',
-	    dislikeSelector: '#trash'
+    },
+    animationRevertSpeed: 200,
+    animationSpeed: 400,
+    threshold: 1,
+    likeSelector: '#recycle',
+    dislikeSelector: '#trash'
 	});
 
 	// If a player chooses to trash an item
@@ -69,18 +69,19 @@
 
   // If a player chooses to compost
   $('#compost').click(function() {
-  	var item = $('.level.ACTIVE .item').last();
+  	var item = $('.level.ACTIVE .item:not(.gone)').last();
   	$(item).animate({
   		'top': "-1000px"
   	}, 500, function(){
   		$(item).addClass('gone');
   		CheckCompost(item);
   		// Like it - this will do nothing
-  		$('#tinderslide').jTinder('like');
+  		$('#tinderslide').jTinder('');
   	});
   });
 
   function CheckCompost(item) {
+    console.log(item);
   	// check if item is recyclable
   	if (item.hasClass('Compost')) {
   		UpdateScore(1);
@@ -117,6 +118,7 @@
 	}
 
   	if (end) {
+      console.log($('.level.ACTIVE .item.gone').length);
   		var grade = points/$('.level.ACTIVE .item.gone').length;
 	  	// Send player data
 	  	var data = {};
