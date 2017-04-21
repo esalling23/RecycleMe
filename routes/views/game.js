@@ -30,7 +30,7 @@ exports = module.exports = function(req, res) {
         // Locate this player 
         var queryPlayer = Player.model.findOne({ '_id': req.params.id }, {}, {});
         // Game Content
-        var queryItems = Item.model.find({}, {}, {}).populate('materials');
+        var queryItems = Item.model.find({}, {}, {}).populate('material');
         // Game Config
         var queryGame = Game.model.find({}, {}, {});
 

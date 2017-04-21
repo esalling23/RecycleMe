@@ -44,7 +44,10 @@ Item.add({
 		many: true
 	},
 	status: { type: Types.Select, label: 'What should be done with this item?', options: 'Recycle, Trash, Compost, Special', required: true, initial: true},
+	statusOr: { type: Types.Select, label: 'OR : What should be done with this item?', options: 'Recycle, Trash, Compost, Special'},
 	special: { type: String, label: 'What kind of special thing should be done with this item?', dependsOn: {status:'Special'}},
+	specialOr: { type: String, label: 'OR : What kind of special thing should be done with this item?', dependsOn: {statusOr:'Special'}},
+
 	rationale: { type: Types.Markdown, label: 'Why do you do this with this item?'},
 	level: { type: Types.Select, label: 'On which level will this appear?', options: 'One, Two, Three'},
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }

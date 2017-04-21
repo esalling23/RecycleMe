@@ -1,0 +1,27 @@
+<div class="modal-wrap match" style="display:none;" id="{{item_key}}">
+	<div class="modal-inner match">
+
+		<h3 class="message"></h3>
+
+		<img src="{{{cloudinaryUrl image width=200 height=200 quality=80}}}" />
+		{{!-- {{{info.html}}} --}}
+		<h4>Here's some item info...a lil' bio...</h4>
+
+		<p>Materials: 
+		{{#each material}}
+			{{name}}{{#if @last}}{{else}},{{/if}}
+		{{/each}}</p>
+
+		{{!-- <div class="status">{{status}}</div> --}}
+
+		{{!-- {{{rationale.html}}} --}}
+		<h4>Here's a some info on why we {{status}} this item...lil' rationale</h4>
+
+		<div class="button-group">
+
+		<input id="back-btn" data-keep_enabled="true" class="submit" type="submit" name="submit" value="continue">
+
+		</div>
+
+	</div>
+</div>

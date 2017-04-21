@@ -55,13 +55,68 @@
 
 }
 
+.page-wrapper {
+	margin: 0 auto;
+}
+.page-wrapper, .game, .modal-group, .modal-wrap, .modal{
+	height: 100%;
+	max-width:$tinder-width;
+}
+
+.buttons {
+
+	input {
+		
+		&#trash {
+			
+		}
+	}
+}
+
+.modal-inner {
+	background: white;
+	border: 3px black solid;;
+	width: $tinder-width;
+	height: 100%;
+
+}
+
+.modal-wrap {
+	position: absolute;
+	top: 0px;
+	z-index: 1000;
+}
+
+.modal-group {
+	position: absolute;
+	top: -100px;
+	width:$tinder-width;
+}
+
+.special {
+	color: white;
+	margin: 0 auto;
+	background: rgba(black, .8);
+	.option {
+		background-color: lighten(black, 20%);
+		height: 100px;
+		width: 100px;
+		display: inline-block;
+		&.selected {
+			border: 1px white solid;
+
+		}
+	}
+}
+
+
 // Game front end
 
 section#tinderslide {
+
 	// width: 100%;
 	margin: 0 auto;
 	text-align: center;
-	background: black;
 		
 	ul {
 		height: 100%;
@@ -73,12 +128,41 @@ section#tinderslide {
 	}
 
 	.item {
-		min-height: $tinder-height;
-		max-height: $tinder-height;
+		min-height: 450px;
+		max-height: 450px;
 		max-width: $tinder-width;
+		text-align: left;
+		h3{
+			font-size: 20px;
+		}
+		p {
+			font-size: 16px;
+		}
+		img {
 
+		}
 	}
 
+}
+
+.match {
+	color: white;
+	background-color: rgba(black, 0.7);
+	h3 {
+		font-size: 4em;
+	}
+
+	img {
+		border-radius: 100px;
+		border: 1px white solid;
+	}
+
+
+	input {
+		background: #3c3c3c;
+		border: 1px white solid;
+		border-radius:4px;
+	}
 }
 
 #points-counter {
@@ -86,6 +170,8 @@ section#tinderslide {
 }
 
 .buttons {
+	max-width:$tinder-width;
+
 	position: absolute;
 	bottom: 0px;
 	width: 100%;
@@ -93,13 +179,47 @@ section#tinderslide {
 
 	input {
 		background: white;
-
+		&.large {
+			border-radius:40px;
+			height:80px;
+			width:80px;
+		}
+		&.small {
+			border-radius:25px;
+			height:50px;
+			width:50px;
+			margin-bottom: 15px;
+		}
 		&#recycle {
 			color: green;
+			background-image: url('/images/like.png');
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
 		}
 
 		&#trash {
 			color: brown;
+			background-image: url('/images/nope.png');
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+		&#compost {
+
+			color: blue;
+			background-image: url('/images/super.png');
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+		&#special {
+
+			color: blue;
+			background-image: url('/images/special.png');
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
 		}
 	}
 }

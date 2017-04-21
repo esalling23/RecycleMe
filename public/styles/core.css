@@ -24,32 +24,114 @@
 .hide {
   display: none; }
 
+.page-wrapper {
+  margin: 0 auto; }
+
+.page-wrapper, .game, .modal-group, .modal-wrap, .modal {
+  height: 100%;
+  max-width: 350px; }
+
+.modal-inner {
+  background: white;
+  border: 3px black solid;
+  width: 350px;
+  height: 100%; }
+
+.modal-wrap {
+  position: absolute;
+  top: 0px;
+  z-index: 1000; }
+
+.modal-group {
+  position: absolute;
+  top: -100px;
+  width: 350px; }
+
+.special {
+  color: white;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.8); }
+  .special .option {
+    background-color: #333333;
+    height: 100px;
+    width: 100px;
+    display: inline-block; }
+    .special .option.selected {
+      border: 1px white solid; }
+
 section#tinderslide {
   margin: 0 auto;
-  text-align: center;
-  background: black; }
+  text-align: center; }
   section#tinderslide ul {
     height: 100%;
     width: 100%;
     margin: 0 auto;
     padding: 0px;
-    width: 400px; }
+    width: 350px; }
   section#tinderslide .item {
     min-height: 450px;
     max-height: 450px;
-    max-width: 400px; }
+    max-width: 350px;
+    text-align: left; }
+    section#tinderslide .item h3 {
+      font-size: 20px; }
+    section#tinderslide .item p {
+      font-size: 16px; }
+
+.match {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7); }
+  .match h3 {
+    font-size: 4em; }
+  .match img {
+    border-radius: 100px;
+    border: 1px white solid; }
+  .match input {
+    background: #3c3c3c;
+    border: 1px white solid;
+    border-radius: 4px; }
 
 #points-counter {
   font-size: 36px; }
 
 .buttons {
+  max-width: 350px;
   position: absolute;
   bottom: 0px;
   width: 100%;
   text-align: center; }
   .buttons input {
     background: white; }
+    .buttons input.large {
+      border-radius: 40px;
+      height: 80px;
+      width: 80px; }
+    .buttons input.small {
+      border-radius: 25px;
+      height: 50px;
+      width: 50px;
+      margin-bottom: 15px; }
     .buttons input#recycle {
-      color: green; }
+      color: green;
+      background-image: url("/images/like.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat; }
     .buttons input#trash {
-      color: brown; }
+      color: brown;
+      background-image: url("/images/nope.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat; }
+    .buttons input#compost {
+      color: blue;
+      background-image: url("/images/super.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat; }
+    .buttons input#special {
+      color: blue;
+      background-image: url("/images/special.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat; }

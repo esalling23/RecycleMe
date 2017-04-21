@@ -1,9 +1,11 @@
-<li class="item {{status}}">
-	<div class="pane{{@index}}" id="{{item_key}}">
-		<img src="{{{cloudinaryUrl image width=350 height=350 quality=80}}}" />
-		{{{info.html}}}
-		{{material.name}}
-
+<li class="item {{status}} {{#if special}}{{special}}{{/if}}">
+	<div class="item-pane pane{{@index}}" id="{{item_key}}">
+		<img src="{{{cloudinaryUrl image width=330 height=330 quality=80}}}" />
+		<h3><strong>{{name}}</strong></h3>
+		<p>Materials:
+		{{#each material}}
+			{{name}}{{#if @last}}{{else}},{{/if}}
+		{{/each}}</p>
 		<div class="status hidden">{{status}}</div>
 
 	</div>

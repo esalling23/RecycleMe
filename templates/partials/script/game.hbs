@@ -10,62 +10,84 @@
 
 	var points = 0;
 
-	$('#tinderslide').jTinder({
-		onDislike: function (item) {
-			if (item.hasClass('gone'))
-				return;
-			else {
-				item.addClass('gone');
-		    CheckTrash(item);
-			}
-    },
-    onLike: function (item) {
-	    if (item.hasClass('gone'))
-				return;
-			else {
-				item.addClass('gone');
-		    CheckRecycle(item);
-			}
-    },
-    animationRevertSpeed: 200,
-    animationSpeed: 400,
-    threshold: 1,
-    likeSelector: '#recycle',
-    dislikeSelector: '#trash'
-	});
+  $('.item').hammer().on("swipeleft panleft", function(ev){
+    var item = $('.level.ACTIVE .item:not(.gone)').last();
+    $(item).animate({
+      left: '-1000px'
+    }, 1000, function(){
+      $(item).addClass('gone');
+      CheckTrash(item);
+    });
+  });
 
 	// If a player chooses to trash an item
   $('#trash').click(function() {
-  	$('#tinderslide').jTinder('dislike');
+    var item = $('.level.ACTIVE .item:not(.gone)').last();
+  	$(item).animate({
+      left: '-1000px'
+    }, 1000, function(){
+      $(item).addClass('gone');
+      CheckTrash(item);
+    });
   });
 
   function CheckTrash(item) {
   	// check if item is trash
-  	if (item.hasClass('Trash')) {
+  	if ($(item).hasClass('Trash')) {
+      ShowMatch(item, true);
   		console.log('CORRECT - dis trash');
   		UpdateScore(1);
   	} else {
   		UpdateScore(-1);
+      ShowMatch(item, false);
   		console.log ('WRONG - dis recyclable');
   	}
   }
 
+  $('.item').hammer().on("swiperight panright", function(ev){
+    var item = $('.level.ACTIVE .item:not(.gone)').last();
+    $(item).animate({
+      right: '-1000px'
+    }, 1000, function(){
+      $(item).addClass('gone');
+      CheckRecycle(item);
+    });
+  });
+
   // If a player chooses to recycle
   $('#recycle').click(function() {
-  	$('#tinderslide').jTinder('like');
+    var item = $('.level.ACTIVE .item:not(.gone)').last();
+  	$(item).animate({
+      right: '-1000px'
+    }, 1000, function(){
+      $(item).addClass('gone');
+      CheckRecycle(item);
+    });
   });
 
   function CheckRecycle(item) {
   	// check if item is recyclable
-  	if (item.hasClass('Recycle')) {
+  	if ($(item).hasClass('Recycle')) {
   		UpdateScore(1);
+      ShowMatch(item, true);
   		console.log('CORRECT - dis recyclable');
 
   	} else {
   		UpdateScore(-1);
+      ShowMatch(item, false);
   		console.log ('WRONG - dis trash');
   	}
   }
+
+  $('.item').hammer().on("swipeup panup", function(ev){
+    var item = $('.level.ACTIVE .item:not(.gone)').last();
+    $(item).animate({
+      'top': '-1000px'
+    }, 1000, function(){
+      $(item).addClass('gone');
+      CheckCompost(item);
+    });
+  });
 
   // If a player chooses to compost
   $('#compost').click(function() {
@@ -75,8 +97,6 @@
   	}, 500, function(){
   		$(item).addClass('gone');
   		CheckCompost(item);
-  		// Like it - this will do nothing
-  		$('#tinderslide').jTinder('');
   	});
   });
 
@@ -85,24 +105,93 @@
   	// check if item is recyclable
   	if (item.hasClass('Compost')) {
   		UpdateScore(1);
+      ShowMatch(item, true);
   		console.log('CORRECT - dis compost');
 
   	} else {
   		UpdateScore(-1);
+      ShowMatch(item, false);
   		console.log ('WRONG - dis something ELSe');
   	}
   }
+
+  // $('.item').hammer().on("swipedown pandown", function(ev){
+  //   var item = $('.level.ACTIVE .item:not(.gone)').last();
+  //   $(item).animate({
+  //     'top': '-1000px'
+  //   }, 1000, function(){
+  //     $(item).addClass('gone');
+  //     CheckSpecial(item);
+  //   });
+  // });
+
+  // If a player chooses 'special'
+  $('#special').click(function() {
+
+    $('.modal.special').fadeIn(function() {
+      $('.option').click(function(){
+        $(this).toggleClass('selected');
+        CheckSpecial(item, $(this).text());
+      })
+    });
+    // var item = $('.level.ACTIVE .item:not(.gone)').last();
+    // $(item).animate({
+    //   'top': "-1000px"
+    // }, 500, function(){
+    //   $(item).addClass('gone');
+    //   CheckSpecial(item);
+    // });
+  });
+
+
+
+  function CheckSpecial(item, special) {
+    console.log(item);
+    // check if item is recyclable
+    if (item.hasClass('Special')) {
+      if (item)
+      console.log('CORRECT - dis special');
+      UpdateScore(1);
+      ShowMatch(item, true);
+      
+
+    } else {
+      UpdateScore(-1);
+      ShowMatch(item, false);
+      console.log ('WRONG - dis something ELSe');
+    }
+  }
+
+  function ShowMatch(item, match) {
+
+    var modalId = $(item).find('.item-pane').attr('id');
+
+    if (match) {
+      $('.modal-wrap.match#' + modalId + ' .message').text('Its a Match!');
+
+    } else {
+      $('.modal-wrap.match#' + modalId + ' .message').text('Not Quite!');
+    }
+
+    $('.modal-wrap.match#' + modalId).fadeIn().addClass('open');
+
+  }
+
+  $('input#back-btn').click(function() {
+    console.log("returngin")
+    $('.modal-wrap.match.open').fadeOut().removeClass('open');
+  });
 
   function StartLevel(num) {
   	// Fade in the game, out the profile
   	$('.profile').fadeOut(function(){
   		$('.game').fadeIn();
   		// Fade in the level
-		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
-			$('ACTIVE').removeClass('ACTIVE');
-			$(this).addClass('ACTIVE');
+  		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
+  			$('ACTIVE').removeClass('ACTIVE');
+  			$(this).addClass('ACTIVE');
 
-		});
+  		});
   	});
 
   }
@@ -112,10 +201,10 @@
   	points = points + num;
 
   	// Check if this is the last card in the stack - end the level
-	if ($('.level.ACTIVE .item:not(.gone)').length == 0){
-		console.log('this is the end')
-		end = true;
-	}
+  	if ($('.level.ACTIVE .item:not(.gone)').length == 0){
+  		console.log('this is the end')
+  		end = true;
+  	}
 
   	if (end) {
       console.log($('.level.ACTIVE .item.gone').length);
@@ -133,14 +222,14 @@
 	  		$('.modal#level-over').fadeIn();
 	  		// Update player score on this end
 	  		$('#points-counter').html(data);
-		})
-		.fail(function(err) {
-		    alert( "error" + err );
-		});
+  		})
+  		.fail(function(err) {
+  		    alert( "error" + err );
+  		});
 
-	} else {
-		// Update player score
-		$('#points-counter').html(points);
-	}
+  	} else {
+  		// Update player score
+  		$('#points-counter').html(points);
+  	}
 
   }

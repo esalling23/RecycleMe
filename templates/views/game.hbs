@@ -25,7 +25,7 @@
 
 		{{#if completed}}
 
-		<button data-level="*">play</button>
+		<button data-level="*">free-for-all</button>
 
 		{{/if}}
 
@@ -48,6 +48,15 @@
 				{{/ifeq}}
 			{{/each}}
 		</ul>
+
+		{{!-- match modals --}}
+		<div class="modal-group">
+			{{#each items}}
+				{{#ifeq this.level 'One'}}
+					{{> match this}}
+				{{/ifeq}}
+			{{/each}}
+		</div>
 	</section>
 	<section class="row level" data-level="2" id="tinderslide"  style="display:none">
 		<ul style="height:100%;">
@@ -57,6 +66,15 @@
 				{{/ifeq}}
 			{{/each}}
 		</ul>
+
+		{{!-- match modals --}}
+		<div class="modal-group">
+			{{#each items}}
+				{{#ifeq this.level 'Two'}}
+					{{> match this}}
+				{{/ifeq}}
+			{{/each}}
+		</div>
 	</section>
 	<section class="row level" data-level="3" id="tinderslide"  style="display:none">
 		<ul style="height:100%;">
@@ -66,12 +84,32 @@
 				{{/ifeq}}
 			{{/each}}
 		</ul>
+
+		{{!-- match modals --}}
+		<div class="modal-group">
+			{{#each items}}
+				{{#ifeq this.level 'Three'}}
+					{{> match this}}
+				{{/ifeq}}
+			{{/each}}
+		</div>
 	</section>
+
+	<div class="modal special">
+
+		<h3>What special action should be taken on this item?</h3>
+
+		<div class="option">IT Help Desk</div>
+		<div class="option">Work Order</div>
+		<div class="option">Lobby Bins</div>
+
+	</div>
 		
 	<div class="row buttons">
-		<input id="trash" data-keep_enabled="true" data-event="item:trash" class="submit" type="submit" name="submit" value="trash">
-		<input id="recycle" data-keep_enabled="true" data-event="item:recycle" class="submit" type="submit" name="submit" value="recycle">
-		<input id="compost" data-keep_enabled="true" data-event="item:compost" class="submit" type="submit" name="submit" value="compost">
+		<input id="special" disabled="true" class="small submit" type="submit" name="submit" value="">
+		<input id="trash" data-keep_enabled="true" data-event="item:trash" class="large submit" type="submit" name="submit" value="">
+		<input id="recycle" data-keep_enabled="true" data-event="item:recycle" class="large submit" type="submit" name="submit" value="">
+		<input id="compost" data-keep_enabled="true" data-event="item:compost" class="small submit" type="submit" name="submit" value="">
 	</div>
 
 </div>
