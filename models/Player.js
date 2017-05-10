@@ -20,10 +20,16 @@ Player.add({
 }, 'Player Data', {
 	levelOne: { type: Boolean, label: 'Level One Completed?', note: 'Based on score of 70% or higher', noedit: true },
 	gradeOne: { type: Number, label: 'Level One Grade (%)', noedit:true }, 
+	triesOne: { type: Number, label: 'Number of Times Played This Level', noedit:true }, 
+
 	levelTwo: { type: Boolean, label: 'Level Two Completed?', note: 'Based on score of 70% or higher', noedit: true }, 
 	gradeTwo: { type: Number, label: 'Level Two Grade (%)', noedit:true },
+	triesTwo: { type: Number, label: 'Number of Times Played This Level', noedit:true },
+
 	levelThree: { type: Boolean, label: 'Level Three Completed?', note: 'Based on score of 70% or higher', noedit: true }, 
 	gradeThree: { type: Number, label: 'Level Three Grade (%)', noedit:true }, 
+	triesThree: { type: Number, label: 'Number of Times Played This Level', noedit:true }, 
+	
 	leader: { type: Number, label: 'Leaderboard Points' }, 
 	completed: { type: Boolean, label: 'Game Completed?' }
 });
