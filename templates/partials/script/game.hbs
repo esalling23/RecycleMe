@@ -1,5 +1,48 @@
 	// GAME LOGIC
 	var levelItems;
+  var points = 0;
+
+  function CheckTrash(item) {
+    // check if item is trash
+    if ($(item).hasClass('Trash')) {
+      ShowMatch(item, true);
+      console.log('CORRECT - dis trash');
+      UpdateScore(1);
+    } else {
+      UpdateScore(-1);
+      ShowMatch(item, false);
+      console.log ('WRONG - dis recyclable');
+    }
+  }
+
+  function CheckRecycle(item) {
+    // check if item is recyclable
+    if ($(item).hasClass('Recycle')) {
+      UpdateScore(1);
+      ShowMatch(item, true);
+      console.log('CORRECT - dis recyclable');
+
+    } else {
+      UpdateScore(-1);
+      ShowMatch(item, false);
+      console.log ('WRONG - dis trash');
+    }
+  }
+
+  function CheckCompost(item) {
+    console.log(item);
+    // check if item is recyclable
+    if (item.hasClass('Compost')) {
+      UpdateScore(1);
+      ShowMatch(item, true);
+      console.log('CORRECT - dis compost');
+
+    } else {
+      UpdateScore(-1);
+      ShowMatch(item, false);
+      console.log ('WRONG - dis something ELSe');
+    }
+  }
 
 	$('.levels [data-level]').click(function(evt) {
 
@@ -8,20 +51,21 @@
 
 	});
 
-	var points = 0;
+  $('.item').hammer().on("swipeleft", function(ev){
 
-  $('.item').hammer().on("swipeleft panleft", function(ev){
-    var item = $('.level.ACTIVE .item:not(.gone)').last();
-    $(item).animate({
+    if ($(this).hasClass('gone'))
+      return;
+
+    $(this).animate({
       left: '-1000px'
     }, 1000, function(){
-      $(item).addClass('gone');
-      CheckTrash(item);
+      $(this).addClass('gone');
+      CheckTrash(this);
     });
   });
 
 	// If a player chooses to trash an item
-  $('#trash').click(function() {
+  $('#trash').on('click', function() {
     var item = $('.level.ACTIVE .item:not(.gone)').last();
   	$(item).animate({
       left: '-1000px'
@@ -31,31 +75,20 @@
     });
   });
 
-  function CheckTrash(item) {
-  	// check if item is trash
-  	if ($(item).hasClass('Trash')) {
-      ShowMatch(item, true);
-  		console.log('CORRECT - dis trash');
-  		UpdateScore(1);
-  	} else {
-  		UpdateScore(-1);
-      ShowMatch(item, false);
-  		console.log ('WRONG - dis recyclable');
-  	}
-  }
+  $('.item').hammer().on("swiperight", function(ev){
+    if ($(this).hasClass('gone'))
+      return;
 
-  $('.item').hammer().on("swiperight panright", function(ev){
-    var item = $('.level.ACTIVE .item:not(.gone)').last();
-    $(item).animate({
+    $(this).animate({
       right: '-1000px'
     }, 1000, function(){
-      $(item).addClass('gone');
-      CheckRecycle(item);
+      $(this).addClass('gone');
+      CheckRecycle(this);
     });
   });
 
   // If a player chooses to recycle
-  $('#recycle').click(function() {
+  $('#recycle').on('click', function() {
     var item = $('.level.ACTIVE .item:not(.gone)').last();
   	$(item).animate({
       right: '-1000px'
@@ -65,32 +98,20 @@
     });
   });
 
-  function CheckRecycle(item) {
-  	// check if item is recyclable
-  	if ($(item).hasClass('Recycle')) {
-  		UpdateScore(1);
-      ShowMatch(item, true);
-  		console.log('CORRECT - dis recyclable');
+  $('.item').hammer().on("swipeup", function(ev){
+    if ($(this).hasClass('gone'))
+      return;
 
-  	} else {
-  		UpdateScore(-1);
-      ShowMatch(item, false);
-  		console.log ('WRONG - dis trash');
-  	}
-  }
-
-  $('.item').hammer().on("swipeup panup", function(ev){
-    var item = $('.level.ACTIVE .item:not(.gone)').last();
-    $(item).animate({
+    $(this).animate({
       'top': '-1000px'
     }, 1000, function(){
-      $(item).addClass('gone');
-      CheckCompost(item);
+      $(this).addClass('gone');
+      CheckCompost(this);
     });
   });
 
   // If a player chooses to compost
-  $('#compost').click(function() {
+  $('#compost').on('click', function() {
   	var item = $('.level.ACTIVE .item:not(.gone)').last();
   	$(item).animate({
   		'top': "-1000px"
@@ -100,20 +121,7 @@
   	});
   });
 
-  function CheckCompost(item) {
-    console.log(item);
-  	// check if item is recyclable
-  	if (item.hasClass('Compost')) {
-  		UpdateScore(1);
-      ShowMatch(item, true);
-  		console.log('CORRECT - dis compost');
-
-  	} else {
-  		UpdateScore(-1);
-      ShowMatch(item, false);
-  		console.log ('WRONG - dis something ELSe');
-  	}
-  }
+  
 
   // $('.item').hammer().on("swipedown pandown", function(ev){
   //   var item = $('.level.ACTIVE .item:not(.gone)').last();
