@@ -15,6 +15,7 @@ var keystone = require('keystone'),
     Player = keystone.list('Player'),
     Item = keystone.list('Item'),
     Material = keystone.list('Material'),
+    SpecialOption = keystone.list('SpecialOption'),
     Game = keystone.list('Game'),
     _ = require('underscore');
 
@@ -30,7 +31,8 @@ exports = module.exports = function(req, res) {
         // Locate this player 
         var queryPlayer = Player.model.findOne({ '_id': req.params.id }, {}, {});
         // Game Content
-        var queryItems = Item.model.find({}, {}, {}).populate('material');
+        var queryItems = Item.model.find({}, {}, {}).populate('material specialStatus specialStatusOr');
+        var querySpecial = SpecialOption.model.find({}, {}, {});
         // Game Config
         var queryGame = Game.model.find({}, {}, {});
 
@@ -46,12 +48,19 @@ exports = module.exports = function(req, res) {
 
                 locals.items = result;
 
-                queryGame.exec(function(err, result) {
+                querySpecial.exec(function(err, result) {
                     if (err) throw err;
 
-                    locals.config = result;
+                    locals.special = result;
 
-                    next();
+                    queryGame.exec(function(err, result) {
+                        if (err) throw err;
+
+                        locals.config = result;
+
+                        next();
+
+                    });
 
                 });
 

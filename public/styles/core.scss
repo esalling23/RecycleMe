@@ -63,15 +63,6 @@
 	max-width:$tinder-width;
 }
 
-.buttons {
-
-	input {
-		
-		&#trash {
-			
-		}
-	}
-}
 
 .modal-inner {
 	background: white;
@@ -98,9 +89,10 @@
 	margin: 0 auto;
 	background: rgba(black, .8);
 	.option {
-		background-color: lighten(black, 20%);
-		height: 100px;
-		width: 100px;
+		background-color: lighten(black, 30%);
+		height: 180px;
+		width: 140px;
+		margin: 10px auto;
 		display: inline-block;
 		&.selected {
 			border: 1px white solid;

@@ -99,14 +99,22 @@
 
 		<h3>What special action should be taken on this item?</h3>
 
-		<div class="option">IT Help Desk</div>
-		<div class="option">Work Order</div>
-		<div class="option">Lobby Bins</div>
+		<div class="row">
+			{{#each special}}
+			<div class="col-xs-6">
+				<div class="option" id="{{this.key}}">
+					{{{cloudinaryUrl this.image.url width=80}}}
+					<h3>{{this.name}}</h3>
+					{{{this.text.html}}}
+				</div>
+			</div>
+			{{/each}}
+		</div>
 
 	</div>
 		
-	<div class="row buttons">
-		<input id="special" disabled="true" class="small submit" type="submit" name="submit" value="">
+	<div class="buttons">
+		<input id="special" {{!-- disabled="true" --}} class="small submit" type="submit" name="submit" value="">
 		<input id="trash" data-keep_enabled="true" data-event="item:trash" class="large submit" type="submit" name="submit" value="">
 		<input id="recycle" data-keep_enabled="true" data-event="item:recycle" class="large submit" type="submit" name="submit" value="">
 		<input id="compost" data-keep_enabled="true" data-event="item:compost" class="small submit" type="submit" name="submit" value="">

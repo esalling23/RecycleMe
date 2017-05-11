@@ -135,34 +135,36 @@
 
   // If a player chooses 'special'
   $('#special').click(function() {
-
+    var item = $('.level.ACTIVE .item:not(.gone)').last();
+    console.log(item, 'click');
+    
     $('.modal.special').fadeIn(function() {
       $('.option').click(function(){
-        $(this).toggleClass('selected');
-        CheckSpecial(item, $(this).text());
+
+        CheckSpecial(item, $(this).attr('id'));
+        $('.modal.special').fadeOut();
+
+        $(item).animate({
+          'top': "-1000px"
+        }, 500, function(){
+          $(item).addClass('gone');
+        });
+
       })
     });
-    // var item = $('.level.ACTIVE .item:not(.gone)').last();
-    // $(item).animate({
-    //   'top': "-1000px"
-    // }, 500, function(){
-    //   $(item).addClass('gone');
-    //   CheckSpecial(item);
-    // });
+    
   });
 
 
 
   function CheckSpecial(item, special) {
-    console.log(item);
+    console.log(item, special);
     // check if item is recyclable
-    if (item.hasClass('Special')) {
-      if (item)
+    if (item.hasClass(special)) {
+      // if (item)
       console.log('CORRECT - dis special');
       UpdateScore(1);
       ShowMatch(item, true);
-      
-
     } else {
       UpdateScore(-1);
       ShowMatch(item, false);
@@ -171,6 +173,8 @@
   }
 
   function ShowMatch(item, match) {
+
+    console.log(item);
 
     var modalId = $(item).find('.item-pane').attr('id');
 

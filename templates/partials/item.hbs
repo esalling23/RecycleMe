@@ -1,4 +1,4 @@
-<li class="item {{status}} {{#if special}}{{special}}{{/if}}">
+<li class="item {{status}} {{#if specialStatus}}{{specialStatus.key}}{{/if}} {{#if specialStatusOr}}{{specialStatusOr.key}}{{/if}}">
 	<div class="item-pane pane{{@index}}" id="{{item_key}}">
 		<img src="{{{cloudinaryUrl image width=330 height=330 quality=80}}}" />
 		<h3><strong>{{name}}</strong></h3>

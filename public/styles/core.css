@@ -52,9 +52,10 @@
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.8); }
   .special .option {
-    background-color: #333333;
-    height: 100px;
-    width: 100px;
+    background-color: #4d4d4d;
+    height: 180px;
+    width: 140px;
+    margin: 10px auto;
     display: inline-block; }
     .special .option.selected {
       border: 1px white solid; }
