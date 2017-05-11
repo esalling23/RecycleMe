@@ -10,38 +10,14 @@
     }
   }],
   "deploy" : {
-
-    "framework-staging" : {
+    "sdk-production" : {
       "user": "node",
-      "host": "xxx.xxx.xxx.xx",
-      "repo": "git@github.com:engagementgamelab/repo-name.git",
-      "ref": "origin/master",
-      "path": "/srv/framework",
-      "pre-deploy-local" : "echo 'Cloning and running npm install. Be patient.';",
-      "post-deploy" : "npm i ; grunt compile --sites=repo-name --env staging ; pm2 restart 0 -- repo-name --env staging",
-      "env": {
-        "NODE_ENV": "staging"
-      }
-    },
-
-    "staging" : {
-      "user": "node",
-      "host": "xxx.xxx.xxx.xx",
-      "repo": "git@github.com:engagementgamelab/repo-name.git",
-      "ref": "origin/master",
-      "path": "/srv/repo-name",
-      "pre-deploy-local" : "echo 'NPM linking repo-name and restarting app.'; git pull git@github.com:engagementgamelab/repo-name.git master;",
-      "post-deploy" : "npm i ; cd /srv/framework/current/ ; npm i ; grunt compile --sites=repo-name --env staging ; pm2 restart 0 -- repo-name --env staging"
-    },
-
-    "framework-production" : {
-      "user": "node",
-      "host": "xxx.xxx.xxx.xx",
-      "repo": "git@github.com:engagementgamelab/repo-name.git",
-      "ref": "origin/master",
+      "host": "104.236.79.252",
+      "repo": "git@github.com:esalling23/el-web-sdk.git",
+      "ref": "origin/production",
       "path": "/srv/framework",
       "pre-deploy-local" : "echo 'Cloning and running npm install. Be patient.'",
-      "post-deploy" : "npm install ; grunt compile --sites=repo-name --env production ; pm2 restart 0 -- repo-name --env production",
+      "post-deploy" : "npm install ; npm update ; grunt compile --sites=emerging-citizens --env production ; pm2 restart 'server' -- emerging-citizens --env production",
       "env": {
         "NODE_ENV": "production"
       }
@@ -49,12 +25,12 @@
 
     "production" : {
       "user": "node",
-      "host": "xxx.xxx.xxx.xx",
-      "repo": "git@github.com:engagementgamelab/repo-name.git",
+      "host": "104.236.79.252",
+      "repo": "git@github.com:esallin23/RecycleMe.git",
       "ref": "origin/production",
-      "path": "/srv/repo-name",
-      "pre-deploy-local" : "echo 'NPM linking repo-name and restarting app.';",
-      "post-deploy" : "npm i ; cd /srv/framework/current/ ; grunt compile --sites=repo-name --env production ; NODE_ENV=production pm2 restart server.js -- repo-name --env production"
+      "path": "/srv/RecycleMe",
+      "pre-deploy-local" : "echo 'NPM linking recycle-me and restarting app.';",
+      "post-deploy" : "npm i ; cd /srv/framework/current/ ; grunt compile --sites=recycle-me --env production ; NODE_ENV=production pm2 restart server.js -- recycle-me --env production"
     }
 
   }
