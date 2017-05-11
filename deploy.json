@@ -1,7 +1,7 @@
 {
   "apps" : [{
     "name": "Recycle Me",
-    "script": "server.js",
+    "script": "app.js",
     "env_production": {
       "NODE_ENV": "production"
     },
@@ -17,7 +17,7 @@
       "ref": "origin/production",
       "path": "/srv/framework",
       "pre-deploy-local" : "echo 'Cloning and running npm install. Be patient.'",
-      "post-deploy" : "npm install ; npm update ; grunt compile --sites=emerging-citizens --env production ; pm2 restart 'server' -- emerging-citizens --env production",
+      "post-deploy" : "npm install ; npm update ; grunt compile --sites=recycle-me --env production ; pm2 restart 'server' -- recycle-me --env production",
       "env": {
         "NODE_ENV": "production"
       }
@@ -26,7 +26,7 @@
     "production" : {
       "user": "node",
       "host": "104.236.79.252",
-      "repo": "git@github.com:esallin23/RecycleMe.git",
+      "repo": "git@github.com:esalling23/RecycleMe.git",
       "ref": "origin/production",
       "path": "/srv/RecycleMe",
       "pre-deploy-local" : "echo 'NPM linking recycle-me and restarting app.';",
