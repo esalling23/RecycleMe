@@ -195,6 +195,14 @@
   });
 
   function StartLevel(num) {
+    // enable/disable buttons
+    if (num == 2) {
+      $('#compost').attr('disabled', false);
+    } else if (num == 3) {
+      $('#compost').attr('disabled', false);
+      $('#special').attr('disabled', false);
+    }
+
   	// Fade in the game, out the profile
   	$('.profile').fadeOut(function(){
   		$('.game').fadeIn();

@@ -20,8 +20,8 @@
 	<div class="levels">
 
 		<button data-level="1">{{#if levelOne}}replay{{else}}level one{{/if}}</button>
-		<button data-level="2">{{#if levelTwo}}replay{{else}}level two{{/if}}</button>
-		<button data-level="3">{{#if levelThree}}replay{{else}}level three{{/if}}</button>
+		<button data-level="2" disabled="{{#if levelOne}}false{{else}}true{{/if}}">{{#if levelTwo}}replay{{else}}level two{{/if}}</button>
+		<button data-level="3" disabled="{{#if levelTwo}}false{{else}}true{{/if}}">{{#if levelThree}}replay{{else}}level three{{/if}}</button>
 
 		{{#if completed}}
 
@@ -114,10 +114,10 @@
 	</div>
 		
 	<div class="buttons">
-		<input id="special" {{!-- disabled="true" --}} class="small submit" type="submit" name="submit" value="">
+		<input id="special" disabled="true" class="small submit" type="submit" name="submit" value="">
 		<input id="trash" data-keep_enabled="true" data-event="item:trash" class="large submit" type="submit" name="submit" value="">
 		<input id="recycle" data-keep_enabled="true" data-event="item:recycle" class="large submit" type="submit" name="submit" value="">
-		<input id="compost" data-keep_enabled="true" data-event="item:compost" class="small submit" type="submit" name="submit" value="">
+		<input id="compost" disabled="true" data-keep_enabled="true" data-event="item:compost" class="small submit" type="submit" name="submit" value="">
 	</div>
 
 </div>
