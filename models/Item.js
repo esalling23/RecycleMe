@@ -35,7 +35,7 @@ var Item = new keystone.List('Item',
 Item.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
-	info: { type: Types.Markdown, label: 'Item Info'},
+	info: { type: Types.Markdown, label: 'Item Bio', note: 'Appears BEFORE player swipes item'},
 	image: { type: Types.CloudinaryImage, label: 'Item Image'},
 	material: {
 		type: Types.Relationship, 

@@ -18,14 +18,101 @@ var gameCode;
 
 $(document).ready(function() {
 
+	var windowsize = $(window).width(),
+		bodysize = $('#wrapper').width(),
+		wrapperLeft = $('#wrapper').offset().left,
+		extraWindow = (windowsize - bodysize)/2;
+
+	var finishResize = function() {
+
+		// Show wrapper now that resize is complete
+		$('#wrapper').css('visibility', 'visible');
+
+	}
+	
+	var setAbsolutes = function(absolutes) {
+
+		_.each(absolutes, function(item) {
+
+			var position = {};
+
+			// Check current positions
+			if ($(item).css('left'))
+				position.left = $(item).css('left');
+
+			if ($(item).css('right'))
+				position.right = $(item).css('right');
+
+			// If left, set it. 
+			if (position.left)
+				$(item).css('left', wrapperLeft);
+			//If right, set it.
+			if (position.right) {
+				position.right =+ extraWindow;
+				$(item).css('right', position.right);
+			}
+
+			// Call finish function after xxx milaseconds
+			var finish = _.debounce(finishResize, 500);
+			finish();
+
+		});
+
+	};
+
+	// Locally-scoped methods
+	var findAbsolutes = function() {
+
+		windowsize = $(window).width(),
+		bodysize = $('#wrapper').width(),
+		extraWindow = (windowsize - bodysize)/2;
+
+		// Get all absolutely-positioned elements
+		var outerAbsolutes = 
+		$('#wrapper :not(#gameContent *, #homeContent *, #stages-bar *, .modal, #bottom-bar, #background-logo *)')
+		.filter(function(){
+		  return ($(this).css('position') == 'absolute');
+		});
+
+		setAbsolutes(outerAbsolutes);
+
+	};
+
+	findAbsolutes();
+
+	$(window).on('resize', function () {
+		
+		// Hide content wrapper during resize
+		$('#wrapper').css('visibility' ,'hidden');
+
+		// Adjust absolutely-position elements for desktop only
+		findAbsolutes();
+
+	});
+
+	$('#password_input').keydown(function(evt) {
+            
+        if(evt.keyCode == 13)
+            $('#btn_login').click();
+
+    });
+
+    $('#email_input').keydown(function(evt) {
+            
+        if(evt.keyCode == 13)
+            $('#btn_login').click();
+
+    });
+
 	$('#btn_login').click(function(evt) {
 		var data = {};
 		data.email = $('#email_input').val();
 		data.password = $('#password_input').val();
-		console.log(data);
 
 		if (!data.password || !data.email) {
-			console.log ("empty fields");
+			$('#error').fadeIn( function() {
+
+			});
 			  
 		} else {
 			console.log("checking login info");

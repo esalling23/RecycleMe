@@ -1,10 +1,19 @@
 .hidden {
   visibility: hidden; }
 
+body, html {
+  max-height: 100%;
+  height: 100%; }
+
 .body {
-  background-color: white;
-  color: blue;
+  background-color: #fff;
+  color: #343434;
   font-family: "HalisLight"; }
+
+#wrapper {
+  height: 100%;
+  right: 0;
+  left: 0; }
 
 .page-wrapper, .container-fluid, ul {
   height: 100%;
@@ -23,6 +32,18 @@
 
 .hide {
   display: none; }
+
+.tinder-btn {
+  background: linear-gradient(216deg, #ff8a40, #fd5068, #dc4588);
+  color: white; }
+
+.minimal-btn {
+  border: 2px #ff6a6a;
+  border-radius: 2%;
+  color: #ff6a6a; }
+
+.left-slant {
+  transform: rotate(-35deg); }
 
 .page-wrapper {
   margin: 0 auto; }
@@ -70,8 +91,10 @@ section#tinderslide {
     padding: 0px;
     width: 350px; }
   section#tinderslide .item {
-    min-height: 450px;
-    max-height: 450px;
+    padding: 0px;
+    border: 0px;
+    min-height: 300px;
+    max-height: 300px;
     max-width: 350px;
     text-align: left; }
     section#tinderslide .item h3 {
@@ -80,13 +103,14 @@ section#tinderslide {
       font-size: 16px; }
 
 .match {
+  width: 100%;
   color: white;
-  background-color: rgba(0, 0, 0, 0.7); }
+  background-color: rgba(52, 52, 52, 0.9); }
   .match h3 {
     font-size: 4em; }
   .match img {
-    border-radius: 100px;
-    border: 1px white solid; }
+    border-radius: 5%;
+    box-shadow: 2px #CECAC1; }
   .match input {
     background: #3c3c3c;
     border: 1px white solid;
@@ -99,18 +123,18 @@ section#tinderslide {
   max-width: 350px;
   position: absolute;
   bottom: 0px;
+  z-index: 2000;
   width: 100%;
   text-align: center; }
   .buttons input {
-    background: white; }
+    background-color: none;
+    border-radius: 50%; }
     .buttons input.large {
-      border-radius: 40px;
-      height: 80px;
-      width: 80px; }
+      height: 60px;
+      width: 60px; }
     .buttons input.small {
-      border-radius: 25px;
-      height: 50px;
-      width: 50px;
+      height: 40px;
+      width: 40px;
       margin-bottom: 15px; }
     .buttons input#recycle {
       color: green;

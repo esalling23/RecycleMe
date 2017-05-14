@@ -35,12 +35,14 @@
 
 <div class="section game" style="display:none">
 
-	<div class="row">
-		<h2>Single Stream</h2>
+	<div class="row header">
+		<h2>Recyclr</h2>
+		<button class="btn" id="btn-back">Back</button>
 	</div>
-	<div id="points-counter">0</div>
-
+	
 	<section class="row level" data-level="1" id="tinderslide"  style="display:none">
+		
+
 		<ul style="height:100%;">
 			{{#each items}}
 				{{#ifeq this.level 'One'}}
@@ -59,6 +61,10 @@
 		</div>
 	</section>
 	<section class="row level" data-level="2" id="tinderslide"  style="display:none">
+		<div class="row header">
+			<h2></h2>
+			<div id="points-counter">0</div>
+		</div>
 		<ul style="height:100%;">
 			{{#each items}}
 				{{#ifeq this.level 'Two'}}
@@ -77,6 +83,10 @@
 		</div>
 	</section>
 	<section class="row level" data-level="3" id="tinderslide"  style="display:none">
+		<div class="row header">
+			<h2></h2>
+			<div id="points-counter">0</div>
+		</div>
 		<ul style="height:100%;">
 			{{#each items}}
 				{{#ifeq this.level 'Three'}}

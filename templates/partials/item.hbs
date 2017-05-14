@@ -1,12 +1,14 @@
 <li class="item {{status}} {{#if specialStatus}}{{specialStatus.key}}{{/if}} {{#if specialStatusOr}}{{specialStatusOr.key}}{{/if}}">
-	<div class="item-pane pane{{@index}}" id="{{item_key}}">
-		<img src="{{{cloudinaryUrl image width=330 height=330 quality=80}}}" />
-		<h3><strong>{{name}}</strong></h3>
-		<p>Materials:
+	<div class="item-pane pane{{@index}}" id="{{item_key}}" style="background-image:url('{{{cloudinaryUrl image }}}'">
+		{{!-- <img src="{{{cloudinaryUrl image }}}" /> --}}
+		<div class="item-info">
+		<h2><strong>{{name}}</strong></h2>
+		{{{info.html}}}
+		<h4>Materials:</4>
 		{{#each material}}
-			{{name}}{{#if @last}}{{else}},{{/if}}
-		{{/each}}</p>
+			<div class="material minimal-btn">{{name}}</div>
+		{{/each}}
 		<div class="status hidden">{{status}}</div>
-
+		</div>
 	</div>
 </li>
