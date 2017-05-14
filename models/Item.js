@@ -58,7 +58,8 @@ Item.add({
 		dependsOn: {statusOr:'Special'}
 	},
 
-	rationale: { type: Types.Markdown, label: 'Why do you do this with this item?'},
+	rationale: { type: Types.Markdown, label: 'Correct Answer: Why do you do this with this item?'},
+	rationaleAlt: { type: Types.Markdown, label: 'Wrong Answer: Why don\'t we do that with this item?'},
 	level: { type: Types.Select, label: 'On which level will this appear?', options: 'One, Two, Three'},
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 

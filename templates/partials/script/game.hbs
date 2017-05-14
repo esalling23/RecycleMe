@@ -51,7 +51,11 @@
 
 	});
 
-  $('.item').hammer().on("swipeleft", function(ev){
+  $('.item').hammer().on("swipe pan", function(ev){
+    console.log(ev);
+  });
+
+  $('.item').hammer().on("swipeleft panleft", function(ev){
 
     if ($(this).hasClass('gone'))
       return;

@@ -43,6 +43,13 @@ $(document).ready(function() {
 			if ($(item).css('right'))
 				position.right = $(item).css('right');
 
+			if (!$(item).css('right') && !$(item).css('left')) {
+				$(item).css('right', 0);
+				$(item).css('left', 0);
+				position.right = 0;
+				position.left = 0;
+			}
+
 			// If left, set it. 
 			if (position.left)
 				$(item).css('left', wrapperLeft);
@@ -69,7 +76,7 @@ $(document).ready(function() {
 
 		// Get all absolutely-positioned elements
 		var outerAbsolutes = 
-		$('#wrapper :not(#gameContent *, #homeContent *, #stages-bar *, .modal, #bottom-bar, #background-logo *)')
+		$('#wrapper :not(.tinderslide *)')
 		.filter(function(){
 		  return ($(this).css('position') == 'absolute');
 		});
@@ -81,7 +88,7 @@ $(document).ready(function() {
 	findAbsolutes();
 
 	$(window).on('resize', function () {
-		
+
 		// Hide content wrapper during resize
 		$('#wrapper').css('visibility' ,'hidden');
 

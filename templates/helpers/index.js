@@ -9,7 +9,11 @@ module.exports = function() {
      * Local HBS Helpers
      * ===================
      */
+     _helpers.lowercase = function (str) {
 
+        return str.toLowerCase(); 
+
+    };
 
     return _helpers;
 
