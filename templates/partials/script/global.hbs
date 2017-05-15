@@ -37,24 +37,21 @@ $(document).ready(function() {
 			var position = {};
 
 			// Check current positions
-			if ($(item).css('left'))
+			if ($(item).css('left') !== null && $(item).css('left') !== 'auto')
 				position.left = $(item).css('left');
 
-			if ($(item).css('right'))
+			if ($(item).css('right') !== null && $(item).css('right') !== 'auto'){
 				position.right = $(item).css('right');
-
-			if (!$(item).css('right') && !$(item).css('left')) {
-				$(item).css('right', 0);
-				$(item).css('left', 0);
-				position.right = 0;
-				position.left = 0;
 			}
 
 			// If left, set it. 
-			if (position.left)
+			if (position.left){
+				console.log(item, 'left');
 				$(item).css('left', wrapperLeft);
+			}
 			//If right, set it.
 			if (position.right) {
+				console.log(item, 'right');
 				position.right =+ extraWindow;
 				$(item).css('right', position.right);
 			}
@@ -72,11 +69,16 @@ $(document).ready(function() {
 
 		windowsize = $(window).width(),
 		bodysize = $('#wrapper').width(),
-		extraWindow = (windowsize - bodysize)/2;
+		wrapperLeft = $('#wrapper').offset().left,
+		extraWindow = (windowsize - bodysize)/2, 
+
+		slideheight = ($(window).height()/4)*3;
+
+		$('.item:not(.open)').height(slideheight)
 
 		// Get all absolutely-positioned elements
 		var outerAbsolutes = 
-		$('#wrapper :not(.tinderslide *)')
+		$('#wrapper :not(.tinderslide *, .game .buttons *)')
 		.filter(function(){
 		  return ($(this).css('position') == 'absolute');
 		});

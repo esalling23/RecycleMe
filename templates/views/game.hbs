@@ -10,7 +10,10 @@
 */
 --}}
 
-
+<div class="app-header">
+	<h2>Recyclr</h2>
+	<button class="btn" id="btn-back">Back</button>
+</div>
 <div class="section profile">
 
 	<h2>Welcome, {{player.name.first}}</h2>
@@ -36,12 +39,11 @@
 <div class="section game" style="display:none">
 
 	<div class="row header">
-		<h2>Recyclr</h2>
-		<button class="btn" id="btn-back">Back</button>
+		<h2></h2>
+		<div id="points-counter">0</div>
 	</div>
 	
 	<section class="row level tinderslide" data-level="1" style="display:none">
-		
 
 		<ul style="height:100%;">
 			{{#each items}}
@@ -59,12 +61,11 @@
 				{{/ifeq}}
 			{{/each}}
 		</div>
+
 	</section>
+
 	<section class="row level tinderslide" data-level="2" style="display:none">
-		<div class="row header">
-			<h2></h2>
-			<div id="points-counter">0</div>
-		</div>
+		
 		<ul style="height:100%;">
 			{{#each items}}
 				{{#ifeq this.level 'Two'}}
@@ -81,12 +82,11 @@
 				{{/ifeq}}
 			{{/each}}
 		</div>
+
 	</section>
+
 	<section class="row level tinderslide" data-level="3" style="display:none">
-		<div class="row header">
-			<h2></h2>
-			<div id="points-counter">0</div>
-		</div>
+	
 		<ul style="height:100%;">
 			{{#each items}}
 				{{#ifeq this.level 'Three'}}
@@ -103,6 +103,7 @@
 				{{/ifeq}}
 			{{/each}}
 		</div>
+
 	</section>
 
 	<div class="modal special">

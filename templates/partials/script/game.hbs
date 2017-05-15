@@ -2,6 +2,39 @@
 	var levelItems;
   var points = 0;
 
+  function ShowMatch(item, match) {
+
+    console.log(item);
+
+    var modalId = $(item).find('.item-pane').attr('id');
+
+    if (match) {
+      $('.modal-wrap.match#' + modalId + ' .message').text('Its a Match!');
+
+    } else {
+      $('.modal-wrap.match#' + modalId + ' .message').text('Not Quite!');
+    }
+    $('.modal-group').show(function(){
+      $('.modal-wrap.match#' + modalId).fadeIn().addClass('open');
+
+    });
+    
+  }
+
+  function CheckSpecial(item, special) {
+    // check if item is recyclable
+    if (item.hasClass(special)) {
+      // if (item)
+      console.log('CORRECT - dis special');
+      UpdateScore(1);
+      ShowMatch(item, true);
+    } else {
+      UpdateScore(-1);
+      ShowMatch(item, false);
+      console.log ('WRONG - dis something ELSe');
+    }
+  }
+
   function CheckTrash(item) {
     // check if item is trash
     if ($(item).hasClass('Trash')) {
@@ -51,91 +84,64 @@
 
 	});
 
-  $('.item').hammer().on("swipe pan", function(ev){
-    console.log(ev);
-  });
-
-  $('.item').hammer().on("swipeleft panleft", function(ev){
+  $('.item').hammer().on("swipeleft", function(ev){
 
     if ($(this).hasClass('gone'))
       return;
 
+    $(this).addClass('gone');
+    CheckTrash(this);
+
     $(this).animate({
       left: '-1000px'
-    }, 1000, function(){
-      $(this).addClass('gone');
-      CheckTrash(this);
-    });
+    }, 500);
   });
 
 	// If a player chooses to trash an item
   $('#trash').on('click', function() {
     var item = $('.level.ACTIVE .item:not(.gone)').last();
+    $(item).addClass('gone');
+    CheckTrash(item);
   	$(item).animate({
       left: '-1000px'
-    }, 1000, function(){
-      $(item).addClass('gone');
-      CheckTrash(item);
-    });
+    }, 500);
   });
 
   $('.item').hammer().on("swiperight", function(ev){
     if ($(this).hasClass('gone'))
       return;
 
+    $(this).addClass('gone');
+    CheckRecycle(this);
     $(this).animate({
       right: '-1000px'
-    }, 1000, function(){
-      $(this).addClass('gone');
-      CheckRecycle(this);
-    });
+    }, 500);
   });
 
   // If a player chooses to recycle
   $('#recycle').on('click', function() {
     var item = $('.level.ACTIVE .item:not(.gone)').last();
+
+    $(item).addClass('gone');
+    CheckRecycle(item);
+
   	$(item).animate({
       right: '-1000px'
-    }, 1000, function(){
-      $(item).addClass('gone');
-      CheckRecycle(item);
-    });
-  });
+    }, 500);
 
-  $('.item').hammer().on("swipeup", function(ev){
-    if ($(this).hasClass('gone'))
-      return;
-
-    $(this).animate({
-      'top': '-1000px'
-    }, 1000, function(){
-      $(this).addClass('gone');
-      CheckCompost(this);
-    });
   });
 
   // If a player chooses to compost
   $('#compost').on('click', function() {
   	var item = $('.level.ACTIVE .item:not(.gone)').last();
+
+    $(item).addClass('gone');
+    CheckCompost(item);
+
   	$(item).animate({
   		'top': "-1000px"
-  	}, 500, function(){
-  		$(item).addClass('gone');
-  		CheckCompost(item);
-  	});
+  	}, 500);
   });
-
-  
-
-  // $('.item').hammer().on("swipedown pandown", function(ev){
-  //   var item = $('.level.ACTIVE .item:not(.gone)').last();
-  //   $(item).animate({
-  //     'top': '-1000px'
-  //   }, 1000, function(){
-  //     $(item).addClass('gone');
-  //     CheckSpecial(item);
-  //   });
-  // });
 
   // If a player chooses 'special'
   $('#special').click(function() {
@@ -147,55 +153,74 @@
 
         CheckSpecial(item, $(this).attr('id'));
         $('.modal.special').fadeOut();
+        $(item).addClass('gone');
 
         $(item).animate({
           'top': "-1000px"
-        }, 500, function(){
-          $(item).addClass('gone');
-        });
+        }, 500);
 
       })
     });
     
   });
 
+  $('.item.open').on('click', function(e){
+    event.preventDefault();
+    event.stopPropagation();
+    return;
+  });
 
+  $('.item:not(.open)').on('click', function(event){
 
-  function CheckSpecial(item, special) {
-    console.log(item, special);
-    // check if item is recyclable
-    if (item.hasClass(special)) {
-      // if (item)
-      console.log('CORRECT - dis special');
-      UpdateScore(1);
-      ShowMatch(item, true);
-    } else {
-      UpdateScore(-1);
-      ShowMatch(item, false);
-      console.log ('WRONG - dis something ELSe');
-    }
-  }
+    event.preventDefault();
+    event.stopPropagation();
 
-  function ShowMatch(item, match) {
+    $(this).css('z-index', '3000');
 
-    console.log(item);
+    $(this).animate({
+      'height':'100%',
+      'max-height':'100%',
+      'bottom':'0px',
+      'top':'-107px'
+    }, 200);
 
-    var modalId = $(item).find('.item-pane').attr('id');
+    $(this).addClass('open');
 
-    if (match) {
-      $('.modal-wrap.match#' + modalId + ' .message').text('Its a Match!');
+    $(this).find('.item-bio').show();
 
-    } else {
-      $('.modal-wrap.match#' + modalId + ' .message').text('Not Quite!');
-    }
+    $(this).find('.btn-close').css('visibility', 'visible');
 
-    $('.modal-wrap.match#' + modalId).fadeIn().addClass('open');
+    $(this).find('.btn-close').on('click', function(event){
 
-  }
+        event.preventDefault();
+        event.stopPropagation();
+
+        $(this).closest('.item.open').css('z-index', '1000');
+
+        $(this).closest('.item.open').animate({
+          'height':'100%',
+          'bottom':'0px',
+          'max-height': slideheight,
+          'top':'0px'
+        }, 200, function(){
+          $(this).removeClass('open');
+          $(this).find('.item-bio').hide();
+          $(this).find('.btn-close').css('visibility', 'hidden');
+        });
+
+    });
+
+  });
+
+  $('.app-header #btn-back').on('click', function(){
+    window.location.reload();
+    // To do: alert user and ask if they are sure
+  });
 
   $('input#back-btn').click(function() {
     console.log("returngin")
     $('.modal-wrap.match.open').fadeOut().removeClass('open');
+    $('.modal-group').hide();
   });
 
   function StartLevel(num) {

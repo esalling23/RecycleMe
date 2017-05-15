@@ -1,14 +1,20 @@
 <li class="item {{status}} {{#if specialStatus}}{{specialStatus.key}}{{/if}} {{#if specialStatusOr}}{{specialStatusOr.key}}{{/if}}" style="background-image:url('{{{cloudinaryUrl image }}}')">
 	<div class="item-pane pane{{@index}}" id="{{item_key}}" >
-		{{!-- <img src="{{{cloudinaryUrl image }}}" /> --}}
+
+		<button class="btn-close" style="visibility:hidden">back</button>
+
 		<div class="item-info">
-		<h2><strong>{{name}}</strong></h2>
-		{{{info.html}}}
-		<h4>Materials:</4>
-		{{#each material}}
-			<div class="material minimal-btn">{{name}}</div>
-		{{/each}}
-		<div class="status hidden">{{status}}</div>
+
+			<h2 class="item-name"><strong>{{name}}</strong></h2>
+
+			<div class="item-bio" style="display:none">
+				{{{info.html}}}
+				<p><strong>Materials:</strong></p>
+				{{#each material}}
+					<div class="material minimal-btn">{{name}}</div>
+				{{/each}}
+			</div>
 		</div>
+
 	</div>
 </li>
