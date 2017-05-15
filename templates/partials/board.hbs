@@ -1,5 +1,33 @@
-<ul>
-	{{#each this}}
-	<li>{{listbump @index}}. {{name}}</li>
-	{{/each}}
-</ul>
+<h2>Leaderboard</h2>
+<div class="leader-nav">
+	<button >Individual</button>
+	<button >Teams</button>
+</div>
+
+<div id="individual-leader" class="ACTIVE">
+	<ul>
+		{{#each individuals}}
+		<li>{{listbump @index}}. <span class="points">{{leader}}</span> {{{name.first}}} <span class="team">{{team.name}}</span></li>
+		{{/each}}
+	</ul>
+
+</div>
+
+<div id="team-leader" class="INACTIVE">
+	{{#if player.team}}
+	Let's see how team <strong>{{player.team.name}}</strong> is doing!
+	{{else}}
+
+	Looks like you don't have a team - you should pick one in your profile settings! 
+
+	{{/if}}
+
+	<ul>
+		{{#each teams}}
+		<li>{{listbump @index}}. <span class="points">{{this.score}}</span> {{this.team}}</li>
+		{{/each}}
+	</ul>
+
+</div>
+
+<button data-back="profile">back</button>

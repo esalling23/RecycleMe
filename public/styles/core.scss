@@ -72,15 +72,22 @@ body, html {
 	transform: rotate(-35deg);
 }
 
+.ACTIVE {
 
-// Game Wrapper
+}
 
-.home {
+.section {
+	display: none;
 
-	#title {
+	 &.ACTIVE {
+	 	display: block;
+	 }
+}
 
-	}
-
+button[data-back] {
+	position:absolute;
+	bottom: 0px;
+	
 }
 
 .page-wrapper {

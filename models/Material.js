@@ -13,6 +13,7 @@
 
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var Item = keystone.list('Item');
 
 /**
  * Material model
@@ -40,12 +41,22 @@ Material.add({
 
 });
 
-Material.relationship({ ref: 'Item', refPath: 'materials' });
+Material.relationship({ ref: 'Item', refPath: 'material' });
 
-// Material.pre('remove', function(next) {
-//     // Remove all the assignment docs that reference the removed person.
-//     this.model('Item').remove({ person: this._id }, next);
-// });
+Material.schema.post('remove', function(next) {
+
+	var id = this._id;
+    // Remove all the assignment docs that reference the removed person.
+    Item.model.find({ material: id }, function(err, result){
+    	console.log(result);
+    	result.material = _.without(result.material, id);
+    	console.log(_.without(result.material, id));
+    	result.schema.save();
+    	console.log(result);
+
+    	next();
+    });
+});
 
 /**
  * Model Registration

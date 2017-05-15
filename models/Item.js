@@ -90,6 +90,7 @@ Item.schema.statics.removeResourceRef = function(resourceId, callback) {
         },
 
         function(err, result) {
+        	console.log(result);
 
             callback(err, result);
 

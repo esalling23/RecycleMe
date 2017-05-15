@@ -77,7 +77,7 @@
     }
   }
 
-	$('.levels [data-level]').click(function(evt) {
+	$('.level-group [data-level]').click(function(evt) {
 
 		console.log($(this).data('level'));
 		StartLevel($(this).data('level'));
@@ -212,17 +212,29 @@
 
   });
 
+  $('button[data-back]').on('click', function() {
+    $('.section.ACTIVE').hide().toggleClass('ACTIVE');
+    $('.section.' + $(this).data('back')).fadeIn().toggleClass('ACTIVE');
+  });
+
+  $('#btn-play').on('click', function(){
+    $('.section.ACTIVE').hide().toggleClass('ACTIVE');
+    $('.section.game').fadeIn().toggleClass('ACTIVE');
+  });
+
   $('#btn-profile').on('click', function(){
-    var data = {};
-    $.get("/api/leader/", data, function(data){
+    var data = window.location.pathname.replace('/profile/','');
+    
+    $.get("/api/profile/", data, function(data){
       console.log(data);
-      $('.leaderboard').html(data);
-      $('.profile').hide(function(){
-        $('.leaderboard').fadeIn(function(){
-          $('.ACTIVE').removeClass('ACTIVE');
-          $(this).addClass('ACTIVE');
+      $('.profile').html(data);
+      $('.ACTIVE').hide(function(){
+        $('.profile').fadeIn(function(){
+          $('.ACTIVE').toggleClass('ACTIVE');
+          $(this).toggleClass('ACTIVE');
         });
       });
+    });
     // To do: alert user and ask if they are sure
   });
 
@@ -231,7 +243,7 @@
     $.get("/api/leader/", data, function(data){
       console.log(data);
       $('.leaderboard').html(data);
-      $('.profile').hide(function(){
+      $('.ACTIVE').hide(function(){
         $('.leaderboard').fadeIn(function(){
           $('.ACTIVE').removeClass('ACTIVE');
           $(this).addClass('ACTIVE');
@@ -260,10 +272,10 @@
     }
 
   	// Fade in the game, out the profile
-  	$('.profile').fadeOut(function(){
-  		$('.game').fadeIn();
+  	$('.level-group').fadeOut(function(){
   		// Fade in the level
   		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
+        $('.buttons').show();
   			$('.ACTIVE').removeClass('ACTIVE');
   			$(this).addClass('ACTIVE');
 

@@ -32,7 +32,18 @@ $(document).ready(function() {
 	
 	var setAbsolutes = function(absolutes) {
 
-		_.each(absolutes, function(item) {
+		console.log(absolutes.length)
+
+		if (absolutes.length == 0) {
+			// Call finish function after xxx milaseconds
+			var finish = _.debounce(finishResize, 500);
+			finish();
+			return;
+		}
+
+		_.each(absolutes, function(item, ind) {
+
+			console.log(item, " : single")
 
 			var position = {};
 
@@ -56,9 +67,11 @@ $(document).ready(function() {
 				$(item).css('right', position.right);
 			}
 
-			// Call finish function after xxx milaseconds
-			var finish = _.debounce(finishResize, 500);
-			finish();
+			if (ind == absolutes.length) {
+				// Call finish function after xxx milaseconds
+				var finish = _.debounce(finishResize, 500);
+				finish();
+			}
 
 		});
 
@@ -74,14 +87,16 @@ $(document).ready(function() {
 
 		slideheight = ($(window).height()/4)*3;
 
-		$('.item:not(.open)').height(slideheight)
+		$('.item:not(.open)').height(slideheight);
 
 		// Get all absolutely-positioned elements
 		var outerAbsolutes = 
-		$('#wrapper :not(.tinderslide *, .game .buttons *)')
+		$('#wrapper :not(.tinderslide *, .buttons *)')
 		.filter(function(){
 		  return ($(this).css('position') == 'absolute');
 		});
+
+		console.log(outerAbsolutes, " :outer")
 
 		setAbsolutes(outerAbsolutes);
 
@@ -135,6 +150,7 @@ $(document).ready(function() {
 		}
 
 	});
+
 
 	{{#ifeq section 'game'}}
 

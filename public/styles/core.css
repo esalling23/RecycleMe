@@ -49,6 +49,15 @@ body, html {
 .left-slant {
   transform: rotate(-35deg); }
 
+.section {
+  display: none; }
+  .section.ACTIVE {
+    display: block; }
+
+button[data-back] {
+  position: absolute;
+  bottom: 0px; }
+
 .page-wrapper {
   margin: 0 auto; }
 

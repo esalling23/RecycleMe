@@ -1,0 +1,31 @@
+<div class="form" id="player-profile">
+
+	<div class="report">
+
+		<h3>Grades: </h3>
+
+		{{{jsonPrint player}}}
+
+		<p>Level One <span id="lvl-one">{{lettergrade player.gradeOne}}</span></p>
+		<p>Level Two <span id="lvl-one">{{lettergrade player.gradeTwo}}</span></p>
+		<p>Level Three <span id="lvl-one">{{lettergrade player.gradeThree}}</span></p>
+
+	</div>
+
+	<div class="edit">
+
+		<input type="text" placeholder="optional username" id="username">
+		<input type="checkbox" name="username" value="Username"> Hide real name from leaderboard<br>
+
+		<select>
+			{{#each teams}}
+			<option value="{{this.team}}">{{this.team}}</option>
+			{{/each}}
+		</select>
+
+		<button class="btn" id="btn-save-profile">Save</button>
+
+	</div>
+
+</div>
+

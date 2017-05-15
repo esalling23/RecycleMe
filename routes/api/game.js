@@ -39,6 +39,8 @@ exports.update = function(req, res) {
                     else 
                         player.leader = parseInt(score);
                 }
+            } else {
+
             }
         } else if (level == 2) {
             player.gradeTwo = req.query.grade * 100;
@@ -53,7 +55,10 @@ exports.update = function(req, res) {
                     else 
                         player.leader = parseInt(score);
                 }
+            } else {
+
             }
+
         } else if (level == 3) {
             player.gradeThree = req.query.grade * 100;
             // If that player hasn't already passed...

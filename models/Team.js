@@ -21,8 +21,8 @@ var Types = keystone.Field.Types;
  */
 var Team = new keystone.List('Team', 
 	{
-		label: 'Special Options',
-		singular: 'Special Option',
+		label: 'Teams',
+		singular: 'Team',
 		track: true,
 		autokey: { path: 'key', from: 'name', unique: true },
 	});
