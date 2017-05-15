@@ -40,6 +40,13 @@ Material.add({
 
 });
 
+Material.relationship({ ref: 'Item', refPath: 'materials' });
+
+// Material.pre('remove', function(next) {
+//     // Remove all the assignment docs that reference the removed person.
+//     this.model('Item').remove({ person: this._id }, next);
+// });
+
 /**
  * Model Registration
  */

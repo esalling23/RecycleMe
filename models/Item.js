@@ -70,12 +70,18 @@ Item.schema.statics.removeResourceRef = function(resourceId, callback) {
     Item.model.update({
             $or: [{
                 'material': resourceId
+            }, {
+				'specialStatus':resourceId
+            }, {
+                'specialStatusOr':resourceId
             }]
         },
 
         {
             $pull: {
-                'material': resourceId
+                'material': resourceId,
+                'specialStatus':resourceId, 
+                'specialStatusOr':resourceId
             }
         },
 

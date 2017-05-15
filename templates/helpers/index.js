@@ -15,6 +15,12 @@ module.exports = function() {
 
     };
 
+    _helpers.listbump = function (num) {
+
+        return num+1; 
+
+    };
+
     return _helpers;
 
 

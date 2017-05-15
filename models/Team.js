@@ -1,9 +1,9 @@
 /**
  * (Site name here) 
  * 
- * SpecialOption page Model
- * @module SpecialOption
- * @class SpecialOption
+ * Team page Model
+ * @module Team
+ * @class Team
  * @author Johnny Richardson
  * 
  * For field docs: http://keystonejs.com/docs/database/
@@ -15,11 +15,11 @@ var keystone = require('keystone');
 var Types = keystone.Field.Types;
 
 /**
- * SpecialOption model
+ * Team model
  * @constructor
  * See: http://keystonejs.com/docs/database/#lists-options
  */
-var SpecialOption = new keystone.List('SpecialOption', 
+var Team = new keystone.List('Team', 
 	{
 		label: 'Special Options',
 		singular: 'Special Option',
@@ -29,24 +29,21 @@ var SpecialOption = new keystone.List('SpecialOption',
 
 /**
  * Model Fields
- * @main SpecialOption
+ * @main Team
  */
-SpecialOption.add({
+Team.add({
 
 	name: { type: String, label: 'Title of this special option', required: true, initial: true },
-	text: { type: Types.Markdown, label: 'Short description', required: true, initial: true},
-	image: { type: Types.CloudinaryImage, label: 'Special Option Image'},
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 
 });
 
-SpecialOption.relationship({ ref: 'Item', refPath: 'specialStatus' });
-SpecialOption.relationship({ ref: 'Item', refPath: 'specialStatusOr' });
+Team.relationship({ ref: 'Player', refPath: 'team' });
 
 
 /**
  * Model Registration
  */
-SpecialOption.defaultSort = '-createdAt';
-SpecialOption.defaultColumns = 'name, updatedAt';
-SpecialOption.register();
+Team.defaultSort = '-createdAt';
+Team.defaultColumns = 'name, updatedAt';
+Team.register();

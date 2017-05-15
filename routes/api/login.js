@@ -17,6 +17,10 @@ exports.get = function(req, res) {
 
 			if (result) {
 
+				if (player.new == true && player.login == false) 
+					player.login = true;
+				if (player.login == true)
+
 		  		res.send('/profile/' + data);
 			    
 			} else {

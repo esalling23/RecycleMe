@@ -6,7 +6,8 @@ exports.update = function(req, res) {
 
     var grade = '', 
         level = req.query.level, 
-        score = req.query.score;
+        score = req.query.score, 
+        locals = res.locals;
 
     Player.model.findOne({ '_id': req.query.id }).exec(function(err, player) {
         if (err) throw err;
@@ -81,4 +82,3 @@ exports.update = function(req, res) {
     });
 
 };
-

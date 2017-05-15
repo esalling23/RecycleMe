@@ -212,9 +212,36 @@
 
   });
 
-  $('.app-header #btn-back').on('click', function(){
-    window.location.reload();
+  $('#btn-profile').on('click', function(){
+    var data = {};
+    $.get("/api/leader/", data, function(data){
+      console.log(data);
+      $('.leaderboard').html(data);
+      $('.profile').hide(function(){
+        $('.leaderboard').fadeIn(function(){
+          $('.ACTIVE').removeClass('ACTIVE');
+          $(this).addClass('ACTIVE');
+        });
+      });
     // To do: alert user and ask if they are sure
+  });
+
+  $('#btn-leader').on('click', function(){
+    var data = {};
+    $.get("/api/leader/", data, function(data){
+      console.log(data);
+      $('.leaderboard').html(data);
+      $('.profile').hide(function(){
+        $('.leaderboard').fadeIn(function(){
+          $('.ACTIVE').removeClass('ACTIVE');
+          $(this).addClass('ACTIVE');
+        });
+      });
+
+    })
+    .fail(function() {
+        alert( "error" );
+    });
   });
 
   $('input#back-btn').click(function() {
@@ -237,7 +264,7 @@
   		$('.game').fadeIn();
   		// Fade in the level
   		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
-  			$('ACTIVE').removeClass('ACTIVE');
+  			$('.ACTIVE').removeClass('ACTIVE');
   			$(this).addClass('ACTIVE');
 
   		});
@@ -282,3 +309,4 @@
   	}
 
   }
+
