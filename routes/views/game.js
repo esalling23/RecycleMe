@@ -24,6 +24,8 @@ exports = module.exports = function(req, res) {
     var view = new keystone.View(req, res),
         locals = res.locals;
 
+
+
     // Init locals
     locals.section = 'game';
 
@@ -58,7 +60,35 @@ exports = module.exports = function(req, res) {
 
                         locals.config = result;
 
-                        next();
+                        // Leaderboard
+                        Player.model.find({"leader":{$ne:null}})
+                        .populate('team')
+                        .sort('-leader')
+                        .exec(function(err, player){
+                            if (err) throw err;
+
+                            locals.individuals = player;
+
+                            var data = { teams : [] };
+
+                            _.each(locals.individuals, (p) => {
+                                if (!p.team)
+                                    return;
+
+                                if (_.where(data.teams, {team:p.team.name}).length == 0) {
+                                    var team = p.team.name;
+                                    data.teams.push({team: p.team.name, score: 0});
+                                }
+                                
+                                _.where(data.teams, {team: p.team.name})[0].score += p.leader;
+
+                            });
+
+                            locals.teams = _.sortBy(data.teams, '-score');
+
+                            next(); 
+
+                        });
 
                     });
 

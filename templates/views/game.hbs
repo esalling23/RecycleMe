@@ -10,31 +10,41 @@
 */
 --}}
 
-<div class="section leaderboard"></div> {{!-- .leaderboard --}}
 
-<div class="section profile ACTIVE">
+
+<div class="section home ACTIVE">
 
 	<h2>Welcome{{#ifeq player.new false}} back{{/ifeq}}, {{player.name.first}}!</h2>
 
 	{{#ifeq player.admin true}}
 
-	
-
-	{{>admin}}
+		{{>admin}}
 
 	{{else}}
 
-	<h3>So far you have {{score}} leaderboard points!</h3>
+		<h3>So far you have {{score}} leaderboard points!</h3>
 
-	<button class="btn" id="btn-leader">Leaderboard</button>
-	<button class="btn" id="btn-profile">Your Profile</button>
+		<button class="btn" id="btn-leader" data-section="leaderboard">Leaderboard</button>
+		<button class="btn" id="btn-profile" data-section="profile">Your Profile</button>
 
-	<button class="btn" id="btn-how-to">How to Play</button>
-	<button class="btn" id="btn-play">PLAY</button>
+		{{!-- <button class="btn" id="btn-how-to"  data-section="how-to">How to Play</button> --}}
+		<button class="btn" id="btn-play" data-section="game">PLAY</button>
 
 	{{/ifeq}}
 
 </div> <!-- .profile -->
+
+<div class="section profile">
+
+	{{>profile}}
+
+</div>
+
+<div class="section leaderboard">
+
+	{{>board}}
+
+</div> {{!-- .leaderboard --}}
 
 <div class="section game" style="display:none">
 
@@ -50,7 +60,7 @@
 
 		{{/ifeq}}
 
-		<button data-back="profile">back</button>
+		<button class="back" data-section="home">back</button>
 
 	</div>
 

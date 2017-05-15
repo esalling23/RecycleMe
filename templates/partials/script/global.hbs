@@ -32,9 +32,9 @@ $(document).ready(function() {
 	
 	var setAbsolutes = function(absolutes) {
 
-		console.log(absolutes.length)
+		var length = absolutes.length
 
-		if (absolutes.length == 0) {
+		if (length == 0) {
 			// Call finish function after xxx milaseconds
 			var finish = _.debounce(finishResize, 500);
 			finish();
@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 		_.each(absolutes, function(item, ind) {
 
-			console.log(item, " : single")
+			console.log(item)
 
 			var position = {};
 
@@ -57,17 +57,15 @@ $(document).ready(function() {
 
 			// If left, set it. 
 			if (position.left){
-				console.log(item, 'left');
 				$(item).css('left', wrapperLeft);
 			}
 			//If right, set it.
 			if (position.right) {
-				console.log(item, 'right');
 				position.right =+ extraWindow;
 				$(item).css('right', position.right);
 			}
 
-			if (ind == absolutes.length) {
+			if (ind == length) {
 				// Call finish function after xxx milaseconds
 				var finish = _.debounce(finishResize, 500);
 				finish();
@@ -95,8 +93,6 @@ $(document).ready(function() {
 		.filter(function(){
 		  return ($(this).css('position') == 'absolute');
 		});
-
-		console.log(outerAbsolutes, " :outer")
 
 		setAbsolutes(outerAbsolutes);
 

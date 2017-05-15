@@ -13,15 +13,15 @@ module.exports = function() {
      _helpers.lettergrade = function (num) {
         var grade;
         
-        if (num >= 0.9) {
+        if (num >= 90) {
             grade = 'A';
-        } else if (num >= 0.8) {
+        } else if (num >= 80) {
             grade = 'B';
-        } else if (num >= 0.7) {
+        } else if (num >= 70) {
             grade = 'C';
-        } else if (num >= 0.5) {
+        } else if (num >= 50) {
             grade = 'D';
-        } else if (num >= 0.0) {
+        } else if (num >= 0) {
             grade = 'F';
         }
 

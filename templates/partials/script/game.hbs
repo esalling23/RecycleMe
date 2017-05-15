@@ -212,48 +212,48 @@
 
   });
 
-  $('button[data-back]').on('click', function() {
-    $('.section.ACTIVE').hide().toggleClass('ACTIVE');
-    $('.section.' + $(this).data('back')).fadeIn().toggleClass('ACTIVE');
-  });
+  // $('button[data-back]').on('click', function() {
+  //   $('.section.ACTIVE').hide().toggleClass('ACTIVE');
+  //   $('.section.' + $(this).data('back')).fadeIn().toggleClass('ACTIVE');
+  // });
 
-  $('#btn-play').on('click', function(){
-    $('.section.ACTIVE').hide().toggleClass('ACTIVE');
-    $('.section.game').fadeIn().toggleClass('ACTIVE');
-  });
+  // $('#btn-play').on('click', function(){
+  //   $('.section.ACTIVE').hide().toggleClass('ACTIVE');
+  //   $('.section.game').fadeIn().toggleClass('ACTIVE');
+  // });
 
-  $('#btn-profile').on('click', function(){
-    var data = window.location.pathname.replace('/profile/','');
+  // $('#btn-profile').on('click', function(){
+  //   var data = window.location.pathname.replace('/profile/','');
     
-    $.get("/api/profile/", data, function(data){
-      console.log(data);
-      $('.profile').html(data);
-      $('.ACTIVE').hide(function(){
-        $('.profile').fadeIn(function(){
-          $('.ACTIVE').toggleClass('ACTIVE');
-          $(this).toggleClass('ACTIVE');
-        });
+  //   $.get("/api/profile/", data, function(data){
+  //     console.log(data);
+  //     $('.profile').html(data);
+  //     $('.ACTIVE').hide(function(){
+  //       $('.profile').fadeIn(function(){
+  //         $('.ACTIVE').toggleClass('ACTIVE');
+  //         $(this).toggleClass('ACTIVE');
+  //       });
+  //     });
+  //   });
+  //   // To do: alert user and ask if they are sure
+  // });
+
+  $('[data-section]').on('click', function(){
+
+    var section = $(this).data('section');
+    
+    $('.ACTIVE').hide(function(){
+
+      $('.section.' + section).fadeIn(function(){
+
+        console.log(section);
+
+        $('.ACTIVE').toggleClass('ACTIVE');
+        $(this).toggleClass('ACTIVE');
+
       });
     });
-    // To do: alert user and ask if they are sure
-  });
 
-  $('#btn-leader').on('click', function(){
-    var data = {};
-    $.get("/api/leader/", data, function(data){
-      console.log(data);
-      $('.leaderboard').html(data);
-      $('.ACTIVE').hide(function(){
-        $('.leaderboard').fadeIn(function(){
-          $('.ACTIVE').removeClass('ACTIVE');
-          $(this).addClass('ACTIVE');
-        });
-      });
-
-    })
-    .fail(function() {
-        alert( "error" );
-    });
   });
 
   $('input#back-btn').click(function() {

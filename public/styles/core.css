@@ -54,7 +54,7 @@ body, html {
   .section.ACTIVE {
     display: block; }
 
-button[data-back] {
+button.back {
   position: absolute;
   bottom: 0px; }
 

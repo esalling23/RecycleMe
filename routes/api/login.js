@@ -17,9 +17,9 @@ exports.get = function(req, res) {
 
 			if (result) {
 
-				if (player.new == true && player.login == false) 
-					player.login = true;
-				if (player.login == true)
+				// if (result.new == true && result.login == false) 
+				// 	result.login = true;
+				// if (result.login == true)
 
 		  		res.send('/profile/' + data);
 			    

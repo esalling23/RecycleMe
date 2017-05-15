@@ -10,6 +10,8 @@ exports.update = function(req, res) {
         locals = res.locals;
 
     Player.model.findOne({ '_id': req.query.id }).exec(function(err, player) {
+
+
         if (err) throw err;
 
         // Turn that grade into a letter!
@@ -27,9 +29,10 @@ exports.update = function(req, res) {
 
         // Check the level, then set the grade for that level
         if (level == 1) {
-            player.gradeOne = req.query.grade * 100;
+            
             // If that player hasn't already passed...
             if (!player.levelOne) {
+                player.gradeOne = req.query.grade * 100;
                 // If the player passed...
                 if (grade == 'A' || grade == 'B' || grade == 'C') {
                     player.levelOne = true;
@@ -40,7 +43,7 @@ exports.update = function(req, res) {
                         player.leader = parseInt(score);
                 }
             } else {
-
+                player.gradeOne = req.query.grade * (100*player.gradeOne);
             }
         } else if (level == 2) {
             player.gradeTwo = req.query.grade * 100;
