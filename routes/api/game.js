@@ -29,55 +29,44 @@ exports.update = function(req, res) {
 
         // Check the level, then set the grade for that level
         if (level == 1) {
-            
-            // If that player hasn't already passed...
-            if (!player.levelOne) {
-                player.gradeOne = req.query.grade * 100;
-                // If the player passed...
-                if (grade == 'A' || grade == 'B' || grade == 'C') {
-                    player.levelOne = true;
-                     // Set the overall score
-                    if(player.leader)
-                        player.leader = player.leader + parseInt(score);
-                    else 
-                        player.leader = parseInt(score);
-                }
-            } else {
-                player.gradeOne = req.query.grade * (100*player.gradeOne);
-            }
-        } else if (level == 2) {
-            player.gradeTwo = req.query.grade * 100;
-            // If that player hasn't already passed...
-            if (!player.levelTwo) {
-                // If the player passed...
-                if (grade == 'A' || grade == 'B' || grade == 'C') {
-                    player.levelTwo = true;
-                     // Set the overall score
-                    if(player.leader)
-                        player.leader = player.leader + parseInt(score);
-                    else 
-                        player.leader = parseInt(score);
-                }
-            } else {
 
+            // If the player passed...
+            if (grade == 'A' || grade == 'B' || grade == 'C') {
+                if (!player.gradeOne){
+                    player.gradeOne = req.query.grade * 100;
+                    player.gradeThreeCap = req.query.grade * 100;
+                    player.levelOne = true;
+                } else 
+                    player.gradeOneCap = req.query.grade * 100;
+            }
+
+        } else if (level == 2) {
+            
+            // If the player passed...
+            if (grade == 'A' || grade == 'B' || grade == 'C') {
+                if (!player.gradeTwo){
+                    player.gradeTwo = req.query.grade * 100;
+                    player.gradeTwoCap = req.query.grade * 100;
+                    player.levelTwo = true; 
+                } else 
+                    player.gradeTwoCap = req.query.grade * 100;            
             }
 
         } else if (level == 3) {
-            player.gradeThree = req.query.grade * 100;
-            // If that player hasn't already passed...
-            if (!player.levelThree) {
-                // If the player passed...
-                if (grade == 'A' || grade == 'B' || grade == 'C') {
+        
+            // If the player passed...
+            if (grade == 'A' || grade == 'B' || grade == 'C') {
+                if (!player.gradeThree) {
+                    player.gradeThree = req.query.grade * 100;
+                    player.gradeThreeCap = req.query.grade * 100;
                     player.levelThree = true;
-                    // Set the overall score
-                    if(player.leader)
-                        player.leader = player.leader + parseInt(score);
-                    else 
-                        player.leader = parseInt(score);
-                }
+                } else 
+                    player.gradeThreeCap = req.query.grade * 100;
             }
 
         }
+
+        player.leader = player.gradeOneCap + player.gradeTwoCap + player.gradeThreeCap;
 
         if (player.levelOne && player.levelTwo && player.levelThree) {
             player.completed = true;

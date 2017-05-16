@@ -242,13 +242,31 @@
 
     var section = $(this).data('section');
     
-    $('.ACTIVE').hide(function(){
+    $('.section.ACTIVE').hide(function(){
 
       $('.section.' + section).fadeIn(function(){
 
         console.log(section);
 
-        $('.ACTIVE').toggleClass('ACTIVE');
+        $('.section.ACTIVE').toggleClass('ACTIVE');
+        $(this).toggleClass('ACTIVE');
+
+      });
+    });
+
+  });
+
+  $('[data-subsection]').on('click', function(){
+
+    var section = $(this).data('subsection');
+    
+    $('.subsection.ACTIVE').hide(function(){
+
+      $('.subsection.' + section).fadeIn(function(){
+
+        console.log(section);
+
+        $('.subsection.ACTIVE').toggleClass('ACTIVE');
         $(this).toggleClass('ACTIVE');
 
       });
@@ -279,6 +297,11 @@
   			$('.ACTIVE').removeClass('ACTIVE');
   			$(this).addClass('ACTIVE');
 
+        if ($(this).data('grade') >= 70) {
+          pointlimit = $('.level.ACTIVE').data('grade');
+          console.log(pointlimit);
+        }
+
   		});
   	});
 
@@ -286,7 +309,11 @@
 
   function UpdateScore(num) {
   	var end = false;
-  	points = points + num;
+
+    if (points == $('.level.ACTIVE').data('grade')){
+      points = points + num/2;
+    } else 
+    	points = points + num;
 
   	// Check if this is the last card in the stack - end the level
   	if ($('.level.ACTIVE .item:not(.gone)').length == 0){

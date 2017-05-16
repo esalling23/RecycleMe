@@ -1,10 +1,10 @@
 <h2>Leaderboard</h2>
 <div class="leader-nav">
-	<button >Individual</button>
-	<button >Teams</button>
+	<button data-subsection="individuals">Individual</button>
+	<button data-subsection="teams">Teams</button>
 </div>
 
-<div id="individual-leader" class="ACTIVE">
+<div id="individual-leader" class="subsection board individuals ACTIVE">
 	<ul>
 		{{#each individuals}}
 		<li>{{listbump @index}}. <span class="points">{{leader}}</span> {{{name.first}}} <span class="team">{{team.name}}</span></li>
@@ -13,7 +13,7 @@
 
 </div>
 
-<div id="team-leader" class="INACTIVE">
+<div id="team-leader" class="subsection teams board">
 	{{#if player.team}}
 	Let's see how team <strong>{{player.team.name}}</strong> is doing!
 	{{else}}

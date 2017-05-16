@@ -31,7 +31,7 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
         // Locate this player 
-        var queryPlayer = Player.model.findOne({ '_id': req.params.id }, {}, {});
+        var queryPlayer = Player.model.findOne({ '_id': req.params.id }, {}, {}).populate('team');
         // Game Content
         var queryItems = Item.model.find({}, {}, {}).populate('material specialStatus specialStatusOr');
         var querySpecial = SpecialOption.model.find({}, {}, {});

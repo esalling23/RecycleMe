@@ -69,7 +69,7 @@
 		<div id="points-counter">0</div>
 	</div>
 	
-	<section class="row level tinderslide" data-level="1" style="display:none">
+	<section class="row level tinderslide" data-level="1" data-tries="{{triesOne}}" {{#if gradeOne}}data-grade="{{gradeOne}}"{{/if}} style="display:none">
 
 		<ul style="height:100%;">
 			{{#each items}}
@@ -90,7 +90,7 @@
 
 	</section>
 
-	<section class="row level tinderslide" data-level="2" style="display:none">
+	<section class="row level tinderslide" data-level="2" data-tries="{{triesTwo}}" {{#if gradeTwo}}data-grade="{{gradeTwo}}"{{/if}} style="display:none">
 		
 		<ul style="height:100%;">
 			{{#each items}}
@@ -111,7 +111,7 @@
 
 	</section>
 
-	<section class="row level tinderslide" data-level="3" style="display:none">
+	<section class="row level tinderslide" data-level="3" data-tries="{{triesThree}}" {{#if gradeThree}}data-grade="{{gradeThree}}"{{/if}} style="display:none">
 	
 		<ul style="height:100%;">
 			{{#each items}}
