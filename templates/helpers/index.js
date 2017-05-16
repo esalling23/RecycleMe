@@ -10,6 +10,12 @@ module.exports = function() {
      * ===================
      */
 
+     _helpers.findMaxGrade = function (score, total) {
+
+        return score + ((total-score)/2); 
+
+    };
+
      _helpers.lettergrade = function (num) {
         var grade;
         
@@ -35,13 +41,25 @@ module.exports = function() {
 
     };
 
+
+
+    _helpers.lengthGroup = function (array, field, context) {
+
+        return _.where(array, {field:context}).length; 
+
+    };
+
      _helpers.lowercase = function (str) {
 
         return str.toLowerCase(); 
 
     };
 
+    _helpers.shuffle = function (arr) {
 
+        return _.shuffle(arr); 
+
+    };
 
 
     _helpers.teamscore = function (team) {

@@ -4,31 +4,58 @@
 
 		<h3>Grades: </h3>
 
-		{{{jsonPrint player}}}
+		{{!-- {{{jsonPrint player}}} --}}
+		
+		<div class="grade">
+			{{#if player.gradeOne}}
+			<div id="lvl-one">{{lettergrade player.gradeOne}}</div>
+			{{else}}
+			<button class="btn grade-empty" data-section="game">Play Level</button>
+			{{/if}}
+			Level One
 
-		{{#if player.gradeOne}}<p>Level One <span id="lvl-one">{{lettergrade player.gradeOne}}</span></p>{{/if}}
-		{{#if player.gradeTwo}}<p>Level Two <span id="lvl-one">{{lettergrade player.gradeTwo}}</span></p>{{/if}}
-		{{#if player.gradeThree}}<p>Level Three <span id="lvl-one">{{lettergrade player.gradeThree}}</span></p>{{/if}}
+		</div>
+		
+		<div class="grade">
+			{{#if player.gradeTwo}}
+			<div id="lvl-one">{{lettergrade player.gradeTwo}}</div>
+			{{else}}
+			<button class="btn grade-empty" data-section="game">Play Level</button>
+			{{/if}}
+			Level Two
+		</div>
+		
+		
+		<div class="grade">
+			{{#if player.gradeThree}}
+			<div id="lvl-one">{{lettergrade player.gradeThree}}</div>
+			{{else}}
+			<button class="btn grade-empty" data-section="game">Play Level</button>
+			{{/if}}
+			Level Three
+		</div>
 
 	</div>
 
-	<div class="edit">
+	{{!-- <div class="edit">
 
 		<input type="text" placeholder="optional username" id="username">
 		<input type="checkbox" name="username" value="Username"> Hide real name from leaderboard<br>
 
 		<select>
-			<option value="Choose a team">Select</option>
+			<option class="team-select" value="Choose a team" {{#if player.team}}{{else}}selected{{/if}}>Select Team</option>
 			{{#each teams}}
-			<option value="{{this.team}}">{{this.team}}</option>
+			<option class="team-select" value="{{this.team}}" {{#ifeq this.team player.team.name}}selected{{/ifeq}}>{{this.team}}</option>
 			{{/each}}
 		</select>
 
 		<button class="btn" id="btn-save-profile">Save</button>
 
-	</div>
+		<div class="save-msg" style="display: none;"></div>
 
-	<button class="back" data-section="home">back</button>
+	</div> --}}
+
+	<button class="back nav-bar left" data-section="home">back</button>
 
 </div>
 

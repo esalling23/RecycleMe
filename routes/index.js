@@ -52,6 +52,7 @@ exports = module.exports = function(app) {
     app.get('/api/find/', keystone.middleware.api, routes.api.login.get);
     app.get('/api/update/', keystone.middleware.api, routes.api.game.update);
 
+    app.get('/api/team/', keystone.middleware.api, routes.api.profile.update);
     app.get('/api/profile/', keystone.middleware.api, routes.api.profile.get);
 
     // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:

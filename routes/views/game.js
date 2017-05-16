@@ -24,8 +24,6 @@ exports = module.exports = function(req, res) {
     var view = new keystone.View(req, res),
         locals = res.locals;
 
-
-
     // Init locals
     locals.section = 'game';
 
@@ -71,7 +69,7 @@ exports = module.exports = function(req, res) {
 
                             var data = { teams : [] };
 
-                            _.each(locals.individuals, (p) => {
+                            _.each(locals.individuals, function(p) {
                                 if (!p.team)
                                     return;
 
@@ -85,6 +83,7 @@ exports = module.exports = function(req, res) {
                             });
 
                             locals.teams = _.sortBy(data.teams, '-score');
+
 
                             next(); 
 

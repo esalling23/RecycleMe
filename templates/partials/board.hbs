@@ -1,13 +1,13 @@
 <h2>Leaderboard</h2>
 <div class="leader-nav">
-	<button data-subsection="individuals">Individual</button>
-	<button data-subsection="teams">Teams</button>
+	<button class="btn active" data-subsection="individuals">Individual</button>
+	<button class="btn" data-subsection="teams">Teams</button>
 </div>
 
 <div id="individual-leader" class="subsection board individuals ACTIVE">
 	<ul>
 		{{#each individuals}}
-		<li>{{listbump @index}}. <span class="points">{{leader}}</span> {{{name.first}}} <span class="team">{{team.name}}</span></li>
+		<li>{{listbump @index}}. <div class="points">{{leader}}</div> {{{name.first}}} <span class="team">{{team.name}}</span></li>
 		{{/each}}
 	</ul>
 
@@ -24,10 +24,10 @@
 
 	<ul>
 		{{#each teams}}
-		<li>{{listbump @index}}. <span class="points">{{this.score}}</span> {{this.team}}</li>
+		<li>{{listbump @index}}. <div class="points">{{this.score}}</div> {{this.team}}</li>
 		{{/each}}
 	</ul>
 
 </div>
 
-<button class="back" data-section="home">back</button>
+<button class="back nav-bar right" data-section="game">back</button>

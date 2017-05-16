@@ -61,6 +61,8 @@ Item.add({
 	rationale: { type: Types.Markdown, label: 'Correct Answer: Why do you do this with this item?'},
 	rationaleAlt: { type: Types.Markdown, label: 'Wrong Answer: Why don\'t we do that with this item?'},
 	level: { type: Types.Select, label: 'On which level will this appear?', options: 'One, Two, Three'},
+
+	enabled: { type: Boolean, default: true, label: 'Enabled'},
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 
 });

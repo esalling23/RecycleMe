@@ -23,6 +23,13 @@ $(document).ready(function() {
 		wrapperLeft = $('#wrapper').offset().left,
 		extraWindow = (windowsize - bodysize)/2;
 
+	setTimeout(function () {
+
+	    $('.login #login').fadeIn();
+
+	}, 2000);
+
+
 	var finishResize = function() {
 
 		// Show wrapper now that resize is complete
@@ -47,11 +54,13 @@ $(document).ready(function() {
 
 			var position = {};
 
+			console.log($(item).css('left'), $(item).css('right'))
+
 			// Check current positions
-			if ($(item).css('left') !== null && $(item).css('left') !== 'auto')
+			if ($(item).css('left') !== undefined && $(item).css('left') !== null && $(item).css('left') !== 'auto' && $(item).css('left'))
 				position.left = $(item).css('left');
 
-			if ($(item).css('right') !== null && $(item).css('right') !== 'auto'){
+			if ($(item).css('right') !== undefined &&$(item).css('right') !== null && $(item).css('right') !== 'auto' && $(item).css('right')){
 				position.right = $(item).css('right');
 			}
 
@@ -89,7 +98,7 @@ $(document).ready(function() {
 
 		// Get all absolutely-positioned elements
 		var outerAbsolutes = 
-		$('#wrapper :not(.tinderslide *, .buttons *)')
+		$('#wrapper :not(.tinderslide *, .buttons *, .nav-bar)')
 		.filter(function(){
 		  return ($(this).css('position') == 'absolute');
 		});

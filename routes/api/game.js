@@ -1,80 +1,126 @@
 var keystone = require('keystone');
 var Player = keystone.list('Player');
-var _ = require('underscore');
+var Item = keystone.list('Item'),
+    appRoot = require('app-root-path'),
+    TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
+    _ = require('underscore');
+
 
 exports.update = function(req, res) {
 
     var grade = '', 
         level = req.query.level, 
         score = req.query.score, 
-        locals = res.locals;
+        locals = res.locals, 
+        Templates = new TemplateLoader();
 
-    Player.model.findOne({ '_id': req.query.id }).exec(function(err, player) {
+    var groupByLevel = function(val, cat) {
+        return val.filter(function(item) {
+            return item.level == cat;
+        });
+    };
 
-
-        if (err) throw err;
-
+    var grader = function(score, total) {
         // Turn that grade into a letter!
-        if (req.query.grade >= 0.9) {
+        if (score/total >= 0.9) {
             grade = 'A';
-        } else if (req.query.grade >= 0.8) {
+        } else if (score/total >= 0.8) {
             grade = 'B';
-        } else if (req.query.grade >= 0.7) {
+        } else if (score/total >= 0.7) {
             grade = 'C';
-        } else if (req.query.grade >= 0.5) {
+        } else if (score/total >= 0.5) {
             grade = 'D';
-        } else if (req.query.grade >= 0.0) {
+        } else if (score/total >= 0.0) {
             grade = 'F';
         }
 
-        // Check the level, then set the grade for that level
-        if (level == 1) {
+        return grade;
+    };
 
-            // If the player passed...
-            if (grade == 'A' || grade == 'B' || grade == 'C') {
-                if (!player.gradeOne){
-                    player.gradeOne = req.query.grade * 100;
-                    player.gradeThreeCap = req.query.grade * 100;
-                    player.levelOne = true;
-                } else 
-                    player.gradeOneCap = req.query.grade * 100;
+    Item.model.find({}).exec((err, items) => {
+
+        Player.model.findOne({ '_id': req.query.id }).exec((err, player) => {
+
+            if (err) throw err;
+
+            var totalOne = groupByLevel(items, 'One');
+            var totalTwo = groupByLevel(items, 'Two');
+            var totalThree = groupByLevel(items, 'Three');
+
+            // Check the level, then set the grade for that level
+            if (level == 1) {
+                if (!player.triesOne)
+                    player.triesOne = 1;
+                else 
+                    player.triesOne++;
+
+                grade = grader(score, totalOne);
+
+                // If the player passed...
+                if (grade == 'A' || grade == 'B' || grade == 'C') {
+                    if (!player.gradeOne){
+                        player.gradeOne = score * 100;
+                        player.gradeOneCap = score * 100;
+                        player.levelOne = true;
+                    } else 
+                        player.gradeOneCap = score * 100;
+                }
+
+            } else if (level == 2) {
+
+                if (!player.triesTwo)
+                    player.triesTwo = 1;
+                else 
+                    player.triesTwo++;
+                
+                // If the player passed...
+                if (grade == 'A' || grade == 'B' || grade == 'C') {
+                    if (!player.gradeTwo){
+                        player.gradeTwo = score * 100;
+                        player.gradeTwoCap = score * 100;
+                        player.levelTwo = true; 
+                    } else 
+                        player.gradeTwoCap = score * 100;            
+                }
+
+            } else if (level == 3) {
+
+                if (!player.triesThree)
+                    player.triesThree = 1;
+                else 
+                    player.triesThree++;
+
+                // If the player passed...
+                if (grade == 'A' || grade == 'B' || grade == 'C') {
+                    if (!player.gradeThree) {
+                        player.gradeThree = score * 100;
+                        player.gradeThreeCap = score * 100;
+                        player.levelThree = true;
+                    } else 
+                        player.gradeThreeCap = score * 100;
+                }
+
             }
 
-        } else if (level == 2) {
+            player.leader = ((player.gradeOneCap/100)*totalOne) + ((player.gradeTwoCap/100)*totalTwo) + ((player.gradeThreeCap/100)*totalThree);
+
+            if (player.levelOne && player.levelTwo && player.levelThree) {
+                player.completed = true;
+            }
+
+            player.save();
+
+            var data = player;
+
+            Templates.Load('/partials/end', data, function(html) {
+
+                res.send({html:html, grade:grade});
+
+            }); 
+
             
-            // If the player passed...
-            if (grade == 'A' || grade == 'B' || grade == 'C') {
-                if (!player.gradeTwo){
-                    player.gradeTwo = req.query.grade * 100;
-                    player.gradeTwoCap = req.query.grade * 100;
-                    player.levelTwo = true; 
-                } else 
-                    player.gradeTwoCap = req.query.grade * 100;            
-            }
 
-        } else if (level == 3) {
-        
-            // If the player passed...
-            if (grade == 'A' || grade == 'B' || grade == 'C') {
-                if (!player.gradeThree) {
-                    player.gradeThree = req.query.grade * 100;
-                    player.gradeThreeCap = req.query.grade * 100;
-                    player.levelThree = true;
-                } else 
-                    player.gradeThreeCap = req.query.grade * 100;
-            }
-
-        }
-
-        player.leader = player.gradeOneCap + player.gradeTwoCap + player.gradeThreeCap;
-
-        if (player.levelOne && player.levelTwo && player.levelThree) {
-            player.completed = true;
-        }
-
-        player.save();
-
-        res.send(grade);
+        });
 
     });
 

@@ -238,6 +238,24 @@
   //   // To do: alert user and ask if they are sure
   // });
 
+  $('#btn-save-profile').on('click', function() {
+    var data = {
+      player: '{{playerId}}', 
+      team: $('.team-select:selected').attr('value')
+    };
+
+    $.get("/api/team/", data, function(data){
+      // Notify success
+      $('.save-msg').text('Nice! Saved.');
+    })
+    .fail(function(err) {
+        alert( "error" + err );
+    })
+    .always(function(err){
+      alert('done')
+    });
+  });
+
   $('[data-section]').on('click', function(){
 
     var section = $(this).data('section');
@@ -259,6 +277,8 @@
   $('[data-subsection]').on('click', function(){
 
     var section = $(this).data('subsection');
+    $('[data-subsection].active').toggleClass('active');
+    $(this).toggleClass('active');
     
     $('.subsection.ACTIVE').hide(function(){
 
@@ -282,12 +302,12 @@
 
   function StartLevel(num) {
     // enable/disable buttons
-    if (num == 2) {
-      $('#compost').attr('disabled', false);
-    } else if (num == 3) {
-      $('#compost').attr('disabled', false);
-      $('#special').attr('disabled', false);
-    }
+    // if (num == 2) {
+    //   $('#compost').attr('disabled', false);
+    // } else if (num == 3) {
+    //   $('#compost').attr('disabled', false);
+    //   $('#special').attr('disabled', false);
+    // }
 
   	// Fade in the game, out the profile
   	$('.level-group').fadeOut(function(){
@@ -310,7 +330,7 @@
   function UpdateScore(num) {
   	var end = false;
 
-    if (points == $('.level.ACTIVE').data('grade')){
+    if (points == $('.level.ACTIVE').data('max')){
       points = points + num/2;
     } else 
     	points = points + num;
@@ -334,9 +354,7 @@
 
 	  	$.get("/api/update/", data, function(data){
 	  		// Show that end-of-level modal
-	  		$('.modal#level-over').fadeIn();
-	  		// Update player score on this end
-	  		$('#points-counter').html(data);
+	  		$('.modal.end').html(data.html).fadeIn();
   		})
   		.fail(function(err) {
   		    alert( "error" + err );

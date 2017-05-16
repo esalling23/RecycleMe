@@ -54,6 +54,81 @@ body, html {
 	display: none;
 }
 
+
+
+
+
+.page-wrapper {
+	margin: 0 auto;
+
+}
+.page-wrapper, .game, .modal-group, .modal-wrap, .modal{
+	height: 100%;
+	width: 100%;
+	max-width: $tinder-width;
+}
+
+.section, .subsection {
+	display: none;
+	position: absolute;
+	margin-top:20px;
+	width: 100%;
+    max-width: 450px;
+
+	 &.ACTIVE {
+	 	display: block;
+	 }
+}
+
+// BUTTONS
+
+button.back {
+	position:absolute;
+	top: -55px;
+	color: $tinder-red;
+	border: 0px;
+	background: transparent;
+	box-shadow: none;
+
+	&.left {
+		left: 20px;
+	}
+
+	&.right {
+		right: 20px;
+	}
+
+}
+
+button.nav-bar {
+	color: $tinder-grey;
+	border: 0px;
+	background: transparent;
+	box-shadow: none;
+	position:absolute;
+	top: -55px;
+	&.left {
+		left: 20px;
+		text-align: left;
+	}
+	&.right {
+		text-align: right;
+		right: 20px;
+	}
+	&.left-mid {
+		left: 100px;
+		text-align: left;
+	}
+	&.right-mid {
+		text-align: right;
+		right: 100px;
+	}
+
+	&.lower {
+		top: -25px;
+	}
+}
+
 .tinder-btn {
 	background: $tinder-gradient;
 	color: white;
@@ -72,41 +147,22 @@ body, html {
 	transform: rotate(-35deg);
 }
 
-.ACTIVE {
-
-}
-
-.section, .subsection {
-	display: none;
-
-	 &.ACTIVE {
-	 	display: block;
-	 }
-}
-
-button.back {
-	position:absolute;
-	bottom: 0px;
-
-}
-
-.page-wrapper {
-	margin: 0 auto;
-
-}
-.page-wrapper, .game, .modal-group, .modal-wrap, .modal{
-	height: 100%;
-	width: 100%;
-	max-width: $tinder-width;
-}
+// NAVIGATION
 
 .app-header {
-	margin: 8px auto;
+	border-bottom: 0.5px solid $tinder-grey;
+	margin: 4px auto;
 
-	* {
-		display:inline;
+	h2 {
+		font-size: 24px;
+		color: $tinder-red;
+		margin-top:0px;
+		margin-bottom: 4px;
 	}
+
+
 }
+
 
 .header * {
 	display: inline;
@@ -120,6 +176,8 @@ button.back {
 	height: 100%;
 
 }
+
+// MODALS
 
 .modal-wrap {
 
@@ -272,8 +330,7 @@ section.tinderslide {
 	max-width:$tinder-width;
 
 	position: absolute;
-	bottom: 0px;
-	left: 0px;
+	bottom: 60px;
 	z-index: 2000;
 	width: 100%;
 	text-align: center;
@@ -324,5 +381,90 @@ section.tinderslide {
 			background-position: center;
 			background-repeat: no-repeat;
 		}
+	}
+}
+
+// PROFILE
+.section.profile {
+
+	.edit {
+		margin-top: 16px;
+	}
+
+	.grade {
+		border: 3px solid $tinder-white;
+		border-radius: 50%;
+		height: 100px;
+		width: 100px;
+		color: $tinder-white;
+		background-color: $tinder-red;
+		display: inline-block;
+		div {
+			font-size: 36px;
+		    padding-top: 16px;
+		    display: block;
+		    line-height: 1;
+		}
+
+		button {
+			padding:0px;
+		    font-size: 18px;
+		    font-weight: bolder;
+		    padding-top: 24px;
+			background-color: transparent;
+			color: $tinder-white;
+			border: 0px;
+			box-shadow: none;
+		}
+
+	}
+
+}
+
+.section.leaderboard {
+
+	.leader-nav {
+		.btn {
+			color: $tinder-grey;
+			border: 0px;
+			background: transparent;
+			box-shadow: none;
+
+			&.active {
+				color: $tinder-black;
+			}
+		}
+	}
+
+	.board {
+		// width: 
+		ul {
+			padding: 0px;
+			text-align: left;
+		    width: 250px;
+		    margin: 0 auto;
+		}
+		li {
+			list-style-type: none;
+			* {
+				display: inline-block;
+			}
+
+			div {
+				text-align: center;
+			}
+		}
+
+
+	}
+
+	.points {
+		border: 2px solid $tinder-white;
+		border-radius: 50%;
+		height: 40px;
+		width: 40px;
+		line-height: 40px;
+		color: $tinder-white;
+		background-color: $tinder-red;
 	}
 }

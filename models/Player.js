@@ -77,6 +77,7 @@ Player.schema.statics.removeResourceRef = function(resourceId, callback) {
 
 };
 
+
 /**
  * Registration
  */

@@ -20,8 +20,6 @@ exports.get = function(req, res) {
 
             data.player = result;
 
-            console.log(data);
-
             Templates.Load('/partials/profile', data, function(html) {
 
                 res.send(html);
@@ -32,4 +30,25 @@ exports.get = function(req, res) {
     });
 
     
+};
+
+exports.update = function(req, res) {
+
+    console.log(req, res)
+
+    Team.model.findOne({ name: req.query.team }).exec((err, result) => {
+
+        var team = result._id;
+
+        Player.model.findOne({ _id: req.query.player }).populate('team').exec((err, result) => {
+
+            result.team = team;
+            result.save();
+
+            console.log(result, "wow");
+
+            res.send('success')
+        });
+    });
+
 };

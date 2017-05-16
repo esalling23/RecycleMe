@@ -34,6 +34,57 @@ body, html {
 .hide {
   display: none; }
 
+.page-wrapper {
+  margin: 0 auto; }
+
+.page-wrapper, .game, .modal-group, .modal-wrap, .modal {
+  height: 100%;
+  width: 100%;
+  max-width: 450px; }
+
+.section, .subsection {
+  display: none;
+  position: absolute;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 450px; }
+  .section.ACTIVE, .subsection.ACTIVE {
+    display: block; }
+
+button.back {
+  position: absolute;
+  top: -55px;
+  color: #ff6a6a;
+  border: 0px;
+  background: transparent;
+  box-shadow: none; }
+  button.back.left {
+    left: 20px; }
+  button.back.right {
+    right: 20px; }
+
+button.nav-bar {
+  color: #CECAC1;
+  border: 0px;
+  background: transparent;
+  box-shadow: none;
+  position: absolute;
+  top: -55px; }
+  button.nav-bar.left {
+    left: 20px;
+    text-align: left; }
+  button.nav-bar.right {
+    text-align: right;
+    right: 20px; }
+  button.nav-bar.left-mid {
+    left: 100px;
+    text-align: left; }
+  button.nav-bar.right-mid {
+    text-align: right;
+    right: 100px; }
+  button.nav-bar.lower {
+    top: -25px; }
+
 .tinder-btn {
   background: linear-gradient(216deg, #ff8a40, #fd5068, #dc4588);
   color: white; }
@@ -49,27 +100,14 @@ body, html {
 .left-slant {
   transform: rotate(-35deg); }
 
-.section, .subsection {
-  display: none; }
-  .section.ACTIVE, .subsection.ACTIVE {
-    display: block; }
-
-button.back {
-  position: absolute;
-  bottom: 0px; }
-
-.page-wrapper {
-  margin: 0 auto; }
-
-.page-wrapper, .game, .modal-group, .modal-wrap, .modal {
-  height: 100%;
-  width: 100%;
-  max-width: 450px; }
-
 .app-header {
-  margin: 8px auto; }
-  .app-header * {
-    display: inline; }
+  border-bottom: 0.5px solid #CECAC1;
+  margin: 4px auto; }
+  .app-header h2 {
+    font-size: 24px;
+    color: #ff6a6a;
+    margin-top: 0px;
+    margin-bottom: 4px; }
 
 .header * {
   display: inline; }
@@ -188,8 +226,7 @@ section.tinderslide {
 .buttons {
   max-width: 450px;
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 60px;
   z-index: 2000;
   width: 100%;
   text-align: center; }
@@ -229,3 +266,59 @@ section.tinderslide {
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat; }
+
+.section.profile .edit {
+  margin-top: 16px; }
+
+.section.profile .grade {
+  border: 3px solid #fff;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  color: #fff;
+  background-color: #ff6a6a;
+  display: inline-block; }
+  .section.profile .grade div {
+    font-size: 36px;
+    padding-top: 16px;
+    display: block;
+    line-height: 1; }
+  .section.profile .grade button {
+    padding: 0px;
+    font-size: 18px;
+    font-weight: bolder;
+    padding-top: 24px;
+    background-color: transparent;
+    color: #fff;
+    border: 0px;
+    box-shadow: none; }
+
+.section.leaderboard .leader-nav .btn {
+  color: #CECAC1;
+  border: 0px;
+  background: transparent;
+  box-shadow: none; }
+  .section.leaderboard .leader-nav .btn.active {
+    color: #343434; }
+
+.section.leaderboard .board ul {
+  padding: 0px;
+  text-align: left;
+  width: 250px;
+  margin: 0 auto; }
+
+.section.leaderboard .board li {
+  list-style-type: none; }
+  .section.leaderboard .board li * {
+    display: inline-block; }
+  .section.leaderboard .board li div {
+    text-align: center; }
+
+.section.leaderboard .points {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  color: #fff;
+  background-color: #ff6a6a; }

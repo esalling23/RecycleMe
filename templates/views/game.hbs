@@ -24,11 +24,10 @@
 
 		<h3>So far you have {{score}} leaderboard points!</h3>
 
-		<button class="btn" id="btn-leader" data-section="leaderboard">Leaderboard</button>
-		<button class="btn" id="btn-profile" data-section="profile">Your Profile</button>
+		<button class="btn nav-bar left" id="btn-profile" data-section="profile">Profile</button>
 
 		{{!-- <button class="btn" id="btn-how-to"  data-section="how-to">How to Play</button> --}}
-		<button class="btn" id="btn-play" data-section="game">PLAY</button>
+		<button class="btn nav-bar right" id="btn-play" data-section="game">Play</button>
 
 	{{/ifeq}}
 
@@ -50,6 +49,8 @@
 
 	<div class="level-group">
 
+	<button class="btn nav-bar right" id="btn-leader" data-section="leaderboard">Leaderboard</button>
+
 		<button data-level="1">{{#if player.levelOne}}replay {{/if}}level one</button>
 		<button data-level="2" {{#if player.levelOne}}{{else}}disabled{{/if}}>{{#if player.levelTwo}}replay {{else}}level two{{/if}}</button>
 		<button data-level="3" {{#if player.levelTwo}}{{else}}disabled{{/if}}>{{#if player.levelThree}}replay {{else}}level three{{/if}}</button>
@@ -60,7 +61,7 @@
 
 		{{/ifeq}}
 
-		<button class="back" data-section="home">back</button>
+		<button class="back nav-bar left" data-section="home">back</button>
 
 	</div>
 
@@ -69,10 +70,10 @@
 		<div id="points-counter">0</div>
 	</div>
 	
-	<section class="row level tinderslide" data-level="1" data-tries="{{triesOne}}" {{#if gradeOne}}data-grade="{{gradeOne}}"{{/if}} style="display:none">
+	<section class="row level tinderslide" data-level="1" {{#if triesOne}}data-tries="{{triesOne}}"{{/if}} {{#if gradeOne}}data-max="{{findMaxGrade gradeOne (lengthGroup items 'level' 'One')}}"{{/if}} style="display:none">
 
 		<ul style="height:100%;">
-			{{#each items}}
+			{{#each (shuffle items)}}
 				{{#ifeq this.level 'One'}}
 					{{> item this}}
 				{{/ifeq}}
@@ -90,10 +91,10 @@
 
 	</section>
 
-	<section class="row level tinderslide" data-level="2" data-tries="{{triesTwo}}" {{#if gradeTwo}}data-grade="{{gradeTwo}}"{{/if}} style="display:none">
+	<section class="row level tinderslide" data-level="2" data-tries="{{triesTwo}}" {{#if gradeTwo}}data-max="{{findMaxGrade gradeTwo (lengthGroup items this.level 'Two')}}"{{/if}} style="display:none">
 		
 		<ul style="height:100%;">
-			{{#each items}}
+			{{#each (shuffle items)}}
 				{{#ifeq this.level 'Two'}}
 					{{> item this}}
 				{{/ifeq}}
@@ -111,10 +112,10 @@
 
 	</section>
 
-	<section class="row level tinderslide" data-level="3" data-tries="{{triesThree}}" {{#if gradeThree}}data-grade="{{gradeThree}}"{{/if}} style="display:none">
+	<section class="row level tinderslide" data-level="3" data-tries="{{triesThree}}" {{#if gradeThree}}data-max="{{findMaxGrade gradeThree}}"{{/if}} style="display:none">
 	
 		<ul style="height:100%;">
-			{{#each items}}
+			{{#each (shuffle items)}}
 				{{#ifeq this.level 'Three'}}
 					{{> item this}}
 				{{/ifeq}}
@@ -149,12 +150,16 @@
 		</div>
 
 	</div>
+
+	<div class="modal end">
+
+	</div>
 		
 	<div class="buttons" style="display:none">
-		<input id="special" disabled="true" class="small submit" type="submit" name="submit" value="">
+		<input id="special" {{!-- disabled="false"  --}}class="small submit" type="submit" name="submit" value="">
 		<input id="trash" data-keep_enabled="true" data-event="item:trash" class="large submit" type="submit" name="submit" value="">
 		<input id="recycle" data-keep_enabled="true" data-event="item:recycle" class="large submit" type="submit" name="submit" value="">
-		<input id="compost" disabled="true" data-keep_enabled="true" data-event="item:compost" class="small submit" type="submit" name="submit" value="">
+		<input id="compost"{{!--  disabled="false" --}} data-keep_enabled="true" data-event="item:compost" class="small submit" type="submit" name="submit" value="">
 	</div>
 
 </div> {{!-- .game --}}
