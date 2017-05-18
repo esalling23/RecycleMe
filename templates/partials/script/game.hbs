@@ -29,7 +29,6 @@
       UpdateScore(1);
       ShowMatch(item, true);
     } else {
-      UpdateScore(-1);
       ShowMatch(item, false);
       console.log ('WRONG - dis something ELSe');
     }
@@ -42,7 +41,6 @@
       console.log('CORRECT - dis trash');
       UpdateScore(1);
     } else {
-      UpdateScore(-1);
       ShowMatch(item, false);
       console.log ('WRONG - dis recyclable');
     }
@@ -56,7 +54,6 @@
       console.log('CORRECT - dis recyclable');
 
     } else {
-      UpdateScore(-1);
       ShowMatch(item, false);
       console.log ('WRONG - dis trash');
     }
@@ -71,7 +68,6 @@
       console.log('CORRECT - dis compost');
 
     } else {
-      UpdateScore(-1);
       ShowMatch(item, false);
       console.log ('WRONG - dis something ELSe');
     }
@@ -355,6 +351,7 @@
 	  	$.get("/api/update/", data, function(data){
 	  		// Show that end-of-level modal
 	  		$('.modal.end').html(data.html).fadeIn();
+
   		})
   		.fail(function(err) {
   		    alert( "error" + err );

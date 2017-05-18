@@ -21,16 +21,17 @@ exports.update = function(req, res) {
     };
 
     var grader = function(score, total) {
+        var ratio = score/total;
         // Turn that grade into a letter!
-        if (score/total >= 0.9) {
+        if (ratio >= 0.9) {
             grade = 'A';
-        } else if (score/total >= 0.8) {
+        } else if (ratio >= 0.8) {
             grade = 'B';
-        } else if (score/total >= 0.7) {
+        } else if (ratio >= 0.7) {
             grade = 'C';
-        } else if (score/total >= 0.5) {
+        } else if (ratio >= 0.5) {
             grade = 'D';
-        } else if (score/total >= 0.0) {
+        } else if (ratio >= 0.0) {
             grade = 'F';
         }
 
@@ -59,11 +60,11 @@ exports.update = function(req, res) {
                 // If the player passed...
                 if (grade == 'A' || grade == 'B' || grade == 'C') {
                     if (!player.gradeOne){
-                        player.gradeOne = score * 100;
-                        player.gradeOneCap = score * 100;
+                        player.gradeOne = ratio * 100;
+                        player.gradeOneCap = ratio * 100;
                         player.levelOne = true;
                     } else 
-                        player.gradeOneCap = score * 100;
+                        player.gradeOneCap = ratio * 100;
                 }
 
             } else if (level == 2) {
@@ -93,11 +94,11 @@ exports.update = function(req, res) {
                 // If the player passed...
                 if (grade == 'A' || grade == 'B' || grade == 'C') {
                     if (!player.gradeThree) {
-                        player.gradeThree = score * 100;
-                        player.gradeThreeCap = score * 100;
+                        player.gradeThree = ratio * 100;
+                        player.gradeThreeCap = ratio * 100;
                         player.levelThree = true;
                     } else 
-                        player.gradeThreeCap = score * 100;
+                        player.gradeThreeCap = ratio * 100;
                 }
 
             }
