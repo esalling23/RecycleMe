@@ -7,21 +7,26 @@ exports.get = function(req, res) {
 	var locals = res.locals;
 	var query = Player.model.findOne({email:req.query.email});	
 
-	query.exec(function (err, player) {
+	query.exec((err, player) => {
 
 	    if (err || !player) return res.json({ msg: "we have not found your profile" });
 
-	    var data = player.id;
+	    var data = {};
+	    data.player = player.id;
 
-	    player._.password.compare(req.query.password, function(err, result){
+	    player._.password.compare(req.query.password, (err, result) => {
 
 			if (result) {
 
-				// if (result.new == true && result.login == false) 
-				// 	result.login = true;
-				// if (result.login == true)
+				if (!player.login)
+					player.login = true;
 
-		  		res.send('/profile/' + data);
+				if (player.new)
+					data.new = true;
+
+				player.save();
+
+		  		res.send('/profile/' + data.player);
 			    
 			} else {
 
@@ -29,7 +34,8 @@ exports.get = function(req, res) {
 
 			  	return res.json({
 			        success: false,
-			        msg: 'Sorry, wrong password'
+			        msg: 'Sorry, wrong password', 
+			        player: player
 			    });
 			  	
 			}

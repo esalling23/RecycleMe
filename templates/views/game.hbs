@@ -70,7 +70,7 @@
 		<div id="points-counter">0</div>
 	</div>
 	
-	<section class="row level tinderslide" data-level="1" {{#if triesOne}}data-tries="{{triesOne}}"{{/if}} {{#if gradeOne}}data-max="{{findMaxGrade gradeOne (lengthGroup items 'level' 'One')}}"{{/if}} style="display:none">
+	<section class="row level tinderslide" data-level="1" {{#if triesOne}}data-tries="{{triesOne}}"{{/if}} {{#if gradeOneCap}}data-max="{{gradeOneCap}}"{{/if}} style="display:none">
 
 		<ul style="height:100%;">
 			{{#each (shuffle items)}}
@@ -91,7 +91,7 @@
 
 	</section>
 
-	<section class="row level tinderslide" data-level="2" data-tries="{{triesTwo}}" {{#if gradeTwo}}data-max="{{findMaxGrade gradeTwo (lengthGroup items this.level 'Two')}}"{{/if}} style="display:none">
+	<section class="row level tinderslide" data-level="2" data-tries="{{triesTwo}}" {{#if gradeTwoCap}}data-max="{{gradeTwoCap}}"{{/if}} style="display:none">
 		
 		<ul style="height:100%;">
 			{{#each (shuffle items)}}
@@ -112,7 +112,7 @@
 
 	</section>
 
-	<section class="row level tinderslide" data-level="3" data-tries="{{triesThree}}" {{#if gradeThree}}data-max="{{findMaxGrade gradeThree}}"{{/if}} style="display:none">
+	<section class="row level tinderslide" data-level="3" data-tries="{{triesThree}}" {{#if gradeThreeCap}}data-max="{{gradeThreeCap}}"{{/if}} style="display:none">
 	
 		<ul style="height:100%;">
 			{{#each (shuffle items)}}
@@ -153,7 +153,7 @@
 
 	<div class="modal end">
 
-	</div>
+	</div>	
 		
 	<div class="buttons" style="display:none">
 		<input id="special" {{!-- disabled="false"  --}}class="small submit" type="submit" name="submit" value="">
