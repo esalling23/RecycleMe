@@ -14,7 +14,7 @@
 var keystone = require('keystone'),
     Player = keystone.list('Player'),
     Item = keystone.list('Item'),
-    Material = keystone.list('Material'),
+    Team = keystone.list('Team'),
     SpecialOption = keystone.list('SpecialOption'),
     Game = keystone.list('Game'),
     _ = require('underscore');
@@ -82,10 +82,13 @@ exports = module.exports = function(req, res) {
 
                             });
 
-                            locals.teams = _.sortBy(data.teams, '-score');
+                            locals.leaderTeams = _.sortBy(data.teams, '-score');
 
+                            Team.model.find({}).exec(function(err, team){
+                                locals.teams = team;
 
-                            next(); 
+                                next(); 
+                            });
 
                         });
 

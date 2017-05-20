@@ -34,15 +34,19 @@ exports.get = function(req, res) {
 
 exports.update = function(req, res) {
 
-    console.log(req, res)
+    console.log(req, res);
 
-    Team.model.findOne({ name: req.query.team }).exec((err, result) => {
+    Team.model.findOne({ _id: req.query.team }).exec((err, result) => {
 
         var team = result._id;
 
         Player.model.findOne({ _id: req.query.player }).populate('team').exec((err, result) => {
 
             result.team = team;
+
+            if (req.query.username)
+                result.username = req.query.username;
+
             result.save();
 
             console.log(result, "wow");

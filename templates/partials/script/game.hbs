@@ -205,49 +205,87 @@
     });
 
   });
+  
 
-  // $('button[data-back]').on('click', function() {
-  //   $('.section.ACTIVE').hide().toggleClass('ACTIVE');
-  //   $('.section.' + $(this).data('back')).fadeIn().toggleClass('ACTIVE');
-  // });
+  function StartLevel(num) {
+   // enable/disable buttons
+    if (num == 2) {
+      $('#compost').attr('disabled', false);
+    } else if (num == 3) {
+      $('#compost').attr('disabled', false);
+      $('#special').attr('disabled', false);
+    }
 
-  // $('#btn-play').on('click', function(){
-  //   $('.section.ACTIVE').hide().toggleClass('ACTIVE');
-  //   $('.section.game').fadeIn().toggleClass('ACTIVE');
-  // });
+  	// Fade in the game, out the profile
+  	$('.level-group').fadeOut(function(){
+      $('.buttons').show();
+      $('.level.header').show();
+  		// Fade in the level
+  		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
+  			$('.ACTIVE').removeClass('ACTIVE');
+  			$(this).addClass('ACTIVE');
 
-  // $('#btn-profile').on('click', function(){
-  //   var data = window.location.pathname.replace('/profile/','');
-    
-  //   $.get("/api/profile/", data, function(data){
-  //     console.log(data);
-  //     $('.profile').html(data);
-  //     $('.ACTIVE').hide(function(){
-  //       $('.profile').fadeIn(function(){
-  //         $('.ACTIVE').toggleClass('ACTIVE');
-  //         $(this).toggleClass('ACTIVE');
-  //       });
-  //     });
-  //   });
-  //   // To do: alert user and ask if they are sure
-  // });
+        if ($(this).data('grade') >= 70) {
+          pointlimit = $('.level.ACTIVE').data('grade');
+          console.log(pointlimit);
+        }
 
+  		});
+  	});
+
+  }
+
+  function UpdateScore(num) {
+  	var end = false;
+
+    if (points >= $('.level.ACTIVE').data('max')){
+      points = points + num/2;
+    } else 
+    	points = points + num;
+
+    // Update player score
+    $('#points-counter').html(points);
+
+  	// Check if this is the last card in the stack - end the level
+  	if ($('.level.ACTIVE .item:not(.gone)').length == 0){
+  		end = true;
+  	}
+
+  	if (end == true) {
+	  	// Send player data
+	  	var data = {};
+			data.id = "{{playerId}}";
+			data.score = points, 
+			data.level = $('.level.ACTIVE').data('level');
+
+	  	$.get("/api/game/", data, function(data){
+	  		// Show that end-of-level modal
+	  		$('.modal.end').html(data.html).fadeIn();
+  		})
+  		.fail(function(err) {
+  		    alert( "error" + err );
+  		});
+
+  	} 
+
+  }
+
+  // Profile 
   $('#btn-save-profile').on('click', function() {
     var data = {
       player: '{{playerId}}', 
-      team: $('.team-select:selected').attr('value')
+      team: $('.team-select:selected').attr('id'),
+      username: $('.edit #username').value
     };
 
-    $.get("/api/team/", data, function(data){
+    $.get("/api/update/", data, function(data){
       // Notify success
-      $('.save-msg').text('Nice! Saved.');
+      $('.save-msg').text('Nice! Saved.').fadeIn();
     })
     .fail(function(err) {
         alert( "error" + err );
-    })
-    .always(function(err){
-      alert('done')
     });
+
   });
 
   $('[data-section]').on('click', function(){
@@ -293,75 +331,4 @@
     $('.modal-wrap.match.open').fadeOut().removeClass('open');
     $('.modal-group').hide();
   });
-
-  function StartLevel(num) {
-   // enable/disable buttons
-    if (num == 2) {
-      $('#compost').attr('disabled', false);
-    } else if (num == 3) {
-      $('#compost').attr('disabled', false);
-      $('#special').attr('disabled', false);
-    }
-
-  	// Fade in the game, out the profile
-  	$('.level-group').fadeOut(function(){
-      $('.buttons').show();
-      $('.level.header').show();
-  		// Fade in the level
-  		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
-  			$('.ACTIVE').removeClass('ACTIVE');
-  			$(this).addClass('ACTIVE');
-
-        if ($(this).data('grade') >= 70) {
-          pointlimit = $('.level.ACTIVE').data('grade');
-          console.log(pointlimit);
-        }
-
-  		});
-  	});
-
-  }
-
-  function UpdateScore(num) {
-  	var end = false;
-
-    if (points >= $('.level.ACTIVE').data('max')){
-      points = points + num/2;
-    } else 
-    	points = points + num;
-
-    console.log(points);
-
-  	// Check if this is the last card in the stack - end the level
-  	if ($('.level.ACTIVE .item:not(.gone)').length == 0){
-  		console.log('this is the end')
-  		end = true;
-  	}
-
-  	if (end == true) {
-      // console.log($('.level.ACTIVE .item.gone').length);
-  		var grade = points/$('.level.ACTIVE .item.gone').length;
-	  	// Send player data
-	  	var data = {};
-			data.id = "{{playerId}}";
-			data.score = points, 
-			data.grade = grade,
-			data.level = $('.level.ACTIVE').data('level');
-			console.log(data);
-
-	  	$.get("/api/update/", data, function(data){
-	  		// Show that end-of-level modal
-	  		$('.modal.end').html(data.html).fadeIn();
-
-  		})
-  		.fail(function(err) {
-  		    alert( "error" + err );
-  		});
-
-  	} else {
-  		// Update player score
-  		$('#points-counter').html(points);
-  	}
-
-  }
 

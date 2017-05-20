@@ -15,6 +15,7 @@ var Player = new keystone.List('Player', {
 
 Player.add({
 	name: { type: Types.Name, required: true, index: true },
+	username: { type: String, label: 'Username', note: 'If exists, used instead of name'},
 	email: { type: Types.Email, initial: true, required: true, index: true },
 	password: { type: Types.Password, initial: true, required: true }, 
 	admin: { type: Boolean, label: 'Admin', note: 'For player creation login'}

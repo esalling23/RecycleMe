@@ -49,23 +49,23 @@
 
 	</div>
 
-	{{!-- <div class="edit">
+	<div class="edit">
 
 		<input type="text" placeholder="optional username" id="username">
-		<input type="checkbox" name="username" value="Username"> Hide real name from leaderboard<br>
+		<p>Hide your real name from the leaderboard with a username!</p>
 
 		<select>
 			<option class="team-select" value="Choose a team" {{#if player.team}}{{else}}selected{{/if}}>Select Team</option>
 			{{#each teams}}
-			<option class="team-select" value="{{this.team}}" {{#ifeq this.team player.team.name}}selected{{/ifeq}}>{{this.team}}</option>
+			<option class="team-select" id="{{this._id}}" value="{{this.name}}" {{#ifeq this.name player.team.name}}selected{{/ifeq}}>{{this.name}}</option>
 			{{/each}}
 		</select>
 
-		<button class="btn" id="btn-save-profile">Save</button>
+		<button class="btn minimal" id="btn-save-profile">Save</button>
 
 		<div class="save-msg" style="display: none;"></div>
 
-	</div> --}}
+	</div>
 
 	<button class="back nav-bar left" data-section="home">back</button>
 
