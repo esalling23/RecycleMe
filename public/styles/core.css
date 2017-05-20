@@ -276,6 +276,9 @@ section.tinderslide {
 .section.profile .edit {
   margin-top: 16px; }
 
+.section.profile .col-sm-4 {
+  margin-top: 40px; }
+
 .section.profile .grade {
   border: 3px solid #fff;
   border-radius: 50%;
@@ -293,11 +296,19 @@ section.tinderslide {
     padding: 0px;
     font-size: 18px;
     font-weight: bolder;
-    padding-top: 24px;
     background-color: transparent;
     color: #fff;
     border: 0px;
-    box-shadow: none; }
+    box-shadow: none;
+    word-break: break-word;
+    word-wrap: break-word;
+    white-space: pre-wrap; }
+    .section.profile .grade button.grade-empty {
+      padding-top: 20px;
+      font-size: 14px; }
+    .section.profile .grade button.play {
+      padding-top: 24px;
+      font-size: 18px; }
 
 .section.leaderboard .leader-nav .btn {
   color: #CECAC1;

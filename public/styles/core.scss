@@ -399,6 +399,11 @@ section.tinderslide {
 		margin-top: 16px;
 	}
 
+	.col-sm-4 {
+		margin-top: 40px;
+
+	}
+
 	.grade {
 		border: 3px solid $tinder-white;
 		border-radius: 50%;
@@ -412,17 +417,34 @@ section.tinderslide {
 		    padding-top: 16px;
 		    display: block;
 		    line-height: 1;
+
 		}
 
 		button {
 			padding:0px;
 		    font-size: 18px;
 		    font-weight: bolder;
-		    padding-top: 24px;
 			background-color: transparent;
 			color: $tinder-white;
 			border: 0px;
 			box-shadow: none;
+		    word-break: break-word;
+		    word-wrap: break-word;
+		    white-space: pre-wrap;
+
+			&.replay {
+
+			}
+
+			&.grade-empty {
+				padding-top: 20px;
+				font-size: 14px;
+			}
+
+			&.play {
+				padding-top: 24px;
+				font-size: 18px;
+			}
 		}
 
 	}

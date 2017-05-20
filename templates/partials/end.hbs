@@ -1,29 +1,27 @@
 <div class="modal-wrap match end">
 	<div class="modal-inner match end">
 
-	{{{jsonPrint this}}}
-
 		{{#if passed}}
-		Congratulations! You've passed this level with a {{grade}}!
+		<h3>Congratulations! You've passed this level with a {{grade}}!</h3>
 
-		If you want to replay, you can get 1/2 points after your score of {{score}} out of the {{total}} items in this level.
+		<p>If you want to replay, you can get 1/2 points after your score of {{score}} out of the {{total}} items in this level.</p>
 
-		<button id="replay-btn">replay</button> 
+		<button class="minimal btn" id="replay-btn">replay</button> 
 
-		Or, you can move on to the next level! 
+		<p>Or, you can move on to the next level! </p>
 
-		<button data-level="{{next}}" id="next-lvl">next level</button>
+		<button class="minimal btn" data-level="{{next}}" id="next-lvl">next level</button>
 
 		{{else}}
-		Uh oh! Your score was too low to pass this level...
+		<h3>Uh oh! Your score was too low to pass this level...</h3>
 
-		You only got {{score}} out of {{total}} items. But no worries - you can replay as much as you want to get a passing score!
+		<p>You only got {{score}} out of {{total}} items. But no worries - you can replay as much as you want to get a passing score!</p>
 
-		<button id="replay-btn">replay</button>
+		<button class="minimal btn" id="replay-btn">replay</button>
 
 		{{/if}}
 
-		<input id="back-btn" data-keep_enabled="true" class="submit minimal btn" type="submit" name="submit" value="back to menu">
+		<input href="window.location" id="back-btn" data-keep_enabled="true" class="submit minimal btn" type="submit" name="submit" value="back to menu">
 
 
 	</div>
