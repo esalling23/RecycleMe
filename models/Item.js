@@ -36,7 +36,7 @@ Item.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
 	info: { type: Types.Markdown, label: 'Item Bio', note: 'Appears BEFORE player swipes item'},
-	image: { type: Types.CloudinaryImage, label: 'Item Image'},
+	image: { type: Types.CloudinaryImage, label: 'Item Image', folder: 'RecycleMe', autocleanup: true },
 	material: {
 		type: Types.Relationship, 
 		ref: 'Material', 

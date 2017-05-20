@@ -22,7 +22,7 @@ Player.add({
 	new: { type: Boolean, label: 'New Player?', default: true },
 	login: { type: Boolean, label: 'Have they logged in?', default: false },
 
-	leader: { type: Number, label: 'Leaderboard Points' }, 
+	leader: { type: Number, label: 'Leaderboard Points'}, 
 	team: { 
 		type: Types.Relationship, 
 		ref: 'Team', 
@@ -32,23 +32,23 @@ Player.add({
 	completed: { type: Boolean, label: 'Game Completed?' },
 
 	levelOne: { type: Boolean, label: 'Level One Completed?', note: 'Based on score of 70% or higher', noedit: true },
-	pointsOne: { type: Number, label: 'Level One Points', noedit: false, default: 0 },
+	pointsOne: { type: Number, label: 'Level One Points (#)', noedit: false, default: 0 },
+	pointsOneCap: { type: Number, label: 'Level One Grade Cap (#)', noedit:false, default: 0 },
 	gradeOne: { type: Number, label: 'Level One Grade (% out of total)', noedit:false, default: 0 }, 
-	gradeOneCap: { type: Number, label: 'Level One Grade Cap (%)', noedit:true, default: 0 },
 	triesOne: { type: Number, label: 'Number of Times Played This Level', noedit:true }, 
 	lastTryOne: { type: Date, noedit: true },
 
 	levelTwo: { type: Boolean, label: 'Level Two Completed?', note: 'Based on score of 70% or higher', noedit: true }, 
-	pointsTwo: { type: Number, label: 'Level One Points ', noedit: false, default: 0 },
+	pointsTwo: { type: Number, label: 'Level One Points (#)', noedit: false, default: 0 },
+	pointsTwoCap: { type: Number, label: 'Level Two Grade Cap (#)', noedit:true, default: 0 },
 	gradeTwo: { type: Number, label: 'Level Two Grade (% out of total)', noedit:false, default: 0 },
-	gradeTwoCap: { type: Number, label: 'Level Two Grade Cap (%)', noedit:true, default: 0 },
 	triesTwo: { type: Number, label: 'Number of Times Played This Level', noedit:true },
 	lastTryTwo: { type: Date, noedit: true },
 
 	levelThree: { type: Boolean, label: 'Level Three Completed?', note: 'Based on score of 70% or higher', noedit: true }, 
-	pointsThree: { type: Number, label: 'Level One Points', noedit: false, default: 0 },
+	pointsThree: { type: Number, label: 'Level One Points (#)', noedit: false, default: 0 },
+	pointsThreeCap: { type: Number, label: 'Level Three Grade Cap (#)', noedit:true, default: 0 },
 	gradeThree: { type: Number, label: 'Level Three Grade (% out of total)', noedit:false, default: 0 }, 
-	gradeThreeCap: { type: Number, label: 'Level Three Grade Cap (%)', noedit:true, default: 0 },
 	triesThree: { type: Number, label: 'Number of Times Played This Level', noedit:true },
 	lastTryThree: { type: Date, noedit: true }
 	

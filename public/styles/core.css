@@ -89,13 +89,14 @@ button.nav-bar {
   background: linear-gradient(216deg, #ff8a40, #fd5068, #dc4588);
   color: white; }
 
-.minimal-btn {
+.minimal {
   border: 2px solid #ff6a6a;
   border-radius: 2%;
   display: inline;
-  padding: 2px;
+  padding: 0px 4px;
   margin: 4px;
-  color: #ff6a6a; }
+  color: #ff6a6a;
+  background-color: transparent; }
 
 .left-slant {
   transform: rotate(-35deg); }
@@ -118,8 +119,13 @@ button.nav-bar {
   width: 100%;
   height: 100%; }
 
-.modal-wrap {
+.modal {
   position: absolute;
+  left: auto;
+  right: auto; }
+
+.modal-wrap {
+  position: fixed;
   top: 0px;
   z-index: 10000; }
 

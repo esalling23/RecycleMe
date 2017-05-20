@@ -4,12 +4,10 @@
 
   function ShowMatch(item, match) {
 
-    console.log(item);
-
     var modalId = $(item).find('.item-pane').attr('id');
 
     if (match) {
-      $('.modal-wrap.match#' + modalId + ' .message').text('Its a Match!');
+      $('.modal-wrap.match#' + modalId + ' .message').text('It\'s a Match!');
 
     } else {
       $('.modal-wrap.match#' + modalId + ' .message').text('Not Quite!');
@@ -188,21 +186,21 @@
 
     $(this).find('.btn-close').on('click', function(event){
 
-        event.preventDefault();
-        event.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
 
-        $(this).closest('.item.open').css('z-index', '1000');
+      $(this).closest('.item.open').css('z-index', '1000');
 
-        $(this).closest('.item.open').animate({
-          'height':'100%',
-          'bottom':'0px',
-          'max-height': slideheight,
-          'top':'0px'
-        }, 200, function(){
-          $(this).removeClass('open');
-          $(this).find('.item-bio').hide();
-          $(this).find('.btn-close').css('visibility', 'hidden');
-        });
+      $(this).closest('.item.open').animate({
+        'height':'100%',
+        'bottom':'0px',
+        'max-height': slideheight,
+        'top':'0px'
+      }, 200, function(){
+        $(this).removeClass('open');
+        $(this).find('.item-bio').hide();
+        $(this).find('.btn-close').css('visibility', 'hidden');
+      });
 
     });
 
@@ -297,19 +295,20 @@
   });
 
   function StartLevel(num) {
-    // enable/disable buttons
-    // if (num == 2) {
-    //   $('#compost').attr('disabled', false);
-    // } else if (num == 3) {
-    //   $('#compost').attr('disabled', false);
-    //   $('#special').attr('disabled', false);
-    // }
+   // enable/disable buttons
+    if (num == 2) {
+      $('#compost').attr('disabled', false);
+    } else if (num == 3) {
+      $('#compost').attr('disabled', false);
+      $('#special').attr('disabled', false);
+    }
 
   	// Fade in the game, out the profile
   	$('.level-group').fadeOut(function(){
+      $('.buttons').show();
+      $('.level.header').show();
   		// Fade in the level
   		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
-        $('.buttons').show();
   			$('.ACTIVE').removeClass('ACTIVE');
   			$(this).addClass('ACTIVE');
 
@@ -326,10 +325,12 @@
   function UpdateScore(num) {
   	var end = false;
 
-    if (points == $('.level.ACTIVE').data('max')){
+    if (points >= $('.level.ACTIVE').data('max')){
       points = points + num/2;
     } else 
     	points = points + num;
+
+    console.log(points);
 
   	// Check if this is the last card in the stack - end the level
   	if ($('.level.ACTIVE .item:not(.gone)').length == 0){

@@ -39,7 +39,7 @@ $(document).ready(function() {
 	
 	var setAbsolutes = function(absolutes) {
 
-		var length = absolutes.length
+		var length = absolutes.length - 1;
 
 		if (length == 0) {
 			// Call finish function after xxx milaseconds
@@ -50,17 +50,14 @@ $(document).ready(function() {
 
 		_.each(absolutes, function(item, ind) {
 
-			console.log(item)
-
 			var position = {};
 
-			console.log($(item).css('left'), $(item).css('right'))
-
 			// Check current positions
-			if ($(item).css('left') !== undefined && $(item).css('left') !== null && $(item).css('left') !== 'auto' && $(item).css('left'))
+			if ($(item).css('left') !== undefined && $(item).css('left') !== null && $(item).css('left') !== 'auto' && $(item).css('left')) {
 				position.left = $(item).css('left');
+			}
 
-			if ($(item).css('right') !== undefined &&$(item).css('right') !== null && $(item).css('right') !== 'auto' && $(item).css('right')){
+			if ($(item).css('right') !== undefined &&$(item).css('right') !== null && $(item).css('right') !== 'auto' && $(item).css('right')) {
 				position.right = $(item).css('right');
 			}
 
@@ -78,6 +75,7 @@ $(document).ready(function() {
 				// Call finish function after xxx milaseconds
 				var finish = _.debounce(finishResize, 500);
 				finish();
+
 			}
 
 		});
@@ -98,7 +96,7 @@ $(document).ready(function() {
 
 		// Get all absolutely-positioned elements
 		var outerAbsolutes = 
-		$('#wrapper :not(.tinderslide *, .buttons *, .nav-bar)')
+		$('#wrapper :not(.tinderslide *, .buttons, .nav-bar)')
 		.filter(function(){
 		  return ($(this).css('position') == 'absolute');
 		});

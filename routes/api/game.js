@@ -10,6 +10,7 @@ exports.update = function(req, res) {
 
     var grade = '', 
         ratio,
+        passed = false,
         level = req.query.level, 
         score = req.query.score, 
         locals = res.locals, 
@@ -22,9 +23,7 @@ exports.update = function(req, res) {
     };
 
     var grader = function(score, total) {
-        console.log(score, total);
         ratio = score/total;
-        console.log(ratio);
         // Turn that grade into a letter!
         if (ratio >= 0.9) {
             grade = 'A';
@@ -38,6 +37,8 @@ exports.update = function(req, res) {
             grade = 'F';
         }
 
+        console.log(grade);
+
         return grade;
     };
 
@@ -47,16 +48,13 @@ exports.update = function(req, res) {
 
             if (err) throw err;
 
-            var totalOne = groupByLevel(items, 'One').length;
-            var totalTwo = groupByLevel(items, 'Two').length;
-            var totalThree = groupByLevel(items, 'Three').length;
-            var passed;
-
             if (player.new)
                 player.new = false;
 
             // Check the level, then set the grade for that level
             if (level == 1) {
+
+                var total = groupByLevel(items, 'One').length;
 
                 player.lastTryOne = Date.now();
 
@@ -65,17 +63,19 @@ exports.update = function(req, res) {
                 else 
                     player.triesOne++;
 
-                grade = grader(score, totalOne);
+                grade = grader(score, total);
 
                 // If the player passed...
                 if (grade == 'A' || grade == 'B' || grade == 'C') {
 
+                    passed = true;
+
+                    score = parseInt(score);
                     player.pointsOne = score;
                     
                     if (!player.gradeOne || player.gradeOne == 0){
-                        console.log(ratio);
                         player.gradeOne = ratio * 100;
-                        player.gradeOneCap = (totalOne-score) + (totalOne/2);
+                        player.pointsOneCap = score;
                         player.levelOne = true;
                     } else {
                         player.gradeOne = ratio * 100;
@@ -85,12 +85,16 @@ exports.update = function(req, res) {
 
             } else if (level == 2) {
 
+                var total = groupByLevel(items, 'Two').length;
+
                 player.lastTryTwo = Date.now();
 
                 if (!player.triesTwo)
                     player.triesTwo = 1;
                 else 
                     player.triesTwo++;
+
+                grade = grader(score, total);
                 
                 // If the player passed...
                 if (grade == 'A' || grade == 'B' || grade == 'C') {
@@ -101,7 +105,7 @@ exports.update = function(req, res) {
 
                     if (!player.gradeTwo || player.gradeTwo == 0){
                         player.gradeTwo = score * 100;
-                        player.gradeTwoCap = (totalTwo - score) + (totalTwo/2);
+                        player.pointsTwoCap = score;
                         player.levelTwo = true; 
                     } else {
                         player.gradeTwo = ratio * 100;
@@ -111,6 +115,8 @@ exports.update = function(req, res) {
 
             } else if (level == 3) {
 
+                var totalThree = groupByLevel(items, 'Three').length;
+
                 player.lastTryThree = Date.now();
 
                 if (!player.triesThree)
@@ -118,14 +124,18 @@ exports.update = function(req, res) {
                 else 
                     player.triesThree++;
 
+                grade = grader(score, total);
+
                 // If the player passed...
                 if (grade == 'A' || grade == 'B' || grade == 'C') {
+
+                    passed = true;
 
                     player.pointsThree = score;
 
                     if (!player.gradeThree || player.gradeThree == 0) {
                         player.gradeThree = ratio * 100;
-                        player.gradeThreeCap = score + ((totalThree - score)/2);
+                        player.pointsThreeCap = score;
                         player.levelThree = true;
                     } else {
                         player.gradeThree = ratio * 100;
@@ -144,10 +154,13 @@ exports.update = function(req, res) {
 
             var data = {
                 player: player, 
-                passed: passed
+                passed: passed, 
+                score: score, 
+                total: total, 
+                grade: grade
             };
 
-            Templates.Load('/partials/end', data, function(html) {
+            Templates.Load('/partials/end', data, (html) => {
 
                 res.send({html:html, grade:ratio*100});
 
