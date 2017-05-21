@@ -90,13 +90,13 @@ $(document).ready(function() {
 		wrapperLeft = $('#wrapper').offset().left,
 		extraWindow = (windowsize - bodysize)/2, 
 
-		slideheight = ($(window).height()/4)*3;
+		slideheight = ($(window).height()/4)*2.5;
 
 		$('.item:not(.open)').height(slideheight);
 
 		// Get all absolutely-positioned elements
 		var outerAbsolutes = 
-		$('#wrapper :not(.tinderslide *, .buttons, .nav-bar)')
+		$('#wrapper :not(.tinderslide *, .buttons, .nav-bar, .alert *)')
 		.filter(function(){
 		  return ($(this).css('position') == 'absolute');
 		});

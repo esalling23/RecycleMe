@@ -1,7 +1,7 @@
 <li class="item {{status}} {{#if specialStatus}}{{specialStatus.key}}{{/if}} {{#if specialStatusOr}}{{specialStatusOr.key}}{{/if}}" style="background-image:url('{{{cloudinaryUrl image }}}')">
 	<div class="item-pane pane{{@index}}" id="{{item_key}}" >
 
-		<button class="btn-close" style="visibility:hidden">back</button>
+		<button class="btn-close minimal" style="visibility:hidden">back</button>
 
 		<div class="item-info">
 
@@ -9,9 +9,8 @@
 
 			<div class="item-bio" style="display:none">
 				{{{info.html}}}
-				<p><strong>Materials:</strong></p>
 				{{#each material}}
-					<div class="material minimal">{{name}}</div>
+				<div class="material minimal">{{name}}</div>
 				{{/each}}
 			</div>
 		</div>

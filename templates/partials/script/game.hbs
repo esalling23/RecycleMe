@@ -1,6 +1,13 @@
 	// GAME LOGIC
-	var levelItems;
-  var points = 0;
+	var levelItems,
+      points = 0, 
+      swipeAlertRight,
+      swipeAlertLeft,
+      buttonAlertRecycle,
+      buttonAlertTrash,
+      buttonAlertSpecial,
+      buttonAlertSuper;
+
 
   function ShowMatch(item, match) {
 
@@ -83,75 +90,213 @@
     if ($(this).hasClass('gone'))
       return;
 
-    $(this).addClass('gone');
-    CheckTrash(this);
+    var item = $(this);
 
-    $(this).animate({
-      left: '-1000px'
-    }, 500);
+    if (buttonAlertTrash == true) {
+      // Let the player know what they are doing
+      $('.alert .msg').text('You are about to trash this item! Are you sure?');
+      $('.alert').fadeIn(function(){
+          swipeAlertLeft = false;
+          // Confirm to continue
+          $(this).find('#alert-confirm').on('click', function(){
+            // Check Item
+            $(item).addClass('gone');
+            CheckTrash(item);
+
+            $(item).animate({
+              left: '-1000px'
+            }, 500);
+
+            $('.alert').fadeOut();
+          });
+      });
+    } else {
+      // Check Item
+      item.addClass('gone');
+      CheckTrash(item);
+
+      item.animate({
+        left: '-1000px'
+      }, 500);
+    }
+
   });
 
 	// If a player chooses to trash an item
   $('#trash').on('click', function() {
     var item = $('.level.ACTIVE .item:not(.gone)').last();
-    $(item).addClass('gone');
-    CheckTrash(item);
-  	$(item).animate({
-      left: '-1000px'
-    }, 500);
+
+    if (buttonAlertTrash == true) {
+      // Let the player know what they are doing
+      $('.alert .msg').text('You are about to trash this item! Are you sure?');
+      $('.alert').fadeIn(function(){
+        buttonAlertTrash = false;
+        // Confirm to continue
+        $(this).find('#alert-confirm').on('click', function(){
+          // Check Item
+          $(item).addClass('gone');
+          CheckTrash(item);
+
+          $(item).animate({
+            left: '-1000px'
+          }, 500);
+
+          $('.alert').fadeOut();
+        });
+      });
+    } else {
+      // Check Item
+      $(item).addClass('gone');
+      CheckTrash(item);
+      $(item).animate({
+        left: '-1000px'
+      }, 500);
+    }
+
+    
   });
 
   $('.item').hammer().on("swiperight", function(ev){
     if ($(this).hasClass('gone'))
       return;
 
-    $(this).addClass('gone');
-    CheckRecycle(this);
-    $(this).animate({
-      right: '-1000px'
-    }, 500);
+    var item = $(this);
+
+    if (swipeAlertRight == true) {
+      // Let the player know what they are doing
+      $('.alert .msg').text('You are about to recycle this item! Are you sure?');
+      $('.alert').fadeIn(function(){
+          swipeAlertRight = false;
+          // Confirm to continue
+          $(this).find('#alert-confirm').on('click', function(){
+            $(item).addClass('gone');
+            CheckRecycle(item);
+
+            $(item).animate({
+              right: '-1000px'
+            }, 500);
+
+            $('.alert').fadeOut();
+          });
+      });
+    } else {
+      // Check Item
+      $(item).addClass('gone');
+      CheckRecycle(item);
+      $(item).animate({
+        right: '-1000px'
+      }, 500);
+    }
+    
   });
 
   // If a player chooses to recycle
   $('#recycle').on('click', function() {
     var item = $('.level.ACTIVE .item:not(.gone)').last();
 
-    $(item).addClass('gone');
-    CheckRecycle(item);
+    if (buttonAlertRecycle == true) {
+      // Let the player know what they are doing
+      $('.alert .msg').text('You are about to recycle this item! Are you sure?');
+      $('.alert').fadeIn(function(){
+          buttonAlertRecycle = false;
+          // Confirm to continue
+          $(this).find('#alert-confirm').on('click', function(){
+            // Check Item
+            $(item).addClass('gone');
+            CheckRecycle(item);
+            $(item).animate({
+              right: '-1000px'
+            }, 500);
 
-  	$(item).animate({
-      right: '-1000px'
-    }, 500);
+            $('.alert').fadeOut();
+
+          });
+      });
+    } else {
+      // Check Item
+      $(item).addClass('gone');
+      CheckRecycle(item);
+      $(item).animate({
+        right: '-1000px'
+      }, 500);
+    }
 
   });
 
   // If a player chooses to compost
   $('#compost').on('click', function() {
-  	var item = $('.level.ACTIVE .item:not(.gone)').last();
+    var item = $('.level.ACTIVE .item:not(.gone)').last();
 
-    $(item).addClass('gone');
-    CheckCompost(item);
+    if (buttonAlertSuper == true) {
+      // Let the player know what they are doing
+      $('.alert .msg').text('You are about to compost this item! Are you sure?');
+      $('.alert').fadeIn(function(){
+          buttonAlertSuper = false;
+          // Confirm to continue
+          $(this).find('#alert-confirm').on('click', function(){
+            // Check item
+            $(item).addClass('gone');
+            CheckCompost(item);
+            $(item).animate({
+              top: '-1000px'
+            }, 500);
 
-  	$(item).animate({
-  		'top': "-1000px"
-  	}, 500);
+            $('.alert').fadeOut();
+
+          });
+      });
+    } else {
+      // Check Item
+      $(item).addClass('gone');
+      CheckCompost(item);
+      $(item).animate({
+        'top': "-1000px"
+      }, 500);
+
+    }
+
   });
 
   // If a player chooses 'special'
-  $('#special').click(function() {
+  $('#special').on('click', function() {
+
     var item = $('.level.ACTIVE .item:not(.gone)').last();
-    console.log(item, 'click');
     
     $('.modal.special').fadeIn(function() {
       $('.option').click(function(){
 
-        CheckSpecial(item, $(this).attr('id'));
-        $('.modal.special').fadeOut();
-        $(item).addClass('gone');
+        var option = $(this)
 
-        $(item).animate({
-          'top': "-1000px"
-        }, 500);
+        if (buttonAlertSpecial == true) {
+          // Let the player know what they are doing
+          $('.alert .msg').text('You are about to <span></span> this item! Are you sure?');
+          $('.alert').fadeIn(function(){
+            buttonAlertSpecial = false;
+            // Confirm to continue
+            $(this).find('#alert-confirm').on('click', function(){
+              // Check Item
+              CheckSpecial(item, option.attr('id'));
+              $('.modal.special').fadeOut();
+              $(item).addClass('gone');
+              $(item).animate({
+                'top': "-1000px"
+              }, 500);
+
+              $('.alert').fadeOut();
+              
+            });
+          });
+        } else {
+          // Check Item
+          CheckSpecial(item, option.attr('id'));
+          $('.modal.special').fadeOut();
+          $(item).addClass('gone');
+          $(item).animate({
+            'top': "-1000px"
+          }, 500);
+        }
+
+       
 
       })
     });
@@ -175,7 +320,7 @@
       'height':'100%',
       'max-height':'100%',
       'bottom':'0px',
-      'top':'-107px'
+      'top':'-110px'
     }, 200);
 
     $(this).addClass('open');
@@ -216,12 +361,35 @@
       $('#special').attr('disabled', false);
     }
 
+    if (num == 1 && ($(".level[data-level=1]").data('tries') == 0 || !$(".level[data-level=1]").data('tries'))) {
+      swipeAlertRight = true;
+      swipeAlertLeft = true;
+      buttonAlertRecycle = true;
+      buttonAlertTrash = true;
+    }
+
+    if (num == 2 && ($(".level[data-level=2]").data('tries') == 0  || !$(".level[data-level=1]").data('tries'))) {
+      buttonAlertSuper = true;
+    }
+
+    if (num == 3 && ($(".level[data-level=3]").data('tries') == 0 || !$(".level[data-level=1]").data('tries'))) {
+      buttonAlertSpecial = true;
+    }
+
+    // Bind close alert button
+    $('#alert-abort').on('click', function(){
+      $('.alert').fadeOut();
+    });
+
+    console.log(swipeAlertRight, swipeAlertLeft, buttonAlertSuper, buttonAlertSpecial);
+
   	// Fade in the game, out the profile
   	$('.level-group').fadeOut(function(){
       $('.buttons').show();
       $('.level.header').show();
   		// Fade in the level
   		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
+        
   			$('.ACTIVE').removeClass('ACTIVE');
   			$(this).addClass('ACTIVE');
 
@@ -270,23 +438,81 @@
 
   }
 
-  // Profile 
+  // PROFILE 
   $('#btn-save-profile').on('click', function() {
-    var data = {
-      player: '{{playerId}}', 
-      team: $('.team-select:selected').attr('id'),
-      username: $('.edit #username').value
-    };
 
-    $.get("/api/update/", data, function(data){
-      // Notify success
-      $('.save-msg').text('Nice! Saved.').fadeIn();
-    })
-    .fail(function(err) {
-        alert( "error" + err );
-    });
+    // Profile Image Upload
+    var selectedFile = $('#image_upload').get(0).files[0];
+
+    if (selectedFile) {
+
+      var fileName = selectedFile.name;
+
+      //Create the FormData data object and append the file to it.
+      var newImage = new FormData();
+      newImage.append('image_upload', selectedFile); //This is the raw file that was selected
+
+      var opts = {
+        url: 'http://localhost:3000/api/update/image_upload/{{playerId}}',
+        data: newImage,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function(data){
+          console.log('Image upload ID: ' + data.image_upload._id);
+        }, 
+        fail: function(err){
+          console.log('error: ' + err);
+        }
+      };
+                    
+      //Execute the AJAX operation.
+      jQuery.ajax(opts);
+
+    }
+
+    if ($('.edit .team-select:selected').length > 0 || $('.edit #username').value !== undefined) {
+      console.log('changing username/team')
+      var data = {
+        player: '{{playerId}}', 
+        team: $('.edit .team-select:selected').attr('id'),
+        username: $('.edit #username').val()
+      };
+
+      $.get("/api/update/{{playerId}}", data, function(data){
+        // Notify success
+        $('.save-msg').text('Nice! Saved.').fadeIn();
+      })
+      .fail(function(err) {
+          alert( "error" + err );
+      });
+
+    }
+
+  
 
   });
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function (e) {
+            $('img.profile-picture').attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+
+        console.log(input.files[0])
+    }
+  }
+  
+  $("input.profile-picture").change(function(){
+      readURL(this);
+  });
+
+  // NAVIGATION
 
   $('[data-section]').on('click', function(){
 

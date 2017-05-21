@@ -34,25 +34,65 @@ exports.get = function(req, res) {
 
 exports.update = function(req, res) {
 
-    console.log(req, res);
 
-    Team.model.findOne({ _id: req.query.team }).exec((err, result) => {
+    Player.model.findOne({ _id: req.params.id }).populate('team').exec((err, result) => {
 
-        var team = result._id;
+        if (req.query.team)
+            result.team = req.query.team;
 
-        Player.model.findOne({ _id: req.query.player }).populate('team').exec((err, result) => {
+        if (req.query.username)
+            result.username = req.query.username;
 
-            result.team = team;
+        result.save();
 
-            if (req.query.username)
-                result.username = req.query.username;
+        console.log(result, "wow");
 
-            result.save();
+        res.send('success')
+    });
 
-            console.log(result, "wow");
+};
 
-            res.send('success')
+exports.image_upload = function(req, res) {
+    console.log(req.files, " image_upload");
+
+    Player.model.findOne({ _id: req.params.id }).populate('team').exec((err, result) => {
+
+        var updater = result.getUpdateHandler(req);
+
+        var fields = 'name,username,email,image,password,admin,new,login,leader,team,completed,levelOne,pointsOne,pointsOneCap,triesOne,lastTryOne,levelTwo,pointsTwo,pointsTwoCap,triesTwo,lastTryTwo,levelThree,pointsThree,pointsThreeCap,triesThree,lastTryThree';
+
+        var opt = ['name', 'email', 'password'];
+
+        for(var i=0;i<opt.length;i++){
+            if(result.hasOwnProperty(opt[i])){
+                if( result[opt[i]].length == 0){
+                    continue;
+                }
+                fields +=','+opt[i];
+            }
+        }
+
+        updater.process( req.query, {
+            flashErrors: true,
+            fields: fields,
+            errorMessage: 'There was a problem saving your profile: '
+        }, function(err) {
+            if (err) { console.log(err); }
+
+            res.apiResponse({
+                msg: 'success'
+            });
         });
+
+        // .process(req.files, function(err) {
+ 
+        //     if (err) return res.apiError('error', err);
+
+        //     console.log(result, " uploaded image");
+
+ 
+        // });
+
     });
 
 };

@@ -13,7 +13,6 @@
 				{{else}}
 				<button class="btn grade-empty play" data-section="game">Play Level One</button>
 				{{/if}}
-
 			</div>
 		</div>
 		
@@ -49,10 +48,26 @@
 
 	</div>
 
-	<div class="edit">
+	<form class="edit form" enctype="multipart/form-data">
 
-		<input type="text" placeholder="optional username" id="username">
-		<p>Hide your real name from the leaderboard with a username!</p>
+		<h3>Profile: </h3>
+		{{#if player.image}}
+		<img class="profile-picture" src="{{player.image.url}}">
+		{{else}}
+		<img class="profile-picture" src="{{config.defaultProfilePic}}">
+		{{/if}}
+
+		<div class="image_upload">
+			<input type="file" class="profile-picture" id="image_upload" accept="image/*">
+			<p>Upload new profile picture</p>
+		</div>
+
+		<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}}optional username{{/if}}" id="username">
+		{{#if player.username}}
+		<p>You appear on the leaderboard as {{player.username}}.</p>
+		{{else}}
+		<p>Hide your real name from the leaderboard with a username.</p>
+		{{/if}}
 
 		<select>
 			<option class="team-select" value="Choose a team" {{#if player.team}}{{else}}selected{{/if}}>Select Team</option>
@@ -61,11 +76,11 @@
 			{{/each}}
 		</select>
 
-		<button class="btn minimal" id="btn-save-profile">Save</button>
+		<input type='button' class="btn minimal" id="btn-save-profile" value="save">
 
 		<div class="save-msg" style="display: none;"></div>
 
-	</div>
+	</form>
 
 	<button class="back nav-bar left" data-section="home">back</button>
 

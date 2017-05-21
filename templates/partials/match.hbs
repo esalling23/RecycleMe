@@ -3,15 +3,13 @@
 
 		<h3 class="message"></h3>
 
-		{{!-- <div class="status">We should {{#if wrong}}actually{{/if}} {{lowercase status}} this item!</div> --}}
-
-		<img src="{{{cloudinaryUrl image width=200 height=200 quality=80}}}" />
-		{{{info.html}}}
-
-		<p>Materials: </p>
-		{{#each material}}
-			<div class="minimal material">{{name}}{{#if @last}}{{else}},{{/if}}</div>
-		{{/each}}
+		<div class="match-inner">
+			<img src="{{{cloudinaryUrl image width=200 height=200 quality=80}}}" />
+			{{!-- {{{info.html}}}
+			{{#each material}}
+				<div class="minimal material">{{name}}{{#if @last}}{{else}},{{/if}}</div>
+			{{/each}} --}}
+		</div>
 
 		{{{rationale.html}}}
 

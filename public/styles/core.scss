@@ -55,7 +55,9 @@ body, html {
 }
 
 
-
+.modal {
+	height:110%;
+}
 
 
 .page-wrapper {
@@ -140,9 +142,43 @@ button.nav-bar {
 	border-radius: 2%;
 	display: inline;
 	padding: 0px 4px;
-	margin: 4px;
+	margin: 0px 4px 0px 0px;
 	color: $tinder-red;
 	background-color: transparent;
+
+	@include transition(all, 0.5s);
+
+}
+
+button, .btn {
+	&:focus, &:active { 
+		-webkit-box-shadow: none !important;
+		box-shadow:none !important;
+		outline: 0px !important;
+	}
+
+	&.minimal {
+		&:hover, &:focus {
+			background-color: white;
+			color: darken($tinder-red, 30%);
+			border: 2px solid darken($tinder-red, 30%);
+		}
+	}
+}
+
+.maximal {
+	border: 0px;
+	display: inline;
+	padding: 8px;
+	color: white;
+	background-color: $tinder-red;
+
+	@include transition(all, 0.5s)
+
+	&:hover, &:focus {
+		background-color: white;
+		color: $tinder-red;
+	}
 }
 
 .left-slant {
@@ -197,7 +233,7 @@ button.nav-bar {
 .modal-group {
 	display: none;
 	position: absolute;
-	top: -115px;
+	top: -110px;
 }
 
 .special {
@@ -288,8 +324,10 @@ section.tinderslide {
 
 		.btn-close {
 			z-index: 10000;
+			margin: 8px;
 		}
 		.item-info {
+			padding: 8px;
 			position: absolute;
 			bottom: 0;
 			left: 0;
@@ -303,10 +341,50 @@ section.tinderslide {
 			font-size: 20px;
 		}
 		p {
-			font-size: 12px;
+			font-size: 14px;
 		}
 	}
 
+}
+
+.alert {
+	z-index: 2500;
+	top: -60px;
+	height:110%;
+	width:100%;
+	background-color: rgba($tinder-black, 0.9);
+}
+
+.alert-inner {
+	background-color:white;
+	width: 250px;
+	height: 300px;
+	border-radius: 10%;
+	overflow: hidden;
+    margin: 40px auto;
+    position:relative;
+
+    h3 {
+    	padding: 8px;
+    }
+
+	button {
+		width: 50%;
+		display: block;
+		margin: 0px;
+		position: absolute;
+		bottom: 0px;
+
+		&.left {
+			margin-left: -1px;
+		    left: 0px;
+		}
+
+		&.right {
+			margin-right: -1px;
+		    right: 0px;
+		}
+	}
 }
 
 .match {
@@ -315,18 +393,29 @@ section.tinderslide {
 	background-color: rgba($tinder-black, 0.9);
 	h3 {
 		font-size: 4em;
+		font-family: 'Calligraffitti', cursive;
 	}
 
 	img {
-		border-radius: 5%;
+		margin: 16px;
+		border-radius: 50%;
 		box-shadow: 2px $tinder-grey;
+		border: 2px white solid;
 	}
 
+	p {
+		margin: 16px;
+		font-size: 1.5em;
+	}
 
 	input {
 		background: #3c3c3c;
 		border: 1px white solid;
 		border-radius:4px;
+		position: absolute;
+	    bottom: 20px;
+	    left: calc(50% - 50px);
+	    width: 100px;
 	}
 }
 
@@ -397,10 +486,15 @@ section.tinderslide {
 
 	.edit {
 		margin-top: 16px;
+		img {
+			height: 100px;
+			width: 100px;
+
+		}
 	}
 
 	.col-sm-4 {
-		margin-top: 40px;
+		margin: 20px auto;
 
 	}
 

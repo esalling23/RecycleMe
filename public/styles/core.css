@@ -34,6 +34,9 @@ body, html {
 .hide {
   display: none; }
 
+.modal {
+  height: 110%; }
+
 .page-wrapper {
   margin: 0 auto; }
 
@@ -94,9 +97,37 @@ button.nav-bar {
   border-radius: 2%;
   display: inline;
   padding: 0px 4px;
-  margin: 4px;
+  margin: 0px 4px 0px 0px;
   color: #ff6a6a;
-  background-color: transparent; }
+  background-color: transparent;
+  -moz-transition: all, 0.5s;
+  -o-transition: all, 0.5s;
+  -webkit-transition: all, 0.5s;
+  transition: all, 0.5s; }
+
+button:focus, button:active, .btn:focus, .btn:active {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline: 0px !important; }
+
+button.minimal:hover, button.minimal:focus, .btn.minimal:hover, .btn.minimal:focus {
+  background-color: white;
+  color: #d00000;
+  border: 2px solid #d00000; }
+
+.maximal {
+  border: 0px;
+  display: inline;
+  padding: 8px;
+  color: white;
+  background-color: #ff6a6a;
+  -moz-transition: all, 0.5s;
+  -o-transition: all, 0.5s;
+  -webkit-transition: all, 0.5s;
+  transition: all, 0.5s; }
+  .maximal:hover, .maximal:focus {
+    background-color: white;
+    color: #ff6a6a; }
 
 .left-slant {
   transform: rotate(-35deg); }
@@ -132,7 +163,7 @@ button.nav-bar {
 .modal-group {
   display: none;
   position: absolute;
-  top: -115px; }
+  top: -110px; }
 
 .special {
   color: white;
@@ -198,8 +229,10 @@ section.tinderslide {
     text-align: left;
     color: #fff; }
     section.tinderslide .item .btn-close {
-      z-index: 10000; }
+      z-index: 10000;
+      margin: 8px; }
     section.tinderslide .item .item-info {
+      padding: 8px;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -210,21 +243,60 @@ section.tinderslide {
     section.tinderslide .item h2 {
       font-size: 20px; }
     section.tinderslide .item p {
-      font-size: 12px; }
+      font-size: 14px; }
+
+.alert {
+  z-index: 2000;
+  top: -60px;
+  width: 110%;
+  background-color: rgba(52, 52, 52, 0.9); }
+
+.alert-inner {
+  background-color: white;
+  width: 250px;
+  height: 300px;
+  border-radius: 10%;
+  overflow: hidden;
+  margin: 40px auto;
+  position: relative; }
+  .alert-inner h3 {
+    padding: 8px; }
+  .alert-inner button {
+    width: 50%;
+    display: block;
+    margin: 0px;
+    position: absolute;
+    bottom: 0px; }
+    .alert-inner button.left {
+      margin-left: -1px;
+      left: 0px; }
+    .alert-inner button.right {
+      margin-right: -1px;
+      right: 0px; }
 
 .match {
   width: 100%;
   color: white;
   background-color: rgba(52, 52, 52, 0.9); }
   .match h3 {
-    font-size: 4em; }
+    font-size: 4em;
+    font-family: 'Calligraffitti', cursive; }
   .match img {
-    border-radius: 5%;
-    box-shadow: 2px #CECAC1; }
+    margin: 16px;
+    border-radius: 50%;
+    box-shadow: 2px #CECAC1;
+    border: 2px white solid; }
+  .match p {
+    margin: 16px;
+    font-size: 1.5em; }
   .match input {
     background: #3c3c3c;
     border: 1px white solid;
-    border-radius: 4px; }
+    border-radius: 4px;
+    position: absolute;
+    bottom: 20px;
+    left: calc(50% - 50px);
+    width: 100px; }
 
 #points-counter {
   font-size: 36px; }
@@ -275,9 +347,12 @@ section.tinderslide {
 
 .section.profile .edit {
   margin-top: 16px; }
+  .section.profile .edit img {
+    height: 100px;
+    width: 100px; }
 
 .section.profile .col-sm-4 {
-  margin-top: 40px; }
+  margin: 20px auto; }
 
 .section.profile .grade {
   border: 3px solid #fff;
