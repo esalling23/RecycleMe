@@ -1,5 +1,21 @@
-<li class="item {{status}} {{#if specialStatus}}{{specialStatus.key}}{{/if}} {{#if specialStatusOr}}{{specialStatusOr.key}}{{/if}}" style="background-image:url('{{{cloudinaryUrl image }}}')">
+<li class="item {{status}} {{#if specialStatus}}{{specialStatus.key}}{{/if}} {{#if specialStatusOr}}{{specialStatusOr.key}}{{/if}}" style="background-image:url('{{{cloudinaryUrl profiles.[0]}}}')">
 	<div class="item-pane pane{{@index}}" id="{{item_key}}" >
+
+		<div class="image-glider glide" id="{{item_key}}-glide" style="display:none">
+			<div class="glide__wrapper">
+                <ul class="glide__track">
+				{{#each profiles}}
+					<li class="image glide__slide" style="background-image:url('{{{cloudinaryUrl this }}}')"></li>
+				{{/each}}
+				</ul>
+			</div>
+		</div>
+		<div class="glide__arrows" style="display:none">
+            <button class="glide__arrow prev" data-glide-dir="prev"><<</button>
+            <button class="glide__arrow next" data-glide-dir="next">>></button>
+        </div>
+
+        <div class="glide__bullets"></div>
 
 		<button class="btn-close minimal" style="visibility:hidden">back</button>
 

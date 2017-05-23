@@ -150,19 +150,25 @@ button.nav-bar {
 
 }
 
-button, .btn {
-	&:focus, &:active { 
-		-webkit-box-shadow: none !important;
-		box-shadow:none !important;
-		outline: 0px !important;
+button, .btn, input {
+	&:not(:disabled){
+		&:focus, &:active { 
+			-webkit-box-shadow: none !important;
+			box-shadow:none !important;
+			outline: 0px !important;
+		}
+		&.minimal {
+			&:hover, &:focus {
+				background-color: white;
+				color: darken($tinder-red, 30%);
+				border: 2px solid darken($tinder-red, 30%);
+			}
+		}
 	}
 
-	&.minimal {
-		&:hover, &:focus {
-			background-color: white;
-			color: darken($tinder-red, 30%);
-			border: 2px solid darken($tinder-red, 30%);
-		}
+	&:disabled {
+		color: lighten($tinder-red, 20%);
+		border: 2px solid lighten($tinder-red, 20%);
 	}
 }
 
@@ -279,15 +285,14 @@ section.tinderslide {
 	}
 
 	li {
-		width: 100%;
 		position:absolute;
 		display: block;
-		width: 100%;
+		width: 90%;
 		height: 100%;
 		overflow: hidden;
 		top: 0;
 		z-index: 2;
-		/*left: 0;*/
+		left: 5%;
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
 		overflow: hidden;
 		text-align: center;
@@ -309,28 +314,31 @@ section.tinderslide {
 			position: relative;
 		}
 
-	}
-
-
-	
+	}	
 
 	.item {
 		padding: 0px;
 		border: 0px;
 		height: calc(100% - 200px);
+		background-position: center;
 		max-width: $tinder-width;
 		text-align: left;
 		color: $tinder-white;
 
+		@include transition(all, 0.5s);
+
 		.btn-close {
 			z-index: 10000;
 			margin: 8px;
+		    position: absolute;
+		    top: 0px;
 		}
 		.item-info {
 			padding: 8px;
 			position: absolute;
 			bottom: 0;
 			left: 0;
+			z-index: 2;
 			width: 100%;
 			background-color: transparentize(black, 0.7);
 		}
@@ -343,12 +351,83 @@ section.tinderslide {
 		p {
 			font-size: 14px;
 		}
+
+		 &.open {
+		 	max-width: 100%;
+		 	width:100%;
+		 	height: calc(100% - 80px) !important;
+		 	max-height: 100%;
+		 	left: 0px;
+		 	top: -110px;
+		 	z-index: 2500;
+		 }
+
+		 .image-glider {
+		 	height: 100%;
+		 	position: absolute;
+
+		 	.glide__wrapper {
+		 		height: 100%;
+		 		position: absolute;
+		 	}
+		 	.glide__slide {
+		 		left: 0;
+		 		width: 100%;
+		 	}
+
+		 }
+		 .glide__arrows {
+	 	    position: absolute;
+		    z-index: 2;
+		    bottom: 50%;
+		    width: 100%;
+
+		    .next {
+		    	position: absolute;
+		    	right: 0px;
+		    }
+
+		    .prev {
+		    	position: absolute;
+		    	left: 0px;
+		    }
+		 }
+
+		 &.gone {
+
+		 	right: 5%;
+		 	left: 5%;
+		 	top: 0;
+		 	bottom: auto;
+
+		 	@include transition(all, 2s);
+
+		 	&.trashed {
+		 		left: -1000px;
+		 		right: auto;
+		 	}
+
+		 	&.recycled {
+		 		right: -1000px;
+		 		left: 1000px;
+		 	}
+
+		 	&.composted {
+		 		top: -1000px;
+		 	}
+
+		 	&.specialPick {
+		 		bottom: -1000px;
+		 		top: 1000px;
+		 	}
+		 }
 	}
 
 }
 
 .alert {
 	z-index: 2500;
+
 	top: -60px;
 	height:110%;
 	width:100%;
@@ -356,6 +435,7 @@ section.tinderslide {
 }
 
 .alert-inner {
+	top:20%;
 	background-color:white;
 	width: 250px;
 	height: 300px;
@@ -427,14 +507,16 @@ section.tinderslide {
 	max-width:$tinder-width;
 
 	position: absolute;
-	bottom: 60px;
+	bottom: 0px;
 	z-index: 2000;
 	width: 100%;
 	text-align: center;
 
 	input {
+		bottom: -15px;
 		background-color: white;
 		border-radius:50%;
+		border: 2px solid $tinder-black;
 		&:before {
 			content: '';
 		    background-color: white;

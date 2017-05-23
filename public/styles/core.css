@@ -105,15 +105,19 @@ button.nav-bar {
   -webkit-transition: all, 0.5s;
   transition: all, 0.5s; }
 
-button:focus, button:active, .btn:focus, .btn:active {
+button:not(:disabled):focus, button:not(:disabled):active, .btn:not(:disabled):focus, .btn:not(:disabled):active, input:not(:disabled):focus, input:not(:disabled):active {
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   outline: 0px !important; }
 
-button.minimal:hover, button.minimal:focus, .btn.minimal:hover, .btn.minimal:focus {
+button:not(:disabled).minimal:hover, button:not(:disabled).minimal:focus, .btn:not(:disabled).minimal:hover, .btn:not(:disabled).minimal:focus, input:not(:disabled).minimal:hover, input:not(:disabled).minimal:focus {
   background-color: white;
   color: #d00000;
   border: 2px solid #d00000; }
+
+button:disabled, .btn:disabled, input:disabled {
+  color: #ffd0d0;
+  border: 2px solid #ffd0d0; }
 
 .maximal {
   border: 0px;
@@ -195,15 +199,14 @@ section.tinderslide {
     padding: 0px;
     width: 450px; }
   section.tinderslide li {
-    width: 100%;
     position: absolute;
     display: block;
-    width: 100%;
+    width: 90%;
     height: 100%;
     overflow: hidden;
     top: 0;
     z-index: 2;
-    /*left: 0;*/
+    left: 5%;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     overflow: hidden;
     text-align: center;
@@ -225,17 +228,25 @@ section.tinderslide {
     padding: 0px;
     border: 0px;
     height: calc(100% - 200px);
+    background-position: center;
     max-width: 450px;
     text-align: left;
-    color: #fff; }
+    color: #fff;
+    -moz-transition: all, 0.5s;
+    -o-transition: all, 0.5s;
+    -webkit-transition: all, 0.5s;
+    transition: all, 0.5s; }
     section.tinderslide .item .btn-close {
       z-index: 10000;
-      margin: 8px; }
+      margin: 8px;
+      position: absolute;
+      top: 0px; }
     section.tinderslide .item .item-info {
       padding: 8px;
       position: absolute;
       bottom: 0;
       left: 0;
+      z-index: 2;
       width: 100%;
       background-color: rgba(0, 0, 0, 0.3); }
     section.tinderslide .item .material {
@@ -244,14 +255,64 @@ section.tinderslide {
       font-size: 20px; }
     section.tinderslide .item p {
       font-size: 14px; }
+    section.tinderslide .item.open {
+      max-width: 100%;
+      width: 100%;
+      height: calc(100% - 80px) !important;
+      max-height: 100%;
+      left: 0px;
+      top: -110px;
+      z-index: 2500; }
+    section.tinderslide .item .image-glider {
+      height: 100%;
+      position: absolute; }
+      section.tinderslide .item .image-glider .glide__wrapper {
+        height: 100%;
+        position: absolute; }
+      section.tinderslide .item .image-glider .glide__slide {
+        left: 0;
+        width: 100%; }
+    section.tinderslide .item .glide__arrows {
+      position: absolute;
+      z-index: 2;
+      bottom: 50%;
+      width: 100%; }
+      section.tinderslide .item .glide__arrows .next {
+        position: absolute;
+        right: 0px; }
+      section.tinderslide .item .glide__arrows .prev {
+        position: absolute;
+        left: 0px; }
+    section.tinderslide .item.gone {
+      right: 5%;
+      left: 5%;
+      top: 0;
+      bottom: auto;
+      -moz-transition: all, 2s;
+      -o-transition: all, 2s;
+      -webkit-transition: all, 2s;
+      transition: all, 2s; }
+      section.tinderslide .item.gone.trashed {
+        left: -1000px;
+        right: auto; }
+      section.tinderslide .item.gone.recycled {
+        right: -1000px;
+        left: 1000px; }
+      section.tinderslide .item.gone.composted {
+        top: -1000px; }
+      section.tinderslide .item.gone.specialPick {
+        bottom: -1000px;
+        top: 1000px; }
 
 .alert {
-  z-index: 2000;
+  z-index: 2500;
   top: -60px;
-  width: 110%;
+  height: 110%;
+  width: 100%;
   background-color: rgba(52, 52, 52, 0.9); }
 
 .alert-inner {
+  top: 20%;
   background-color: white;
   width: 250px;
   height: 300px;
@@ -304,13 +365,15 @@ section.tinderslide {
 .buttons {
   max-width: 450px;
   position: absolute;
-  bottom: 60px;
+  bottom: 0px;
   z-index: 2000;
   width: 100%;
   text-align: center; }
   .buttons input {
+    bottom: -15px;
     background-color: white;
-    border-radius: 50%; }
+    border-radius: 50%;
+    border: 2px solid #343434; }
     .buttons input:before {
       content: '';
       background-color: white; }

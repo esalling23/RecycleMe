@@ -23,6 +23,23 @@ $(document).ready(function() {
 		wrapperLeft = $('#wrapper').offset().left,
 		extraWindow = (windowsize - bodysize)/2;
 
+	var imageLoaded = function(parentElem, callback) {
+
+	  parentElem.find('img').first().on('load', function() {
+
+	    // Image loaded, callback fires
+	    callback();
+
+	  })
+	  .each(function() {
+
+	    // Force image to dispatch 'load' (cache workaround)
+	    if(this.complete) $(this).load();
+
+	  });
+
+	};
+
 	setTimeout(function () {
 
 	    $('.login #login').fadeIn();
@@ -39,14 +56,14 @@ $(document).ready(function() {
 	
 	var setAbsolutes = function(absolutes) {
 
-		var length = absolutes.length - 1;
-
-		if (length == 0) {
+		if (absolutes.length == 0) {
 			// Call finish function after xxx milaseconds
 			var finish = _.debounce(finishResize, 500);
 			finish();
 			return;
 		}
+
+		var length = absolutes.length;
 
 		_.each(absolutes, function(item, ind) {
 
@@ -71,7 +88,7 @@ $(document).ready(function() {
 				$(item).css('right', position.right);
 			}
 
-			if (ind == length) {
+			if (ind == length - 1) {
 				// Call finish function after xxx milaseconds
 				var finish = _.debounce(finishResize, 500);
 				finish();

@@ -5,7 +5,7 @@
 		<h3>Grades: </h3>
 
 		{{!-- {{{jsonPrint player}}} --}}
-		<div class="col-sm-4">
+		<div class="col-xs-4">
 			<div class="grade">
 				{{#if player.gradeOne}}
 				<div id="lvl-one">{{lettergrade player.gradeOne}}</div>
@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		
-		<div class="col-sm-4">
+		<div class="col-xs-4">
 			<div class="grade">
 				{{#if player.gradeTwo}}
 				<div id="lvl-one">{{lettergrade player.gradeTwo}}</div>
@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		
-		<div class="col-sm-4">
+		<div class="col-xs-4">
 			<div class="grade">
 				{{#if player.gradeThree}}
 				<div id="lvl-one">{{lettergrade player.gradeThree}}</div>
@@ -48,33 +48,39 @@
 
 	</div>
 
-	<form class="edit form" enctype="multipart/form-data">
+	<form class="edit form row" enctype="multipart/form-data">
 
 		<h3>Profile: </h3>
-		{{#if player.image}}
-		<img class="profile-picture" src="{{player.image.url}}">
-		{{else}}
-		<img class="profile-picture" src="{{config.defaultProfilePic}}">
-		{{/if}}
+		<div class="update-picture col-xs-6">
+			{{#if player.image}}
+				<img class="profile-picture" src="{{player.image.url}}">
+			{{else}}
+				<img class="profile-picture default" src="https://res.cloudinary.com/esalling/image/upload/v1495508839/RecycleMe/default_icon.png">
+			{{/if}}
 
-		<div class="image_upload">
-			<input type="file" class="profile-picture" id="image_upload" accept="image/*">
-			<p>Upload new profile picture</p>
+			<div class="image_upload" style="display:none">
+				<input type="file" class="profile-picture" id="image_upload" accept="image/*">
+				<p>Upload new profile picture</p>
+			</div>
 		</div>
 
-		<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}}optional username{{/if}}" id="username">
-		{{#if player.username}}
-		<p>You appear on the leaderboard as {{player.username}}.</p>
-		{{else}}
-		<p>Hide your real name from the leaderboard with a username.</p>
-		{{/if}}
+		<div class="update-info col-xs-6">
 
-		<select>
-			<option class="team-select" value="Choose a team" {{#if player.team}}{{else}}selected{{/if}}>Select Team</option>
-			{{#each teams}}
-			<option class="team-select" id="{{this._id}}" value="{{this.name}}" {{#ifeq this.name player.team.name}}selected{{/ifeq}}>{{this.name}}</option>
-			{{/each}}
-		</select>
+			<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}}optional username{{/if}}" id="username">
+			{{#if player.username}}
+			<p>You appear on the leaderboard as {{player.username}}.</p>
+			{{else}}
+			<p>Hide your real name from the leaderboard with a username.</p>
+			{{/if}}
+
+			<select>
+				<option class="team-select" value="Choose a team"{{#if player.team}}{{else}} selected{{/if}}>Select Team</option>
+				{{#each teams}}
+				<option class="team-select" id="{{this._id}}" value="{{this.name}}"{{#ifeq this.name ../player.team.name}} selected{{/ifeq}}>{{this.name}}</option>
+				{{/each}}
+			</select>
+
+		</div>
 
 		<input type='button' class="btn minimal" id="btn-save-profile" value="save">
 

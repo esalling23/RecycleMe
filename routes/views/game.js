@@ -34,7 +34,11 @@ exports = module.exports = function(req, res) {
         var queryItems = Item.model.find({}, {}, {}).populate('material specialStatus specialStatusOr');
         var querySpecial = SpecialOption.model.find({}, {}, {});
         // Game Config
-        var queryGame = Game.model.find({}, {}, {});
+        var queryGame = Game.model.findOne({}, {}, {
+                            sort: {
+                                'createdAt': -1
+                            }
+                        });
 
         queryPlayer.exec(function(err, result) {
             if (err) throw err;

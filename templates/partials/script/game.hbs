@@ -87,7 +87,7 @@
 
   $('.item').hammer().on("swipeleft", function(ev){
 
-    if ($(this).hasClass('gone'))
+    if ($(this).hasClass('gone') || $(this).hasClass('open'))
       return;
 
     var item = $(this);
@@ -100,24 +100,17 @@
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(){
             // Check Item
-            $(item).addClass('gone');
+            $(item).addClass('gone').addClass('trashed');
             CheckTrash(item);
-
-            $(item).animate({
-              left: '-1000px'
-            }, 500);
 
             $('.alert').fadeOut();
           });
       });
     } else {
       // Check Item
-      item.addClass('gone');
+      item.addClass('gone').addClass('trashed');
       CheckTrash(item);
 
-      item.animate({
-        left: '-1000px'
-      }, 500);
     }
 
   });
@@ -134,30 +127,23 @@
         // Confirm to continue
         $(this).find('#alert-confirm').on('click', function(){
           // Check Item
-          $(item).addClass('gone');
+          $(item).addClass('gone').addClass('trashed');
           CheckTrash(item);
-
-          $(item).animate({
-            left: '-1000px'
-          }, 500);
 
           $('.alert').fadeOut();
         });
       });
     } else {
       // Check Item
-      $(item).addClass('gone');
+      $(item).addClass('gone').addClass('trashed');
       CheckTrash(item);
-      $(item).animate({
-        left: '-1000px'
-      }, 500);
     }
 
     
   });
 
   $('.item').hammer().on("swiperight", function(ev){
-    if ($(this).hasClass('gone'))
+    if ($(this).hasClass('gone') || $(this).hasClass('open'))
       return;
 
     var item = $(this);
@@ -169,23 +155,16 @@
           swipeAlertRight = false;
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(){
-            $(item).addClass('gone');
+            $(item).addClass('gone').addClass('recycled');
             CheckRecycle(item);
-
-            $(item).animate({
-              right: '-1000px'
-            }, 500);
 
             $('.alert').fadeOut();
           });
       });
     } else {
       // Check Item
-      $(item).addClass('gone');
+      $(item).addClass('gone').addClass('recycled');
       CheckRecycle(item);
-      $(item).animate({
-        right: '-1000px'
-      }, 500);
     }
     
   });
@@ -202,11 +181,8 @@
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(){
             // Check Item
-            $(item).addClass('gone');
+            $(item).addClass('gone').addClass('recycled');
             CheckRecycle(item);
-            $(item).animate({
-              right: '-1000px'
-            }, 500);
 
             $('.alert').fadeOut();
 
@@ -214,11 +190,9 @@
       });
     } else {
       // Check Item
-      $(item).addClass('gone');
+      $(item).addClass('gone').addClass('recycled');
       CheckRecycle(item);
-      $(item).animate({
-        right: '-1000px'
-      }, 500);
+      
     }
 
   });
@@ -235,11 +209,8 @@
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(){
             // Check item
-            $(item).addClass('gone');
+            $(item).addClass('gone').addClass('composted');
             CheckCompost(item);
-            $(item).animate({
-              top: '-1000px'
-            }, 500);
 
             $('.alert').fadeOut();
 
@@ -247,11 +218,9 @@
       });
     } else {
       // Check Item
-      $(item).addClass('gone');
+      $(item).addClass('gone').addClass('composted');
       CheckCompost(item);
-      $(item).animate({
-        'top': "-1000px"
-      }, 500);
+
 
     }
 
@@ -265,7 +234,7 @@
     $('.modal.special').fadeIn(function() {
       $('.option').click(function(){
 
-        var option = $(this)
+        var option = $(this);
 
         if (buttonAlertSpecial == true) {
           // Let the player know what they are doing
@@ -277,10 +246,7 @@
               // Check Item
               CheckSpecial(item, option.attr('id'));
               $('.modal.special').fadeOut();
-              $(item).addClass('gone');
-              $(item).animate({
-                'top': "-1000px"
-              }, 500);
+              $(item).addClass('gone').addClass('specialPick');
 
               $('.alert').fadeOut();
               
@@ -290,62 +256,69 @@
           // Check Item
           CheckSpecial(item, option.attr('id'));
           $('.modal.special').fadeOut();
-          $(item).addClass('gone');
-          $(item).animate({
-            'top': "-1000px"
-          }, 500);
+          $(item).addClass('gone').addClass('specialPick');
         }
-
-       
 
       })
     });
     
   });
 
-  $('.item.open').on('click', function(e){
-    event.preventDefault();
-    event.stopPropagation();
-    return;
-  });
+
 
   $('.item:not(.open)').on('click', function(event){
 
     event.preventDefault();
     event.stopPropagation();
+    event.bubbles = false;
 
-    $(this).css('z-index', '3000');
+    var item = $(this);
+    var glider = '#' + $(this).find('.item-pane').attr('id') + '-glide';
 
-    $(this).animate({
-      'height':'100%',
-      'max-height':'100%',
-      'bottom':'0px',
-      'top':'-110px'
-    }, 200);
+    $(item).addClass('open');
 
-    $(this).addClass('open');
+    $(item).find('.item-bio').show();
 
-    $(this).find('.item-bio').show();
+    $(item).find('.btn-close').css('visibility', 'visible');
 
-    $(this).find('.btn-close').css('visibility', 'visible');
+    // $(item).find('.glide__arrows').show();
 
-    $(this).find('.btn-close').on('click', function(event){
+    // $(item).find('.image-glider').show(function(){
+
+    //   $(glider).glide({
+    //     type: "carousel",
+    //     autoplay: false,
+    //     autoheight: true, 
+    //     default: 1
+    //   });
+
+    //   $('.glide__arrow').on('click', function(event){
+    //           // event.preventDefault();
+    //     event.stopPropagation();
+    //     event.bubbles = false;
+
+    //     var direction = $(this).data('glide-dir');
+
+    //     $(glider).glide('next');
+
+    //   });
+    // });
+
+    $(item).on('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      console.log(" open click ")
+      return;
+    });
+
+    $(item).find('.btn-close').on('click', function(event){
 
       event.preventDefault();
       event.stopPropagation();
 
-      $(this).closest('.item.open').css('z-index', '1000');
-
-      $(this).closest('.item.open').animate({
-        'height':'100%',
-        'bottom':'0px',
-        'max-height': slideheight,
-        'top':'0px'
-      }, 200, function(){
-        $(this).removeClass('open');
-        $(this).find('.item-bio').hide();
-        $(this).find('.btn-close').css('visibility', 'hidden');
-      });
+      $(item).removeClass('open');
+      $(item).find('.item-bio').hide();
+      $(this).css('visibility', 'hidden');
 
     });
 
