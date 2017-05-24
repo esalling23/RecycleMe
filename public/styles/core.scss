@@ -259,6 +259,55 @@ button, .btn, input {
 	}
 }
 
+#rules-glide {
+	height: 80%;
+	border: 2px solid $tinder-black;
+
+	.rule-image {
+		width: 100%;
+	}
+
+	p {
+		margin: 20px auto;
+		width: 70%;
+		font-size: 16px;
+	}
+
+	.glide__bullets {
+		bottom: 20px;
+	}
+	.glide__bullet {
+		background-color: lighten($tinder-black, 30%);
+
+		&.active {
+			background-color: $tinder-black;
+
+			&:hover, &:focus {
+				border:2px solid transparent;
+			}
+		}
+	}
+	.glide__track {
+		margin-bottom: 40px;
+		padding: 0px;
+	}
+	.glide__arrows {
+		width: 100%;
+
+		.glide__arrow {
+			background-color: transparent;
+			color: $tinder-black;
+			border: 2px solid $tinder-black;
+
+			&:hover, &:focus {
+				color: lighten($tinder-black, 20%);
+				border: 2px solid lighten($tinder-black, 20%);
+			}
+		}
+
+	}
+}
+
 
 // Game front end
 
@@ -293,7 +342,7 @@ section.tinderslide {
 		top: 0;
 		z-index: 2;
 		left: 5%;
-		box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 		overflow: hidden;
 		text-align: center;
 		padding: 10px 10px 10px 10px;
@@ -340,7 +389,7 @@ section.tinderslide {
 			left: 0;
 			z-index: 2;
 			width: 100%;
-			background-color: transparentize(black, 0.7);
+			background-color: transparentize(black, 0.85);
 		}
 		.material {
 			font-size: 12px;
@@ -453,7 +502,7 @@ section.tinderslide {
     	}
 
     	h3 {
-    		margin: 0px;
+    		margin: 10px auto;
     	}
 
     	p {
@@ -528,8 +577,22 @@ section.tinderslide {
 	}
 }
 
+.level.header {
+	margin-top: -20px;
+}
+
 #points-counter {
-	font-size: 36px;
+  font-size: 36px;
+  height: 80px;
+  background: $tinder-red;
+  color: $tinder-white;
+  position: relative;
+  display: block;
+  width: 80px;
+  margin: 20px auto;
+  border-radius: 50%;
+  border: 2px solid $tinder-black;
+  line-height: 76px;
 }
 
 .buttons {
@@ -595,8 +658,17 @@ section.tinderslide {
 // PROFILE
 .section.profile {
 
+	h3 {
+		text-align: center;
+		margin: 40px auto;
+
+	}
+
 	.edit {
-		margin-top: 16px;
+		margin-top: 40px;
+		padding-bottom: 80px;
+		border-top: 2px solid lighten($tinder-black, 30%);
+
 		img {
 			height: 100px;
 			width: 100px;
@@ -606,7 +678,7 @@ section.tinderslide {
 		#btn-save-profile {
 			width: 80px;
 			position: relative;
-			bottom: -80px;
+			bottom: -40px;
 			
 		}
 	}

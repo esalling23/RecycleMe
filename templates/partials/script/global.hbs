@@ -114,7 +114,7 @@ $(document).ready(function() {
 
 		// Get all absolutely-positioned elements
 		var outerAbsolutes = 
-		$('#wrapper :not(.tinderslide *, .buttons, .nav-bar, .alert *)')
+		$('#wrapper :not(.tinderslide *, .buttons, .nav-bar, .alert *, .glide *)')
 		.filter(function(){
 		  return ($(this).css('position') == 'absolute');
 		});

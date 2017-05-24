@@ -1,6 +1,7 @@
 	// GAME LOGIC
 	var levelItems,
       points = 0, 
+      currentItem,
       swipeAlertRight,
       swipeAlertLeft,
       buttonAlertRecycle,
@@ -23,17 +24,24 @@
     preload: true
   });
 
+  $('#rules-glide').glide({
+    type: "carousel",
+    autoplay: false,
+    autoheight: false, 
+    default: 1
+  });
 
   function ShowMatch(item, match) {
-
-    console.log(item, match)
-
-    if (matchOpen == true)
-      return;
-
-    matchOpen = true;
+    console.log(item, match);
 
     var modalId = $(item).find('.item-pane').attr('id');
+
+    if (matchOpen == true || !modalId)
+      return;
+
+    item.remove();
+
+    matchOpen = true;
 
     if (match == true) {
       $('.modal-wrap.match#' + modalId + ' .message').text('It\'s a Match!');
@@ -46,6 +54,7 @@
     $('.modal-group').show(function(){
       $('.modal-wrap.match#' + modalId).addClass('open').fadeIn(function(){
         $(this).find('#back-btn').on('click', function() {
+          $('#' + modalId).remove();
           matchOpen = false;
         })
       });;
@@ -59,9 +68,9 @@
       // if (item)
       console.log('CORRECT - dis special');
       UpdateScore(1);
-      ShowMatch(item, true);
+      ShowMatch($(item), true);
     } else {
-      ShowMatch(item, false);
+      ShowMatch($(item), false);
       console.log ('WRONG - dis something ELSe');
     }
   }
@@ -69,11 +78,11 @@
   function CheckTrash(item) {
     // check if item is trash
     if ($(item).hasClass('Trash')) {
-      ShowMatch(item, true);
+      ShowMatch($(item), true);
       console.log('CORRECT - dis trash');
       UpdateScore(1);
     } else {
-      ShowMatch(item, false);
+      ShowMatch($(item), false);
       console.log ('WRONG - dis recyclable');
     }
   }
@@ -117,7 +126,7 @@
     if ($(this).hasClass('gone') || $(this).hasClass('open'))
       return;
 
-    var item = $(this);
+    currentItem = $(this);
 
     if (buttonAlertTrash == true) {
       // Let the player know what they are doing
@@ -128,38 +137,34 @@
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(e){
              e.stopPropagation();
+             e.preventDefault();
             // Check Item
-            $(item).addClass('gone').addClass('trashed');
-            CheckTrash(item);
+            $(currentItem).addClass('gone').addClass('trashed');
+            CheckTrash(currentItem);
+
+            $(this).unbind('click');
 
             $('.alert').fadeOut();
 
-            setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
+            
           });
       });
     } else {
       // Check Item
-      item.addClass('gone').addClass('trashed');
-      CheckTrash(item);
-
-      setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
+      $(currentItem).addClass('gone').addClass('trashed');
+      CheckTrash(currentItem);
 
     }
 
   });
 
 	// If a player chooses to trash an item
-  $('#trash').on('click', function() {
+  $('#trash').on('click', function(e) {
 
-    var item = $('.level.ACTIVE .item').last();
+    e.stopPropagation();
+
+    currentItem = $(document).find('.level.ACTIVE .item').last();
+    console.log(currentItem);
 
     if (buttonAlertTrash == true) {
       // Let the player know what they are doing
@@ -170,28 +175,18 @@
         // Confirm to continue
         $(this).find('#alert-confirm').on('click', function(e){
            e.stopPropagation();
+           e.preventDefault();
           // Check Item
-          $(item).addClass('gone').addClass('trashed');
-          CheckTrash(item);
-
-          setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
-
+          $(currentItem).addClass('gone').addClass('trashed');
+          CheckTrash($(currentItem));
+          $(this).unbind('click');
           $('.alert').fadeOut();
         });
       });
     } else {
       // Check Item
-      $(item).addClass('gone').addClass('trashed');
-      CheckTrash(item);
-      setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
+      $(currentItem).addClass('gone').addClass('trashed');
+      CheckTrash($(currentItem));
     }
 
     
@@ -201,7 +196,7 @@
     if ($(this).hasClass('gone') || $(this).hasClass('open'))
       return;
 
-    var item = $(this);
+    currentItem = $(this);
 
     if (swipeAlertRight == true) {
       // Let the player know what they are doing
@@ -212,34 +207,26 @@
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(e){
              e.stopPropagation();
-            $(item).addClass('gone').addClass('recycled');
-            CheckRecycle(item);
-            setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
-
+             e.preventDefault();
+            $(currentItem).addClass('gone').addClass('recycled');
+            CheckRecycle($(currentItem));
+            $(this).unbind('click');
             $('.alert').fadeOut();
           });
       });
     } else {
       // Check Item
-      $(item).addClass('gone').addClass('recycled');
-      CheckRecycle(item);
-      setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
+      $(currentItem).addClass('gone').addClass('recycled');
+      CheckRecycle(currentItem);
     }
     
   });
 
   // If a player chooses to recycle
-  $('#recycle').on('click', function() {
-    var item = $('.level.ACTIVE .item').last();
-
+  $('#recycle').on('click', function(e) {
+    e.stopPropagation();
+    currentItem = $(document).find('.level.ACTIVE .item').last();
+    console.log(currentItem);
     if (buttonAlertRecycle == true) {
       // Let the player know what they are doing
       $('.alert .msg').html('<h2>You are about to recycle this item! Are you sure?</h2>');
@@ -249,28 +236,19 @@
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(e){
              e.stopPropagation();
+             e.preventDefault();
             // Check Item
-            $(item).addClass('gone').addClass('recycled');
-            CheckRecycle(item);
-            setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
-
+            $(currentItem).addClass('gone').addClass('recycled');
+            CheckRecycle($(currentItem));
+            $(this).unbind('click');
             $('.alert').fadeOut();
 
           });
       });
     } else {
       // Check Item
-      $(item).addClass('gone').addClass('recycled');
-      CheckRecycle(item);
-      setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
+      $(currentItem).addClass('gone').addClass('recycled');
+      CheckRecycle($(currentItem));
       
     }
 
@@ -278,7 +256,7 @@
 
   // If a player chooses to compost
   $('#compost').on('click', function() {
-    var item = $('.level.ACTIVE .item').last();
+    currentItem = $(document).find('.level.ACTIVE .item').last();
 
     if (buttonAlertSuper == true) {
       // Let the player know what they are doing
@@ -290,29 +268,17 @@
           $(this).find('#alert-confirm').on('click', function(e){
              e.stopPropagation();
             // Check item
-            $(item).addClass('gone').addClass('composted');
-            CheckCompost(item);
-
-            setTimeout(function () {
-
-                $(item).remove();
-
-            }, 2000);
-
+            $(currentItem).addClass('gone').addClass('composted');
+            CheckCompost(currentItem);
+            $(this).unbind('click');
             $('.alert').fadeOut();
 
           });
       });
     } else {
       // Check Item
-      $(item).addClass('gone').addClass('composted');
-      CheckCompost(item);
-      setTimeout(function () {
-
-          $(item).remove();
-
-      }, 2000);
-
+      $(currentItem).addClass('gone').addClass('composted');
+      CheckCompost(currentItem);
     }
 
   });
@@ -320,7 +286,7 @@
   // If a player chooses 'special'
   $('#special').on('click', function() {
 
-    var item = $('.level.ACTIVE .item').last();
+    currentItem = $(document).find('.level.ACTIVE .item')[0];
     
     $('.modal.special').fadeIn(function() {
       $('.option').click(function(){
@@ -335,32 +301,21 @@
             buttonAlertSpecial = false;
             // Confirm to continue
             $(this).find('#alert-confirm').on('click', function(e){
-               e.stopPropagation();
+              e.stopPropagation();
               // Check Item
-              CheckSpecial(item, option.attr('id'));
+              CheckSpecial(currentItem, option.attr('id'));
               $('.modal.special').fadeOut();
-              $(item).addClass('gone').addClass('specialPick');
-
-              setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
-
+              $(currentItem).addClass('gone').addClass('specialPick');
+              $(this).unbind('click');
               $('.alert').fadeOut();
               
             });
           });
         } else {
           // Check Item
-          CheckSpecial(item, option.attr('id'));
+          CheckSpecial(currentItem, option.attr('id'));
           $('.modal.special').fadeOut();
-          $(item).addClass('gone').addClass('specialPick');
-          setTimeout(function () {
-
-                  $(item).remove();
-
-              }, 2000);
+          $(currentItem).addClass('gone').addClass('specialPick');
         }
 
       })
@@ -454,17 +409,19 @@
     }
 
      if ({{player.new}}) {
-      $('.alert .msg').html('<h3>Welcome to Recyclr</h3><p>Keep track of your matches as you play using the counter at the top of your screen.</p>');
-      $('.alert .img, .alert #alert-continue').show();
+      $('.alert .msg').html('<h3>Welcome to Recyclr</h3><p>Remember, you can keep track of your matches as you play using the counter at the top of your screen.</p>');
+      $('.alert img, .alert #alert-continue').show();
       $('.alert .alert-inner').addClass('new-player');
       $('.alert').fadeIn();
 
     }
 
     // Bind close alert button
-    $('#alert-abort, #alert-continue').on('click', function(){
+    $('#alert-abort, #alert-continue').on('click', function(e){
        e.stopPropagation();
-      $('.alert').fadeOut();
+      $('.alert').fadeOut(function(){
+        $(this).find('button, img').hide();
+      });
     });
 
 
