@@ -19,10 +19,10 @@
 		<div class="col-xs-4">
 			<div class="grade">
 				{{#if player.gradeTwo}}
-				<div id="lvl-one">{{lettergrade player.gradeTwo}}</div>
-				<button data-section="game" class="btn grade">Replay</button>
+				<div id="lvl-two">{{lettergrade player.gradeTwo}}</div>
+				<button data-section="game" class="btn replay">Replay</button>
 				{{else}}
-					{{#if player.gradeOne}}
+					{{#if ../player.gradeOne}}
 					<button class="btn grade-empty play" data-section="game">Play Level Two</button>
 					{{else}}
 					<button disabled class="btn grade-empty">Unlock Through Level One</button>
@@ -34,10 +34,10 @@
 		<div class="col-xs-4">
 			<div class="grade">
 				{{#if player.gradeThree}}
-				<div id="lvl-one">{{lettergrade player.gradeThree}}</div>
-				<button data-section="game" class="btn grade">Replay</button>
+				<div id="lvl-three">{{lettergrade player.gradeThree}}</div>
+				<button data-section="game" class="btn replay">Replay</button>
 				{{else}}
-					{{#if player.gradeTwo}}
+					{{#if ../player.gradeTwo}}
 					<button class="btn grade-empty play" data-section="game">Play Level Three</button>
 					{{else}}
 					<button disabled class="btn grade-empty">Unlock Through Level Two</button>
@@ -52,11 +52,11 @@
 
 		<h3>Profile: </h3>
 		<div class="update-picture col-xs-6">
-			{{#if player.image}}
+			{{!-- {{#if player.image}}
 				<img class="profile-picture" src="{{player.image.url}}">
-			{{else}}
+			{{else}} --}}
 				<img class="profile-picture default" src="https://res.cloudinary.com/esalling/image/upload/v1495508839/RecycleMe/default_icon.png">
-			{{/if}}
+			{{!-- {{/if}} --}}
 
 			<div class="image_upload" style="display:none">
 				<input type="file" class="profile-picture" id="image_upload" accept="image/*">
@@ -68,7 +68,7 @@
 
 			<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}}optional username{{/if}}" id="username">
 			{{#if player.username}}
-			<p>You appear on the leaderboard as {{player.username}}.</p>
+			<p>You appear on the leaderboard as <span>{{player.username}}</span>.</p>
 			{{else}}
 			<p>Hide your real name from the leaderboard with a username.</p>
 			{{/if}}

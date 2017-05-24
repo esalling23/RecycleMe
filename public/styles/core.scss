@@ -426,7 +426,7 @@ section.tinderslide {
 }
 
 .alert {
-	z-index: 2500;
+	z-index: 3000;
 
 	top: -60px;
 	height:110%;
@@ -444,16 +444,39 @@ section.tinderslide {
     margin: 40px auto;
     position:relative;
 
-    h3 {
+
+    .msg {
     	padding: 8px;
+
+    	h3 {
+    		margin: 0px;
+    	}
+
+    	p {
+    		font-size: 12px;
+    	}
+    }
+
+    img {
+    	width: 80%;
+    	position: relative;
+    	height: auto;
     }
 
 	button {
-		width: 50%;
 		display: block;
 		margin: 0px;
 		position: absolute;
 		bottom: 0px;
+
+		&.half {
+			width: 50%;
+		}
+
+		&.full {
+			width: 100%;
+
+		}
 
 		&.left {
 			margin-left: -1px;
@@ -464,6 +487,8 @@ section.tinderslide {
 			margin-right: -1px;
 		    right: 0px;
 		}
+
+
 	}
 }
 
@@ -573,6 +598,13 @@ section.tinderslide {
 			width: 100px;
 
 		}
+
+		#btn-save-profile {
+			width: 80px;
+			position: relative;
+			bottom: -80px;
+			
+		}
 	}
 
 	.col-sm-4 {
@@ -625,6 +657,15 @@ section.tinderslide {
 
 	}
 
+}
+
+.level-group {
+	.minimal {
+		width: 60%;
+		height: 80px;
+		font-size: 18px;
+		margin: 12px;
+	}
 }
 
 .section.leaderboard {

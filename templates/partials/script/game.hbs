@@ -8,6 +8,20 @@
       buttonAlertSpecial,
       buttonAlertSuper;
 
+  ion.sound({
+    sounds: [
+        {
+            name: "tada"
+        },
+        {
+            name: "wahwah"
+        }
+    ],
+    volume: 0.5,
+    path: sfxPath,
+    preload: true
+  });
+
 
   function ShowMatch(item, match) {
 
@@ -15,9 +29,11 @@
 
     if (match) {
       $('.modal-wrap.match#' + modalId + ' .message').text('It\'s a Match!');
+      ion.sound.play("tada");
 
     } else {
       $('.modal-wrap.match#' + modalId + ' .message').text('Not Quite!');
+      ion.sound.play("wahwah");
     }
     $('.modal-group').show(function(){
       $('.modal-wrap.match#' + modalId).fadeIn().addClass('open');
@@ -94,7 +110,8 @@
 
     if (buttonAlertTrash == true) {
       // Let the player know what they are doing
-      $('.alert .msg').text('You are about to trash this item! Are you sure?');
+      $('.alert .msg').html('<h3>You are about to trash this item! Are you sure?</h3>');
+      $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
           swipeAlertLeft = false;
           // Confirm to continue
@@ -121,7 +138,8 @@
 
     if (buttonAlertTrash == true) {
       // Let the player know what they are doing
-      $('.alert .msg').text('You are about to trash this item! Are you sure?');
+      $('.alert .msg').html('<h3>You are about to trash this item! Are you sure?</h3>');
+      $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
         buttonAlertTrash = false;
         // Confirm to continue
@@ -150,7 +168,8 @@
 
     if (swipeAlertRight == true) {
       // Let the player know what they are doing
-      $('.alert .msg').text('You are about to recycle this item! Are you sure?');
+      $('.alert .msg').html('<h3>You are about to recycle this item! Are you sure?</h3>');
+      $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
           swipeAlertRight = false;
           // Confirm to continue
@@ -175,7 +194,8 @@
 
     if (buttonAlertRecycle == true) {
       // Let the player know what they are doing
-      $('.alert .msg').text('You are about to recycle this item! Are you sure?');
+      $('.alert .msg').html('<h3>You are about to recycle this item! Are you sure?</h3>');
+      $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
           buttonAlertRecycle = false;
           // Confirm to continue
@@ -203,7 +223,8 @@
 
     if (buttonAlertSuper == true) {
       // Let the player know what they are doing
-      $('.alert .msg').text('You are about to compost this item! Are you sure?');
+      $('.alert .msg').html('<h3>You are about to compost this item! Are you sure?</h3>');
+      $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
           buttonAlertSuper = false;
           // Confirm to continue
@@ -238,7 +259,8 @@
 
         if (buttonAlertSpecial == true) {
           // Let the player know what they are doing
-          $('.alert .msg').text('You are about to <span></span> this item! Are you sure?');
+          $('.alert .msg').html('<h3>You are about to <span></span> this item! Are you sure?</h3>');
+          $('.alert #alert-confirm, .alert #alert-abort').show();
           $('.alert').fadeIn(function(){
             buttonAlertSpecial = false;
             // Confirm to continue
@@ -349,12 +371,20 @@
       buttonAlertSpecial = true;
     }
 
+     if ({{player.new}}) {
+      $('.alert .msg').html('<h3>Welcome to Recyclr</h3><p>Keep track of your matches as you play using the counter at the top of your screen.</p>');
+      $('.alert .img, .alert #alert-continue').show();
+      $('.alert .alert-inner').addClass('new-player');
+      $('.alert').fadeIn();
+
+    }
+
     // Bind close alert button
-    $('#alert-abort').on('click', function(){
+    $('#alert-abort, #alert-continue').on('click', function(){
       $('.alert').fadeOut();
     });
 
-    console.log(swipeAlertRight, swipeAlertLeft, buttonAlertSuper, buttonAlertSpecial);
+
 
   	// Fade in the game, out the profile
   	$('.level-group').fadeOut(function(){

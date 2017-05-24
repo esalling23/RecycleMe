@@ -305,7 +305,7 @@ section.tinderslide {
         top: 1000px; }
 
 .alert {
-  z-index: 2500;
+  z-index: 3000;
   top: -60px;
   height: 110%;
   width: 100%;
@@ -320,14 +320,25 @@ section.tinderslide {
   overflow: hidden;
   margin: 40px auto;
   position: relative; }
-  .alert-inner h3 {
+  .alert-inner .msg {
     padding: 8px; }
+    .alert-inner .msg h3 {
+      margin: 0px; }
+    .alert-inner .msg p {
+      font-size: 12px; }
+  .alert-inner img {
+    width: 80%;
+    position: relative;
+    height: auto; }
   .alert-inner button {
-    width: 50%;
     display: block;
     margin: 0px;
     position: absolute;
     bottom: 0px; }
+    .alert-inner button.half {
+      width: 50%; }
+    .alert-inner button.full {
+      width: 100%; }
     .alert-inner button.left {
       margin-left: -1px;
       left: 0px; }
@@ -413,6 +424,10 @@ section.tinderslide {
   .section.profile .edit img {
     height: 100px;
     width: 100px; }
+  .section.profile .edit #btn-save-profile {
+    width: 80px;
+    position: relative;
+    bottom: -80px; }
 
 .section.profile .col-sm-4 {
   margin: 20px auto; }
@@ -447,6 +462,12 @@ section.tinderslide {
     .section.profile .grade button.play {
       padding-top: 24px;
       font-size: 18px; }
+
+.level-group .minimal {
+  width: 60%;
+  height: 80px;
+  font-size: 18px;
+  margin: 12px; }
 
 .section.leaderboard .leader-nav .btn {
   color: #CECAC1;
