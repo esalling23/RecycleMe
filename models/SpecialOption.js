@@ -24,7 +24,7 @@ var SpecialOption = new keystone.List('SpecialOption',
 		label: 'Special Options',
 		singular: 'Special Option',
 		track: true,
-		autokey: { path: 'key', from: 'name', unique: true },
+		autokey: { path: 'key', from: 'name', unique: true }
 	});
 
 /**

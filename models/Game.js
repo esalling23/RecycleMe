@@ -24,7 +24,7 @@ var Game = new keystone.List('Game',
 		label: 'Games',
 		singular: 'Game',
 		track: true,
-		autokey: { path: 'Game_key', from: 'name', unique: true },
+		autokey: { path: 'Game_key', from: 'name', unique: true }
 	});
 
 /**
@@ -36,6 +36,7 @@ Game.add({
 	name: { type: String, label: 'Name', required: true, initial: true },
 	defaultProfilePic: { type: Types.CloudinaryImage, folder: 'RecycleMe', label: 'Default Profile Picture'},
 	rulesPictures: { type: Types.CloudinaryImages, folder: 'RecycleMe', label: 'Rules Pictures'},
+	
 	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
 
 });
