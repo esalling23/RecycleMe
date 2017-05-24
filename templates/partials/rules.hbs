@@ -1,0 +1,16 @@
+<div class="image-glider glide" id="{{item_key}}-glide">
+	<div class="glide__wrapper">
+    <ul class="glide__track">
+		{{#each profiles}}
+			<li class="image glide__slide" style="background-image:url('{{{cloudinaryUrl this }}}')"></li>
+		{{/each}}
+		</ul>
+	</div>
+</div>
+
+<div class="glide__arrows" style="display:none">
+    <button class="glide__arrow prev" data-glide-dir="prev"><<</button>
+    <button class="glide__arrow next" data-glide-dir="next">>></button>
+</div>
+
+<div class="glide__bullets"></div>

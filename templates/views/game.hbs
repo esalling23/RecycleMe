@@ -14,6 +14,10 @@
 
 <div class="section home ACTIVE">
 
+	<button class="btn nav-bar left" id="btn-profile" data-section="profile">Profile</button>
+
+	<button class="btn nav-bar right" id="btn-play" data-section="game">Play</button>
+
 	<h2>Welcome{{#ifeq player.new false}} back{{/ifeq}}, {{player.name.first}}!</h2>
 
 	{{#ifeq player.admin true}}
@@ -22,14 +26,9 @@
 
 	{{else}}
 
-		<h3>So far you have {{score}} leaderboard points!</h3>
+		<h3>So far you have {{#if score}}{{score}}{{else}}0{{/if}} leaderboard points!</h3>
 
-		
-
-		<button class="btn nav-bar left" id="btn-profile" data-section="profile">Profile</button>
-
-		{{!-- <button class="btn" id="btn-how-to"  data-section="how-to">How to Play</button> --}}
-		<button class="btn nav-bar right" id="btn-play" data-section="game">Play</button>
+		{{> rules}}
 
 	{{/ifeq}}
 

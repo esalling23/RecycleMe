@@ -322,6 +322,8 @@ section.tinderslide {
   position: relative; }
   .alert-inner .msg {
     padding: 8px; }
+    .alert-inner .msg h2 {
+      margin-top: 20%; }
     .alert-inner .msg h3 {
       margin: 0px; }
     .alert-inner .msg p {

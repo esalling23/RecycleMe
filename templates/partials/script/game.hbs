@@ -6,7 +6,8 @@
       buttonAlertRecycle,
       buttonAlertTrash,
       buttonAlertSpecial,
-      buttonAlertSuper;
+      buttonAlertSuper,
+      matchOpen;
 
   ion.sound({
     sounds: [
@@ -25,19 +26,29 @@
 
   function ShowMatch(item, match) {
 
+    console.log(item, match)
+
+    if (matchOpen == true)
+      return;
+
+    matchOpen = true;
+
     var modalId = $(item).find('.item-pane').attr('id');
 
-    if (match) {
+    if (match == true) {
       $('.modal-wrap.match#' + modalId + ' .message').text('It\'s a Match!');
-      ion.sound.play("tada");
+      ion.sound.play("tada", {volume: 0.2});
 
     } else {
       $('.modal-wrap.match#' + modalId + ' .message').text('Not Quite!');
       ion.sound.play("wahwah");
     }
     $('.modal-group').show(function(){
-      $('.modal-wrap.match#' + modalId).fadeIn().addClass('open');
-
+      $('.modal-wrap.match#' + modalId).addClass('open').fadeIn(function(){
+        $(this).find('#back-btn').on('click', function() {
+          matchOpen = false;
+        })
+      });;
     });
     
   }
@@ -110,17 +121,24 @@
 
     if (buttonAlertTrash == true) {
       // Let the player know what they are doing
-      $('.alert .msg').html('<h3>You are about to trash this item! Are you sure?</h3>');
+      $('.alert .msg').html('<h2>You are about to trash this item! Are you sure?</h2>');
       $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
           swipeAlertLeft = false;
           // Confirm to continue
-          $(this).find('#alert-confirm').on('click', function(){
+          $(this).find('#alert-confirm').on('click', function(e){
+             e.stopPropagation();
             // Check Item
             $(item).addClass('gone').addClass('trashed');
             CheckTrash(item);
 
             $('.alert').fadeOut();
+
+            setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
           });
       });
     } else {
@@ -128,25 +146,39 @@
       item.addClass('gone').addClass('trashed');
       CheckTrash(item);
 
+      setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
+
     }
 
   });
 
 	// If a player chooses to trash an item
   $('#trash').on('click', function() {
-    var item = $('.level.ACTIVE .item:not(.gone)').last();
+
+    var item = $('.level.ACTIVE .item').last();
 
     if (buttonAlertTrash == true) {
       // Let the player know what they are doing
-      $('.alert .msg').html('<h3>You are about to trash this item! Are you sure?</h3>');
+      $('.alert .msg').html('<h2>You are about to trash this item! Are you sure?</h2>');
       $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
         buttonAlertTrash = false;
         // Confirm to continue
-        $(this).find('#alert-confirm').on('click', function(){
+        $(this).find('#alert-confirm').on('click', function(e){
+           e.stopPropagation();
           // Check Item
           $(item).addClass('gone').addClass('trashed');
           CheckTrash(item);
+
+          setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
 
           $('.alert').fadeOut();
         });
@@ -155,6 +187,11 @@
       // Check Item
       $(item).addClass('gone').addClass('trashed');
       CheckTrash(item);
+      setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
     }
 
     
@@ -168,14 +205,20 @@
 
     if (swipeAlertRight == true) {
       // Let the player know what they are doing
-      $('.alert .msg').html('<h3>You are about to recycle this item! Are you sure?</h3>');
+      $('.alert .msg').html('<h2>You are about to recycle this item! Are you sure?</h2>');
       $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
           swipeAlertRight = false;
           // Confirm to continue
-          $(this).find('#alert-confirm').on('click', function(){
+          $(this).find('#alert-confirm').on('click', function(e){
+             e.stopPropagation();
             $(item).addClass('gone').addClass('recycled');
             CheckRecycle(item);
+            setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
 
             $('.alert').fadeOut();
           });
@@ -184,25 +227,36 @@
       // Check Item
       $(item).addClass('gone').addClass('recycled');
       CheckRecycle(item);
+      setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
     }
     
   });
 
   // If a player chooses to recycle
   $('#recycle').on('click', function() {
-    var item = $('.level.ACTIVE .item:not(.gone)').last();
+    var item = $('.level.ACTIVE .item').last();
 
     if (buttonAlertRecycle == true) {
       // Let the player know what they are doing
-      $('.alert .msg').html('<h3>You are about to recycle this item! Are you sure?</h3>');
+      $('.alert .msg').html('<h2>You are about to recycle this item! Are you sure?</h2>');
       $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
           buttonAlertRecycle = false;
           // Confirm to continue
-          $(this).find('#alert-confirm').on('click', function(){
+          $(this).find('#alert-confirm').on('click', function(e){
+             e.stopPropagation();
             // Check Item
             $(item).addClass('gone').addClass('recycled');
             CheckRecycle(item);
+            setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
 
             $('.alert').fadeOut();
 
@@ -212,6 +266,11 @@
       // Check Item
       $(item).addClass('gone').addClass('recycled');
       CheckRecycle(item);
+      setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
       
     }
 
@@ -219,19 +278,26 @@
 
   // If a player chooses to compost
   $('#compost').on('click', function() {
-    var item = $('.level.ACTIVE .item:not(.gone)').last();
+    var item = $('.level.ACTIVE .item').last();
 
     if (buttonAlertSuper == true) {
       // Let the player know what they are doing
-      $('.alert .msg').html('<h3>You are about to compost this item! Are you sure?</h3>');
+      $('.alert .msg').html('<h2>You are about to compost this item! Are you sure?</h2>');
       $('.alert #alert-confirm, .alert #alert-abort').show();
       $('.alert').fadeIn(function(){
           buttonAlertSuper = false;
           // Confirm to continue
-          $(this).find('#alert-confirm').on('click', function(){
+          $(this).find('#alert-confirm').on('click', function(e){
+             e.stopPropagation();
             // Check item
             $(item).addClass('gone').addClass('composted');
             CheckCompost(item);
+
+            setTimeout(function () {
+
+                $(item).remove();
+
+            }, 2000);
 
             $('.alert').fadeOut();
 
@@ -241,7 +307,11 @@
       // Check Item
       $(item).addClass('gone').addClass('composted');
       CheckCompost(item);
+      setTimeout(function () {
 
+          $(item).remove();
+
+      }, 2000);
 
     }
 
@@ -250,7 +320,7 @@
   // If a player chooses 'special'
   $('#special').on('click', function() {
 
-    var item = $('.level.ACTIVE .item:not(.gone)').last();
+    var item = $('.level.ACTIVE .item').last();
     
     $('.modal.special').fadeIn(function() {
       $('.option').click(function(){
@@ -259,16 +329,23 @@
 
         if (buttonAlertSpecial == true) {
           // Let the player know what they are doing
-          $('.alert .msg').html('<h3>You are about to <span></span> this item! Are you sure?</h3>');
+          $('.alert .msg').html('<h2>You are about to <span></span> this item! Are you sure?</h2>');
           $('.alert #alert-confirm, .alert #alert-abort').show();
           $('.alert').fadeIn(function(){
             buttonAlertSpecial = false;
             // Confirm to continue
-            $(this).find('#alert-confirm').on('click', function(){
+            $(this).find('#alert-confirm').on('click', function(e){
+               e.stopPropagation();
               // Check Item
               CheckSpecial(item, option.attr('id'));
               $('.modal.special').fadeOut();
               $(item).addClass('gone').addClass('specialPick');
+
+              setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
 
               $('.alert').fadeOut();
               
@@ -279,6 +356,11 @@
           CheckSpecial(item, option.attr('id'));
           $('.modal.special').fadeOut();
           $(item).addClass('gone').addClass('specialPick');
+          setTimeout(function () {
+
+                  $(item).remove();
+
+              }, 2000);
         }
 
       })
@@ -381,6 +463,7 @@
 
     // Bind close alert button
     $('#alert-abort, #alert-continue').on('click', function(){
+       e.stopPropagation();
       $('.alert').fadeOut();
     });
 
