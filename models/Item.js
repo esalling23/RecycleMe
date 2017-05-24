@@ -36,7 +36,7 @@ Item.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
 	info: { type: Types.Markdown, label: 'Item Bio', note: 'Appears BEFORE player swipes item'},
-	// image: { type: Types.CloudinaryImage, label: 'Item Image', folder: 'RecycleMe', autocleanup: true },
+	profilePic: { type: Types.CloudinaryImage, label: 'Item Image - Main', note: 'Appears on match screen - should be a repeat of one of the Image Profiles', folder: 'RecycleMe', autocleanup: true },
 	profiles: { type: Types.CloudinaryImages, label: 'Image profiles', folder: 'RecycleMe', autocleanup: true },
 	material: {
 		type: Types.Relationship, 
@@ -107,6 +107,6 @@ Item.schema.statics.removeResourceRef = function(resourceId, callback) {
 /**
  * Model Registration
  */
-Item.defaultSort = 'level';
-Item.defaultColumns = 'name, level, status, updatedAt';
+Item.defaultSort = 'profiles';
+Item.defaultColumns = 'name, level, status, profiles, updatedAt';
 Item.register();

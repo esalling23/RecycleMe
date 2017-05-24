@@ -39,20 +39,23 @@
     if (matchOpen == true || !modalId)
       return;
 
-    item.remove();
-
+    setTimeout(function(){
+      item.remove();
+    }, 1000);
+    
     matchOpen = true;
-
-    if (match == true) {
-      $('.modal-wrap.match#' + modalId + ' .message').text('It\'s a Match!');
-      ion.sound.play("tada", {volume: 0.2});
-
-    } else {
-      $('.modal-wrap.match#' + modalId + ' .message').text('Not Quite!');
-      ion.sound.play("wahwah");
-    }
     $('.modal-group').show(function(){
-      $('.modal-wrap.match#' + modalId).addClass('open').fadeIn(function(){
+
+      if (match == true) {
+        $('.modal-wrap.match#' + modalId + ' .message').text('It\'s a Match!');
+        ion.sound.play("tada", {volume: 0.2});
+
+      } else {
+        $('.modal-wrap.match#' + modalId + ' .message').text('Not Quite!');
+        ion.sound.play("wahwah");
+      }
+    
+      $('.modal-wrap.match#' + modalId).addClass('open').fadeIn('200', function(){
         $(this).find('#back-btn').on('click', function() {
           $('#' + modalId).remove();
           matchOpen = false;
@@ -303,9 +306,10 @@
             $(this).find('#alert-confirm').on('click', function(e){
               e.stopPropagation();
               // Check Item
+              $(currentItem).addClass('gone').addClass('specialPick');
               CheckSpecial(currentItem, option.attr('id'));
               $('.modal.special').fadeOut();
-              $(currentItem).addClass('gone').addClass('specialPick');
+              
               $(this).unbind('click');
               $('.alert').fadeOut();
               
@@ -313,9 +317,9 @@
           });
         } else {
           // Check Item
+          $(currentItem).addClass('gone').addClass('specialPick');
           CheckSpecial(currentItem, option.attr('id'));
           $('.modal.special').fadeOut();
-          $(currentItem).addClass('gone').addClass('specialPick');
         }
 
       })
@@ -471,6 +475,7 @@
 
 	  	$.get("/api/game/", data, function(data){
 	  		// Show that end-of-level modal
+        $('.buttons').hide();
 	  		$('.modal.end').html(data.html).fadeIn();
   		})
   		.fail(function(err) {

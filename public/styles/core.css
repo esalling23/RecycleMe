@@ -278,20 +278,20 @@ section.tinderslide {
       left: 0;
       z-index: 2;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.15); }
+      background-color: rgba(0, 0, 0, 0.6); }
     section.tinderslide .item .material {
-      font-size: 12px; }
+      font-size: 18px; }
     section.tinderslide .item h2 {
-      font-size: 20px; }
+      font-size: 24px; }
     section.tinderslide .item p {
-      font-size: 14px; }
+      font-size: 18px; }
     section.tinderslide .item.open {
       max-width: 100%;
       width: 100%;
       height: calc(100% - 80px) !important;
       max-height: 100%;
       left: 0px;
-      top: -110px;
+      top: -156px;
       z-index: 2500; }
     section.tinderslide .item .image-glider {
       height: 100%;
@@ -318,10 +318,10 @@ section.tinderslide {
       left: 5%;
       top: 0;
       bottom: auto;
-      -moz-transition: all, 2s;
-      -o-transition: all, 2s;
-      -webkit-transition: all, 2s;
-      transition: all, 2s; }
+      -moz-transition: all, 1s;
+      -o-transition: all, 1s;
+      -webkit-transition: all, 1s;
+      transition: all, 1s; }
       section.tinderslide .item.gone.trashed {
         left: -1000px;
         right: auto; }
@@ -333,6 +333,19 @@ section.tinderslide {
       section.tinderslide .item.gone.specialPick {
         bottom: -1000px;
         top: 1000px; }
+
+.end button {
+  height: 40px;
+  width: 100px;
+  font-size: 16px; }
+
+.end #back-btn {
+  bottom: 20px;
+  position: absolute;
+  left: calc(50% - 100px);
+  width: 200px;
+  height: 40px;
+  font-size: 24px; }
 
 .alert {
   z-index: 3000;

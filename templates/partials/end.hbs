@@ -6,11 +6,11 @@
 
 		<p>If you want to replay, you can get 1/2 points after your score of {{score}} out of the {{total}} items in this level.</p>
 
-		<button class="minimal btn" id="replay-btn">replay</button> 
+		{{!-- <button class="minimal btn" id="replay-btn">replay</button>  --}}
 
 		<p>Or, you can move on to the next level! </p>
 
-		<button class="minimal btn" data-level="{{next}}" id="next-lvl">next level</button>
+		{{!-- <button class="minimal btn" data-level="{{next}}" id="next-lvl">next level</button> --}}
 
 		{{else}}
 		<h3>Uh oh! Your score was too low to pass this level...</h3>
@@ -21,7 +21,7 @@
 
 		{{/if}}
 
-		<input href="window.location" id="back-btn" data-keep_enabled="true" class="submit minimal btn" type="submit" name="submit" value="back to menu">
+		<button onclick="location.reload()" id="back-btn" class="submit minimal btn">back to menu</button>
 
 
 	</div>
