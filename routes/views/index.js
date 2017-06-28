@@ -12,9 +12,6 @@
  * ==========
  */
 var keystone = require('keystone'),
-    Index = keystone.list('Index'),
-    Item = keystone.list('Item'),
-    Material = keystone.list('Material'),
     _ = require('underscore');
 
 exports = module.exports = function(req, res) {
@@ -27,19 +24,7 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
 
-        var queryIndex = Index.model.findOne({}, {}, {
-            sort: {
-                'createdAt': -1
-            }
-        });
-        queryIndex.exec(function(err, resultIndex) {
-            if (err) throw err;
-
-            locals.index = resultIndex;
-
             next();
-
-        });
 
     });
 

@@ -34,7 +34,6 @@ exports.get = function(req, res) {
 
 exports.update = function(req, res) {
 
-
     Player.model.findOne({ _id: req.params.id }).populate('team').exec((err, result) => {
 
         if (req.query.team)
@@ -52,25 +51,54 @@ exports.update = function(req, res) {
 
 };
 
+// /**
+//  * Update File by ID
+//  */
+// exports.image_update = function(req, res) {
+//   FileData.model.findById(req.params.id).exec(function(err, item) {
+//     if (err) return res.apiError('database error', err);
+//     if (!item) return res.apiError('not found');
+
+//     var data = (req.method == 'POST') ? req.body : req.query;
+
+//     item.getUpdateHandler(req).process(data, function(err) {
+
+//       if (err) return res.apiError('create error', err);
+
+//       res.apiResponse({
+//         collection: item
+//       });
+
+//     });
+//   });
+// }
+
+// /**
+//  * Upload a New File
+//  */
+// exports.image_create = function(req, res) {
+
+//   var item = new FileData.model(),
+//   data = (req.method == 'POST') ? req.body : req.query;
+
+//   item.getUpdateHandler(req).process(req.files, function(err) {
+
+//     if (err) return res.apiError('error', err);
+
+//     res.apiResponse({
+//       file_upload: item
+//     });
+
+//   });
+// }
+
+
 exports.image_upload = function(req, res) {
     console.log(req.files, " image_upload");
 
     Player.model.findOne({ _id: req.params.id }).populate('team').exec((err, result) => {
 
         var updater = result.getUpdateHandler(req);
-
-        var fields = 'name,username,email,image,password,admin,new,login,leader,team,completed,levelOne,pointsOne,pointsOneCap,triesOne,lastTryOne,levelTwo,pointsTwo,pointsTwoCap,triesTwo,lastTryTwo,levelThree,pointsThree,pointsThreeCap,triesThree,lastTryThree';
-
-        var opt = ['name', 'email', 'password'];
-
-        for(var i=0;i<opt.length;i++){
-            if(result.hasOwnProperty(opt[i])){
-                if( result[opt[i]].length == 0){
-                    continue;
-                }
-                fields +=','+opt[i];
-            }
-        }
 
         updater.process( req.query, {
             flashErrors: true,

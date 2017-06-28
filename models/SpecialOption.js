@@ -23,7 +23,6 @@ var SpecialOption = new keystone.List('SpecialOption',
 	{
 		label: 'Special Options',
 		singular: 'Special Option',
-		track: true,
 		autokey: { path: 'key', from: 'name', unique: true }
 	});
 
@@ -35,8 +34,7 @@ SpecialOption.add({
 
 	name: { type: String, label: 'Title of this special option', required: true, initial: true },
 	text: { type: Types.Markdown, label: 'Short description', required: true, initial: true},
-	image: { type: Types.CloudinaryImage, label: 'Special Option Image'},
-	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
+	image: { type: Types.CloudinaryImage, label: 'Special Option Image'}
 
 });
 

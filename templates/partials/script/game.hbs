@@ -496,12 +496,12 @@
 
       var fileName = selectedFile.name;
 
-      //Create the FormData data object and append the file to it.
+      // Create the FormData data object and append the file to it.
       var newImage = new FormData();
       newImage.append('image_upload', selectedFile); //This is the raw file that was selected
 
       var opts = {
-        url: 'http://localhost:3000/api/update/image_upload/{{playerId}}',
+        url: '/api/update/image_upload/{{playerId}}',
         data: newImage,
         cache: false,
         contentType: false,
@@ -509,6 +509,17 @@
         type: 'POST',
         success: function(data){
           console.log('Image upload ID: ' + data.image_upload._id);
+
+          // //Update the file with the information above.
+          // $.get('/api/update/image/'+data.file_upload._id+'', data.file_upload, function(data) {
+          //   //debugger;
+            
+          //   console.log('File information updated.');
+            
+          //   //Add the uploaded file to the uploaded file list.
+          //   $('#file_list').append('<li><a href="'+data.collection.url+'" download>'+data.collection.name+'</a></li>');
+            
+          // })
         }, 
         fail: function(err){
           console.log('error: ' + err);

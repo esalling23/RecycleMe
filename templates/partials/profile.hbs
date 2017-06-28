@@ -48,17 +48,17 @@
 
 	</div>
 
-	<form class="edit form row" enctype="multipart/form-data">
+	<form class="edit form row" action="/api/profile/update" method="POST" enctype="multipart/form-data">
 
 		<h3>Profile: </h3>
 		<div class="update-picture col-xs-6">
-			{{!-- {{#if player.image}}
+			{{#if player.image}}
 				<img class="profile-picture" src="{{player.image.url}}">
-			{{else}} --}}
+			{{else}}
 				<img class="profile-picture default" src="https://res.cloudinary.com/esalling/image/upload/v1495508839/RecycleMe/default_icon.png">
-			{{!-- {{/if}} --}}
+			{{/if}}
 
-			<div class="image_upload" style="display:none">
+			<div class="image_upload">
 				<input type="file" class="profile-picture" id="image_upload" accept="image/*">
 				<p>Upload new profile picture</p>
 			</div>

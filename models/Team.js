@@ -23,7 +23,6 @@ var Team = new keystone.List('Team',
 	{
 		label: 'Teams',
 		singular: 'Team',
-		track: true,
 		autokey: { path: 'key', from: 'name', unique: true }
 	});
 
@@ -33,8 +32,7 @@ var Team = new keystone.List('Team',
  */
 Team.add({
 
-	name: { type: String, label: 'Title of this special option', required: true, initial: true },
-	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
+	name: { type: String, label: 'Title of this special option', required: true, initial: true }
 
 });
 

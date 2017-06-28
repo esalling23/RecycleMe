@@ -12,9 +12,9 @@
   "deploy" : {
     "sdk-production" : {
       "user": "node",
-      "host": "104.236.79.252",
-      "repo": "git@github.com:esalling23/el-web-sdk.git",
-      "ref": "origin/production",
+      "host": "174.138.71.140",
+      "repo": "https://github.com/esalling23/el-web-sdk.git",
+      "ref": "origin/master",
       "path": "/srv/framework",
       "pre-deploy-local" : "echo 'Cloning and running npm install. Be patient.'",
       "post-deploy" : "npm install ; npm update ; grunt compile --sites=recycle-me --env production ; pm2 restart 'server' -- recycle-me --env production",
@@ -25,9 +25,9 @@
 
     "production" : {
       "user": "node",
-      "host": "104.236.79.252",
-      "repo": "git@github.com:esalling23/RecycleMe.git",
-      "ref": "origin/production",
+      "host": "174.138.71.140",
+      "repo": "https://github.com/esalling23/RecycleMe.git",
+      "ref": "origin/master",
       "path": "/srv/RecycleMe",
       "pre-deploy-local" : "echo 'NPM linking recycle-me and restarting app.';",
       "post-deploy" : "npm i ; cd /srv/framework/current/ ; grunt compile --sites=recycle-me --env production ; NODE_ENV=production pm2 restart server.js -- recycle-me --env production"

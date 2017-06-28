@@ -8,8 +8,7 @@ var Types = keystone.Field.Types;
 
 var Player = new keystone.List('Player', {
 	label: 'Players',
-	singular: 'Player',
-	track: true
+	singular: 'Player'
 	// autokey: { path: 'key', from: 'name', unique: true }
 });
 

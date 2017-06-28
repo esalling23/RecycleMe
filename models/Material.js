@@ -24,7 +24,6 @@ var Material = new keystone.List('Material',
 	{
 		label: 'Materials',
 		singular: 'Material',
-		track: true,
 		autokey: { path: 'material_key', from: 'name', unique: true },
 	});
 
@@ -36,8 +35,7 @@ Material.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
 	info: { type: Types.Markdown, label: 'Material Info', required: true, initial: true},
-	image: { type: Types.CloudinaryImage, label: 'Material Image'},
-	createdAt: { type: Date, default: Date.now, noedit: true, hidden: true }
+	image: { type: Types.CloudinaryImage, label: 'Material Image'}
 
 });
 

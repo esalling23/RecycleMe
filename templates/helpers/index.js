@@ -1,5 +1,4 @@
 var _ = require('underscore');
-var hbs = require('handlebars');
 
 module.exports = function() {
 
@@ -17,6 +16,10 @@ module.exports = function() {
     };
 
      _helpers.lettergrade = function (num) {
+
+        if (!num) 
+            return;
+
         var grade;
         
         if (num >= 90) {

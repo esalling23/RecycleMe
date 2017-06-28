@@ -27,6 +27,10 @@
 	<link rel="stylesheet" href="/styles/plugins/glide.core.min.css">
 	<link rel="stylesheet" href="/styles/plugins/glide.theme.min.css">
 
+	<link href="https://fonts.googleapis.com/css?family=Allura|Bilbo+Swash+Caps|Calligraffitti|Sacramento" rel="stylesheet">
+
+	{{!-- fonts --}}
+	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 {{#ifeq environment "development"}}
 
@@ -40,10 +44,6 @@
 	{{!-- Core Site CSS --}}
 	<link href="/styles/core.css" rel="stylesheet">
 
-	<link href="https://fonts.googleapis.com/css?family=Allura|Bilbo+Swash+Caps|Calligraffitti|Sacramento" rel="stylesheet">
-
-	{{!-- fonts --}}
-	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 {{else}}
 
@@ -51,6 +51,8 @@
 	{{!-- Suite core styling --}}
 	<link href="https://res.cloudinary.com/engagement-lab-home/raw/upload/site/styles/core.css" rel="stylesheet">
 	{{!-- Module styling --}}
-	<link href="{{cdnAsset product='repo-name' env=environment type='css' }}" rel="stylesheet">
+	{{!-- <link href="{{cdnAsset product='RecycleMe' env=environment type='css' }}" rel="stylesheet"> --}}
+		<link href="/styles/core.css" rel="stylesheet">
+
 
 {{/ifeq}}
