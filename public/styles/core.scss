@@ -227,6 +227,34 @@ button, .btn, input {
 	right: auto; 
 }
 
+// Login
+.welcome p {
+	width: 60%;
+	margin: 0 auto;
+}
+
+#login {
+	padding: 8px;
+	margin: 16px auto;
+	border: 1px $tinder-black solid;
+	width: 240px;
+	
+	p {
+		margin: 0px;
+		text-align: left;
+	}
+	input {
+		width: 100%;
+		margin-bottom: 10px;
+		&.btn {
+			&:hover, &:focus {
+				color: $tinder-white;
+				background-color: $tinder-red;
+			}
+		}
+	}
+}
+
 // MODALS
 
 .modal-wrap {

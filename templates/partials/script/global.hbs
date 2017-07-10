@@ -163,7 +163,11 @@ $(document).ready(function() {
 			console.log("checking login info");
 
 			$.get("/api/find/", data, function(data){
-				window.location = data;
+
+				if(data.error_code) {
+                    $('.error').html(data.msg).fadeIn();
+                } else 
+					window.location = data;
 			})
 			.fail(function() {
 			    alert( "error" );

@@ -9,7 +9,7 @@ exports.get = function(req, res) {
 
 	query.exec((err, player) => {
 
-	    if (err || !player) return res.json({ msg: "we have not found your profile" });
+	    if (err || !player) return res.json({ error_code: "no_profile", msg: "no profile for that email" });
 
 	    var data = {};
 	    data.player = player.id;
@@ -32,11 +32,11 @@ exports.get = function(req, res) {
 
 			  	console.log("wrong password");
 
-			  	return res.json({
-			        success: false,
-			        msg: 'Sorry, wrong password', 
-			        player: player
+			  	res.send({
+			        error_code: "wrong_password",
+			        msg: 'Sorry, wrong password'
 			    });
+			    return;
 			  	
 			}
 

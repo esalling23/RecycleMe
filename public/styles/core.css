@@ -159,6 +159,25 @@ button:disabled, .btn:disabled, input:disabled {
   left: auto;
   right: auto; }
 
+.welcome p {
+  width: 60%;
+  margin: 0 auto; }
+
+#login {
+  padding: 8px;
+  margin: 16px auto;
+  border: 1px #343434 solid;
+  width: 240px; }
+  #login p {
+    margin: 0px;
+    text-align: left; }
+  #login input {
+    width: 100%;
+    margin-bottom: 10px; }
+    #login input.btn:hover, #login input.btn:focus {
+      color: #fff;
+      background-color: #ff6a6a; }
+
 .modal-wrap {
   position: fixed;
   top: 0px;
@@ -174,7 +193,7 @@ button:disabled, .btn:disabled, input:disabled {
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.8); }
   .special .option {
-    background-color: #4d4d4d;
+    background-color: #4d4c4c;
     height: 180px;
     width: 140px;
     margin: 10px auto;
@@ -194,7 +213,7 @@ button:disabled, .btn:disabled, input:disabled {
   #rules-glide .glide__bullets {
     bottom: 20px; }
   #rules-glide .glide__bullet {
-    background-color: #818181; }
+    background-color: #818080; }
     #rules-glide .glide__bullet.active {
       background-color: #343434; }
       #rules-glide .glide__bullet.active:hover, #rules-glide .glide__bullet.active:focus {
@@ -484,7 +503,7 @@ section.tinderslide {
 .section.profile .edit {
   margin-top: 40px;
   padding-bottom: 80px;
-  border-top: 2px solid #818181; }
+  border-top: 2px solid #818080; }
   .section.profile .edit img {
     height: 100px;
     width: 100px; }
@@ -562,3 +581,5 @@ section.tinderslide {
   line-height: 40px;
   color: #fff;
   background-color: #ff6a6a; }
+
+/*# sourceMappingURL=core.css.map */
