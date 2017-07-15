@@ -162,8 +162,8 @@ exports.update = function(req, res) {
 
             Templates.Load('/partials/end', data, (html) => {
 
-                res.send({html:html, grade:ratio*100});
-
+                res.send({ html: html, grade: ratio*100 });
+ 
             }); 
 
         });
@@ -176,10 +176,46 @@ exports.level = function(req, res) {
 
     var Templates = new TemplateLoader();
 
+    var level = function(val, cat) {
+        return val.filter(function(item) {
+            return item.level == cat || item.level == upperCase(cat);
+        });
+    };
+
+    Item.model.find({}).exec((err, item) => {
+
+        data.items = categorize(item, req.query.level);
+
+        Player.model.findOne({ '_id': req.query.player }).exec((err, player) => {
+
+            data.player = player;
+
+            Templates.Load('/partials/level', data, (html) => {
+
+                res.send({ html: html });
+
+            });
+
+        });
+    });
+
 };
 
 exports.modal = function(req, res) {
-    
+
     var Templates = new TemplateLoader();
+
+    Item.model.findOne({ '_id': req.query.id }).exec((err, item) => {
+
+        Player.model.findOne({ '_id': req.query.player }).exec((err, player) => {
+
+                Templates.Load('/partials/level', data, (html) => {
+
+                    res.send({ html: html });
+
+                });
+
+        });
+    });
 
 };

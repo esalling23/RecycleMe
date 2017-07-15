@@ -151,6 +151,7 @@ $(document).ready(function() {
 
 	$('#btn_login').click(function(evt) {
 		var data = {};
+		$('.error').hide().html('');
 		data.email = $('#email_input').val();
 		data.password = $('#password_input').val();
 
@@ -162,9 +163,7 @@ $(document).ready(function() {
 			else
 				var msg = 'You must fill out your email.'
 
-			$('#error').fadeIn( function() {
-				$('.error').html(msg).fadeIn();
-			});
+			$('.error').html(msg).fadeIn();
 			  
 		} else {
 			console.log("checking login info");
