@@ -48,11 +48,11 @@
 
 	</div>
 
-	<form class="edit form row" enctype="multipart/form-data">
+	<form class="edit form row" action="/api/update/{{player._id}}" method="post" enctype="multipart/form-data">
 
-		<input type="file" class="profile-picture" id="image_upload" name="image_upload" accept="image/*">
+		<input type="file" class="profile-picture cloudinary-fileupload" id="image_upload" name="image_upload" accept="image/*">
 
-		{{!-- <h3>Profile: </h3>
+		<h3>Profile: </h3>
 		<div class="update-picture col-xs-6">
 			{{#if player.image}}
 				<img class="profile-picture" src="{{player.image.url}}">
@@ -61,8 +61,7 @@
 			{{/if}}
 
 			<div class="image_upload">
-				
-				<label for="file">Upload Profile Picture</label>
+				<a href="#" id="upload_widget_opener">Upload Profile Image</a>
 			</div>
 		</div>
 
@@ -82,7 +81,7 @@
 				{{/each}}
 			</select>
 
-		</div> --}}
+		</div>
 
 		<input type='submit' class="btn minimal" id="btn-save-profile" value="save">
 
@@ -93,4 +92,6 @@
 	<button class="back nav-bar" data-direction="left" data-section="home">back</button>
 
 </div>
+
+
 

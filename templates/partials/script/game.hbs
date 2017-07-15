@@ -497,93 +497,61 @@
 
   }
 
+
+
   // PROFILE 
-  // $('#btn-save-profile').on('click', function() {
+  $('#btn-save-profile').on('click', function() {
 
-  //   // Profile Image Upload
-  //   var selectedFile = $('#image_upload').get(0).files[0];
+    if ($('.edit .team-select:selected').length > 0 || $('.edit #username').value ) {
+      console.log('changing username/team')
+      var data = {
+        player: '{{playerId}}', 
+        team: $('.edit .team-select:selected').attr('id'),
+        username: $('.edit #username').val(), 
+        file: selectedFile
+      };
 
-  //   if (selectedFile) {
-
-  //     var fileName = selectedFile.name;
-
-  //     // Create the FormData data object and append the file to it.
-  //     var newImage = new FormData();
-  //     newImage.append('image_upload', selectedFile); //This is the raw file that was selected
-
-  //     var opts = {
-  //       url: '/api/update/{{playerId}}',
-  //       data: newImage,
-  //       cache: false,
-  //       contentType: false,
-  //       processData: false,
-  //       type: 'POST',
-  //       success: function(data){
-  //         console.log('Image upload ID: ' + data.image_upload._id);
-
-  //         // //Update the file with the information above.
-  //         // $.get('/api/update/image/'+data.file_upload._id+'', data.file_upload, function(data) {
-  //         //   //debugger;
-            
-  //         //   console.log('File information updated.');
-            
-  //         //   //Add the uploaded file to the uploaded file list.
-  //         //   $('#file_list').append('<li><a href="'+data.collection.url+'" download>'+data.collection.name+'</a></li>');
-            
-  //         // })
-  //       }, 
-  //       fail: function(err){
-  //         console.log('error: ' + err);
-  //       }
-  //     };
-                    
-  //     //Execute the AJAX operation.
-  //     jQuery.ajax(opts);
-
-  //   }
-
-  //   if ($('.edit .team-select:selected').length > 0 || $('.edit #username').value || selectedFile ) {
-  //     console.log('changing username/team')
-  //     var data = {
-  //       player: '{{playerId}}', 
-  //       team: $('.edit .team-select:selected').attr('id'),
-  //       username: $('.edit #username').val(), 
-  //       file: selectedFile
-  //     };
-
-  //     $.get("/api/update/{{playerId}}", data, function(data){
-  //       // Notify success
-  //       $('.save-msg').text('Nice! Saved.').fadeIn();
-  //     })
-  //     .fail(function(err) {
-  //         alert( "error" + err );
-  //     });
-
-  //   }
-
-  
-
-  // });
-
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        
-        reader.onload = function (e) {
-            $('img.profile-picture').attr('src', e.target.result);
-        }
-        
-        reader.readAsDataURL(input.files[0]);
-
-        console.log(input.files[0])
+      $.post("/api/update/{{playerId}}", data, function(data){
+        // Notify success
+        $('.save-msg').text('Nice! Saved.').fadeIn();
+      })
+      .done(function() {
+        alert ('success')
+      })
+      .error(function(err) {
+          alert( "error" + err );
+      });
 
     }
-  }
-  
-  $("input.profile-picture").change(function(){
-      readURL(this);
-
   });
+
+$('#upload_widget_opener').cloudinary_upload_widget(
+    { cloud_name: 'esalling', 
+      upload_preset: 'wtokgjnv', 
+      cropping: 'server', 
+      sources: [ 'local', 'url' ], 
+      multiple: false, 
+      tags: '{{playerId}}'
+    }, function(error, result) { 
+      console.log(result[0]);
+
+      // Do some stuff with the display
+    $.post("/api/update/image_upload/{{playerId}}", { image: result[0] }, function(data){
+      
+      // Notify success
+      $('.save-msg').text('Nice! Saved.').fadeIn();
+
+      // Do some stuff with the display
+
+    })
+    .done(function() {
+      alert ('success')
+    })
+    .error(function(err) {
+        alert( "error" + err );
+    });
+
+});
 
   // NAVIGATION
 
