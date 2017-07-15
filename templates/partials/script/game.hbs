@@ -1,6 +1,7 @@
 	// GAME LOGIC
 	var levelItems,
       points = 0, 
+      playing = false,
       currentItem,
       swipeAlertRight,
       swipeAlertLeft,
@@ -116,13 +117,6 @@
       console.log ('WRONG - dis something ELSe');
     }
   }
-
-	$('.level-group [data-level]').click(function(evt) {
-
-		console.log($(this).data('level'));
-		StartLevel($(this).data('level'));
-
-	});
 
   $('.item').hammer().on("swipeleft", function(ev){
 
@@ -327,7 +321,12 @@
     
   });
 
-
+  $('.item.open').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    e.bubbles = false;
+    return;
+  });
 
   $('.item:not(.open)').on('click', function(event){
 
@@ -351,12 +350,12 @@
       $(glider).glide({
         type: "carousel",
         autoplay: false,
-        autoheight: true, 
+        autoheight: false, 
         default: 1
       });
 
       $('.glide__arrow').on('click', function(event){
-              // event.preventDefault();
+        event.preventDefault();
         event.stopPropagation();
         event.bubbles = false;
 
@@ -370,6 +369,7 @@
     $(item).on('click', function(e){
       e.preventDefault();
       e.stopPropagation();
+      e.bubbles = false;
       console.log(" open click ")
       return;
     });
@@ -386,10 +386,20 @@
     });
 
   });
-  
+
+  $('[data-level]').on('click', function(e) {
+
+    console.log($(this).data('level'));
+    if (playing == false)
+      StartLevel($(this).data('level'));
+
+    e.stopPropagation();
+
+  });
 
   function StartLevel(num) {
-   // enable/disable buttons
+
+    // enable/disable buttons
     if (num == 2) {
       $('#compost').attr('disabled', false);
     } else if (num == 3) {
@@ -428,16 +438,17 @@
       });
     });
 
-
-
   	// Fade in the game, out the profile
-  	$('.level-group').fadeOut(function(){
+  	$('.ACTIVE').removeClass('ACTIVE').fadeOut(function(){
+
+      $('.game').addClass('ACTIVE').fadeIn();
+
       $('.buttons').show();
       $('.level.header').show();
   		// Fade in the level
   		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
-        
-  			$('.ACTIVE').removeClass('ACTIVE');
+
+        playing = true;
   			$(this).addClass('ACTIVE');
 
         if ($(this).data('grade') >= 70) {
@@ -582,13 +593,15 @@
     var section = $(this).data('section');
     var direction = $(this).data('direction');
 
-    if (direction == 'right')
-      var oppDir = 'left';
-    else 
-      var oppDir = 'right';
+    $('.section.ACTIVE').css({'left': 'auto', 'right': 'auto'})
+
+    // if (direction == 'right')
+    //   var oppDir = {'left': 'auto'};
+    // else 
+    //   var oppDir = {'right': 'auto'};
 
     animOpts[direction] = '-=4000px'; 
-    animOpts[oppDir] = 'auto'; 
+    
     
     $('.section.ACTIVE').animate( animOpts , 500, function(){
 

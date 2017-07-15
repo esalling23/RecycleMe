@@ -166,10 +166,20 @@ exports.update = function(req, res) {
 
             }); 
 
-            
-
         });
 
     });
+
+};
+
+exports.level = function(req, res) {
+
+    var Templates = new TemplateLoader();
+
+};
+
+exports.modal = function(req, res) {
+    
+    var Templates = new TemplateLoader();
 
 };

@@ -9,7 +9,7 @@
 			<div class="grade">
 				{{#if player.gradeOne}}
 				<div id="lvl-one">{{lettergrade player.gradeOne}}</div>
-				<button data-section="game" class="btn replay">Replay</button>
+				<button data-direction="right" data-level="1" class="btn replay">Replay</button>
 				{{else}}
 				<button class="btn grade-empty play" data-section="game">Play Level One</button>
 				{{/if}}
@@ -20,10 +20,10 @@
 			<div class="grade">
 				{{#if player.gradeTwo}}
 				<div id="lvl-two">{{lettergrade player.gradeTwo}}</div>
-				<button data-section="game" class="btn replay">Replay</button>
+				<button data-level="2" data-direction="right" class="btn replay">Replay</button>
 				{{else}}
 					{{#if ../player.gradeOne}}
-					<button class="btn grade-empty play" data-section="game">Play Level Two</button>
+					<button class="btn grade-empty play" data-level="2" data-direction="right">Play Level Two</button>
 					{{else}}
 					<button disabled class="btn grade-empty">Unlock Through Level One</button>
 					{{/if}}
@@ -35,10 +35,10 @@
 			<div class="grade">
 				{{#if player.gradeThree}}
 				<div id="lvl-three">{{lettergrade player.gradeThree}}</div>
-				<button data-section="game" class="btn replay">Replay</button>
+				<button data-level="3" data-direction="right" class="btn replay">Replay</button>
 				{{else}}
 					{{#if ../player.gradeTwo}}
-					<button class="btn grade-empty play" data-section="game">Play Level Three</button>
+					<button class="btn grade-empty play" data-direction="right" data-level="3">Play Level Three</button>
 					{{else}}
 					<button disabled class="btn grade-empty">Unlock Through Level Two</button>
 					{{/if}}
