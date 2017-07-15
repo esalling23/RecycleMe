@@ -13,6 +13,7 @@
 
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+var Player = keystone.List('Player');
 
 /**
  * CSV model
@@ -27,11 +28,16 @@ var CSV = new keystone.List('CSV',
 	});
 
 var myStorage = new keystone.Storage({
-    adapter: keystone.Storage.Adapters.FS,
-    fs: {
-        path: keystone.expandPath('./public/uploads/files'), // required; path where the files should be stored
-        publicPath: '/public/uploads/files', // path where files will be served
-    }
+  adapter: keystone.Storage.Adapters.FS,
+  fs: {
+    path: 'public/uploads/',
+    publicPath: '/uploads',
+  }, 
+  schema: {
+    originalname: true,
+    url: true,
+    path: true
+  },
 });
 
 /**
@@ -41,16 +47,44 @@ var myStorage = new keystone.Storage({
 CSV.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
-	file: { type: Types.File, label: 'CSV file', storage: myStorage }
+	csv: { type: Types.File, label: 'CSV file', storage: myStorage }
 
 });
 
-CSV.schema.pre('save', function(next) {
+CSV.schema.post('save', function(next) {
 
-	console.log(this.file)
+	console.log(this.csv);
+
+	var Converter = require("csvtojson");
+    var fs = require("fs");
+    //CSV File Path or CSV String or Readable Stream Object
+    var csvFileName = this.csv.path;
+    var fileStream = fs.createReadStream(csvFileName);
+    //new converter instance
+    var csvConverter = new Converter({constructResult:true});
+
+    //end_parsed will be emitted once parsing finished
+    csvConverter.on("end_parsed",function(jsonObj){
+       console.log(jsonObj);
+      var postJson = _.each(jsonObj, function(value,key){
+        value.date = new Date(value.date).toISOString().slice(0, 10);
+      });
+      console.log(postJson);
+      Player.model.find({}).remove().exec();
+      keystone.createItems({
+        Player: postJson
+      },function(err, stats) {
+        if (err) return res.json(err);
+        //stats && console.log(stats.message);
+        // res.redirect('/keystone/posts');
+      });
+    });
+
+    //read from file
+    fileStream.pipe(csvConverter);
 
 
-    	next();
+    	// next();
 });
 
 /**

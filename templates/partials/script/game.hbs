@@ -344,28 +344,28 @@
 
     $(item).find('.btn-close').css('visibility', 'visible');
 
-    // $(item).find('.glide__arrows').show();
+    $(item).find('.glide__arrows').show();
 
-    // $(item).find('.image-glider').show(function(){
+    $(item).find('.image-glider').show(function(){
 
-    //   $(glider).glide({
-    //     type: "carousel",
-    //     autoplay: false,
-    //     autoheight: true, 
-    //     default: 1
-    //   });
+      $(glider).glide({
+        type: "carousel",
+        autoplay: false,
+        autoheight: true, 
+        default: 1
+      });
 
-    //   $('.glide__arrow').on('click', function(event){
-    //           // event.preventDefault();
-    //     event.stopPropagation();
-    //     event.bubbles = false;
+      $('.glide__arrow').on('click', function(event){
+              // event.preventDefault();
+        event.stopPropagation();
+        event.bubbles = false;
 
-    //     var direction = $(this).data('glide-dir');
+        var direction = $(this).data('glide-dir');
 
-    //     $(glider).glide('next');
+        $(glider).glide('next');
 
-    //   });
-    // });
+      });
+    });
 
     $(item).on('click', function(e){
       e.preventDefault();
