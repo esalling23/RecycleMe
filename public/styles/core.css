@@ -532,7 +532,7 @@ section.tinderslide {
   display: inline-block; }
   .section.profile .grade div {
     font-size: 36px;
-    padding-top: 16px;
+    padding-top: 12px;
     display: block;
     line-height: 1; }
   .section.profile .grade button {
@@ -546,6 +546,8 @@ section.tinderslide {
     word-break: break-word;
     word-wrap: break-word;
     white-space: pre-wrap; }
+    .section.profile .grade button.replay {
+      font-size: 14px; }
     .section.profile .grade button.grade-empty {
       padding-top: 20px;
       font-size: 14px; }

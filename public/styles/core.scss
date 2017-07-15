@@ -750,10 +750,9 @@ section.tinderslide {
 		display: inline-block;
 		div {
 			font-size: 36px;
-		    padding-top: 16px;
+		    padding-top: 12px;
 		    display: block;
 		    line-height: 1;
-
 		}
 
 		button {
@@ -769,7 +768,7 @@ section.tinderslide {
 		    white-space: pre-wrap;
 
 			&.replay {
-
+				font-size: 14px;
 			}
 
 			&.grade-empty {

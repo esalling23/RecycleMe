@@ -42,6 +42,20 @@ exports.update = function(req, res) {
         if (req.query.username)
             result.username = req.query.username;
 
+        console.log (req.query, req.files)
+
+        result.getUpdateHandler(req).process( req.files, {
+            flashErrors: true,
+            fields: 'image',
+            errorMessage: 'There was a problem saving your profile: '
+        }, function(err) {
+            if (err) { console.log(err); }
+
+            res.apiResponse({
+                msg: 'success'
+            });
+        });
+
         result.save();
 
         console.log(result, "wow");
@@ -98,19 +112,7 @@ exports.image_upload = function(req, res) {
 
     Player.model.findOne({ _id: req.params.id }).populate('team').exec((err, result) => {
 
-        var updater = result.getUpdateHandler(req);
-
-        updater.process( req.query, {
-            flashErrors: true,
-            fields: fields,
-            errorMessage: 'There was a problem saving your profile: '
-        }, function(err) {
-            if (err) { console.log(err); }
-
-            res.apiResponse({
-                msg: 'success'
-            });
-        });
+        
 
         // .process(req.files, function(err) {
  

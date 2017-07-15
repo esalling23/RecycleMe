@@ -498,71 +498,72 @@
   }
 
   // PROFILE 
-  $('#btn-save-profile').on('click', function() {
+  // $('#btn-save-profile').on('click', function() {
 
-    // Profile Image Upload
-    var selectedFile = $('#image_upload').get(0).files[0];
+  //   // Profile Image Upload
+  //   var selectedFile = $('#image_upload').get(0).files[0];
 
-    if (selectedFile) {
+  //   if (selectedFile) {
 
-      var fileName = selectedFile.name;
+  //     var fileName = selectedFile.name;
 
-      // Create the FormData data object and append the file to it.
-      var newImage = new FormData();
-      newImage.append('image_upload', selectedFile); //This is the raw file that was selected
+  //     // Create the FormData data object and append the file to it.
+  //     var newImage = new FormData();
+  //     newImage.append('image_upload', selectedFile); //This is the raw file that was selected
 
-      var opts = {
-        url: '/api/update/image_upload/{{playerId}}',
-        data: newImage,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        success: function(data){
-          console.log('Image upload ID: ' + data.image_upload._id);
+  //     var opts = {
+  //       url: '/api/update/{{playerId}}',
+  //       data: newImage,
+  //       cache: false,
+  //       contentType: false,
+  //       processData: false,
+  //       type: 'POST',
+  //       success: function(data){
+  //         console.log('Image upload ID: ' + data.image_upload._id);
 
-          // //Update the file with the information above.
-          // $.get('/api/update/image/'+data.file_upload._id+'', data.file_upload, function(data) {
-          //   //debugger;
+  //         // //Update the file with the information above.
+  //         // $.get('/api/update/image/'+data.file_upload._id+'', data.file_upload, function(data) {
+  //         //   //debugger;
             
-          //   console.log('File information updated.');
+  //         //   console.log('File information updated.');
             
-          //   //Add the uploaded file to the uploaded file list.
-          //   $('#file_list').append('<li><a href="'+data.collection.url+'" download>'+data.collection.name+'</a></li>');
+  //         //   //Add the uploaded file to the uploaded file list.
+  //         //   $('#file_list').append('<li><a href="'+data.collection.url+'" download>'+data.collection.name+'</a></li>');
             
-          // })
-        }, 
-        fail: function(err){
-          console.log('error: ' + err);
-        }
-      };
+  //         // })
+  //       }, 
+  //       fail: function(err){
+  //         console.log('error: ' + err);
+  //       }
+  //     };
                     
-      //Execute the AJAX operation.
-      jQuery.ajax(opts);
+  //     //Execute the AJAX operation.
+  //     jQuery.ajax(opts);
 
-    }
+  //   }
 
-    if ($('.edit .team-select:selected').length > 0 || $('.edit #username').value !== undefined) {
-      console.log('changing username/team')
-      var data = {
-        player: '{{playerId}}', 
-        team: $('.edit .team-select:selected').attr('id'),
-        username: $('.edit #username').val()
-      };
+  //   if ($('.edit .team-select:selected').length > 0 || $('.edit #username').value || selectedFile ) {
+  //     console.log('changing username/team')
+  //     var data = {
+  //       player: '{{playerId}}', 
+  //       team: $('.edit .team-select:selected').attr('id'),
+  //       username: $('.edit #username').val(), 
+  //       file: selectedFile
+  //     };
 
-      $.get("/api/update/{{playerId}}", data, function(data){
-        // Notify success
-        $('.save-msg').text('Nice! Saved.').fadeIn();
-      })
-      .fail(function(err) {
-          alert( "error" + err );
-      });
+  //     $.get("/api/update/{{playerId}}", data, function(data){
+  //       // Notify success
+  //       $('.save-msg').text('Nice! Saved.').fadeIn();
+  //     })
+  //     .fail(function(err) {
+  //         alert( "error" + err );
+  //     });
 
-    }
+  //   }
 
   
 
-  });
+  // });
 
   function readURL(input) {
     if (input.files && input.files[0]) {
@@ -575,14 +576,14 @@
         reader.readAsDataURL(input.files[0]);
 
         console.log(input.files[0])
+
     }
   }
   
   $("input.profile-picture").change(function(){
       readURL(this);
-  });
 
-  // $('.ACTIVE').show();
+  });
 
   // NAVIGATION
 
@@ -593,15 +594,9 @@
     var section = $(this).data('section');
     var direction = $(this).data('direction');
 
-    $('.section.ACTIVE').css({'left': 'auto', 'right': 'auto'})
-
-    // if (direction == 'right')
-    //   var oppDir = {'left': 'auto'};
-    // else 
-    //   var oppDir = {'right': 'auto'};
+    $('.section.ACTIVE').css({'left': 'auto', 'right': 'auto'});
 
     animOpts[direction] = '-=4000px'; 
-    
     
     $('.section.ACTIVE').animate( animOpts , 500, function(){
 

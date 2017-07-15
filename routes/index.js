@@ -27,7 +27,7 @@ router.get('/profile/:id', routes.views.game);
 router.get('/api/find/', keystone.middleware.api, routes.api.login.get);
 router.get('/api/game/', keystone.middleware.api, routes.api.game.update);
 
-router.get('/api/update/:id', keystone.middleware.api, routes.api.profile.update);
+router.post('/api/update/:id', keystone.middleware.api, routes.api.profile.update);
 router.get('/api/update/image_upload/:id', keystone.middleware.api, routes.api.profile.image_upload);
 
 // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
