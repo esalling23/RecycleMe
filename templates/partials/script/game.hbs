@@ -571,21 +571,35 @@
       readURL(this);
   });
 
+  // $('.ACTIVE').show();
+
   // NAVIGATION
 
   $('[data-section]').on('click', function(){
 
+    var animOpts = {};
+
     var section = $(this).data('section');
+    var direction = $(this).data('direction');
+
+    if (direction == 'right')
+      var oppDir = 'left';
+    else 
+      var oppDir = 'right';
+
+    animOpts[direction] = '-=4000px'; 
+    animOpts[oppDir] = 'auto'; 
     
-    $('.section.ACTIVE').hide(function(){
+    $('.section.ACTIVE').animate( animOpts , 500, function(){
+
+      $(this).toggleClass('ACTIVE');
+
+      $('.section.' + section).css({'left': '0px', 'right':'0px'});
+      setAbsolutes($('.section.' + section));
 
       $('.section.' + section).fadeIn(function(){
-
         console.log(section);
-
-        $('.section.ACTIVE').toggleClass('ACTIVE');
         $(this).toggleClass('ACTIVE');
-
       });
     });
 

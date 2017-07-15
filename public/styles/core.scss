@@ -109,11 +109,11 @@ button.nav-bar {
 	box-shadow: none;
 	position:absolute;
 	top: -55px;
-	&.left {
+	&[data-direction="left"] {
 		left: 20px;
 		text-align: left;
 	}
-	&.right {
+	&[data-direction="right"] {
 		text-align: right;
 		right: 20px;
 	}
@@ -179,7 +179,7 @@ button, .btn, input {
 	color: white;
 	background-color: $tinder-red;
 
-	@include transition(all, 0.5s)
+	@include transition(all, 0.5s);
 
 	&:hover, &:focus {
 		background-color: white;
@@ -250,6 +250,7 @@ button, .btn, input {
 			&:hover, &:focus {
 				color: $tinder-white;
 				background-color: $tinder-red;
+				transition: all .2s ease-in-out;
 			}
 		}
 	}
@@ -292,7 +293,8 @@ button, .btn, input {
 	border: 2px solid $tinder-black;
 
 	.rule-image {
-		width: 100%;
+		width: 70%;
+		margin: 0 auto;
 	}
 
 	p {
@@ -320,16 +322,20 @@ button, .btn, input {
 		padding: 0px;
 	}
 	.glide__arrows {
-		width: 100%;
-
 		.glide__arrow {
-			background-color: transparent;
-			color: $tinder-black;
-			border: 2px solid $tinder-black;
-
+			background-color: $tinder-red;
+			color: $tinder-white;
+			border: 0px;
+			transition: all .1s ease-in-out;
 			&:hover, &:focus {
-				color: lighten($tinder-black, 20%);
-				border: 2px solid lighten($tinder-black, 20%);
+				background-color: $tinder-red;
+				color: $tinder-white;
+				border: 0px;
+				transform-origin: 0 0;
+				transition: all .1s ease-in-out;
+				-webkit-transform: scale(1.2) translateY(-50%);
+    			-ms-transform: scale(1.2) translateY(-50%);
+  				transform: scale(1.2) translateY(-50%);
 			}
 		}
 
