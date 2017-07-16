@@ -444,6 +444,9 @@ section.tinderslide {
 .level.header {
   margin-top: -20px; }
 
+.game-level {
+  height: 100%; }
+
 #points-counter {
   font-size: 36px;
   height: 80px;

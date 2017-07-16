@@ -50,8 +50,6 @@
 
 	<form class="edit form row" action="/api/update/{{player._id}}" method="post" enctype="multipart/form-data">
 
-		<input type="file" class="profile-picture cloudinary-fileupload" id="image_upload" name="image_upload" accept="image/*">
-
 		<h3>Profile: </h3>
 		<div class="update-picture col-xs-6">
 			{{#if player.image}}

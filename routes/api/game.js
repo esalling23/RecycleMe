@@ -175,16 +175,24 @@ exports.update = function(req, res) {
 exports.level = function(req, res) {
 
     var Templates = new TemplateLoader();
+    var data = {};
 
     var level = function(val, cat) {
+        if (cat == 1)
+            data.level = 'One';
+        else if (cat == 2)
+            data.level = 'Two';
+        else 
+            data.level = 'Three';
+
         return val.filter(function(item) {
-            return item.level == cat || item.level == upperCase(cat);
+            return item.level == data.level;
         });
     };
 
     Item.model.find({}).exec((err, item) => {
 
-        data.items = categorize(item, req.query.level);
+        data.items = level(item, req.query.level);
 
         Player.model.findOne({ '_id': req.query.player }).exec((err, player) => {
 

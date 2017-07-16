@@ -26,7 +26,7 @@
   });
 
   $('#rules-glide').glide({
-    type: "carousel",
+    type: "slider",
     autoplay: false,
     autoheight: false, 
     default: 1
@@ -390,10 +390,13 @@
   $('[data-level]').on('click', function(e) {
 
     console.log($(this).data('level'));
+
     if (playing == false)
       StartLevel($(this).data('level'));
 
     e.stopPropagation();
+    e.bubbles = false;
+    e.preventDefault();
 
   });
 
@@ -427,7 +430,6 @@
       $('.alert img, .alert #alert-continue').show();
       $('.alert .alert-inner').addClass('new-player');
       $('.alert').fadeIn();
-
     }
 
     // Bind close alert button
@@ -442,21 +444,31 @@
   	$('.ACTIVE').removeClass('ACTIVE').fadeOut(function(){
 
       $('.game').addClass('ACTIVE').fadeIn();
+      playing = true;
 
       $('.buttons').show();
       $('.level.header').show();
-  		// Fade in the level
-  		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
 
-        playing = true;
-  			$(this).addClass('ACTIVE');
+      var data = {
+        level: num, 
+        player: '{{playerId}}'
+      };
 
-        if ($(this).data('grade') >= 70) {
-          pointlimit = $('.level.ACTIVE').data('grade');
-          console.log(pointlimit);
-        }
+      $.get("/api/game/level", data, function(data){
+        // Notify success
+        $(".game-level").html(data.html).fadeIn(function(){
 
-  		});
+          if ($(this).data('grade') >= 70) {
+            pointlimit = $('.level.ACTIVE').data('grade');
+            console.log(pointlimit);
+          }
+        });
+
+      })
+      .done(function() {
+        alert ('success')
+      });
+
   	});
 
   }

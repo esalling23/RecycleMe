@@ -7,7 +7,7 @@
 <div id="individual-leader" class="subsection board individuals ACTIVE">
 	<ul>
 		{{#each individuals}}
-		<li>{{listbump @index}}. <div class="points">{{leader}}</div> {{{name.first}}} - <span class="team">{{team.name}}</span></li>
+		<li>{{listbump @index}}. <div class="points">{{leader}}</div> {{#if username}}{{username}}{{else}}{{{name.first}}}{{/if}} - <span class="team">{{team.name}}</span></li>
 		{{/each}}
 	</ul>
 
@@ -30,4 +30,4 @@
 
 </div>
 
-<button class="back nav-bar" data-direction="right" data-section="game">back</button>
+<button class="back nav-bar" data-direction="right" data-section="levels">back</button>
