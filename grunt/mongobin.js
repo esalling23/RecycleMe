@@ -21,18 +21,18 @@
   options: {
     host: '127.0.0.1',
     port: '27017',
-    db: 'site-name'
+    db: 'recycle-me'
   },
 
   restore: {
     task: 'restore',
-    path: './dump/site-name',
-    db: 'site-name-staging',
+    path: './dump/recycle-me',
+    db: 'recycle-me',
     drop: true
   },
 
   dump: {
-      out: './dump/daily_bk/'
+      out: './dump/'
   }
 
 };
