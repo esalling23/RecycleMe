@@ -30,7 +30,7 @@
       "ref": "origin/master",
       "path": "/srv/RecycleMe",
       "pre-deploy-local" : "echo 'NPM linking recycle-me and restarting app.';",
-      "post-deploy" : "npm i ; cd /srv/framework/current/ ; grunt compile --sites=recycle-me --env production ; NODE_ENV=production pm2 restart server.js -- recycle-me --env production"
+      "post-deploy" : "npm i ; cd /srv/framework/source/ ; grunt compile --sites=recycle-me --env production ; NODE_ENV=production pm2 restart server.js -- recycle-me --env production"
     }
 
   }
