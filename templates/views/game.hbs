@@ -142,7 +142,7 @@
 			{{#each special}}
 			<div class="col-xs-6">
 				<div class="option" id="{{this.key}}">
-					{{{cloudinaryUrl this.image.url width=80}}}
+					<a class="option-profile">{{{cloudinaryUrl this.image.url width=80}}}</a>
 					<h3>{{this.name}}</h3>
 					{{{this.text.html}}}
 				</div>
