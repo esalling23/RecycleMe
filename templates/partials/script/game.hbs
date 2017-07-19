@@ -1,6 +1,7 @@
 	// GAME LOGIC
 	var levelItems,
       points = 0, 
+      playing = false,
       currentItem,
       swipeAlertRight,
       swipeAlertLeft,
@@ -25,7 +26,7 @@
   });
 
   $('#rules-glide').glide({
-    type: "carousel",
+    type: "slider",
     autoplay: false,
     autoheight: false, 
     default: 1
@@ -116,13 +117,6 @@
       console.log ('WRONG - dis something ELSe');
     }
   }
-
-	$('.level-group [data-level]').click(function(evt) {
-
-		console.log($(this).data('level'));
-		StartLevel($(this).data('level'));
-
-	});
 
   $('.item').hammer().on("swipeleft", function(ev){
 
@@ -327,7 +321,12 @@
     
   });
 
-
+  $('.item.open').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    e.bubbles = false;
+    return;
+  });
 
   $('.item:not(.open)').on('click', function(event){
 
@@ -344,32 +343,33 @@
 
     $(item).find('.btn-close').css('visibility', 'visible');
 
-    // $(item).find('.glide__arrows').show();
+    $(item).find('.glide__arrows').show();
 
-    // $(item).find('.image-glider').show(function(){
+    $(item).find('.image-glider').show(function(){
 
-    //   $(glider).glide({
-    //     type: "carousel",
-    //     autoplay: false,
-    //     autoheight: true, 
-    //     default: 1
-    //   });
+      $(glider).glide({
+        type: "carousel",
+        autoplay: false,
+        autoheight: false, 
+        default: 1
+      });
 
-    //   $('.glide__arrow').on('click', function(event){
-    //           // event.preventDefault();
-    //     event.stopPropagation();
-    //     event.bubbles = false;
+      $('.glide__arrow').on('click', function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        event.bubbles = false;
 
-    //     var direction = $(this).data('glide-dir');
+        var direction = $(this).data('glide-dir');
 
-    //     $(glider).glide('next');
+        $(glider).glide('next');
 
-    //   });
-    // });
+      });
+    });
 
     $(item).on('click', function(e){
       e.preventDefault();
       e.stopPropagation();
+      e.bubbles = false;
       console.log(" open click ")
       return;
     });
@@ -386,10 +386,23 @@
     });
 
   });
-  
+
+  $('[data-level]').on('click', function(e) {
+
+    console.log($(this).data('level'));
+
+    if (playing == false)
+      StartLevel($(this).data('level'));
+
+    e.stopPropagation();
+    e.bubbles = false;
+    e.preventDefault();
+
+  });
 
   function StartLevel(num) {
-   // enable/disable buttons
+
+    // enable/disable buttons
     if (num == 2) {
       $('#compost').attr('disabled', false);
     } else if (num == 3) {
@@ -417,7 +430,6 @@
       $('.alert img, .alert #alert-continue').show();
       $('.alert .alert-inner').addClass('new-player');
       $('.alert').fadeIn();
-
     }
 
     // Bind close alert button
@@ -428,24 +440,35 @@
       });
     });
 
-
-
   	// Fade in the game, out the profile
-  	$('.level-group').fadeOut(function(){
+  	$('.ACTIVE').removeClass('ACTIVE').fadeOut(function(){
+
+      $('.game').addClass('ACTIVE').fadeIn();
+      playing = true;
+
       $('.buttons').show();
       $('.level.header').show();
-  		// Fade in the level
-  		$('.game').find(".level[data-level=" + num + "]").fadeIn(function(){
-        
-  			$('.ACTIVE').removeClass('ACTIVE');
-  			$(this).addClass('ACTIVE');
 
-        if ($(this).data('grade') >= 70) {
-          pointlimit = $('.level.ACTIVE').data('grade');
-          console.log(pointlimit);
-        }
+      var data = {
+        level: num, 
+        player: '{{playerId}}'
+      };
 
-  		});
+      $.get("/api/game/level", data, function(data){
+        // Notify success
+        $(".game-level").html(data.html).fadeIn(function(){
+
+          if ($(this).data('grade') >= 70) {
+            pointlimit = $('.level.ACTIVE').data('grade');
+            console.log(pointlimit);
+          }
+        });
+
+      })
+      .done(function() {
+        alert ('success')
+      });
+
   	});
 
   }
@@ -486,106 +509,85 @@
 
   }
 
+
+
   // PROFILE 
   $('#btn-save-profile').on('click', function() {
 
-    // Profile Image Upload
-    var selectedFile = $('#image_upload').get(0).files[0];
-
-    if (selectedFile) {
-
-      var fileName = selectedFile.name;
-
-      // Create the FormData data object and append the file to it.
-      var newImage = new FormData();
-      newImage.append('image_upload', selectedFile); //This is the raw file that was selected
-
-      var opts = {
-        url: '/api/update/image_upload/{{playerId}}',
-        data: newImage,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        success: function(data){
-          console.log('Image upload ID: ' + data.image_upload._id);
-
-          // //Update the file with the information above.
-          // $.get('/api/update/image/'+data.file_upload._id+'', data.file_upload, function(data) {
-          //   //debugger;
-            
-          //   console.log('File information updated.');
-            
-          //   //Add the uploaded file to the uploaded file list.
-          //   $('#file_list').append('<li><a href="'+data.collection.url+'" download>'+data.collection.name+'</a></li>');
-            
-          // })
-        }, 
-        fail: function(err){
-          console.log('error: ' + err);
-        }
-      };
-                    
-      //Execute the AJAX operation.
-      jQuery.ajax(opts);
-
-    }
-
-    if ($('.edit .team-select:selected').length > 0 || $('.edit #username').value !== undefined) {
+    if ($('.edit .team-select:selected').length > 0 || $('.edit #username').value ) {
       console.log('changing username/team')
       var data = {
         player: '{{playerId}}', 
         team: $('.edit .team-select:selected').attr('id'),
-        username: $('.edit #username').val()
+        username: $('.edit #username').val(), 
+        file: selectedFile
       };
 
-      $.get("/api/update/{{playerId}}", data, function(data){
+      $.post("/api/update/{{playerId}}", data, function(data){
         // Notify success
         $('.save-msg').text('Nice! Saved.').fadeIn();
       })
-      .fail(function(err) {
+      .done(function() {
+        alert ('success')
+      })
+      .error(function(err) {
           alert( "error" + err );
       });
 
     }
-
-  
-
   });
 
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        
-        reader.onload = function (e) {
-            $('img.profile-picture').attr('src', e.target.result);
-        }
-        
-        reader.readAsDataURL(input.files[0]);
+$('#upload_widget_opener').cloudinary_upload_widget(
+    { cloud_name: 'esalling', 
+      upload_preset: 'wtokgjnv', 
+      cropping: 'server', 
+      sources: [ 'local', 'url' ], 
+      multiple: false, 
+      tags: '{{playerId}}'
+    }, function(error, result) { 
+      console.log(result[0]);
 
-        console.log(input.files[0])
-    }
-  }
-  
-  $("input.profile-picture").change(function(){
-      readURL(this);
-  });
+      // Do some stuff with the display
+    $.post("/api/update/image_upload/{{playerId}}", { image: result[0] }, function(data){
+      
+      // Notify success
+      $('.save-msg').text('Nice! Saved.').fadeIn();
+
+      // Do some stuff with the display
+
+    })
+    .done(function() {
+      alert ('success')
+    })
+    .error(function(err) {
+        alert( "error" + err );
+    });
+
+});
 
   // NAVIGATION
 
   $('[data-section]').on('click', function(){
 
+    var animOpts = {};
+
     var section = $(this).data('section');
+    var direction = $(this).data('direction');
+
+    $('.section.ACTIVE').css({'left': 'auto', 'right': 'auto'});
+
+    animOpts[direction] = '-=4000px'; 
     
-    $('.section.ACTIVE').hide(function(){
+    $('.section.ACTIVE').animate( animOpts , 500, function(){
+
+      $(this).toggleClass('ACTIVE');
+
+      $('.section.' + section).css({'left': '0px', 'right':'0px'});
+      setAbsolutes($('.section.' + section));
 
       $('.section.' + section).fadeIn(function(){
-
         console.log(section);
-
-        $('.section.ACTIVE').toggleClass('ACTIVE');
         $(this).toggleClass('ACTIVE');
-
       });
     });
 

@@ -1,0 +1,49 @@
+{{!-- {{{jsonPrint this}}} --}}
+{{#ifeq level 'One'}}
+	<section class="row level tinderslide" data-level="1" {{#if player.triesOne}}data-tries="{{player.triesOne}}" {{/if}}{{#if player.pointsOneCap}}data-max="{{player.pointsOneCap}}" {{/if}}>
+
+		<ul style="height:100%;">
+			{{#each (shuffle items)}}
+				{{> item this}}
+			{{/each}}
+		</ul>
+
+		{{!-- match modals --}}
+		<div class="modal-wrapper"></div>
+
+	</section>
+
+{{/ifeq}}
+
+{{#ifeq level 'Two'}}
+
+	<section class="row level tinderslide" data-level="2" {{#if player.triesTwo}}data-tries="{{player.triesTwo}}"{{/if}} {{#if player.pointsTwoCap}}data-max="{{player.pointsTwoCap}}"{{/if}}>
+		
+		<ul style="height:100%;">
+			{{#each (shuffle items)}}
+				{{> item this}}
+			{{/each}}
+		</ul>
+
+		{{!-- match modals --}}
+		<div class="modal-group"></div>
+
+	</section>
+
+{{/ifeq}}
+
+{{#ifeq level 'Three'}}
+
+	<section class="row level tinderslide" data-level="3" {{#if player.triesThree}}data-tries="{{player.triesThree}}"{{/if}} {{#if player.pointsThreeCap}}data-max="{{player.pointsThreeCap}}"{{/if}}>
+	
+		<ul style="height:100%;">
+			{{#each (shuffle items)}}
+				{{> item this}}
+			{{/each}}
+		</ul>
+
+		{{!-- match modals --}}
+		<div class="modal-group"></div>
+
+	</section>
+{{/ifeq}}

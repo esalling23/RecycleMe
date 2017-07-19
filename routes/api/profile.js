@@ -46,80 +46,26 @@ exports.update = function(req, res) {
 
         console.log(result, "wow");
 
-        res.send('success')
+        res.send('success');
     });
 
 };
 
-// /**
-//  * Update File by ID
-//  */
-// exports.image_update = function(req, res) {
-//   FileData.model.findById(req.params.id).exec(function(err, item) {
-//     if (err) return res.apiError('database error', err);
-//     if (!item) return res.apiError('not found');
-
-//     var data = (req.method == 'POST') ? req.body : req.query;
-
-//     item.getUpdateHandler(req).process(data, function(err) {
-
-//       if (err) return res.apiError('create error', err);
-
-//       res.apiResponse({
-//         collection: item
-//       });
-
-//     });
-//   });
-// }
-
-// /**
-//  * Upload a New File
-//  */
-// exports.image_create = function(req, res) {
-
-//   var item = new FileData.model(),
-//   data = (req.method == 'POST') ? req.body : req.query;
-
-//   item.getUpdateHandler(req).process(req.files, function(err) {
-
-//     if (err) return res.apiError('error', err);
-
-//     res.apiResponse({
-//       file_upload: item
-//     });
-
-//   });
-// }
-
 
 exports.image_upload = function(req, res) {
-    console.log(req.files, " image_upload");
+    console.log(req.body, " image_upload");
 
-    Player.model.findOne({ _id: req.params.id }).populate('team').exec((err, result) => {
+    Player.model.findOne({ _id: req.params.id }).exec((err, result) => {
 
-        var updater = result.getUpdateHandler(req);
+        result.getUpdateHandler(req).process(req.body, function(err) {
+ 
+            if (err) return res.apiError('error', err);
 
-        updater.process( req.query, {
-            flashErrors: true,
-            fields: fields,
-            errorMessage: 'There was a problem saving your profile: '
-        }, function(err) {
-            if (err) { console.log(err); }
+            console.log(result, " uploaded image");
 
-            res.apiResponse({
-                msg: 'success'
-            });
+            res.send('success');
+
         });
-
-        // .process(req.files, function(err) {
- 
-        //     if (err) return res.apiError('error', err);
-
-        //     console.log(result, " uploaded image");
-
- 
-        // });
 
     });
 

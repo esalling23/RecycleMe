@@ -54,7 +54,7 @@ $(document).ready(function() {
 
 	    $('.login #login').fadeIn();
 
-	}, 2000);
+	}, 1000);
 
 
 	var finishResize = function() {
@@ -160,13 +160,19 @@ $(document).ready(function() {
 
 	$('#btn_login').click(function(evt) {
 		var data = {};
+		$('.error').hide().html('');
 		data.email = $('#email_input').val();
 		data.password = $('#password_input').val();
 
 		if (!data.password || !data.email) {
-			$('#error').fadeIn( function() {
+			if (!data.password && !data.email)
+				var msg = 'You must fill out your password and email.';
+			else if (!data.password)
+				var msg = 'You must fill out your password.';
+			else
+				var msg = 'You must fill out your email.'
 
-			});
+			$('.error').html(msg).fadeIn();
 			  
 		} else {
 			console.log("checking login info");

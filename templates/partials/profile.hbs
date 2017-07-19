@@ -9,7 +9,7 @@
 			<div class="grade">
 				{{#if player.gradeOne}}
 				<div id="lvl-one">{{lettergrade player.gradeOne}}</div>
-				<button data-section="game" class="btn replay">Replay</button>
+				<button data-direction="right" data-level="1" class="btn replay">Replay Level One</button>
 				{{else}}
 				<button class="btn grade-empty play" data-section="game">Play Level One</button>
 				{{/if}}
@@ -20,10 +20,10 @@
 			<div class="grade">
 				{{#if player.gradeTwo}}
 				<div id="lvl-two">{{lettergrade player.gradeTwo}}</div>
-				<button data-section="game" class="btn replay">Replay</button>
+				<button data-level="2" data-direction="right" class="btn replay">Replay Level Two</button>
 				{{else}}
 					{{#if ../player.gradeOne}}
-					<button class="btn grade-empty play" data-section="game">Play Level Two</button>
+					<button class="btn grade-empty play" data-level="2" data-direction="right">Play Level Two</button>
 					{{else}}
 					<button disabled class="btn grade-empty">Unlock Through Level One</button>
 					{{/if}}
@@ -35,10 +35,10 @@
 			<div class="grade">
 				{{#if player.gradeThree}}
 				<div id="lvl-three">{{lettergrade player.gradeThree}}</div>
-				<button data-section="game" class="btn replay">Replay</button>
+				<button data-level="3" data-direction="right" class="btn replay">Replay Level Three</button>
 				{{else}}
 					{{#if ../player.gradeTwo}}
-					<button class="btn grade-empty play" data-section="game">Play Level Three</button>
+					<button class="btn grade-empty play" data-direction="right" data-level="3">Play Level Three</button>
 					{{else}}
 					<button disabled class="btn grade-empty">Unlock Through Level Two</button>
 					{{/if}}
@@ -48,7 +48,7 @@
 
 	</div>
 
-	<form class="edit form row" action="/api/profile/update" method="POST" enctype="multipart/form-data">
+	<form class="edit form row" action="/api/update/{{player._id}}" method="post" enctype="multipart/form-data">
 
 		<h3>Profile: </h3>
 		<div class="update-picture col-xs-6">
@@ -59,8 +59,7 @@
 			{{/if}}
 
 			<div class="image_upload">
-				<input type="file" class="profile-picture" id="image_upload" accept="image/*">
-				<p>Upload new profile picture</p>
+				<a href="#" id="upload_widget_opener">Upload Profile Image</a>
 			</div>
 		</div>
 
@@ -73,7 +72,7 @@
 			<p>Hide your real name from the leaderboard with a username.</p>
 			{{/if}}
 
-			<select>
+			<select id="team">
 				<option class="team-select" value="Choose a team"{{#if player.team}}{{else}} selected{{/if}}>Select Team</option>
 				{{#each teams}}
 				<option class="team-select" id="{{this._id}}" value="{{this.name}}"{{#ifeq this.name ../player.team.name}} selected{{/ifeq}}>{{this.name}}</option>
@@ -82,13 +81,15 @@
 
 		</div>
 
-		<input type='button' class="btn minimal" id="btn-save-profile" value="save">
+		<input type='submit' class="btn minimal" id="btn-save-profile" value="save">
 
 		<div class="save-msg" style="display: none;"></div>
 
 	</form>
 
-	<button class="back nav-bar left" data-section="home">back</button>
+	<button class="back nav-bar" data-direction="left" data-section="home">back</button>
 
 </div>
+
+
 
