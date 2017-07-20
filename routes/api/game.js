@@ -176,6 +176,9 @@ exports.level = function(req, res) {
 
     var Templates = new TemplateLoader();
     var data = {};
+    var locals = res.locals;
+
+    locals.section = 'level';
 
     var level = function(val, cat) {
         if (cat == 1)
@@ -190,7 +193,7 @@ exports.level = function(req, res) {
         });
     };
 
-    Item.model.find({}).exec((err, item) => {
+    Item.model.find({}).populate('material specialStatus specialStatusOr').exec((err, item) => {
 
         data.items = level(item, req.query.level);
 
