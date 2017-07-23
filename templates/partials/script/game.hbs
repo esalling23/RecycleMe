@@ -1,3 +1,4 @@
+var clicking = false;
 
  // Rules Glider
 
@@ -60,20 +61,31 @@
   });
 
 // PROFILE 
-$('#btn-save-profile').on('click', function() {
+$('#btn-save-profile').on('click', function(e) {
+	e.preventDefault();
+	e.bubbles = false;
+	e.stopImmediatePropagation();
+	e.stopPropagation();
+
+	if (clicking == true)
+		return;
+
+		clicking = true;
 
     if ($('.edit .team-select:selected').length > 0 || $('.edit #username').value ) {
       console.log('changing username/team')
       var data = {
-        player: '{{playerId}}', 
         team: $('.edit .team-select:selected').attr('id'),
-        username: $('.edit #username').val(), 
-        file: selectedFile
+        username: $('.edit #username').val()
       };
 
+      console.log(data);
+
       $.post("/api/update/{{playerId}}", data, function(data){
+	      console.log(data)
         // Notify success
         $('.save-msg').text('Nice! Saved.').fadeIn();
+        clicking = false;
       })
       .done(function() {
         alert ('success')

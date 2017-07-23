@@ -36,15 +36,13 @@ exports.update = function(req, res) {
 
     Player.model.findOne({ _id: req.params.id }).populate('team').exec((err, result) => {
 
-        if (req.query.team)
-            result.team = req.query.team;
+        if (req.body.team)
+            result.team = req.body.team;
 
-        if (req.query.username)
-            result.username = req.query.username;
+        if (req.body.username)
+            result.username = req.body.username;
 
         result.save();
-
-        console.log(result, "wow");
 
         res.send('success');
     });
@@ -53,15 +51,12 @@ exports.update = function(req, res) {
 
 
 exports.image_upload = function(req, res) {
-    console.log(req.body, " image_upload");
 
     Player.model.findOne({ _id: req.params.id }).exec((err, result) => {
 
         result.getUpdateHandler(req).process(req.body, function(err) {
  
             if (err) return res.apiError('error', err);
-
-            console.log(result, " uploaded image");
 
             res.send('success');
 

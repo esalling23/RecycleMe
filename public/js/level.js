@@ -379,6 +379,8 @@
 
     $(item).find('.image-glider').show(function(){
 
+      console.log($(this));
+
       $(this).glide({
         type: "slider",
         autoplay: false,
