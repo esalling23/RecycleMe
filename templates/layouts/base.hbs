@@ -39,6 +39,8 @@
 
 		<div class="modal alert">{{>alert}}</div>
 
+		<div class="modal match"></div>
+
 		<div class="app-header">
 			<h2>Recyclr</h2>
 		</div>
@@ -48,10 +50,10 @@
 
 		
 		<div class="buttons" style="display:none">
-			<input id="special" disabled="false" class="small submit" type="submit" name="submit" value="">
-			<input id="trash" data-keep_enabled="true" data-event="item:trash" class="large submit" type="submit" name="submit" value="">
-			<input id="recycle" data-keep_enabled="true" data-event="item:recycle" class="large submit" type="submit" name="submit" value="">
-			<input id="compost" disabled="false" data-keep_enabled="true" data-event="item:compost" class="small submit" type="submit" name="submit" value="">
+			<input id="special" disabled="false" class="small submit btn-handler" type="submit" name="submit" value="">
+			<input id="trash" data-keep_enabled="true" data-event="item:trash" class="large submit btn-handler" type="submit" name="submit" value="">
+			<input id="recycle" data-keep_enabled="true" data-event="item:recycle" class="large submit btn-handler" type="submit" name="submit" value="">
+			<input id="compost" disabled="false" data-keep_enabled="true" data-event="item:compost" class="small submit btn-handler" type="submit" name="submit" value="">
 		</div>
 						
 			{{!-- {{> footer}} --}}

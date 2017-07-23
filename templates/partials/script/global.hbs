@@ -51,9 +51,9 @@ $(document).ready(function() {
 
 	};
 
-	var getScript = function() {
+	var getScript = function(str) {
 
-	    $.getScript( '/js/game.js' )
+	    $.getScript( '/js/' + str + '.js' )
         .done(function( script, textStatus ) {
         	console.log('success');
         })
@@ -191,11 +191,11 @@ $(document).ready(function() {
 			console.log("checking login info");
 
 			$.get("/api/find/", data, function(data){
-
 				if(data.error_code) {
                     $('.error').html(data.msg).fadeIn();
-                } else 
+                } else {
 					window.location = data;
+                }
 			})
 			.fail(function() {
 			    alert( "error" );
@@ -204,211 +204,13 @@ $(document).ready(function() {
 
 	});
 
-
-	$('#rules-glide').glide({
-	    type: "slider",
-	    autoplay: false,
-	    autoheight: false, 
-	    default: 1
-	});
-
-	// NAVIGATION
-
-	$('[data-section]').on('click', function(){
-
-	    var animOpts = {};
-
-	    var section = $(this).data('section');
-	    var direction = $(this).data('direction');
-
-	    $('.section.ACTIVE').css({'left': 'auto', 'right': 'auto'});
-
-	    animOpts[direction] = '-=4000px'; 
-	    
-	    $('.section.ACTIVE').animate( animOpts , 500, function(){
-
-		    $(this).toggleClass('ACTIVE');
-
-		    $('.section.' + section).css({'left': '0px', 'right':'0px'});
-		      setAbsolutes($('.section.' + section));
-
-		    $('.section.' + section).fadeIn(function(){
-		        console.log(section);
-		        $(this).toggleClass('ACTIVE');
-		    });
-	    });
-
-	});
-
-	$('[data-subsection]').on('click', function(){
-
-	    var section = $(this).data('subsection');
-	    $('[data-subsection].active').toggleClass('active');
-	    $(this).toggleClass('active');
-	    
-	    $('.subsection.ACTIVE').hide(function(){
-
-	        $('.subsection.' + section).fadeIn(function(){
-
-		        console.log(section);
-
-		        $('.subsection.ACTIVE').toggleClass('ACTIVE');
-		        $(this).toggleClass('ACTIVE');
-
-	        });
-	    });
-
-	});
-
-	$('input#back-btn').click(function() {
-	    console.log("returngin")
-	    $('.modal-wrap.match.open').fadeOut().removeClass('open');
-	    $('.modal-group').hide();
-	});
-
-	// PROFILE 
-  $('#btn-save-profile').on('click', function() {
-
-    if ($('.edit .team-select:selected').length > 0 || $('.edit #username').value ) {
-      console.log('changing username/team')
-      var data = {
-        player: '{{playerId}}', 
-        team: $('.edit .team-select:selected').attr('id'),
-        username: $('.edit #username').val(), 
-        file: selectedFile
-      };
-
-      $.post("/api/update/{{playerId}}", data, function(data){
-        // Notify success
-        $('.save-msg').text('Nice! Saved.').fadeIn();
-      })
-      .done(function() {
-        alert ('success')
-      })
-      .error(function(err) {
-          alert( "error" + err );
-      });
-
-    }
-  });
-
-  $('#upload_widget_opener').cloudinary_upload_widget(
-    { cloud_name: 'esalling', 
-      upload_preset: 'wtokgjnv', 
-      cropping: 'server', 
-      sources: [ 'local', 'url' ], 
-      multiple: false, 
-      tags: '{{playerId}}'
-    }, function(error, result) { 
-      console.log(result[0]);
-
-      // Do some stuff with the display
-    $.post("/api/update/image_upload/{{playerId}}", { image: result[0] }, function(data){
-      
-      // Notify success
-      $('.save-msg').text('Nice! Saved.').fadeIn();
-
-      // Do some stuff with the display
-
-    })
-    .done(function() {
-      alert ('success')
-    })
-    .error(function(err) {
-        alert( "error" + err );
-    });
-
 });
 
-// Levels
+{{#ifeq section 'game'}}
 
-$('[data-level]').on('click', function(e) {
+	{{>script/game}}
 
-    console.log($(this).data('level'));
+{{/ifeq}}
 
-    if (playing == false)
-      StartLevel($(this).data('level'));
-
-    e.stopPropagation();
-    e.bubbles = false;
-    e.preventDefault();
-
-  });
-
-  function StartLevel(num) {
-
-    // enable/disable buttons
-    if (num == 2) {
-      $('#compost').attr('disabled', false);
-    } else if (num == 3) {
-      $('#compost').attr('disabled', false);
-      $('#special').attr('disabled', false);
-    }
-
-    if (num == 1 && ($(".level[data-level=1]").data('tries') == 0 || !$(".level[data-level=1]").data('tries'))) {
-      swipeAlertRight = true;
-      swipeAlertLeft = true;
-      buttonAlertRecycle = true;
-      buttonAlertTrash = true;
-    }
-
-    if (num == 2 && ($(".level[data-level=2]").data('tries') == 0  || !$(".level[data-level=1]").data('tries'))) {
-      buttonAlertSuper = true;
-    }
-
-    if (num == 3 && ($(".level[data-level=3]").data('tries') == 0 || !$(".level[data-level=1]").data('tries'))) {
-      buttonAlertSpecial = true;
-    }
-
-     if ({{player.new}}) {
-      $('.alert .msg').html('<h3>Welcome to Recyclr</h3><p>Remember, you can keep track of your matches as you play using the counter at the top of your screen.</p>');
-      $('.alert img, .alert #alert-continue').show();
-      $('.alert .alert-inner').addClass('new-player');
-      $('.alert').fadeIn();
-    }
-
-    // Bind close alert button
-    $('#alert-abort, #alert-continue').on('click', function(e){
-       e.stopPropagation();
-      $('.alert').fadeOut(function(){
-        $(this).find('button, img').hide();
-      });
-    });
-
-  	// Fade in the game, out the profile
-  	$('.ACTIVE').removeClass('ACTIVE').fadeOut(function(){
-
-      $('.game').addClass('ACTIVE').fadeIn();
-      playing = true;
-
-      $('.buttons').show();
-      $('.level.header').show();
-
-      var data = {
-        level: num, 
-        player: '{{playerId}}'
-      };
-
-      $.get("/api/game/level", data, function(data){
-        // Notify success
-        $(".game-level").html(data.html).fadeIn(function(){
-            getScript();
-          if ($(this).data('grade') >= 70) {
-            pointlimit = $('.level.ACTIVE').data('grade');
-            console.log(pointlimit);
-
-
-          }
-        });
-
-      });
-
-  	});
-
-  }
-
-
-
-});
-	
 </script>
+

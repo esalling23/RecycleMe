@@ -57,6 +57,7 @@ body, html {
 
 .modal {
 	height:110%;
+	z-index: 10000;
 }
 
 
@@ -327,15 +328,17 @@ button, .btn, input {
 			color: $tinder-white;
 			border: 0px;
 			transition: all .1s ease-in-out;
-			&:hover, &:focus {
-				background-color: $tinder-red;
-				color: $tinder-white;
-				border: 0px;
-				transform-origin: 0 0;
-				transition: all .1s ease-in-out;
-				-webkit-transform: scale(1.2) translateY(-50%);
-    			-ms-transform: scale(1.2) translateY(-50%);
-  				transform: scale(1.2) translateY(-50%);
+			&:not(.disabled) {
+				&:hover, &:focus {
+					background-color: $tinder-red;
+					color: $tinder-white;
+					border: 0px;
+					transform-origin: 0 0;
+					transition: all .1s ease-in-out;
+					-webkit-transform: scale(1.2) translateY(-50%);
+	    			-ms-transform: scale(1.2) translateY(-50%);
+	  				transform: scale(1.2) translateY(-50%);
+				}
 			}
 		}
 

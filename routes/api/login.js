@@ -1,8 +1,12 @@
-var keystone = require('keystone');
-var Player = keystone.list('Player');
-var _ = require('underscore');
+var keystone = require('keystone'), 
+	Player = keystone.list('Player'),
+	appRoot = require('app-root-path'),
+    TemplateLoader = require(appRoot + '/lib/TemplateLoader'), 
+    _ = require('underscore');
 
 exports.get = function(req, res) {
+
+	var Templates = new TemplateLoader();
 
 	var locals = res.locals;
 	var query = Player.model.findOne({email:req.query.email});	
@@ -27,6 +31,7 @@ exports.get = function(req, res) {
 				player.save();
 
 		  		res.send('/profile/' + data.player);
+
 			    
 			} else {
 
@@ -36,6 +41,7 @@ exports.get = function(req, res) {
 			        error_code: "wrong_password",
 			        msg: 'Sorry, wrong password'
 			    });
+
 			    return;
 			  	
 			}

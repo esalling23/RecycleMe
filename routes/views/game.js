@@ -31,7 +31,6 @@ exports = module.exports = function(req, res) {
         // Locate this player 
         var queryPlayer = Player.model.findOne({ '_id': req.params.id }, {}, {}).populate('team');
         // Game Content
-        var queryItems = Item.model.find({}, {}, {}).populate('material specialStatus specialStatusOr');
         var querySpecial = SpecialOption.model.find({}, {}, {});
         // Game Config
         var queryGame = Game.model.findOne({}, {}, {
@@ -47,53 +46,48 @@ exports = module.exports = function(req, res) {
             locals.playerId = result._id;
             locals.score = result.leader;
 
-            queryItems.exec(function(err, result) {
+            querySpecial.exec(function(err, result) {
                 if (err) throw err;
 
-                locals.items = result;
+                locals.special = result;
 
-                querySpecial.exec(function(err, result) {
+                queryGame.exec(function(err, result) {
                     if (err) throw err;
 
-                    locals.special = result;
+                    locals.config = result;
 
-                    queryGame.exec(function(err, result) {
+                    // Leaderboard
+                    Player.model.find({"leader":{$ne:null}})
+                    .populate('team')
+                    .sort('-leader')
+                    .exec(function(err, player){
                         if (err) throw err;
 
-                        locals.config = result;
+                        locals.individuals = player;
 
-                        // Leaderboard
-                        Player.model.find({"leader":{$ne:null}})
-                        .populate('team')
-                        .sort('-leader')
-                        .exec(function(err, player){
-                            if (err) throw err;
+                        var data = { teams : [] };
 
-                            locals.individuals = player;
+                        _.each(locals.individuals, function(p) {
+                            if (!p.team)
+                                return;
 
-                            var data = { teams : [] };
+                            if (_.where(data.teams, {team:p.team.name}).length == 0) {
+                                var team = p.team.name;
+                                data.teams.push({team: p.team.name, score: 0});
+                            }
+                            
+                            _.where(data.teams, {team: p.team.name})[0].score += p.leader;
 
-                            _.each(locals.individuals, function(p) {
-                                if (!p.team)
-                                    return;
+                        });
 
-                                if (_.where(data.teams, {team:p.team.name}).length == 0) {
-                                    var team = p.team.name;
-                                    data.teams.push({team: p.team.name, score: 0});
-                                }
-                                
-                                _.where(data.teams, {team: p.team.name})[0].score += p.leader;
+                        locals.leaderTeams = _.sortBy(data.teams, '-score');
 
-                            });
+                        Team.model.find({}).exec(function(err, team){
 
-                            locals.leaderTeams = _.sortBy(data.teams, '-score');
+                            locals.teams = team;
 
-                            Team.model.find({}).exec(function(err, team){
-                                locals.teams = team;
-
-                                next(); 
-                            });
-
+                            next(); 
+                            
                         });
 
                     });

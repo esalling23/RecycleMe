@@ -1,17 +1,17 @@
-<div class="modal-wrap match" style="display:none;" id="{{item_key}}">
+<div class="modal-wrap match">
 	<div class="modal-inner match">
 
-		<h3 class="message"></h3>
+		<h3 class="message">{{message}}</h3>
 
 		<div class="match-inner">
-			<img src="{{{cloudinaryUrl profiles.[0] width=200 height=200 quality=80}}}" />
+			<img src="{{{cloudinaryUrl item.profiles.[0] width=200 height=200 quality=80}}}" />
 			{{!-- {{{info.html}}}
 			{{#each material}}
 				<div class="minimal material">{{name}}{{#if @last}}{{else}},{{/if}}</div>
 			{{/each}} --}}
 		</div>
 
-		{{{rationale.html}}}
+		{{{item.rationale.html}}}
 
 		<div class="button-group">
 

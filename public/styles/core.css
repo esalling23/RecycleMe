@@ -35,7 +35,8 @@ body, html {
   display: none; }
 
 .modal {
-  height: 110%; }
+  height: 110%;
+  z-index: 10000; }
 
 .page-wrapper {
   margin: 0 auto; }
@@ -228,7 +229,7 @@ button:disabled, .btn:disabled, input:disabled {
     color: #fff;
     border: 0px;
     transition: all .1s ease-in-out; }
-    #rules-glide .glide__arrows .glide__arrow:hover, #rules-glide .glide__arrows .glide__arrow:focus {
+    #rules-glide .glide__arrows .glide__arrow:not(.disabled):hover, #rules-glide .glide__arrows .glide__arrow:not(.disabled):focus {
       background-color: #ff6a6a;
       color: #fff;
       border: 0px;

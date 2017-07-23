@@ -160,7 +160,7 @@ exports.update = function(req, res) {
                 grade: grade
             };
 
-            Templates.Load('/partials/end', data, (html) => {
+            Templates.Load('partials/end', data, (html) => {
 
                 res.send({ html: html, grade: ratio*100 });
  
@@ -201,7 +201,7 @@ exports.level = function(req, res) {
 
             data.player = player;
 
-            Templates.Load('/partials/level', data, (html) => {
+            Templates.Load('partials/level', data, (html) => {
 
                 res.send({ html: html });
 
@@ -214,19 +214,26 @@ exports.level = function(req, res) {
 
 exports.modal = function(req, res) {
 
+    console.log(req, res);
+
     var Templates = new TemplateLoader();
+    var data = {};
 
-    Item.model.findOne({ '_id': req.query.id }).exec((err, item) => {
+    if (req.query.match == 'true')
+        data.message = 'It\'s a match!';
+    else 
+        data.message = 'Uh, oh! Not quite!';
 
-        Player.model.findOne({ '_id': req.query.player }).exec((err, player) => {
+    Item.model.findOne({ 'item_key': req.query.id }).exec((err, item) => {
 
-                Templates.Load('/partials/level', data, (html) => {
+        data.item = item;
 
-                    res.send({ html: html });
+        Templates.Load('partials/match', data, (html) => {
 
-                });
+            res.send({ html: html });
 
         });
+
     });
 
 };
