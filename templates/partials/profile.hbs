@@ -67,7 +67,7 @@
 
 			<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}}optional username{{/if}}" id="username">
 			{{#if player.username}}
-			<p>You appear on the leaderboard as <span>{{player.username}}</span>.</p>
+			<p>You appear on the leaderboard as <span id="username-text">{{player.username}}</span>.</p>
 			{{else}}
 			<p>Hide your real name from the leaderboard with a username.</p>
 			{{/if}}

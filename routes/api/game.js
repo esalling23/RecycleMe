@@ -1,6 +1,8 @@
 var keystone = require('keystone');
-var Player = keystone.list('Player');
-var Item = keystone.list('Item'),
+var Player = keystone.list('Player'), 
+    Item = keystone.list('Item'),
+    Material = keystone.list('Material'),
+    Team = keystone.list('Team'),
     appRoot = require('app-root-path'),
     TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
     _ = require('underscore');
@@ -212,7 +214,7 @@ exports.level = function(req, res) {
 
 };
 
-exports.modal = function(req, res) {
+exports.match = function(req, res) {
 
     console.log(req, res);
 
@@ -229,6 +231,25 @@ exports.modal = function(req, res) {
         data.item = item;
 
         Templates.Load('partials/match', data, (html) => {
+
+            res.send({ html: html });
+
+        });
+
+    });
+
+};
+
+exports.material = function(req, res) {
+
+    var Templates = new TemplateLoader();
+    var data = {};
+
+    Material.model.findOne({ 'material_key': req.query.material }).exec((err, material) => {
+
+        data = material;
+
+        Templates.Load('partials/material', data, (html) => {
 
             res.send({ html: html });
 

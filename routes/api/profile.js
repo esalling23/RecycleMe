@@ -34,17 +34,29 @@ exports.get = function(req, res) {
 
 exports.update = function(req, res) {
 
+    var data = {};
+
     Player.model.findOne({ _id: req.params.id }).populate('team').exec((err, result) => {
 
-        if (req.body.team)
+        if (req.body.team) {
             result.team = req.body.team;
+        }
 
-        if (req.body.username)
+        if (req.body.username) {
             result.username = req.body.username;
+            data.username = req.body.username;
+        }
 
         result.save();
 
-        res.send('success');
+        Team.model.findOne({ _id: result.team }).exec((err, result) => {
+            
+            data.team = result;
+
+            res.send(data);
+
+        });
+
     });
 
 };

@@ -41,7 +41,7 @@
       id: modalId
     };
 
-    $.get("/api/game/modal", data, function(data){
+    $.get("/api/game/match", data, function(data){
 
       if (match == true) {
         ion.sound.play("tada", {volume: 0.2});
@@ -161,7 +161,7 @@
   });
 
 	// If a player chooses to trash an item
-  $('#trash').on('click', function(e) {
+  $('#trash').unbind('click').on('click', function(e) {
 
     currentItem = $(document).find('.level .item').last();
 
@@ -370,34 +370,52 @@
     var glider = '#' + $(this).find('.item-pane').attr('id') + '-glide';
 
     $(item).addClass('open');
+    $(item).find('.btn-close, .image-glider, .glide__arrows').css('visibility', 'visible');
 
-    $(item).find('.item-bio').show();
-
-    $(item).find('.btn-close').css('visibility', 'visible');
-
-    $(item).find('.glide__arrows').show();
-
-    $(item).find('.image-glider').show(function(){
-
-      console.log($(this));
-
-      $(this).glide({
-        type: "slider",
+    $(item).find('.item-bio').show(function(){
+      $(glider).glide({
+        type: "carousel",
         autoplay: false,
         autoheight: false, 
         default: 1
       });
+      $('.glide__arrow').unbind('click').on('click', function(e){
+        e.stopImmediatePropagation();
+        e.stopPropagation();
+        e.bubbles = false;
 
-      // $('.glide__arrow').on('click', function(e){
-      //   e.stopImmediatePropagation();
-      //   e.stopPropagation();
-      //   e.bubbles = false;
+        var direction = $(this).data('glide-dir');
 
-      //   var direction = $(this).data('glide-dir');
+        $(glider).glide('next');
 
-      //   $(glider).glide('next');
+      });
 
-      // });
+      $('.material').unbind('click').on('click', function(e){
+
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        e.bubbles = false;
+
+
+
+        $.get("/api/game/material", { material: $(this).attr('id') }, function(data){
+
+          console.log(data);
+
+          $(".modal.material-profile").html(data.html).fadeIn(function(){
+
+            $(this).find('#back-btn').on('click', function() {
+
+              $('.modal.material-profile .modal-wrap').remove();
+              $('.modal.material-profile').fadeOut();
+            });
+
+          });
+
+        });
+
+      });
+
     });
 
     $(item).on('click', function(e){

@@ -26,7 +26,12 @@ var clicking = false;
 
         $(this).toggleClass('ACTIVE');
 
-        $('.section.' + section).fadeIn(function(){
+        $('.section.' + section)
+        .css({
+        	'left': 'auto',
+        	'right': 'auto'
+        })
+        .fadeIn(function(){
             console.log(section);
             $(this).toggleClass('ACTIVE');
         });
@@ -84,7 +89,15 @@ $('#btn-save-profile').on('click', function(e) {
       $.post("/api/update/{{playerId}}", data, function(data){
 	      console.log(data)
         // Notify success
-        $('.save-msg').text('Nice! Saved.').fadeIn();
+        $('.save-msg').text('Nice! Saved.').fadeIn(function(){
+        	setTimeout(function(){
+        		$(this).fadeOut();
+        	}, 2000);
+        });
+        
+        $('.edit #username').val(data.username);
+        $('.edit #username-text').text(data.username);
+        $('.edit .team-select#' + data.team.key).prop('selected', true);
         clicking = false;
       })
       .done(function() {

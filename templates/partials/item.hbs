@@ -1,7 +1,7 @@
 <li class="item {{status}} {{#if statusOr}}{{statusOr}}{{/if}} {{#if specialStatus}}{{specialStatus.key}}{{/if}} {{#if specialStatusOr}}{{specialStatusOr.key}}{{/if}}" style="background-image:url('{{{cloudinaryUrl profiles.[0]}}}')">
 	<div class="item-pane pane{{@index}}" id="{{item_key}}" >
 
-		<div class="image-glider glide" id="{{item_key}}-glide" style="display:none">
+		<div class="image-glider glide" id="{{item_key}}-glide" style="visibility:hidden">
 			<div class="glide__wrapper">
                 <ul class="glide__track">
 				{{#each profiles}}
@@ -10,9 +10,9 @@
 				</ul>
 			</div>
 		</div>
-		<div class="glide__arrows" style="display:none">
-            <button class="glide__arrow prev" data-glide-dir="prev"><<</button>
-            <button class="glide__arrow next" data-glide-dir="next">>></button>
+		<div class="glide__arrows" style="visibility:hidden">
+            <button class="glide__arrow prev" data-glide-dir="<"><</button>
+            <button class="glide__arrow next" data-glide-dir=">">></button>
         </div>
 
         <div class="glide__bullets"></div>
@@ -26,7 +26,7 @@
 			<div class="item-bio" style="display:none">
 				{{{info.html}}}
 				{{#each material}}
-				<div class="material minimal">{{name}}</div>
+				<div class="material minimal btn" id="{{material_key}}">{{name}}</div>
 				{{/each}}
 			</div>
 		</div>

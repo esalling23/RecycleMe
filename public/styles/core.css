@@ -203,6 +203,23 @@ button:disabled, .btn:disabled, input:disabled {
     .special .option.selected {
       border: 1px white solid; }
 
+.modal.material-profile, .modal.match {
+  color: white;
+  background-color: rgba(52, 52, 52, 0.9); }
+
+.modal-inner.material-profile {
+  height: 400px;
+  width: 80%;
+  margin: 30% auto;
+  border: 10px solid #fff;
+  border-radius: 3px;
+  color: #343434; }
+  .modal-inner.material-profile img {
+    margin: 16px;
+    border-radius: 50%;
+    box-shadow: 2px #CECAC1;
+    border: 2px white solid; }
+
 #rules-glide {
   height: 80%;
   border: 2px solid #343434; }

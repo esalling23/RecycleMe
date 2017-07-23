@@ -27,7 +27,8 @@ router.get('/profile/:id', routes.views.game);
 router.get('/api/find/', keystone.middleware.api, routes.api.login.get);
 router.get('/api/game/', keystone.middleware.api, routes.api.game.update);
 router.get('/api/game/level', keystone.middleware.api, routes.api.game.level);
-router.get('/api/game/modal', keystone.middleware.api, routes.api.game.modal);
+router.get('/api/game/match', keystone.middleware.api, routes.api.game.match);
+router.get('/api/game/material', keystone.middleware.api, routes.api.game.material);
 
 router.post('/api/update/:id', keystone.middleware.api, routes.api.profile.update);
 router.post('/api/update/image_upload/:id', keystone.middleware.api, routes.api.profile.image_upload);
