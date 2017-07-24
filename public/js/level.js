@@ -25,9 +25,13 @@
     preload: true
   });
 
+  function Reload() {
+    points = 0;
+    $('#points-counter').html(points);
+  }
+
 
   function ShowMatch(item, match) {
-    console.log(item, match);
 
     var modalId = $(item).find('.item-pane').attr('id');
 
@@ -67,7 +71,7 @@
 
   function CheckSpecial(item, special) {
     // check if item is recyclable
-    if (item.hasClass(special)) {
+    if ($(item).has('.' + special)) {
       UpdateScore(1);
       ShowMatch($(item), true);
     } else {
@@ -77,7 +81,7 @@
 
   function CheckTrash(item) {
     // check if item is trash
-    if ($(item).hasClass('Trash')) {
+    if ($(item).has('.Trash')) {
       ShowMatch($(item), true);
       UpdateScore(1);
     } else {
@@ -87,7 +91,7 @@
 
   function CheckRecycle(item) {
     // check if item is recyclable
-    if ($(item).hasClass('Recycle')) {
+    if ($(item).has('.Recycle')) {
       UpdateScore(1);
       ShowMatch(item, true);
     } else {
@@ -98,7 +102,7 @@
   function CheckCompost(item) {
     console.log(item);
     // check if item is recyclable
-    if (item.hasClass('Compost')) {
+    if ($(item).has('.Compost')) {
       UpdateScore(1);
       ShowMatch(item, true);
     } else {
@@ -271,9 +275,9 @@
   });
 
   // If a player chooses to compost
-  $('#compost').on('click', function() {
+  $('#compost').unbind('click').on('click', function() {
 
-    currentItem = $(document).find('.level.ACTIVE .item').last();
+    currentItem = $(document).find('.level .item').last();
 
     if (buttonAlertSuper == true) {
       // Let the player know what they are doing
@@ -307,12 +311,12 @@
   });
 
   // If a player chooses 'special'
-  $('#special').on('click', function() {
+  $('#special').unbind('click').on('click', function() {
 
-    currentItem = $(document).find('.level.ACTIVE .item')[0];
+    currentItem = $(document).find('.level .item')[0];
     
     $('.modal.special').fadeIn(function() {
-      $('.option').click(function(){
+      $('.option').unbind('click').on('click', function(){
 
         var option = $(this);
 
@@ -396,8 +400,6 @@
         e.stopImmediatePropagation();
         e.bubbles = false;
 
-
-
         $.get("/api/game/material", { material: $(this).attr('id') }, function(data){
 
           console.log(data);
@@ -469,7 +471,7 @@
 	  	var data = {
 			  id: window.playerId,
 			  score: points, 
-			  level: $('.level.ACTIVE').data('level')
+			  level: $('.level').data('level')
       };
 
 	  	$.get("/api/game/", data, function(data){
@@ -484,4 +486,5 @@
   	} 
 
   }
+
 

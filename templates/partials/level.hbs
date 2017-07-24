@@ -45,22 +45,23 @@
 		<div class="modal-group"></div>
 
 	</section>
-{{/ifeq}}
 
-<div class="modal special">
 
-	<h3>What special action should be taken on this item?</h3>
+	<div class="modal special">
 
-	<div class="row">
-		{{#each special}}
-		<div class="col-xs-6">
-			<div class="option" id="{{this.key}}">
-				{{!-- <a class="option-profile">{{{cloudinaryUrl this.image.url width=80}}}</a> --}}
-				<h3>{{this.name}}</h3>
-				{{{this.text.html}}}
+		<h3>What special action should be taken on this item?</h3>
+
+		<div class="row">
+			{{#each special}}
+			<div class="col-xs-6">
+				<div class="option" id="{{this.key}}">
+					<a class="option-profile">{{{cloudinaryUrl this.image.url width=80}}}</a>
+					<h3>{{this.name}}</h3>
+					<div class="profile-text">{{{this.text.html}}}</div>
+				</div>
 			</div>
+			{{/each}}
 		</div>
-		{{/each}}
-	</div>
 
-</div>
+	</div>
+{{/ifeq}}

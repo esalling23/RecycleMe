@@ -203,6 +203,9 @@ button:disabled, .btn:disabled, input:disabled {
     .special .option.selected {
       border: 1px white solid; }
 
+.modal.alert {
+  z-index: 1000000; }
+
 .modal.material-profile, .modal.match {
   color: white;
   background-color: rgba(52, 52, 52, 0.9); }
@@ -271,7 +274,8 @@ section.tinderslide {
     display: block;
     height: 100%;
     padding: 0px;
-    width: 450px; }
+    width: 450px;
+    max-width: 100%; }
   section.tinderslide li {
     position: absolute;
     display: block;

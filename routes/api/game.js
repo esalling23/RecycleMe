@@ -3,6 +3,7 @@ var Player = keystone.list('Player'),
     Item = keystone.list('Item'),
     Material = keystone.list('Material'),
     Team = keystone.list('Team'),
+    Special = keystone.list('SpecialOption'),
     appRoot = require('app-root-path'),
     TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
     _ = require('underscore');
@@ -203,11 +204,18 @@ exports.level = function(req, res) {
 
             data.player = player;
 
-            Templates.Load('partials/level', data, (html) => {
+            Special.model.find({}).exec((err, special) => {
 
-                res.send({ html: html });
+                data.special = special;
 
-            });
+                Templates.Load('partials/level', data, (html) => {
+
+                    res.send({ html: html });
+
+                });
+            })
+
+            
 
         });
     });

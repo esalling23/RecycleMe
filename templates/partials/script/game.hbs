@@ -213,7 +213,7 @@ $('[data-level]').on('click', function(e) {
 	        slideheight = ($(window).height()/4)*2.5;
 			$('.item:not(.open)').height(slideheight);
 	        $('.game-level').fadeIn(function(){
-				window.playerId = '{{playerId}}';
+      				window.playerId = '{{playerId}}';
 	            $.getScript( '/js/level.js' );
 
 	          if ($(this).data('grade') >= 70) {
@@ -226,4 +226,17 @@ $('[data-level]').on('click', function(e) {
 
 	    });
 	}
+
+
+  $('#btn-end-level').unbind('click').on('click', function() {
+
+    window.location.reload();
+
+  });
+
+  $('#btn-reload-level').unbind('click').on('click', function() {
+
+    StartLevel($('.level').data('level'));
+
+  });
 
