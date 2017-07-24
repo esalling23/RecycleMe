@@ -507,7 +507,7 @@
     console.log(num)
   	var end = false;
 
-    if (points >= $('.level.ACTIVE').data('max')){
+    if (points >= $('.level').data('max')){
       points = points + num/2;
     } else 
     	points = points + num;
@@ -529,7 +529,7 @@
 	  	var data = {
 			  id: window.playerId,
 			  score: points, 
-			  level: $('.level').data('level')
+			  level: $('.level.tinderslide').data('level')
       };
 
 	  	$.get("/api/game/", data, function(data){
