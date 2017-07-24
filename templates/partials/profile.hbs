@@ -65,19 +65,29 @@
 
 		<div class="update-info col-xs-6">
 
-			<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}}optional username{{/if}}" id="username">
-			{{#if player.username}}
-			<p>You appear on the leaderboard as <span id="username-text">{{player.username}}</span>.</p>
-			{{else}}
-			<p>Hide your real name from the leaderboard with a username.</p>
-			{{/if}}
+			<div class="row">
+				{{#if player.username}}
+				<p>You appear as "<span id="username-text">{{player.username}}</span>" on the leaderboard.</p>
+				{{else}}
+				<p>Hide your real name from the leaderboard with a username.</p>
+				{{/if}}
+				<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}}optional username{{/if}}" id="username">
+			</div>
 
-			<select id="team">
-				<option class="team-select" value="Choose a team"{{#if player.team}}{{else}} selected{{/if}}>Select Team</option>
-				{{#each teams}}
-				<option class="team-select" id="{{this._id}}" value="{{this.name}}"{{#ifeq this.name ../player.team.name}} selected{{/ifeq}}>{{this.name}}</option>
-				{{/each}}
-			</select>
+			<div class="row">
+				{{#if player.teams.[0]}}
+				<p>You are playing on the "<span id="username-text">{{player.teams.[0].name}}</span>" team.</p>
+				{{else}}
+				<p>Choose a team to compete across departments, classes, and more!</p>
+				{{/if}}
+
+				<select id="team">
+					<option class="team-select" value="Choose a team"{{#if player.team}}{{else}} selected{{/if}}>Select Team</option>
+					{{#each teams}}
+					<option class="team-select" id="{{this._id}}" value="{{this.name}}"{{#ifeq this.name ../player.team.name}} selected{{/ifeq}}>{{this.name}}</option>
+					{{/each}}
+				</select>
+			</div>
 
 		</div>
 

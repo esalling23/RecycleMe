@@ -1,5 +1,6 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
+// var nodemailer = require('nodemailer');
 
 /**
  * Player Model
@@ -84,6 +85,45 @@ Player.schema.statics.removeResourceRef = function(resourceId, callback) {
     );
 
 };
+
+// Player.schema.pre('save', function(next){
+// 	if (this.password)
+// 		next();
+// 	else {
+// 		this.password = 'word';
+// 		next();
+// 	}
+// })
+
+// Player.schema.post('save', function(next) {
+//     // Not the movie transporter!
+//     var transporter = nodemailer.createTransport({
+//         service: 'Gmail',
+//         auth: {
+//             user: 'esalling23@gmail.com', // Your email id
+//             pass: 'Faefanzel23!' // Your password
+//         }
+//     });
+
+//     // setup email data with unicode symbols
+// 	var mailOptions = {
+// 	    from: '"Fred Foo 👻" <esalling23@gmail.com.com>', // sender address
+// 	    to: this.email, // list of receivers
+// 	    subject: 'Hello ✔', // Subject line
+// 	    text: 'Hello world ?', // plain text body
+// 	    html: '<b>Hello world ?</b>' // html body
+// 	};
+
+// 	// send mail with defined transport object
+// 	transporter.sendMail(mailOptions, (error, info) => {
+// 	    if (error) {
+// 	        return console.log(error);
+// 	    }
+// 	    console.log('Message %s sent: %s', info.messageId, info.response);
+// 	});
+	
+// 	next();
+// });
 
 
 /**

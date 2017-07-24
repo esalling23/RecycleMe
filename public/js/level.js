@@ -430,14 +430,14 @@
 
     $(item).addClass('open');
     $(item).find('.btn-close, .image-glider, .glide__arrows').css('visibility', 'visible');
-    $(glider).glide({
-        type: "slider",
-        mode: 'vertical',
-        autoplay: false,
-        startAt: 1,
-        touchDistance: false, 
-        dragDistance: false
-      });
+    // $(glider).glide({
+    //     type: "slider",
+    //     mode: 'vertical',
+    //     autoplay: false,
+    //     startAt: 1,
+    //     touchDistance: false, 
+    //     dragDistance: false
+    //   });
     $(item).find('.item-bio').show(function(){
       setTimeout(function(){
       

@@ -51,7 +51,7 @@ CSV.add({
 
 });
 
-CSV.schema.pre('save', function(next) {
+CSV.schema.post('save', function(next) {
 
 	console.log(this.csv);
 

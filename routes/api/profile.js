@@ -20,6 +20,7 @@ exports.get = function(req, res) {
 
             data.player = result;
 
+
             Templates.Load('/partials/profile', data, function(html) {
 
                 res.send(html);

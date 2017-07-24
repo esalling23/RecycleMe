@@ -780,14 +780,21 @@ section.tinderslide {
 
 	}
 
+	.update-info {
+		.row {
+			margin: 10px 0px;
+		}
+	}
+
+
 	.edit {
 		margin-top: 40px;
 		padding-bottom: 80px;
 		border-top: 2px solid lighten($tinder-black, 30%);
 
 		img {
-			height: 100px;
-			width: 100px;
+			height: 150px;
+			width: 150px;
 
 		}
 
@@ -796,6 +803,44 @@ section.tinderslide {
 			position: relative;
 			bottom: -40px;
 			
+		}
+
+		.cloudinary-thumbnails {
+			display: none;
+		}
+
+		.cloudinary-button {
+			width: 150px;
+			border: 2px solid $tinder-red;
+			border-radius: 2%;
+			display: inline;
+		    padding: 4px 8px;
+			color: $tinder-red;
+			background-color: $tinder-white;
+			background: $tinder-white !important;
+
+			@include transition(all, 0.5s);
+
+			&:focus, &:active { 
+				-webkit-box-shadow: none !important;
+				box-shadow:none !important;
+				outline: 0px !important;
+				background-color: white;
+				color: darken($tinder-red, 30%);
+				border: 2px solid darken($tinder-red, 30%);
+			}
+		}
+
+		.image_upload {
+			margin: 10px;
+		}
+
+		.save-msg {
+		    position: relative;
+		    bottom: 0px;
+		    text-align: center;
+		    width: 50%;
+		    margin: 0px 25%;
 		}
 	}
 

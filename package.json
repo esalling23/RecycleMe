@@ -17,6 +17,7 @@
     "json-fs-store": "^1.0.0",
     "keystone": "git://github.com/engagementgamelab/keystone.git",
     "node-sass-middleware": "^0.9.7",
+    "nodemailer": "^4.0.1",
     "underscore": "^1.8.3"
   }
 }

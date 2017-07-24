@@ -30,9 +30,10 @@ exports.get = function(req, res) {
 
 				player.save();
 
-		  		res.send('/profile/' + data.player);
+	            data.admin = result.admin;
 
-			    
+		  		res.send('/profile/' + data.player);
+		    
 			} else {
 
 			  	console.log("wrong password");
