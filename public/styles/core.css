@@ -34,6 +34,9 @@ body, html {
 .hide {
   display: none; }
 
+.row {
+  margin: 0px; }
+
 .modal {
   height: 110%;
   z-index: 10000; }
@@ -190,18 +193,36 @@ button:disabled, .btn:disabled, input:disabled {
   position: absolute;
   top: -110px; }
 
+.row.special-options {
+  margin-bottom: 60px; }
+
 .special {
   color: white;
   margin: 0 auto;
-  background: rgba(0, 0, 0, 0.8); }
+  margin-top: -60px;
+  background: rgba(0, 0, 0, 0.9); }
   .special .option {
     background-color: #4d4c4c;
     height: 180px;
     width: 140px;
     margin: 10px auto;
-    display: inline-block; }
+    display: inline-block;
+    padding: 5px; }
+    .special .option h3 {
+      font-size: 20px; }
+    .special .option img {
+      height: 80px;
+      width: 80px; }
     .special .option.selected {
       border: 1px white solid; }
+    .special .option.open {
+      margin: 0px auto;
+      padding: 20px;
+      height: 100%;
+      width: 300px; }
+      .special .option.open img {
+        height: 180px;
+        width: 180px; }
 
 .modal.alert {
   z-index: 1000000; }
@@ -266,7 +287,7 @@ section.tinderslide {
   position: relative;
   background: #fff;
   height: 100%; }
-  section.tinderslide ul {
+  section.tinderslide ul:not(.glide__track) {
     height: 100%;
     width: 100%;
     margin: 0;
@@ -276,7 +297,7 @@ section.tinderslide {
     padding: 0px;
     width: 450px;
     max-width: 100%; }
-  section.tinderslide li {
+  section.tinderslide li:not(.glide__slide) {
     position: absolute;
     display: block;
     width: 90%;
@@ -299,7 +320,7 @@ section.tinderslide {
     -webkit-backface-visibility: hidden;
     background-repeat: no-repeat;
     background-size: cover; }
-    section.tinderslide li h2 {
+    section.tinderslide li:not(.glide__slide) h2 {
       text-align: left;
       position: relative; }
   section.tinderslide .item {
@@ -318,7 +339,8 @@ section.tinderslide {
       z-index: 10000;
       margin: 8px;
       position: absolute;
-      top: 0px; }
+      top: 0px;
+      left: 0px; }
     section.tinderslide .item .item-info {
       padding: 8px;
       position: absolute;
@@ -326,6 +348,8 @@ section.tinderslide {
       left: 0;
       z-index: 2;
       width: 100%;
+      color: #fff;
+      text-align: left;
       background-color: rgba(0, 0, 0, 0.6); }
     section.tinderslide .item .material {
       font-size: 18px; }
@@ -346,10 +370,11 @@ section.tinderslide {
       position: absolute; }
       section.tinderslide .item .image-glider .glide__wrapper {
         height: 100%;
-        position: absolute; }
+        position: relative; }
       section.tinderslide .item .image-glider .glide__slide {
         left: 0;
-        width: 100%; }
+        width: 100%;
+        height: 100%; }
     section.tinderslide .item .glide__arrows {
       position: absolute;
       z-index: 2;

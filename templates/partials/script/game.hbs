@@ -180,7 +180,7 @@ $('[data-level]').on('click', function(e) {
 
 	     if ({{player.new}}) {
 	      $('.alert .msg').html('<h3>Welcome to Recyclr</h3><p>Remember, you can keep track of your matches as you play using the counter at the top of your screen.</p>');
-	      $('.alert img, .alert #alert-continue').show();
+	      $('.alert .img-points, .alert #alert-continue').show();
 	      $('.alert .alert-inner').addClass('new-player');
 	      $('.alert').fadeIn();
 	    }
@@ -211,10 +211,23 @@ $('[data-level]').on('click', function(e) {
 	        // Notify success
 	        $(".game-level").html(data.html);
 	        slideheight = ($(window).height()/4)*2.5;
-			$('.item:not(.open)').height(slideheight);
+    			$('.item:not(.open)').height(slideheight);
 	        $('.game-level').fadeIn(function(){
-      				window.playerId = '{{playerId}}';
-	            $.getScript( '/js/level.js' );
+    				window.playerId = '{{playerId}}';
+            $.getScript( '/js/level.js' );
+            if (num != 1) {
+              $('.alert .full').show(function(){
+                if (num == 2){
+                  $('.alert .msg').text('Welcome to level two. In this level you can compost items using the blue super like button on the right.');
+                  $('.alert .img-lvl-two').show();
+                } else if (num == 3) {
+                  $('.alert .msg').text('Welcome to level three. In this level you can choose from a menu of special options using the black special button on the left.');
+                  $('.alert .img-lvl-three').show();
+                }
+
+                $('.alert').fadeIn();
+              });
+            }
 
 	          if ($(this).data('grade') >= 70) {
 	            pointlimit = $('.level.ACTIVE').data('grade');

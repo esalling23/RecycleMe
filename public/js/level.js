@@ -70,8 +70,9 @@
   }
 
   function CheckSpecial(item, special) {
+    console.log(item, special)
     // check if item is recyclable
-    if ($(item).has('.' + special)) {
+    if ($(item).hasClass(special)) {
       UpdateScore(1);
       ShowMatch($(item), true);
     } else {
@@ -81,7 +82,7 @@
 
   function CheckTrash(item) {
     // check if item is trash
-    if ($(item).has('.Trash')) {
+    if ($(item).hasClass('Trash')) {
       ShowMatch($(item), true);
       UpdateScore(1);
     } else {
@@ -91,7 +92,7 @@
 
   function CheckRecycle(item) {
     // check if item is recyclable
-    if ($(item).has('.Recycle')) {
+    if ($(item).hasClass('Recycle')) {
       UpdateScore(1);
       ShowMatch(item, true);
     } else {
@@ -102,7 +103,7 @@
   function CheckCompost(item) {
     console.log(item);
     // check if item is recyclable
-    if ($(item).has('.Compost')) {
+    if ($(item).hasClass('Compost')) {
       UpdateScore(1);
       ShowMatch(item, true);
     } else {
@@ -316,41 +317,95 @@
     currentItem = $(document).find('.level .item')[0];
     
     $('.modal.special').fadeIn(function() {
+      $(this).find('.btn.close-special').unbind('click').on('click', function(e){
+        $('.modal.special').fadeOut();
+      });
       $('.option').unbind('click').on('click', function(){
 
         var option = $(this);
 
-        if (buttonAlertSpecial == true) {
-          // Let the player know what they are doing
-          $('.alert .msg').html('<h2>You are about to <span></span> this item! Are you sure?</h2>');
-          $('.alert #alert-confirm, .alert #alert-abort').show();
-          $('.alert').fadeIn(function(){
-            buttonAlertSpecial = false;
-            $(this).find('#alert-abort').on('click', function(e){
-              clicking = false;
-            });
+        $('.option').hide(function(){
+          $(option).addClass('open')
+          $(option).closest('.col-xs-6').removeClass('col-xs-6').addClass('col-xs-12');
 
-            // Confirm to continue
-            $(this).find('#alert-confirm').on('click', function(e){
-              e.stopPropagation();
-              // Check Item
-              $(currentItem).addClass('gone').addClass('specialPick');
-              CheckSpecial(currentItem, option.attr('id'));
-              $('.modal.special').fadeOut();
-              
-              $(this).unbind('click');
-              $('.alert').fadeOut();
-              clicking = false;
-              
-            });
+          $(option).find('.profile').css('visibility', 'visible').removeClass('hidden');
+        });
+
+        $(option).fadeIn(function(){
+
+          $(this).find('.btn').unbind('click').on('click', function(e){
+
+            console.log($(this).data('action'))
+
+            if ($(this).data('action') === 'select') {
+
+              if (buttonAlertSpecial == true) {
+                // Let the player know what they are doing
+                $('.alert .msg').html('<h2>You are about to choose a special option for this item! Are you sure?</h2>');
+                $('.alert #alert-confirm, .alert #alert-abort').show();
+                $('.alert').fadeIn(function(){
+                  buttonAlertSpecial = false;
+                  $(this).find('#alert-abort').on('click', function(e){
+                    clicking = false;
+                  });
+
+                  // Confirm to continue
+                  $(this).find('#alert-confirm').on('click', function(e){
+                    e.stopPropagation();
+                    // Check Item
+                    $(currentItem).addClass('gone').addClass('specialPick');
+                    CheckSpecial(currentItem, option.attr('id'));
+                    $('.option .profile').css('visibility', 'hidden');
+                    $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
+                    $('.option .profile').css('visibility', 'hidden').addClass('hidden');
+                    $('.option').removeClass('open');
+                    $('.option').show();
+                    $('.modal.special').fadeOut();
+                    
+                    $(this).unbind('click');
+                    $('.alert').fadeOut();
+                    clicking = false;
+                    
+                  });
+                });
+              } else {
+                // Check Item
+                $(currentItem).addClass('gone').addClass('specialPick');
+                CheckSpecial(currentItem, option.attr('id'));
+                $('.option .profile').css('visibility', 'hidden');
+                $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
+                $('.option .profile').css('visibility', 'hidden').addClass('hidden');
+                $('.option').removeClass('open');
+                $('.option').show();
+
+                $('.modal.special').fadeOut();
+                clicking = false;
+              }
+
+            } else if ($(this).data('action') === 'back') {
+                  
+              setTimeout(function(){
+                $('.option').hide(function(){
+                  $('.option .profile').css('visibility', 'hidden');
+                  $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
+                  $('.option .profile').css('visibility', 'hidden').addClass('hidden');
+                  $('.option').removeClass('open');
+                  setTimeout(function(){
+                    $('.option').fadeIn(function(){
+
+                    });
+                  }, 1000)
+                  
+                }); 
+              }, 100)
+
+            }
+
           });
-        } else {
-          // Check Item
-          $(currentItem).addClass('gone').addClass('specialPick');
-          CheckSpecial(currentItem, option.attr('id'));
-          $('.modal.special').fadeOut();
-          clicking = false;
-        }
+
+        });
+
+        
 
       })
     });
@@ -375,24 +430,29 @@
 
     $(item).addClass('open');
     $(item).find('.btn-close, .image-glider, .glide__arrows').css('visibility', 'visible');
-
-    $(item).find('.item-bio').show(function(){
-      $(glider).glide({
-        type: "carousel",
+    $(glider).glide({
+        type: "slider",
+        mode: 'vertical',
         autoplay: false,
-        autoheight: false, 
-        default: 1
+        startAt: 1,
+        touchDistance: false, 
+        dragDistance: false
       });
-      $('.glide__arrow').unbind('click').on('click', function(e){
-        e.stopImmediatePropagation();
-        e.stopPropagation();
-        e.bubbles = false;
+    $(item).find('.item-bio').show(function(){
+      setTimeout(function(){
+      
+      }, 500)
+      
+      // $('.glide__arrow').unbind('click').on('click', function(e){
+      //   e.stopImmediatePropagation();
+      //   e.stopPropagation();
+      //   e.bubbles = false;
 
-        var direction = $(this).data('glide-dir');
+      //   var direction = $(this).data('glide-dir');
 
-        $(glider).glide('next');
+      //   $(glider).glide('>');
 
-      });
+      // });
 
       $('.material').unbind('click').on('click', function(e){
 
@@ -401,8 +461,6 @@
         e.bubbles = false;
 
         $.get("/api/game/material", { material: $(this).attr('id') }, function(data){
-
-          console.log(data);
 
           $(".modal.material-profile").html(data.html).fadeIn(function(){
 
