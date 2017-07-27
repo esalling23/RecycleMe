@@ -314,7 +314,7 @@
   // If a player chooses 'special'
   $('#special').unbind('click').on('click', function() {
 
-    currentItem = $(document).find('.level .item')[0];
+    currentItem = $(document).find('.level .item').last();
     
     $('.modal.special').fadeIn(function() {
       $(this).find('.btn.close-special').unbind('click').on('click', function(e){
@@ -544,5 +544,7 @@
   	} 
 
   }
+
+  //# sourceURL=level.js
 
 
