@@ -15,6 +15,13 @@ body, html {
 	overflow: hidden;
 }
 
+.col-xs-4 {
+	@media(max-width: 400px) {
+		padding: 0px;
+	}
+}
+
+
 // Body
 .body {
   background-color: $tinder-white;
@@ -71,6 +78,8 @@ body, html {
 	height: 100%;
 	width: 100%;
 	max-width: $tinder-width;
+	position: fixed;
+	overflow: hidden;
 }
 
 .section, .subsection {
@@ -337,6 +346,8 @@ button, .btn, input {
 		box-shadow: 2px $tinder-grey;
 		border: 2px white solid;
 	}
+
+	
 }
 
 // Rules
@@ -588,10 +599,23 @@ section.tinderslide {
 .alert {
 	z-index: 3000;
 
-	top: -60px;
+	top: -40px;
 	height:110%;
 	width:100%;
 	background-color: rgba($tinder-black, 0.9);
+
+	.image {
+		display: none;
+		padding: 8px;
+		position: absolute;
+		background-color: white;
+		height:100%;
+
+		img {
+			height: 60%;
+			max-height: 180px;
+		}
+	}
 }
 
 .alert-inner {
@@ -602,7 +626,9 @@ section.tinderslide {
 	border-radius: 10%;
 	overflow: hidden;
     margin: 40px auto;
-    position:relative;
+   	position: absolute;
+    left: 0;
+    right: 0;
 
 
     .msg {
@@ -621,11 +647,13 @@ section.tinderslide {
     	}
     }
 
-    img {
-    	width: 80%;
-    	position: relative;
-    	height: auto;
-    }
+
+	    img.img {
+	    	width: 80%;
+	    	position: relative;
+	    	height: auto;
+	    }
+
 
 	button {
 		display: block;
@@ -664,6 +692,7 @@ section.tinderslide {
 		font-size: 4em;
 		font-family: 'Calligraffitti', cursive;
 	}
+
 
 	img {
 		margin: 16px;
@@ -778,11 +807,22 @@ section.tinderslide {
 		text-align: center;
 		margin: 40px auto;
 
+		@media(max-width: 400px) {
+			margin: 0px auto;
+		}
+
 	}
 
 	.update-info {
 		.row {
 			margin: 10px 0px;
+		}
+
+		p {
+		}
+
+		.input {
+			border: 1px solid black;
 		}
 	}
 
@@ -847,6 +887,10 @@ section.tinderslide {
 	.col-sm-4 {
 		margin: 20px auto;
 
+	}
+
+	.col-xs-6 {
+		padding: 0px;
 	}
 
 	.grade {

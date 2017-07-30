@@ -27,7 +27,7 @@
 
   function Reload() {
     points = 0;
-    $('#points-counter').html(points);
+    $('#points-counter').text(points);
   }
 
 
@@ -70,7 +70,6 @@
   }
 
   function CheckSpecial(item, special) {
-    console.log(item, special)
     // check if item is recyclable
     if ($(item).hasClass(special)) {
       UpdateScore(1);
@@ -101,7 +100,6 @@
   }
 
   function CheckCompost(item) {
-    console.log(item);
     // check if item is recyclable
     if ($(item).hasClass('Compost')) {
       UpdateScore(1);

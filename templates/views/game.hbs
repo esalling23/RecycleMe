@@ -26,9 +26,11 @@
 
 	{{else}}
 
-		{{!-- <h3>So far you have {{#if score}}{{score}}{{else}}0{{/if}} leaderboard points!</h3> --}}
+		<h3>So far you have {{#if score}}{{score}}{{else}}0{{/if}} leaderboard points!</h3>
 
-		{{> rules}}
+		<div class="section leaderboard" style="display:block;">
+		{{>board}}
+		</div>
 
 	{{/ifeq}}
 
@@ -40,17 +42,10 @@
 
 </div>
 
-<div class="section leaderboard">
-
-	{{>board}}
-
-</div> {{!-- .leaderboard --}}
 
 <div class="section levels" style="display:none">
 
 	<div class="level-group">
-
-		<button class="btn nav-bar" data-direction="right" id="btn-leader" data-section="leaderboard">Leaderboard</button>
 
 		<button class="minimal" data-level="1">{{#if player.levelOne}}replay {{/if}}level one</button>
 		<button class="minimal" data-level="2" {{#if player.levelOne}}{{else}}disabled{{/if}}>{{#if player.levelTwo}}replay {{/if}}level two</button>
@@ -72,7 +67,7 @@
 
 	<button class="btn nav-bar" data-direction="left" id="btn-end-level" data-section="end-game">End</button>
 
-	<button class="btn nav-bar" data-direction="right" id="btn-reload-level" data-section="reload-game">Reload</button>
+	<button class="btn nav-bar replay" data-direction="right" id="btn-reload-level" data-section="reload-game">Reload</button>
 
 	<div class="row header level" style="display:none">
 		<h2></h2>

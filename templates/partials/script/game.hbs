@@ -1,13 +1,25 @@
 var clicking = false;
 
- // Rules Glider
+ // Rules Popups
 
-  $('#rules-glide').glide({
-      type: "slider",
-      autoplay: false,
-      autoheight: false, 
-      default: 1
+  window.sessionStorage.setItem('new', {{player.new}});
+
+if (window.sessionStorage.getItem('new') == true) {
+  $('.alert').fadeIn(function(){
+    $('.msg').hide();
+    $('.image').fadeIn();
+    $('#alert-continue').show(function(){
+      $('#alert-continue').on('click', function(){
+        if ($('.image:visible').length > 1)
+          $('.image:visible').last().fadeOut();
+        else {
+          $('.alert').fadeOut();
+          $('.image:visible').last().fadeOut();
+        }
+      });
+    });
   });
+}
 
   // NAVIGATION
 
@@ -139,11 +151,7 @@ $('#btn-save-profile').on('click', function(e) {
 
       // Do some stuff with the display
       $('.profile-picture').attr('src', result[0].url);
-    })
-    .done(function() {
-      alert ('success')
-    })
-    .error(function(err) {
+    }).error(function(err) {
         alert( "error" + err );
     });
 
@@ -169,10 +177,18 @@ $('[data-level]').on('click', function(e) {
 	    // enable/disable buttons
 	    if (num == 2) {
 	      $('#compost').attr('disabled', false);
+        $('#compost').show();
+        $('#special').hide();
 	    } else if (num == 3) {
 	      $('#compost').attr('disabled', false);
 	      $('#special').attr('disabled', false);
-	    }
+        $('#special').show();
+	    } else {
+        $('#compost').attr('disabled', true);
+        $('#special').attr('disabled', true);
+        $('#special').hide();
+        $('#compost').hide();
+      }
 
 	    if (num == 1 && ($(".level[data-level=1]").data('tries') == 0 || !$(".level[data-level=1]").data('tries'))) {
 	      swipeAlertRight = true;
@@ -221,8 +237,10 @@ $('[data-level]').on('click', function(e) {
 	      $.get("/api/game/level", data, function(data){
 	        // Notify success
 	        $(".game-level").html(data.html);
-	        slideheight = ($(window).height()/4)*2.5;
+	        slideheight = $(window).height() - 260;
+
     			$('.item:not(.open)').height(slideheight);
+
 	        $('.game-level').fadeIn(function(){
     				window.playerId = '{{playerId}}';
             $.getScript( '/js/level.js' );
@@ -255,12 +273,13 @@ $('[data-level]').on('click', function(e) {
   $('#btn-end-level').unbind('click').on('click', function() {
 
     window.location.reload();
+    Reload();
 
   });
 
   $('#btn-reload-level').unbind('click').on('click', function() {
 
-  console.log($('.game-level .level').data('level'))
+    console.log($('.game-level .level').data('level'))
 
     StartLevel($('.game-level .level').data('level'));
 
