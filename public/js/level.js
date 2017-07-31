@@ -535,7 +535,10 @@
         $('.buttons').hide();
 	  		$('.modal.end').html(data.html).fadeIn(function(){
           $('.btn.replay').unbind('click').on('click', function(){
-            
+            StartLevel($('.game-level .level').data('level') - 1)
+          });
+          $('.btn.next-lvl').unbind('click').on('click', function(){
+            StartLevel($('.game-level .level').data('level'))
           });
         });
   		})

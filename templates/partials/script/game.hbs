@@ -2,9 +2,9 @@ var clicking = false;
 
  // Rules Popups
 
-  window.sessionStorage.setItem('new', {{player.new}});
+  sessionStorage.setItem('new', "{{player.new}}");
 
-if (window.sessionStorage.getItem('new') == true) {
+if (sessionStorage.getItem('new') == "true") {
   $('.alert').fadeIn(function(){
     $('.msg').hide();
     $('.image').fadeIn();
@@ -190,6 +190,8 @@ $('[data-level]').on('click', function(e) {
         $('#compost').hide();
       }
 
+      // Swipe and Button Alerts 
+
 	    if (num == 1 && ($(".level[data-level=1]").data('tries') == 0 || !$(".level[data-level=1]").data('tries'))) {
 	      swipeAlertRight = true;
 	      swipeAlertLeft = true;
@@ -213,7 +215,7 @@ $('[data-level]').on('click', function(e) {
 	    }
 
 	    // Bind close alert button
-	    $('#alert-abort, #alert-continue').on('click', function(e){
+	    $('#alert-abort, #alert-continue').unbind('click').on('click', function(e){
 	       e.stopPropagation();
 	      $('.alert').fadeOut(function(){
 	        $(this).find('button, img').hide();
