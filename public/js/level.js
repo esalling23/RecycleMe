@@ -130,7 +130,7 @@
 
     currentItem = $(this);
 
-    if (swipeAlertTrash == true) {
+    if (swipeAlertLeft == true) {
       // Let the player know what they are doing
       $('.alert .msg').html('<h2>You are about to trash this item! Are you sure?</h2>');
       $('.alert #alert-confirm, .alert #alert-abort').show();
