@@ -202,6 +202,11 @@ exports.level = function(req, res) {
 
         Player.model.findOne({ '_id': req.query.player }).exec((err, player) => {
 
+            if (player.new)
+                player.new = false;
+
+            player.save();
+
             data.player = player;
 
             Special.model.find({}).exec((err, special) => {
@@ -210,7 +215,9 @@ exports.level = function(req, res) {
 
                 Templates.Load('partials/level', data, (html) => {
 
-                    res.send({ html: html });
+                    data.html = html;
+
+                    res.send(data);
 
                 });
             })

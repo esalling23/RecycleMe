@@ -48,12 +48,18 @@ body, html {
 .page-wrapper {
   margin: 0 auto; }
 
-.page-wrapper, .game, .modal-group, .modal-wrap, .modal {
+.page-wrapper, .game:not(.nav), .modal-group, .modal-wrap, .modal {
   height: 100%;
   width: 100%;
   max-width: 450px;
   position: fixed;
   overflow: hidden; }
+
+.game.nav {
+  height: 0px;
+  position: absolute;
+  width: 100%;
+  top: 60px; }
 
 .section, .subsection {
   display: none;
@@ -366,10 +372,10 @@ section.tinderslide {
     section.tinderslide .item.open {
       max-width: 100%;
       width: 100%;
-      height: calc(100% - 80px) !important;
+      height: calc(100% - 120px) !important;
       max-height: 100%;
       left: 0px;
-      top: -156px;
+      top: -105px;
       z-index: 2500; }
     section.tinderslide .item .image-glider {
       height: 100%;

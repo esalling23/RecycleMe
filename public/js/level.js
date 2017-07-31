@@ -533,7 +533,11 @@
 	  	$.get("/api/game/", data, function(data){
 	  		// Show that end-of-level modal
         $('.buttons').hide();
-	  		$('.modal.end').html(data.html).fadeIn();
+	  		$('.modal.end').html(data.html).fadeIn(function(){
+          $('.btn.replay').unbind('click').on('click', function(){
+            
+          });
+        });
   		})
   		.fail(function(err) {
   		    alert( "error" + err );

@@ -74,12 +74,19 @@ body, html {
 	margin: 0 auto;
 
 }
-.page-wrapper, .game, .modal-group, .modal-wrap, .modal{
+.page-wrapper, .game:not(.nav), .modal-group, .modal-wrap, .modal{
 	height: 100%;
 	width: 100%;
 	max-width: $tinder-width;
 	position: fixed;
 	overflow: hidden;
+}
+
+.game.nav {
+    height: 0px;
+    position: absolute;
+    width: 100%;
+    top: 60px;
 }
 
 .section, .subsection {

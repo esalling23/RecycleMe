@@ -246,10 +246,10 @@ $('[data-level]').on('click', function(e) {
             $.getScript( '/js/level.js' );
             if (num != 1) {
               $('.alert .full').show(function(){
-                if (num == 2){
+                if (num == 2 && data.player.triesTwo == 0){
                   $('.alert .msg').text('Welcome to level two. In this level you can compost items using the blue super like button on the right.');
                   $('.alert .img-lvl-two').show();
-                } else if (num == 3) {
+                } else if (num == 3 && data.player.triesThree == 0) {
                   $('.alert .msg').text('Welcome to level three. In this level you can choose from a menu of special options using the black special button on the left.');
                   $('.alert .img-lvl-three').show();
                 }

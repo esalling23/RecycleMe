@@ -31,27 +31,32 @@ Player.add({
 		label: 'Player Team',
 	},
 
-	completed: { type: Boolean, label: 'Game Completed?' },
+	completed: { type: Boolean, label: 'Game Completed?' }
+}, 'Level One Data', {
 
 	levelOne: { type: Boolean, label: 'Level One Completed?', note: 'Based on score of 70% or higher', noedit: false },
 	pointsOne: { type: Number, label: 'Level One Points (#)', noedit: false, default: 0 },
 	pointsOneCap: { type: Number, label: 'Level One Grade Cap (#)', noedit:false, default: 0 },
 	gradeOne: { type: Number, label: 'Level One Grade (% out of total)', noedit:false, default: 0 }, 
 	triesOne: { type: Number, label: 'Number of Times Played This Level', noedit:false, default: 0 }, 
-	lastTryOne: { type: Date, noedit: true },
+	lastTryOne: { type: Date, noedit: true }
+
+}, 'Level Two Data', {
 
 	levelTwo: { type: Boolean, label: 'Level Two Completed?', note: 'Based on score of 70% or higher', noedit: false }, 
 	pointsTwo: { type: Number, label: 'Level One Points (#)', noedit: false, default: 0 },
 	pointsTwoCap: { type: Number, label: 'Level Two Grade Cap (#)', noedit:true, default: 0 },
 	gradeTwo: { type: Number, label: 'Level Two Grade (% out of total)', noedit:false, default: 0 },
 	triesTwo: { type: Number, label: 'Number of Times Played This Level', noedit:false, default: 0 },
-	lastTryTwo: { type: Date, noedit: true },
+	lastTryTwo: { type: Date, noedit: true }
+	
+}, 'Level Three Data', {
 
 	levelThree: { type: Boolean, label: 'Level Three Completed?', note: 'Based on score of 70% or higher', noedit: false }, 
-	pointsThree: { type: Number, label: 'Level One Points (#)', noedit: false, default: 0 },
+	pointsThree: { type: Number, label: 'Level Three Points (#)', noedit: false, default: 0 },
 	pointsThreeCap: { type: Number, label: 'Level Three Grade Cap (#)', noedit:true, default: 0 },
 	gradeThree: { type: Number, label: 'Level Three Grade (% out of total)', noedit:false, default: 0 }, 
-	triesThree: { type: Number, label: 'Number of Times Played This Level', noedit:false, default: 0 },
+	triesThree: { type: Number, label: 'Number of Times Played Level Three', noedit:false, default: 0 },
 	lastTryThree: { type: Date, noedit: true }
 	
 });
