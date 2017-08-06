@@ -213,6 +213,15 @@ exports.level = function(req, res) {
 
                 data.special = special;
 
+                if (data.level === "Three") {
+
+                    Templates.Load('partials/special', data, (html) => {
+
+                        data.specialHtml = html;
+
+                    });
+                }
+
                 Templates.Load('partials/level', data, (html) => {
 
                     data.html = html;

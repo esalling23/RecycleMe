@@ -211,7 +211,7 @@ button:disabled, .btn:disabled, input:disabled {
 .special {
   color: white;
   margin: 0 auto;
-  margin-top: -60px;
+  margin-top: 0px;
   background: rgba(0, 0, 0, 0.9); }
   .special .option {
     background-color: #4d4c4c;

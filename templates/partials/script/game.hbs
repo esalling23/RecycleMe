@@ -237,6 +237,8 @@ $('[data-level]').on('click', function(e) {
 	      };
 
 	      $.get("/api/game/level", data, function(data){
+          $('.modal.special').html(data.specialHtml);
+          
 	        // Notify success
 	        $(".game-level").html(data.html);
 	        slideheight = $(window).height() - 260;
@@ -251,12 +253,13 @@ $('[data-level]').on('click', function(e) {
                 if (num == 2 && data.player.triesTwo == 0){
                   $('.alert .msg').text('Welcome to level two. In this level you can compost items using the blue super like button on the right.');
                   $('.alert .img-lvl-two').show();
+                  $('.alert').fadeIn();
                 } else if (num == 3 && data.player.triesThree == 0) {
                   $('.alert .msg').text('Welcome to level three. In this level you can choose from a menu of special options using the black special button on the left.');
                   $('.alert .img-lvl-three').show();
+                  $('.alert').fadeIn();
                 }
 
-                $('.alert').fadeIn();
               });
             }
 

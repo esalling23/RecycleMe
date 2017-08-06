@@ -287,6 +287,7 @@
 
           $(this).find('#alert-abort').on('click', function(e){
               clicking = false;
+              $('.alert #alert-confirm, .alert #alert-abort').hide();
           });
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(e){
@@ -296,6 +297,7 @@
             CheckCompost(currentItem);
             $(this).unbind('click');
             $('.alert').fadeOut();
+            $('.alert #alert-confirm, .alert #alert-abort').hide();
             clicking = false;
 
           });
@@ -344,6 +346,9 @@
                 $('.alert').fadeIn(function(){
                   buttonAlertSpecial = false;
                   $(this).find('#alert-abort').on('click', function(e){
+                    $(this).unbind('click');
+                    $('.alert').fadeOut();
+                    $('.alert #alert-confirm, .alert #alert-abort').hide();
                     clicking = false;
                   });
 
@@ -361,6 +366,7 @@
                     $('.modal.special').fadeOut();
                     
                     $(this).unbind('click');
+                    $('.alert #alert-confirm, .alert #alert-abort').hide();
                     $('.alert').fadeOut();
                     clicking = false;
                     
@@ -530,15 +536,26 @@
 			  level: $('.level.tinderslide').data('level')
       };
 
+      var level = $('.game-level .level').data('level');
+      var tries = $('.game-level .level[data-level='+ level +']').data('tries')
+
+      if (!tries)
+        $('.game-level .level[data-level='+ level +']').data('tries', 0);
+      else
+        $('.game-level .level[data-level='+ level +']').data('tries', tries + 1);
+
 	  	$.get("/api/game/", data, function(data){
 	  		// Show that end-of-level modal
         $('.buttons').hide();
 	  		$('.modal.end').html(data.html).fadeIn(function(){
           $('.btn.replay').unbind('click').on('click', function(){
-            StartLevel($('.game-level .level').data('level') - 1)
+            $('.game-level .level')
+            StartLevel(level - 1);
+            $('.modal.end').hide();
           });
           $('.btn.next-lvl').unbind('click').on('click', function(){
-            StartLevel($('.game-level .level').data('level'))
+            StartLevel(level);
+            $('.modal.end').hide();
           });
         });
   		})
