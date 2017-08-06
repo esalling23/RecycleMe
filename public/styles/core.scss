@@ -146,6 +146,29 @@ button.nav-bar {
 	&.lower {
 		top: -25px;
 	}
+
+	&[data-section="home"] {
+		border: 3px solid $tinder-black;
+		border-radius: 5px;
+	    height: 25px;
+	    width: 25px;
+	}
+
+	&[data-section="profile"] {
+		background-image: url('/images/profile-icon.png');
+	    background-size: contain;
+	    background-repeat: no-repeat;
+	    height: 25px;
+	    width: 25px;
+	}
+
+	&[data-section="levels"] {
+		background-image: url('/images/play-icon.svg');
+	    background-size: contain;
+	    background-repeat: no-repeat;
+	    height: 25px;
+	    width: 25px;
+	}
 }
 
 .tinder-btn {

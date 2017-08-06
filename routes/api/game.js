@@ -118,7 +118,7 @@ exports.update = function(req, res) {
 
             } else if (level == 3) {
 
-                var totalThree = groupByLevel(items, 'Three').length;
+                var total = groupByLevel(items, 'Three').length;
 
                 player.lastTryThree = Date.now();
 

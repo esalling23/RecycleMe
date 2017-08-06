@@ -3,12 +3,6 @@
       points = 0,
       clicking = false, 
       currentItem,
-      swipeAlertRight,
-      swipeAlertLeft,
-      buttonAlertRecycle,
-      buttonAlertTrash,
-      buttonAlertSpecial,
-      buttonAlertSuper,
       matchOpen;
 
   ion.sound({
@@ -320,12 +314,12 @@
       $(this).find('.btn.close-special').unbind('click').on('click', function(e){
         $('.modal.special').fadeOut();
       });
-      $('.option').unbind('click').on('click', function(){
+      $('.option').unbind('click').on('click', function(e){
 
         var option = $(this);
 
         $('.option').hide(function(){
-          $(option).addClass('open')
+          $(option).addClass('open');
           $(option).closest('.col-xs-6').removeClass('col-xs-6').addClass('col-xs-12');
 
           $(option).find('.profile').css('visibility', 'visible').removeClass('hidden');
@@ -334,6 +328,9 @@
         $(option).fadeIn(function(){
 
           $(this).find('.btn').unbind('click').on('click', function(e){
+
+            e.stopImmediatePropagation();
+            e.bubble = false;
 
             console.log($(this).data('action'))
 
@@ -358,10 +355,9 @@
                     // Check Item
                     $(currentItem).addClass('gone').addClass('specialPick');
                     CheckSpecial(currentItem, option.attr('id'));
-                    $('.option .profile').css('visibility', 'hidden');
+                    $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
                     $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
-                    $('.option .profile').css('visibility', 'hidden').addClass('hidden');
-                    $('.option').removeClass('open');
+                    $('.option.open').removeClass('open');
                     $('.option').show();
                     $('.modal.special').fadeOut();
                     
@@ -376,9 +372,8 @@
                 // Check Item
                 $(currentItem).addClass('gone').addClass('specialPick');
                 CheckSpecial(currentItem, option.attr('id'));
-                $('.option .profile').css('visibility', 'hidden');
+                $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
                 $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
-                $('.option .profile').css('visibility', 'hidden').addClass('hidden');
                 $('.option').removeClass('open');
                 $('.option').show();
 
@@ -387,20 +382,12 @@
               }
 
             } else if ($(this).data('action') === 'back') {
-                  
+              $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
+              $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
+              $('.option').removeClass('open');
+              $('.option').hide();
               setTimeout(function(){
-                $('.option').hide(function(){
-                  $('.option .profile').css('visibility', 'hidden');
-                  $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
-                  $('.option .profile').css('visibility', 'hidden').addClass('hidden');
-                  $('.option').removeClass('open');
-                  setTimeout(function(){
-                    $('.option').fadeIn(function(){
-
-                    });
-                  }, 1000)
-                  
-                }); 
+                  $('.option').fadeIn();
               }, 100)
 
             }
@@ -540,7 +527,7 @@
       var tries = $('.game-level .level[data-level='+ level +']').data('tries')
 
       if (!tries)
-        $('.game-level .level[data-level='+ level +']').data('tries', 0);
+        $('.game-level .level[data-level='+ level +']').data('tries', 1);
       else
         $('.game-level .level[data-level='+ level +']').data('tries', tries + 1);
 
@@ -549,13 +536,13 @@
         $('.buttons').hide();
 	  		$('.modal.end').html(data.html).fadeIn(function(){
           $('.btn.replay').unbind('click').on('click', function(){
-            $('.game-level .level')
-            StartLevel(level - 1);
+            StartLevel(level);
             $('.modal.end').hide();
           });
           $('.btn.next-lvl').unbind('click').on('click', function(){
-            StartLevel(level);
+            StartLevel(level + 1);
             $('.modal.end').hide();
+            
           });
         });
   		})
