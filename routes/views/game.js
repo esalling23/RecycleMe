@@ -63,7 +63,7 @@ exports = module.exports = function(req, res) {
                     .exec(function(err, player){
                         if (err) throw err;
 
-                        locals.individuals = player;
+                        locals.individuals = _.first(player, 10);
 
                         var data = { teams : [] };
 
@@ -84,7 +84,7 @@ exports = module.exports = function(req, res) {
 
                         Team.model.find({}).exec(function(err, team){
 
-                            locals.teams = team;
+                            locals.teams = _.first(team, 10);
 
                             next(); 
                             

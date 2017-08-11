@@ -106,7 +106,6 @@ $('#btn-save-profile').on('click', function(e) {
       console.log(data);
 
       $.post("/api/update/{{playerId}}", data, function(data){
-	      console.log(data)
 
         // Notify success
         $('.save-msg').text('Nice! Saved.').fadeIn(function(){
@@ -234,7 +233,7 @@ $('[data-level]').on('click', function(e) {
         }
 
          if ({{player.new}}) {
-          $('.alert .msg').html('<h3>Welcome to Recyclr</h3><p>Remember, you can keep track of your matches as you play using the counter at the top of your screen.</p>');
+          $('.alert .msg').html('<h3>Welcome to Recyclr</h3><p>Remember, you can keep track of your matches as you play using the counter at the top of your screen.</p>').show();
           $('.alert .img-points, .alert #alert-continue').show();
           $('.alert .alert-inner').addClass('new-player');
           $('.alert').fadeIn();

@@ -8,9 +8,18 @@
 
 		<button class="minimal btn replay" id="replay-btn">replay</button> 
 
-		<p>Or, you can move on to the next level! </p>
+		{{#ifeq next 4}}
+			{{!-- <p>Or, you can move on to the free level to work your way up the leaderboard! </p>
 
-		<button class="minimal btn next-lvl" data-level="{{next}}" id="next-lvl">next level</button>
+			<button class="minimal btn free-lvl" data-level="{{next}}" id="free-lvl">free play</button> --}}
+
+		{{else}}
+
+			<p>Or, you can move on to the next level! </p>
+
+			<button class="minimal btn next-lvl" data-level="{{next}}" id="next-lvl">next level</button>
+
+		{{/ifeq}}
 
 		{{else}}
 		

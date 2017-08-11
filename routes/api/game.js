@@ -160,7 +160,8 @@ exports.update = function(req, res) {
                 passed: passed, 
                 score: score, 
                 total: total, 
-                grade: grade
+                grade: grade, 
+                next: level + 1
             };
 
             Templates.Load('partials/end', data, (html) => {
@@ -239,8 +240,6 @@ exports.level = function(req, res) {
 };
 
 exports.match = function(req, res) {
-
-    console.log(req, res);
 
     var Templates = new TemplateLoader();
     var data = {};
