@@ -12,13 +12,18 @@ var clicking = false,
 
 if (sessionStorage.getItem('new') == "true") {
   $('.alert').fadeIn(function(){
-    $('.msg').hide();
+    $('.msg').html('<strong>Read the rules below:</strong>').show();
+    $('#alert-continue').text('Next');
     $('.image').fadeIn();
     $('#alert-continue').show(function(){
       $('#alert-continue').on('click', function(){
-        if ($('.image:visible').length > 1)
+        if ($('.image:visible').length > 1) {
           $('.image:visible').last().fadeOut();
-        else {
+
+          if ($('.image:visible').length == 2)
+            $('#alert-continue').text('Go to Recyclr');
+
+        } else {
           $('.alert').fadeOut();
           $('.image:visible').last().fadeOut();
         }

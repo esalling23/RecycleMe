@@ -642,11 +642,11 @@ section.tinderslide {
 		padding: 8px;
 		position: absolute;
 		background-color: white;
-		height:100%;
+		height: calc(100% - 70px);
 
 		img {
 			height: 60%;
-			max-height: 180px;
+			max-height: 160px;
 		}
 	}
 }
@@ -666,6 +666,7 @@ section.tinderslide {
 
     .msg {
     	padding: 8px;
+    	line-height: 1;
 
     	h2 {
     		margin-top: 20%;
@@ -677,15 +678,20 @@ section.tinderslide {
 
     	p {
     		font-size: 12px;
+    		line-height: 1;
     	}
     }
 
+    p {
+    	line-height: 1;
+    }
 
-	    img.img {
-	    	width: 80%;
-	    	position: relative;
-	    	height: auto;
-	    }
+
+    img.img {
+    	width: 80%;
+    	position: relative;
+    	height: auto;
+    }
 
 
 	button {
@@ -1057,6 +1063,14 @@ section.tinderslide {
 
 	.section.leaderboard .board {
 		height:150px;
+	}
+
+	.section, .subsection {
+		margin-top: 8px;
+
+		button.nav-bar {
+		    top: -42px;
+		}
 	}
 
 }

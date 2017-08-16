@@ -127,11 +127,12 @@
     if (swipeAlertLeft == true) {
       // Let the player know what they are doing
       $('.alert .msg').html('<h2>You are about to trash this item! Are you sure?</h2>');
-      $('.alert #alert-confirm, .alert #alert-abort').show();
+      $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').show();
       $('.alert').fadeIn(function(){
           swipeAlertLeft = false;
           $(this).find('#alert-abort').on('click', function(e){
               clicking = false;
+              $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
           });
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(e){
@@ -144,6 +145,7 @@
             $(this).unbind('click');
 
             $('.alert').fadeOut();
+            $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
             clicking = false;
             
           });
@@ -165,11 +167,12 @@
     if (buttonAlertTrash == true) {
       // Let the player know what they are doing
       $('.alert .msg').html('<h2>You are about to trash this item! Are you sure?</h2>');
-      $('.alert #alert-confirm, .alert #alert-abort').show();
+      $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').show();
       $('.alert').fadeIn(function(){
         buttonAlertTrash = false;
         $(this).find('#alert-abort').on('click', function(e){
           clicking = false;
+          $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
         });
         // Confirm to continue
         $(this).find('#alert-confirm').on('click', function(e){
@@ -180,6 +183,7 @@
           CheckTrash($(currentItem));
           $(this).unbind('click');
           $('.alert').fadeOut();
+          $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
           clicking = false;
         });
       });
@@ -205,11 +209,12 @@
     if (swipeAlertRight == true) {
       // Let the player know what they are doing
       $('.alert .msg').html('<h2>You are about to recycle this item! Are you sure?</h2>');
-      $('.alert #alert-confirm, .alert #alert-abort').show();
+      $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').show();
       $('.alert').fadeIn(function(){
           swipeAlertRight = false;
           $(this).find('#alert-abort').on('click', function(e){
               clicking = false;
+              $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
           });
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(e){
@@ -219,6 +224,7 @@
             CheckRecycle($(currentItem));
             $(this).unbind('click');
             $('.alert').fadeOut();
+            $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
             clicking = false;
           });
       });
@@ -239,11 +245,12 @@
     if (buttonAlertRecycle == true) {
       // Let the player know what they are doing
       $('.alert .msg').html('<h2>You are about to recycle this item! Are you sure?</h2>');
-      $('.alert #alert-confirm, .alert #alert-abort').show();
+      $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').show();
       $('.alert').fadeIn(function(){
           buttonAlertRecycle = false;
           $(this).find('#alert-abort').on('click', function(e){
               clicking = false;
+              $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
           });
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(e){
@@ -254,6 +261,7 @@
             CheckRecycle($(currentItem));
             $(this).unbind('click');
             $('.alert').fadeOut();
+            $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
             clicking = false;
 
           });
@@ -275,13 +283,13 @@
     if (buttonAlertSuper == true) {
       // Let the player know what they are doing
       $('.alert .msg').html('<h2>You are about to compost this item! Are you sure?</h2>');
-      $('.alert #alert-confirm, .alert #alert-abort').show();
+      $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').show();
       $('.alert').fadeIn(function(){
           buttonAlertSuper = false;
 
           $(this).find('#alert-abort').on('click', function(e){
               clicking = false;
-              $('.alert #alert-confirm, .alert #alert-abort').hide();
+              $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
           });
           // Confirm to continue
           $(this).find('#alert-confirm').on('click', function(e){
@@ -291,7 +299,7 @@
             CheckCompost(currentItem);
             $(this).unbind('click');
             $('.alert').fadeOut();
-            $('.alert #alert-confirm, .alert #alert-abort').hide();
+            $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
             clicking = false;
 
           });
@@ -339,13 +347,13 @@
               if (buttonAlertSpecial == true) {
                 // Let the player know what they are doing
                 $('.alert .msg').html('<h2>You are about to choose a special option for this item! Are you sure?</h2>');
-                $('.alert #alert-confirm, .alert #alert-abort').show();
+                $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').show();
                 $('.alert').fadeIn(function(){
                   buttonAlertSpecial = false;
                   $(this).find('#alert-abort').on('click', function(e){
                     $(this).unbind('click');
                     $('.alert').fadeOut();
-                    $('.alert #alert-confirm, .alert #alert-abort').hide();
+                    $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
                     clicking = false;
                   });
 
@@ -362,7 +370,7 @@
                     $('.modal.special').fadeOut();
                     
                     $(this).unbind('click');
-                    $('.alert #alert-confirm, .alert #alert-abort').hide();
+                    $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
                     $('.alert').fadeOut();
                     clicking = false;
                     
