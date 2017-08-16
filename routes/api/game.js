@@ -78,7 +78,6 @@ exports.update = function(req, res) {
                     
                     if (!player.gradeOne || player.gradeOne == 0){
                         player.gradeOne = ratio * 100;
-                        player.pointsOneCap = score;
                         player.levelOne = true;
                     } else {
                         player.gradeOne = ratio * 100;
@@ -108,7 +107,6 @@ exports.update = function(req, res) {
 
                     if (!player.gradeTwo || player.gradeTwo == 0){
                         player.gradeTwo = score * 100;
-                        player.pointsTwoCap = score;
                         player.levelTwo = true; 
                     } else {
                         player.gradeTwo = ratio * 100;
@@ -138,16 +136,16 @@ exports.update = function(req, res) {
 
                     if (!player.gradeThree || player.gradeThree == 0) {
                         player.gradeThree = ratio * 100;
-                        player.pointsThreeCap = score;
                         player.levelThree = true;
                     } else {
                         player.gradeThree = ratio * 100;
                     }
                 }
 
+            } else {
+                player.leader = score;
             }
 
-            player.leader = player.pointsOne + player.pointsTwo + player.pointsThree;
 
             if (player.levelOne && player.levelTwo && player.levelThree) {
                 player.completed = true;

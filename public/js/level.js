@@ -495,27 +495,22 @@
   
 
   function UpdateScore(num) {
-    console.log(num)
+
   	var end = false;
 
-    if (points >= $('.level').data('max')){
-      points = points + num/2;
-    } else 
-    	points = points + num;
-
+  	points = points + num;
 
     // Update player score
     $('#points-counter').html(points);
 
   	// Check if this is the last card in the stack - end the level
-  	if ($('.level .item:not(.gone)').length == 0){
-
+  	if ($('.level .item:not(.gone)').length == 0)
   		end = true;
-  	}
+  	
 
     console.log(end)
 
-  	if (end == true) {
+  	if (end === true) {
 	  	// Send player data
 	  	var data = {
 			  id: window.playerId,
@@ -535,23 +530,21 @@
 	  		// Show that end-of-level modal
         $('.buttons').hide();
 	  		$('.modal.end').html(data.html).fadeIn(function(){
+
           $('.btn.replay').unbind('click').on('click', function(){
             StartLevel(level);
             $('.modal.end').hide();
           });
+
           $('.btn.next-lvl').unbind('click').on('click', function(){
             StartLevel(level + 1);
             $('.modal.end').hide();
-            
           });
+
         });
-  		})
-  		.fail(function(err) {
-  		    alert( "error" + err );
+        
   		});
-
   	} 
-
   }
 
   //# sourceURL=level.js

@@ -66,9 +66,12 @@ body, html {
   position: absolute;
   margin-top: 20px;
   width: 100%;
-  max-width: 450px; }
+  max-width: 450px;
+  padding: 0px 10px; }
   .section.ACTIVE, .subsection.ACTIVE {
     display: block; }
+  .section .section, .section .subsection, .subsection .section, .subsection .subsection {
+    position: relative; }
 
 button.back {
   position: absolute;
@@ -716,6 +719,7 @@ section.tinderslide {
     padding: 0px;
     text-align: left;
     width: 250px;
+    max-width: 100%;
     margin: 0 auto;
     height: 100%;
     overflow: scroll; }
@@ -743,5 +747,25 @@ section.tinderslide {
   line-height: 40px;
   color: #fff;
   background-color: #ff6a6a; }
+
+@media (max-height: 480px) {
+  .section.leaderboard .board {
+    height: 150px; } }
+
+@media (max-height: 680px) {
+  h1, h2, h3, h4 {
+    margin: 4px; }
+  h2 {
+    font-size: 28px; }
+  h3 {
+    font-size: 22px; }
+  .section.profile .edit .cloudinary-button {
+    font-size: 12px; }
+  .section.profile .edit .image_upload {
+    margin: 4px; }
+  .section.profile .edit .profile-picture {
+    height: 100px;
+    width: 100px;
+    margin-top: 20px; } }
 
 /*# sourceMappingURL=core.css.map */

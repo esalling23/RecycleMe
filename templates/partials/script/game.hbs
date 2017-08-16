@@ -62,6 +62,13 @@ if (sessionStorage.getItem('new') == "true") {
       $('[data-subsection].active').toggleClass('active');
       $(this).toggleClass('active');
 
+      var height = $(window).height();
+
+      if (height <= 480) {
+        height = '150px';
+      } else {
+        height = '200px'
+      }
 
       var animOpts = {};
       animOpts['height'] = '0px';
@@ -76,7 +83,7 @@ if (sessionStorage.getItem('new') == "true") {
           .show(function(){
             $(this).toggleClass('ACTIVE')
             .animate({
-              'height': '200px'
+              'height': height
             });
           });
           

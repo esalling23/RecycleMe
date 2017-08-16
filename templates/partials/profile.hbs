@@ -51,7 +51,7 @@
 	<form class="edit form row" action="/api/update/{{player._id}}" method="post" enctype="multipart/form-data">
 
 		<h3>Profile: </h3>
-		<div class="update-picture col-xs-6">
+		<div class="update-picture col-sm-6 col-xs-4">
 			{{#if player.image}}
 				<img class="profile-picture" src="{{player.image.url}}">
 			{{else}}
@@ -63,7 +63,7 @@
 			</div>
 		</div>
 
-		<div class="update-info col-xs-6">
+		<div class="update-info col-sm-6 col-xs-8">
 
 			<div class="row">
 				{{#if player.username}}
