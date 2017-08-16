@@ -40,7 +40,7 @@ if (sessionStorage.getItem('new') == "true") {
 
       animOpts[direction] = '-=4000px'; 
       
-      $('.section.ACTIVE').animate( animOpts , 500, function(){
+      $('.section.ACTIVE').animate( animOpts, 500, function(){
 
         $(this).toggleClass('ACTIVE');
 
@@ -50,7 +50,6 @@ if (sessionStorage.getItem('new') == "true") {
         	'right': 'auto'
         })
         .fadeIn(function(){
-            console.log(section);
             $(this).toggleClass('ACTIVE');
         });
       });
@@ -62,17 +61,25 @@ if (sessionStorage.getItem('new') == "true") {
       var section = $(this).data('subsection');
       $('[data-subsection].active').toggleClass('active');
       $(this).toggleClass('active');
+
+
+      var animOpts = {};
+      animOpts['height'] = '0px';
       
-      $('.subsection.ACTIVE').hide(function(){
+      $('.subsection.ACTIVE').animate( animOpts, 200, function(){
 
-          $('.subsection.' + section).fadeIn(function(){
+          $(this).toggleClass('ACTIVE').hide();
 
-            console.log(section);
+          $('.subsection.' + section).css({'height': '0px', 'width': 'calc(100% - 40px)'});
 
-            $('.subsection.ACTIVE').toggleClass('ACTIVE');
-            $(this).toggleClass('ACTIVE');
-
+          $('.subsection.' + section)
+          .show(function(){
+            $(this).toggleClass('ACTIVE')
+            .animate({
+              'height': '200px'
+            });
           });
+          
       });
 
   });
@@ -208,11 +215,16 @@ $('[data-level]').on('click', function(e) {
           $('#compost').attr('disabled', false);
           $('#special').attr('disabled', false);
           $('#special').show();
-        } else {
+        } else if (num == 1) {
           $('#compost').attr('disabled', true);
           $('#special').attr('disabled', true);
           $('#special').hide();
           $('#compost').hide();
+        } else { 
+          $('#compost').attr('disabled', false);
+          $('#special').attr('disabled', false);
+          $('#special').show();
+          $('#compost').show();
         }
 
         // Swipe and Button Alerts 
@@ -243,6 +255,7 @@ $('[data-level]').on('click', function(e) {
         $('#alert-abort, #alert-continue').unbind('click').on('click', function(e){
            e.stopPropagation();
           $('.alert').fadeOut(function(){
+            $(this).find('.msg').html('').hide();
             $(this).find('button, img').hide();
           });
         });
@@ -260,11 +273,11 @@ $('[data-level]').on('click', function(e) {
         if (num != 1) {
           $('.alert .full').show(function(){
             if (num == 2 && data.player.triesTwo == 0){
-              $('.alert .msg').text('Welcome to level two. In this level you can compost items using the blue super like button on the right.');
+              $('.alert .msg').text('Welcome to level two. In this level you can compost items using the blue super like button on the right.').show();
               $('.alert .img-lvl-two').show();
               $('.alert').fadeIn();
             } else if (num == 3 && data.player.triesThree == 0) {
-              $('.alert .msg').text('Welcome to level three. In this level you can choose from a menu of special options using the black special button on the left.');
+              $('.alert .msg').text('Welcome to level three. In this level you can choose from a menu of special options using the black special button on the left.').show();
               $('.alert .img-lvl-three').show();
               $('.alert').fadeIn();
             }

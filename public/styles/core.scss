@@ -981,23 +981,34 @@ section.tinderslide {
 	.leader-nav {
 		.btn {
 			color: $tinder-grey;
-			border: 0px;
-			background: transparent;
+			background: white;
 			box-shadow: none;
+		    border: 1px solid $tinder-grey;
+		    border-bottom: 0px;
+		    border-radius: 0px;
+		    width: 100px;
 
 			&.active {
 				color: $tinder-black;
+				border-color: $tinder-black;
 			}
 		}
 	}
 
 	.board {
-		// width: 
+		height: 200px;
+		overflow: hidden;
+		border: 1px solid $tinder-black;
+		width: calc(100% - 40px);
+		margin: 0px 20px;
+		padding: 10px;
 		ul {
 			padding: 0px;
 			text-align: left;
 		    width: 250px;
 		    margin: 0 auto;
+		    height: 100%;
+		    overflow: scroll;
 		}
 		li {
 			list-style-type: none;
@@ -1009,8 +1020,16 @@ section.tinderslide {
 				text-align: center;
 			}
 		}
+	}
 
-
+	::-webkit-scrollbar {
+	  -webkit-appearance: none;
+	  width: 7px;
+	}
+	::-webkit-scrollbar-thumb {
+	  border-radius: 4px;
+	  background-color: rgba(0, 0, 0, .5);
+	  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 	}
 
 	.points {

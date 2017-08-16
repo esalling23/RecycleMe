@@ -1,4 +1,5 @@
 <h2>Leaderboard</h2>
+<p>The top 100 scores will appear for both individuals and teams</p>
 <div class="leader-nav">
 	<button class="btn active" data-subsection="individuals">Individual</button>
 	<button class="btn" data-subsection="teams">Teams</button>
@@ -15,7 +16,7 @@
 
 <div id="team-leader" class="subsection teams board">
 	{{#if player.team}}
-	Let's see how team <strong>{{player.team.name}}</strong> is doing!
+	Let's see how your team, <strong>{{player.team.name}}</strong>, is doing!
 	{{else}}
 
 	Looks like you don't have a team - you should pick one in your profile settings! 
