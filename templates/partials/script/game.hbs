@@ -77,6 +77,7 @@ if (sessionStorage.getItem('new') == "true") {
 
       var animOpts = {};
       animOpts['height'] = '0px';
+      animOpts['padding'] = '0px';
       
       $('.subsection.ACTIVE').animate( animOpts, 200, function(){
 
@@ -208,6 +209,9 @@ $('[data-level]').on('click', function(e) {
       if (data.specialHtml)
         $('.modal.special').html(data.specialHtml);
 
+      if (data.timerHtml)
+        $('.timer-wrap').html(data.timerHtml);
+
       // Notify success
       $(".game-level").html(data.html);
       slideheight = $(window).height() - 260;
@@ -216,7 +220,12 @@ $('[data-level]').on('click', function(e) {
 
       $('.game-level').fadeIn(function(){
         window.playerId = '{{playerId}}';
+        window.level = num;
+
         $.getScript( '/js/level.js' );
+
+        if (data.timerHtml)
+          $('.timer-wrap').show();
 
         // enable/disable buttons
         if (num == 2) {
@@ -232,7 +241,7 @@ $('[data-level]').on('click', function(e) {
           $('#special').attr('disabled', true);
           $('#special').hide();
           $('#compost').hide();
-        } else { 
+        } else if (num == '*') { 
           $('#compost').attr('disabled', false);
           $('#special').attr('disabled', false);
           $('#special').show();
@@ -297,10 +306,6 @@ $('[data-level]').on('click', function(e) {
           });
         }
 
-        if ($(this).data('grade') >= 70) {
-          pointlimit = $('.level.ACTIVE').data('grade');
-          console.log(pointlimit);
-        }
       });
     });
 	}

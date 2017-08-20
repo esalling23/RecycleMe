@@ -3,7 +3,9 @@
       points = 0,
       clicking = false, 
       currentItem,
-      matchOpen;
+      matchOpen, 
+      matchList = [],
+      level = window.level;
 
   ion.sound({
     sounds: [
@@ -19,6 +21,54 @@
     preload: true
   });
 
+  if (level == '*') {
+
+    var display = $('#time');
+    var counting = false;
+    var countdown = null;
+
+    function timer(duration, display, callback) {
+      var counting = true;
+      var item = $('.item:not(.gone)').last();
+        clearInterval(countdown);
+      var time = duration
+      $(display).text(time);
+      
+      countdown = setInterval(function() {
+
+        console.log(time)
+
+        $(display).text(time);
+        time = time - 1;
+
+        console.log(time)
+
+        if(time < 0) {
+          counting = false;
+          callback();
+        }
+      }, 1000);
+
+    }
+
+    // Are you ready countdown
+    timer(3, display, startFree);
+
+    // Begin
+    function startFree() {
+
+      clearInterval(countdown);
+
+      timer(5, display, function(){
+        UpdateScore(-1);
+        clearInterval(timer);
+      });
+
+    }
+
+    
+  }
+
   function Reload() {
     points = 0;
     $('#points-counter').text(points);
@@ -28,6 +78,12 @@
   function ShowMatch(item, match) {
 
     var modalId = $(item).find('.item-pane').attr('id');
+
+    if (level == '*') {
+      // Save Matches/Misses for the end
+      matchList.push({ item: modalId, match: match });
+      return;
+    }
 
     if (matchOpen == true || !modalId)
       return;
@@ -117,7 +173,7 @@
 
   $('.item').hammer().on("swipeleft", function(ev){
 
-    if ($(this).hasClass('gone') || $(this).hasClass('open') || clicking == true)
+    if ($(this).hasClass('gone') || $(this).hasClass('open') || clicking == true || counting == false)
       return;
 
     clicking = true;
@@ -152,6 +208,10 @@
       });
     } else {
       // Check Item
+
+      if (counting == true)
+        clearInterval(timer);
+
       $(currentItem).addClass('gone').addClass('trashed');
       CheckTrash(currentItem);
       clicking = false;
@@ -161,6 +221,9 @@
 
 	// If a player chooses to trash an item
   $('#trash').unbind('click').on('click', function(e) {
+
+    if (counting == false)
+      return;
 
     currentItem = $(document).find('.level .item').last();
 
@@ -189,6 +252,10 @@
       });
     } else {
       // Check Item
+
+      if (counting == true)
+        clearInterval(timer);
+
       $(currentItem).addClass('gone').addClass('trashed');
       CheckTrash($(currentItem));
       clicking = false;
@@ -199,7 +266,7 @@
 
   $('.item').hammer().on("swiperight", function(e){
 
-    if ($(this).hasClass('gone') || $(this).hasClass('open') || clicking == true)
+    if ($(this).hasClass('gone') || $(this).hasClass('open') || clicking == true || counting == false)
       return;
 
     clicking = true;
@@ -230,6 +297,9 @@
       });
     } else {
       // Check Item
+      if (counting == true)
+        clearInterval(timer);
+
       $(currentItem).addClass('gone').addClass('recycled');
       CheckRecycle(currentItem);
       clicking = false;
@@ -239,6 +309,9 @@
 
   // If a player chooses to recycle
   $('#recycle').unbind('click').on('click', function(e) {
+
+    if (counting == false)
+      return;
 
     currentItem = $(document).find('.level .item').last();
 
@@ -268,6 +341,9 @@
       });
     } else {
       // Check Item
+      if (counting == true)
+        clearInterval(timer);
+
       $(currentItem).addClass('gone').addClass('recycled');
       CheckRecycle($(currentItem));
       clicking = false;
@@ -277,6 +353,9 @@
 
   // If a player chooses to compost
   $('#compost').unbind('click').on('click', function() {
+
+    if (counting == false)
+      return;
 
     currentItem = $(document).find('.level .item').last();
 
@@ -306,6 +385,9 @@
       });
     } else {
       // Check Item
+      if (counting == true)
+        clearInterval(timer);
+
       $(currentItem).addClass('gone').addClass('composted');
       CheckCompost(currentItem);
       clicking = false;
@@ -316,6 +398,9 @@
   // If a player chooses 'special'
   $('#special').unbind('click').on('click', function() {
 
+    if (counting == false)
+      return;
+
     currentItem = $(document).find('.level .item').last();
     
     $('.modal.special').fadeIn(function() {
@@ -323,6 +408,9 @@
         $('.modal.special').fadeOut();
       });
       $('.option').unbind('click').on('click', function(e){
+
+        if (counting == false)
+          return;
 
         var option = $(this);
 
@@ -378,6 +466,9 @@
                 });
               } else {
                 // Check Item
+                if (counting == true)
+                  clearInterval(timer);
+
                 $(currentItem).addClass('gone').addClass('specialPick');
                 CheckSpecial(currentItem, option.attr('id'));
                 $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');

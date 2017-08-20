@@ -104,6 +104,7 @@ body, html {
 	 }
 }
 
+
 // BUTTONS
 
 button.back {
@@ -771,12 +772,21 @@ section.tinderslide {
   background: $tinder-red;
   color: $tinder-white;
   position: relative;
-  display: block;
+  display: inline-block;
   width: 80px;
   margin: 20px auto;
   border-radius: 50%;
   border: 2px solid $tinder-black;
   line-height: 76px;
+}
+
+.timer-wrap {
+	border: 1px solid $tinder-black;
+	background-color: $tinder-red;
+	border-radius: 40px;
+	height: 80px;
+	width: 80px;
+	display: inline-block;
 }
 
 .buttons {

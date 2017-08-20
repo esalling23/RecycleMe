@@ -162,11 +162,25 @@ exports.update = function(req, res) {
                 next: level + 1
             };
 
-            Templates.Load('partials/end', data, (html) => {
+            if (level == 'Free') {
 
-                res.send({ html: html, grade: ratio*100 });
- 
-            }); 
+                Templates.Load('partials/speedMatchList', data, (html) => {
+
+                    res.send({ html: html });
+
+                });
+
+            } else {
+
+
+                Templates.Load('partials/end', data, (html) => {
+
+                    res.send({ html: html, grade: ratio*100 });
+     
+                }); 
+
+            }
+
 
         });
 
@@ -187,7 +201,7 @@ exports.level = function(req, res) {
             data.level = 'One';
         else if (cat == 2)
             data.level = 'Two';
-        else 
+        else if (cat == 3)
             data.level = 'Three';
 
         return val.filter(function(item) {
@@ -197,7 +211,12 @@ exports.level = function(req, res) {
 
     Item.model.find({}).populate('material specialStatus specialStatusOr').exec((err, item) => {
 
-        data.items = level(item, req.query.level);
+        if (req.query.level === '*') {
+            data.level = 'Free';
+            data.items = _.sample(item, 31);
+        }
+        else
+            data.items = level(item, req.query.level);
 
         Player.model.findOne({ '_id': req.query.player }).exec((err, player) => {
 
@@ -212,13 +231,23 @@ exports.level = function(req, res) {
 
                 data.special = special;
 
-                if (data.level === "Three") {
+                if (data.level === "Three" || data.level === 'Free') {
 
                     Templates.Load('partials/special', data, (html) => {
 
                         data.specialHtml = html;
 
                     });
+                }
+
+                if (data.level === 'Free') {
+
+                    Templates.Load('partials/timer', data, (html) => {
+
+                        data.timerHtml = html;
+
+                    });
+
                 }
 
                 Templates.Load('partials/level', data, (html) => {

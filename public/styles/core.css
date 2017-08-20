@@ -547,12 +547,20 @@ section.tinderslide {
   background: #ff6a6a;
   color: #fff;
   position: relative;
-  display: block;
+  display: inline-block;
   width: 80px;
   margin: 20px auto;
   border-radius: 50%;
   border: 2px solid #343434;
   line-height: 76px; }
+
+.timer-wrap {
+  border: 1px solid #343434;
+  background-color: #ff6a6a;
+  border-radius: 40px;
+  height: 80px;
+  width: 80px;
+  display: inline-block; }
 
 .buttons {
   max-width: 450px;

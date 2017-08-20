@@ -88,14 +88,15 @@ Player.schema.statics.removeResourceRef = function(resourceId, callback) {
 
 };
 
-// Player.schema.pre('save', function(next){
-// 	if (this.password)
+// Player.schema.post('save', function(next){
+// 	if (this.levelOne && this.levelTwo && this.levelThree) {
+// 		this.completed = true;
+// 		this.save();
 // 		next();
-// 	else {
-// 		this.password = 'word';
+// 	} else 
 // 		next();
-// 	}
-// })
+	
+// });
 
 // Player.schema.post('save', function(next) {
 //     // Not the movie transporter!
