@@ -24,6 +24,8 @@ router.all('/admin', function(req, res, next) {
 router.get('/', routes.views.index);
 router.get('/profile/:id', routes.views.game);
 
+router.post('/api/create/', keystone.middleware.api, routes.api.game.create);
+
 router.get('/api/find/', keystone.middleware.api, routes.api.login.get);
 router.get('/api/game/', keystone.middleware.api, routes.api.game.update);
 router.get('/api/game/level', keystone.middleware.api, routes.api.game.level);

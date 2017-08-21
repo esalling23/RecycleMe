@@ -8,7 +8,26 @@ var Player = keystone.list('Player'),
     TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
     _ = require('underscore');
 
+// Creating Players Admin
+exports.create = function(req, res) {
+    console.log(req.body);
 
+    var player = req.body;
+    var newPlayer = new Player.model(player);
+
+    newPlayer.save(function(err) {
+        if (err) throw err;
+
+        res.send({
+            success: true, 
+            player: player
+        });
+
+    });
+
+}
+
+// Update player at end of game
 exports.update = function(req, res) {
 
     var grade = '', 
