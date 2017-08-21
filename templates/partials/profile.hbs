@@ -2,9 +2,10 @@
 
 	<div class="row report">
 
-		<h3>Grades: </h3>
+	{{#ifeq player.completed false}}
 
-		{{!-- {{{jsonPrint player}}} --}}
+		<h3>Tutorial Levels: </h3>
+
 		<div class="col-xs-4">
 			<div class="grade">
 				{{#if player.gradeOne}}
@@ -45,6 +46,12 @@
 				{{/if}}
 			</div>
 		</div>
+
+	{{else}}
+
+	{{!-- Free Level --}}
+
+	{{/ifeq}}
 
 	</div>
 

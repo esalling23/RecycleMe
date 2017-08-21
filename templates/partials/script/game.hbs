@@ -79,7 +79,7 @@ var clicking = false,
               return;
 
             // Notify success
-            $('#contents').append(data.player);
+            $('#contents').append('<li>' + data.player.email + '</li>');
 
 
           })
@@ -91,13 +91,7 @@ var clicking = false,
       };
       reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
     }
- {{!--  
 
-  data = {
-    csv: input[0].files[0]
-  }
-
-{{!-- }) --}}
 
  // Rules Popups
 
@@ -303,7 +297,10 @@ $('[data-level]').on('click', function(e) {
 
       // Notify success
       $(".game-level").html(data.html);
-      slideheight = $(window).height() - 260;
+      if ($(window).height() <= 500)
+        slideheight = $(window).height() - 235;
+      else 
+        slideheight = $(window).height() - 250;
 
       $('.item:not(.open)').height(slideheight);
 

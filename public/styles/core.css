@@ -533,7 +533,8 @@ section.tinderslide {
     position: absolute;
     bottom: 20px;
     left: calc(50% - 50px);
-    width: 100px; }
+    width: 100px;
+    margin: 0 auto; }
 
 .level.header {
   margin-top: -20px; }
@@ -774,6 +775,12 @@ section.tinderslide {
   .section.profile .edit .profile-picture {
     height: 100px;
     width: 100px;
-    margin-top: 20px; } }
+    margin-top: 20px; }
+  .match h3 {
+    margin-top: 16px; }
+  .match p {
+    margin: 0px 16px;
+    line-height: 1;
+    font-size: 1.2em; } }
 
 /*# sourceMappingURL=core.css.map */

@@ -753,6 +753,7 @@ section.tinderslide {
 	    bottom: 20px;
 	    left: calc(50% - 50px);
 	    width: 100px;
+	    margin: 0 auto;
 	}
 }
 
@@ -1073,6 +1074,7 @@ section.tinderslide {
 		}
 	}
 
+
 }
 
 @media(max-height: 680px) {
@@ -1102,6 +1104,18 @@ section.tinderslide {
 			margin-top: 20px;
 		}
 
+	}
+
+
+	.match {
+		h3 {
+			margin-top: 16px;
+		}
+		p {
+			margin: 0px 16px;
+			line-height: 1;
+			font-size: 1.2em;
+		}
 	}
 	
 
