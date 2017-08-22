@@ -59,7 +59,7 @@
 
 		<h3>Profile: </h3>
 		<div class="update-picture col-sm-6 col-xs-4">
-			{{#if player.image}}
+			{{#if player.image.url}}
 				<img class="profile-picture" src="{{player.image.url}}">
 			{{else}}
 				<img class="profile-picture default" src="https://res.cloudinary.com/esalling/image/upload/v1495508839/RecycleMe/default_icon.png">
@@ -76,16 +76,16 @@
 				{{#if player.username}}
 				<p>You appear as "<span id="username-text">{{player.username}}</span>" on the leaderboard.</p>
 				{{else}}
-				<p>Hide your real name from the leaderboard with a username.</p>
+				<p>Hide your name from the leaderboard with a username.</p>
 				{{/if}}
-				<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}}optional username{{/if}}" id="username">
+				<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}} username{{/if}}" id="username">
 			</div>
 
 			<div class="row">
 				{{#if player.teams.[0]}}
 				<p>You are playing on the "<span id="username-text">{{player.teams.[0].name}}</span>" team.</p>
 				{{else}}
-				<p>Choose a team to compete across departments, classes, and more!</p>
+				<p>Choose a team to compete with your class!</p>
 				{{/if}}
 
 				<select id="team">

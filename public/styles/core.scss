@@ -872,6 +872,14 @@ section.tinderslide {
 		padding-bottom: 80px;
 		border-top: 2px solid lighten($tinder-black, 30%);
 
+		#team {
+			border: 1px solid $tinder-black;
+		}
+
+		#username {
+			border: 1px solid $tinder-black;
+		}
+
 		img {
 			height: 150px;
 			width: 150px;
@@ -1084,6 +1092,17 @@ section.tinderslide {
 		}
 	}
 
+	.section.profile .edit {
+		p {
+			line-height: 1;
+			font-size: 10px;
+		}
+
+		#btn-save-profile {
+			bottom: 0px;
+		}
+	}
+
 
 }
 
@@ -1101,8 +1120,18 @@ section.tinderslide {
 	}
 
 	.section.profile .edit {
+
+		p {
+			line-height: 1.2;
+		}
+
+		#btn-save-profile {
+			bottom: -20px;
+		}
+
 		.cloudinary-button {
 			font-size: 12px;
+			padding: 4px;
 		}
 		.image_upload {
 			margin: 4px;
