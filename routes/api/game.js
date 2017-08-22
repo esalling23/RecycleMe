@@ -122,6 +122,7 @@ exports.update = function(req, res) {
 
                     passed = true;
 
+                    score = parseInt(score);
                     player.pointsTwo = score;
 
                     if (!player.gradeTwo || player.gradeTwo == 0){
@@ -151,6 +152,7 @@ exports.update = function(req, res) {
 
                     passed = true;
 
+                    score = parseInt(score);
                     player.pointsThree = score;
 
                     if (!player.gradeThree || player.gradeThree == 0) {
@@ -159,7 +161,8 @@ exports.update = function(req, res) {
                     } else {
                         player.gradeThree = ratio * 100;
                     }
-                }
+                } else
+                    passed = false;
 
             } else {
                 player.leader = score;

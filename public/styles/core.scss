@@ -618,6 +618,7 @@ section.tinderslide {
 		height: 40px;
 		width: 100px;
 		font-size: 16px;
+		margin: 8px auto;
 	}
 	#back-btn {
     bottom: 20px;
@@ -626,6 +627,7 @@ section.tinderslide {
     width: 200px;
     height: 40px;
     font-size: 24px;
+    margin: 0 auto;
 	}
 }
 
@@ -1100,6 +1102,21 @@ section.tinderslide {
 
 		#btn-save-profile {
 			bottom: 0px !important;
+		}
+	}
+
+	.match {
+		h3 {
+			margin-top: 16px;
+			font-size: 3em;
+		}
+		img {
+			height: 100px;
+		}
+		p {
+			margin: 0px 16px;
+			line-height: 1;
+			font-size: 1.2em;
 		}
 	}
 
