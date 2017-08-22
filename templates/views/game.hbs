@@ -48,15 +48,17 @@
 
 	<div class="level-group">
 
+	<h3>Tutorial Levels:</h3>
+
 		<button class="minimal" data-level="1">{{#if player.levelOne}}replay {{/if}}level one</button>
 		<button class="minimal" data-level="2" {{#if player.levelOne}}{{else}}disabled{{/if}}>{{#if player.levelTwo}}replay {{/if}}level two</button>
 		<button class="minimal" data-level="3" {{#if player.levelTwo}}{{else}}disabled{{/if}}>{{#if player.levelThree}}replay {{/if}}level three</button>
 
-		{{#ifeq player.completed true}}
+		{{!-- {{#ifeq player.completed true}}
 
 		<button data-level="*">free-for-all</button>
 
-		{{/ifeq}}
+		{{/ifeq}} --}}
 
 		<button class="back nav-bar" data-direction="left" data-section="home"></button>
 
