@@ -990,6 +990,16 @@ section.tinderslide {
 
 .section.leaderboard {
 
+	#coming-soon {
+    height: 80px;
+    line-height: 64px;
+    background: $tinder-red;
+    color: white;
+    margin-top: 120px;
+    padding: 8px;
+
+	}
+
 	.leader-nav {
 		.btn {
 			color: $tinder-grey;
