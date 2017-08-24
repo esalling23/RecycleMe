@@ -2,7 +2,7 @@
 	<div class="modal-inner match end">
 
 		{{#if passed}}
-		<h3>Congratulations! You've passed this level with a {{grade}}!</h3>
+		<h3>Congratulations! You've passed this level with {{#ifeq grade 'A'}}an {{else}}a {{/ifeq}}{{grade}}!</h3>
 
 		<p>If you want to replay, you can get 1/2 points after your score of {{score}} out of the {{total}} items in this level.</p>
 
