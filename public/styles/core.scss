@@ -489,7 +489,8 @@ section.tinderslide {
 		-webkit-backface-visibility: hidden;
 
 		background-repeat: no-repeat;
-		background-size: cover;
+		background-size: contain;
+		background-position: center;
 
 		h2 {
 			text-align: left;
