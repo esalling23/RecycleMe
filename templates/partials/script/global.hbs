@@ -51,6 +51,25 @@ $(document).ready(function() {
 
 	};
 
+	
+  imagesLoaded = function(parentElem, callback) {
+
+    parentElem.find('img').last().on('load', function() {
+
+      // Image loaded, callback fires
+      callback();
+
+    })
+    .each(function() {
+
+      // Force image to dispatch 'load' (cache workaround)
+      if(this.complete) $(this).load();
+
+    });
+
+  };
+
+
 	var getScript = function(str) {
 
 	    $.getScript( '/js/' + str + '.js' )

@@ -273,6 +273,15 @@ button, .btn, input {
 	right: auto; 
 }
 
+// Get Ready (Speed Round)
+#get-ready {
+	background: $tinder-red;
+	color: $tinder-white;
+	z-index: 500000;
+	opacity: 0;
+	font-size: 24px;
+}
+
 // Login
 .welcome p {
 	width: 60%;
@@ -587,6 +596,7 @@ section.tinderslide {
 		 	left: 5%;
 		 	top: 0;
 		 	bottom: auto;
+		 	opacity: 1;
 
 		 	@include transition(all, 1s);
 
@@ -607,6 +617,11 @@ section.tinderslide {
 		 	&.specialPick {
 		 		bottom: -1000px;
 		 		top: 1000px;
+		 	}
+
+		 	// Speed Level
+		 	&.loss {
+		 		opacity: 0;
 		 	}
 		 }
 	}

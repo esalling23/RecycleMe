@@ -3,8 +3,10 @@
       points = 0,
       clicking = false, 
       currentItem,
+      nextItem,
       matchOpen, 
       matchList = [],
+      tutorial = false,
       level = window.level;
 
   ion.sound({
@@ -24,16 +26,17 @@
   if (level == '*') {
 
     var display = $('#time');
+    var readyDisplay = $('#ready-timer');
     var counting = false;
     var countdown = null;
 
     function timer(duration, display, callback) {
-      var counting = true;
-      var item = $('.item:not(.gone)').last();
-        clearInterval(countdown);
-      var time = duration
+      counting = true;
+      var time = duration;
       $(display).text(time);
-      
+
+      clearInterval(countdown);
+
       countdown = setInterval(function() {
 
         console.log(time)
@@ -51,23 +54,44 @@
 
     }
 
-    // Are you ready countdown
-    timer(3, display, startFree);
+    function getReady() {
+      $(readyDisplay).show().animate({
+        opacity: 1
+      }, 500);
 
-    // Begin
-    function startFree() {
+      setTimeout(function(){
+        // Are you ready countdown
+        timer(3, $(readyDisplay).find('.timer'), function(){
+          $(readyDisplay).hide();
+          free();
+        });
+      }, 3000)
+      
+    }
+
+    // Each Item Count
+    function free() {
+
+      if (!currentItem)
+        currentItem = $(document).find('.level .item:not(.gone)').last();
+
+      nextItem = $(currentItem).next('.item:not(.gone)');
 
       clearInterval(countdown);
 
       timer(5, display, function(){
         UpdateScore(-1);
+        $(currentItem).addClass('gone').addClass('loss');
         clearInterval(timer);
+        free();
       });
 
     }
 
+    getReady();
     
-  }
+  } else 
+    tutorial = true;
 
   function Reload() {
     points = 0;
@@ -119,43 +143,61 @@
     });
   }
 
-  function CheckSpecial(item, special) {
+  function CheckSpecial(item, special, tutorial) {
     // check if item is recyclable
     if ($(item).hasClass(special)) {
       UpdateScore(1);
-      ShowMatch($(item), true);
+      if (tutorial)
+        ShowMatch(item, true);
     } else {
-      ShowMatch($(item), false);
+      if (tutorial)
+        ShowMatch(item, false);
+      else 
+        UpdateScore(-1);
     }
   }
 
-  function CheckTrash(item) {
+  function CheckTrash(item, tutorial) {
     // check if item is trash
     if ($(item).hasClass('Trash')) {
-      ShowMatch($(item), true);
       UpdateScore(1);
+      if (tutorial)
+        ShowMatch(item, true);
     } else {
-      ShowMatch($(item), false);
+      if (tutorial)
+        ShowMatch(item, false);
+      else 
+        UpdateScore(-1);
     }
   }
 
-  function CheckRecycle(item) {
+  function CheckRecycle(item, tutorial) {
     // check if item is recyclable
     if ($(item).hasClass('Recycle')) {
       UpdateScore(1);
-      ShowMatch(item, true);
+      if (tutorial)
+        ShowMatch(item, true);
     } else {
-      ShowMatch(item, false);
+      if (tutorial)
+        ShowMatch(item, false);
+      else 
+        UpdateScore(-1);
     }
   }
 
-  function CheckCompost(item) {
+  function CheckCompost(item, tutorial) {
+
+
     // check if item is recyclable
     if ($(item).hasClass('Compost')) {
       UpdateScore(1);
-      ShowMatch(item, true);
+      if (tutorial)
+        ShowMatch(item, true);
     } else {
-      ShowMatch(item, false);
+      if (tutorial)
+        ShowMatch(item, false);
+      else 
+        UpdateScore(-1);
     }
   }
 
@@ -173,7 +215,7 @@
 
   $('.item').hammer().on("swipeleft", function(ev){
 
-    if ($(this).hasClass('gone') || $(this).hasClass('open') || clicking == true || counting == false)
+    if ($(this).hasClass('gone') || $(this).hasClass('open') || clicking == true || (!tutorial && counting == false))
       return;
 
     clicking = true;
@@ -209,11 +251,11 @@
     } else {
       // Check Item
 
-      if (counting == true)
+      if (!tutorial && counting == true)
         clearInterval(timer);
 
       $(currentItem).addClass('gone').addClass('trashed');
-      CheckTrash(currentItem);
+      CheckTrash(currentItem, tutorial);
       clicking = false;
     }
 
@@ -222,10 +264,10 @@
 	// If a player chooses to trash an item
   $('#trash').unbind('click').on('click', function(e) {
 
-    if (counting == false)
+    if (!tutorial && counting == false)
       return;
 
-    currentItem = $(document).find('.level .item').last();
+    currentItem = $(document).find('.level .item:not(.gone)').last();
 
     if (buttonAlertTrash == true) {
       // Let the player know what they are doing
@@ -253,11 +295,11 @@
     } else {
       // Check Item
 
-      if (counting == true)
+      if (!tutorial && counting == true)
         clearInterval(timer);
 
       $(currentItem).addClass('gone').addClass('trashed');
-      CheckTrash($(currentItem));
+      CheckTrash($(currentItem), tutorial);
       clicking = false;
     }
 
@@ -266,7 +308,7 @@
 
   $('.item').hammer().on("swiperight", function(e){
 
-    if ($(this).hasClass('gone') || $(this).hasClass('open') || clicking == true || counting == false)
+    if ($(this).hasClass('gone') || $(this).hasClass('open') || clicking == true || (!tutorial && counting == false))
       return;
 
     clicking = true;
@@ -297,11 +339,11 @@
       });
     } else {
       // Check Item
-      if (counting == true)
+      if (!tutorial && counting == true)
         clearInterval(timer);
 
       $(currentItem).addClass('gone').addClass('recycled');
-      CheckRecycle(currentItem);
+      CheckRecycle(currentItem, tutorial);
       clicking = false;
     }
     
@@ -310,10 +352,10 @@
   // If a player chooses to recycle
   $('#recycle').unbind('click').on('click', function(e) {
 
-    if (counting == false)
+    if (!tutorial && counting == false)
       return;
 
-    currentItem = $(document).find('.level .item').last();
+    currentItem = $(document).find('.level .item:not(.gone)').last();
 
     if (buttonAlertRecycle == true) {
       // Let the player know what they are doing
@@ -341,11 +383,11 @@
       });
     } else {
       // Check Item
-      if (counting == true)
+      if (!tutorial && counting == true)
         clearInterval(timer);
 
       $(currentItem).addClass('gone').addClass('recycled');
-      CheckRecycle($(currentItem));
+      CheckRecycle($(currentItem), tutorial);
       clicking = false;
     }
 
@@ -354,10 +396,10 @@
   // If a player chooses to compost
   $('#compost').unbind('click').on('click', function() {
 
-    if (counting == false)
+    if (!tutorial && counting == false)
       return;
 
-    currentItem = $(document).find('.level .item').last();
+    currentItem = $(document).find('.level .item:not(.gone)').last();
 
     if (buttonAlertSuper == true) {
       // Let the player know what they are doing
@@ -385,11 +427,11 @@
       });
     } else {
       // Check Item
-      if (counting == true)
+      if (!tutorial && counting == true)
         clearInterval(timer);
 
       $(currentItem).addClass('gone').addClass('composted');
-      CheckCompost(currentItem);
+      CheckCompost(currentItem, tutorial);
       clicking = false;
     }
 
@@ -398,10 +440,10 @@
   // If a player chooses 'special'
   $('#special').unbind('click').on('click', function() {
 
-    if (counting == false)
+    if (!tutorial && counting == false)
       return;
 
-    currentItem = $(document).find('.level .item').last();
+    currentItem = $(document).find('.level .item:not(.gone)').last();
     
     $('.modal.special').fadeIn(function() {
       $(this).find('.btn.close-special').unbind('click').on('click', function(e){
@@ -466,11 +508,11 @@
                 });
               } else {
                 // Check Item
-                if (counting == true)
+                if (!tutorial && counting == true)
                   clearInterval(timer);
 
                 $(currentItem).addClass('gone').addClass('specialPick');
-                CheckSpecial(currentItem, option.attr('id'));
+                CheckSpecial(currentItem, option.attr('id'), tutorial);
                 $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
                 $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
                 $('.option').removeClass('open');

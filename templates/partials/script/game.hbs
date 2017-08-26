@@ -218,94 +218,97 @@ $('[data-level]').on('click', function(e) {
 
       $('.item:not(.open)').height(slideheight);
 
-      $('.game-level').fadeIn(function(){
-        window.playerId = '{{playerId}}';
-        window.level = num;
+      imagesLoaded($(document), function() {
 
-        $.getScript( '/js/level.js' );
+        $('.game-level').fadeIn(function(){
+          window.playerId = '{{playerId}}';
+          window.level = num;
 
-        if (data.timerHtml)
-          $('.timer-wrap').show();
+          $.getScript( '/js/level.js' );
 
-        // enable/disable buttons
-        if (num == 2) {
-          $('#compost').attr('disabled', false);
-          $('#compost').show();
-          $('#special').hide();
-        } else if (num == 3) {
-          $('#compost').attr('disabled', false);
-          $('#special').attr('disabled', false);
-          $('#special').show();
-        } else if (num == 1) {
-          $('#compost').attr('disabled', true);
-          $('#special').attr('disabled', true);
-          $('#special').hide();
-          $('#compost').hide();
-        } else if (num == '*') { 
-          $('#compost').attr('disabled', false);
-          $('#special').attr('disabled', false);
-          $('#special').show();
-          $('#compost').show();
-        }
+          if (data.timerHtml)
+            $('.timer-wrap').show().html(data.timerHtml);
 
-        // Swipe and Button Alerts 
+          // enable/disable buttons
+          if (num == 2) {
+            $('#compost').attr('disabled', false);
+            $('#compost').show();
+            $('#special').hide();
+          } else if (num == 3) {
+            $('#compost').attr('disabled', false);
+            $('#special').attr('disabled', false);
+            $('#special').show();
+          } else if (num == 1) {
+            $('#compost').attr('disabled', true);
+            $('#special').attr('disabled', true);
+            $('#special').hide();
+            $('#compost').hide();
+          } else if (num == '*') { 
+            $('#compost').attr('disabled', false);
+            $('#special').attr('disabled', false);
+            $('#special').show();
+            $('#compost').show();
+          }
 
-        if (num == 1 && ($(".level[data-level='1']").data('tries') === 0 || !$(".level[data-level='1']").data('tries'))) {
-          swipeAlertRight = true;
-          swipeAlertLeft = true;
-          buttonAlertRecycle = true;
-          buttonAlertTrash = true;
-        }
+          // Swipe and Button Alerts 
 
-        if (num == 2 && ($(".level[data-level='2']").data('tries') === 0  || !$(".level[data-level='2']").data('tries'))) {
-          buttonAlertSuper = true;
-        }
+          if (num == 1 && ($(".level[data-level='1']").data('tries') === 0 || !$(".level[data-level='1']").data('tries'))) {
+            swipeAlertRight = true;
+            swipeAlertLeft = true;
+            buttonAlertRecycle = true;
+            buttonAlertTrash = true;
+          }
 
-        if (num == 3 && ($(".level[data-level='3']").data('tries') === 0 || !$(".level[data-level='3']").data('tries'))) {
-          buttonAlertSpecial = true;
-        }
+          if (num == 2 && ($(".level[data-level='2']").data('tries') === 0  || !$(".level[data-level='2']").data('tries'))) {
+            buttonAlertSuper = true;
+          }
 
-         if ({{player.new}}) {
-          $('.alert .msg').html('<h3>Welcome to Recyclr</h3><p>Remember, you can keep track of your matches as you play using the counter at the top of your screen.</p>').show();
-          $('.alert .img-points, .alert #alert-continue').show();
-          $('.alert .alert-inner').addClass('new-player');
-          $('.alert').fadeIn();
-        }
+          if (num == 3 && ($(".level[data-level='3']").data('tries') === 0 || !$(".level[data-level='3']").data('tries'))) {
+            buttonAlertSpecial = true;
+          }
 
-        // Bind close alert button
-        $('#alert-abort, #alert-continue').unbind('click').on('click', function(e){
-           e.stopPropagation();
-          $('.alert').fadeOut(function(){
-            $(this).find('.msg').html('').hide();
-            $(this).find('button, img').hide();
+           if ({{player.new}}) {
+            $('.alert .msg').html('<h3>Welcome to Recyclr</h3><p>Remember, you can keep track of your matches as you play using the counter at the top of your screen.</p>').show();
+            $('.alert .img-points, .alert #alert-continue').show();
+            $('.alert .alert-inner').addClass('new-player');
+            $('.alert').fadeIn();
+          }
+
+          // Bind close alert button
+          $('#alert-abort, #alert-continue').unbind('click').on('click', function(e){
+             e.stopPropagation();
+            $('.alert').fadeOut(function(){
+              $(this).find('.msg').html('').hide();
+              $(this).find('button, img').hide();
+            });
           });
-        });
 
-        // Fade in the game, out the profile
-        $('.ACTIVE').removeClass('ACTIVE').fadeOut(function(){
-          $('#points-counter').html('0');
-          $('.game').addClass('ACTIVE').fadeIn();
-          playing = true;
+          // Fade in the game, out the profile
+          $('.ACTIVE').removeClass('ACTIVE').fadeOut(function(){
+            $('#points-counter').html('0');
+            $('.game').addClass('ACTIVE').fadeIn();
+            playing = true;
 
-          $('.buttons').show();
-          $('.level.header').show();
-        });
-
-        if (num != 1) {
-          $('.alert .full').show(function(){
-            if (num == 2 && data.player.triesTwo == 0){
-              $('.alert .msg').text('Welcome to level two. In this level you can compost items using the blue super like button on the right.').show();
-              $('.alert .img-lvl-two').show();
-              $('.alert').fadeIn();
-            } else if (num == 3 && data.player.triesThree == 0) {
-              $('.alert .msg').text('Welcome to level three. In this level you can choose from a menu of special options using the black special button on the left.').show();
-              $('.alert .img-lvl-three').show();
-              $('.alert').fadeIn();
-            }
-
+            $('.buttons').show();
+            $('.level.header').show();
           });
-        }
 
+          if (num != 1) {
+            $('.alert .full').show(function(){
+              if (num == 2 && data.player.triesTwo == 0){
+                $('.alert .msg').text('Welcome to level two. In this level you can compost items using the blue super like button on the right.').show();
+                $('.alert .img-lvl-two').show();
+                $('.alert').fadeIn();
+              } else if (num == 3 && data.player.triesThree == 0) {
+                $('.alert .msg').text('Welcome to level three. In this level you can choose from a menu of special options using the black special button on the left.').show();
+                $('.alert .img-lvl-three').show();
+                $('.alert').fadeIn();
+              }
+
+            });
+          }
+
+        });
       });
     });
 	}
