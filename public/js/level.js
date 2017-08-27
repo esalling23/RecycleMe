@@ -9,8 +9,6 @@
       tutorial = false,
       level = window.level;
 
-  console.log(level, " level")
-
   ion.sound({
     sounds: [
         {
@@ -49,41 +47,27 @@
         counting = false, 
         countdown = null;
 
-    function timer(duration, display, bar, callback) {
+    function timer(duration, display, anim, callback) {
       counting = true;
       var time = duration;
 
-      if (!bar)
-        $(display).text(time);
+      if (anim)
+        $(display).css('font-size', '42px');
+
+      $(display).text(time);
 
       clearInterval(countdown);
 
       countdown = setInterval(function() {
 
-        if (bar) {
-          // var circle = new ProgressBar.Circle(
-          //   '#ready-timer-text', 
-          //   {
-          //     color: '#fff',
-          //     duration: duration*1000,
-          //     easing: 'easeInOut',
-          //     strokeWidth: 6,
-          //     trailColor: '#f4f4f4',
-          //     trailWidth: 0.8,
-          //     fill: '#00c5c2',
-          //     from: { color: '#00c5c2', width: 1 },
-          //     to: { color: '#fff', width: 4 },
-          //     // Set default step function for all animate calls
-          //     step: function(state, circle) {
-          //       circle.path.setAttribute('stroke', state.color);
-          //       circle.path.setAttribute('stroke-width', state.width);
-          //       circle.setText(time);
-          //     }
-          //   }
-          // });
+        if (anim) {
+          $(display).css('font-size', '42px');
+          $(display).animate({
+            'font-size': '0px'
+          }, 900)
         }
         
-        if (time >= 0 && !bar)
+        if (time >= 0)
           $(display).text(time);
 
         time = time - 1;
@@ -165,7 +149,7 @@
 
   function Reload() {
     points = 0;
-    $('#points-counter').text(points);
+    $('#points-counter #points-text').text(points);
   }
 
 
@@ -176,6 +160,10 @@
     if (level == '*') {
       // Save Matches/Misses for the end
       matchList.push({ item: modalId, match: match });
+
+      if (!match)
+        $('.lives-wrap').find('.life:not(.loss)').first().addClass('loss');
+
       return;
     }
 
@@ -213,61 +201,47 @@
     });
   }
 
-  function CheckSpecial(item, special, tutorial) {
+  function CheckSpecial(item, special) {
     // check if item is recyclable
     if ($(item).hasClass(special)) {
       UpdateScore(1);
-      if (tutorial)
-        ShowMatch(item, true);
+      ShowMatch(item, true);
     } else {
-      if (tutorial)
-        ShowMatch(item, false);
-      else 
-        UpdateScore(-1);
+      ShowMatch(item, false);
+      UpdateScore(-1);
     }
   }
 
-  function CheckTrash(item, tutorial) {
+  function CheckTrash(item) {
     // check if item is trash
     if ($(item).hasClass('Trash')) {
       UpdateScore(1);
-      if (tutorial)
-        ShowMatch(item, true);
+      ShowMatch(item, true);
     } else {
-      if (tutorial)
-        ShowMatch(item, false);
-      else 
-        UpdateScore(-1);
+      ShowMatch(item, false);
+      UpdateScore(-1);
     }
   }
 
-  function CheckRecycle(item, tutorial) {
+  function CheckRecycle(item) {
     // check if item is recyclable
     if ($(item).hasClass('Recycle')) {
       UpdateScore(1);
-      if (tutorial)
-        ShowMatch(item, true);
+      ShowMatch(item, true);
     } else {
-      if (tutorial)
-        ShowMatch(item, false);
-      else 
-        UpdateScore(-1);
+      ShowMatch(item, false);
+      UpdateScore(-1);
     }
   }
 
-  function CheckCompost(item, tutorial) {
-
-
+  function CheckCompost(item) {
     // check if item is recyclable
     if ($(item).hasClass('Compost')) {
       UpdateScore(1);
-      if (tutorial)
-        ShowMatch(item, true);
+      ShowMatch(item, true);
     } else {
-      if (tutorial)
-        ShowMatch(item, false);
-      else 
-        UpdateScore(-1);
+      ShowMatch(item, false);
+      UpdateScore(-1);
     }
   }
 
@@ -327,7 +301,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('trashed');
-      CheckTrash(currentItem, tutorial);
+      CheckTrash(currentItem);
       clicking = false;
     }
 
@@ -373,7 +347,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('trashed');
-      CheckTrash($(currentItem), tutorial);
+      CheckTrash($(currentItem));
       clicking = false;
     }
 
@@ -419,7 +393,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('recycled');
-      CheckRecycle(currentItem, tutorial);
+      CheckRecycle(currentItem);
       clicking = false;
     }
     
@@ -465,7 +439,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('recycled');
-      CheckRecycle($(currentItem), tutorial);
+      CheckRecycle($(currentItem));
       clicking = false;
     }
 
@@ -511,7 +485,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('composted');
-      CheckCompost(currentItem, tutorial);
+      CheckCompost(currentItem);
       clicking = false;
     }
 
@@ -592,7 +566,7 @@
                 }
 
                 $(currentItem).addClass('gone').addClass('specialPick');
-                CheckSpecial(currentItem, option.attr('id'), tutorial);
+                CheckSpecial(currentItem, option.attr('id'));
                 SpecialReset();
 
                 $('.modal.special').fadeOut();
@@ -716,16 +690,17 @@
   	points = points + num;
 
     // Update player score
-    $('#points-counter').html(points);
+    $('#points-counter #points-text').html(points);
 
   	// Check if this is the last card in the stack - end the level
-  	if ($('.level .item:not(.gone)').length == 0 || $('.level .item:not(.gone)').length)
+  	if ($('.level .item:not(.gone)').length == 0 || $('.level .item.loss').length >= 3)
   		end = true;
   	
   	if (end === true) {
 
-      if (tutorial)
+      if (tutorial) {
         clearInterval(countdown);
+      }
 
 	  	// Send player data
 	  	var data = {
@@ -745,6 +720,7 @@
 	  	$.get("/api/game/", data, function(data){
 	  		// Show that end-of-level modal
         $('.buttons').hide();
+
 	  		$('.modal.end').html(data.html).fadeIn(function(){
 
           $('.btn.replay').unbind('click').on('click', function(){

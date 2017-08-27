@@ -817,15 +817,46 @@ section.tinderslide {
   border-radius: 50%;
   border: 2px solid $tinder-black;
   line-height: 76px;
+
+
+  // Switch it up for free level
+  &.free {
+
+  	#points-tag {
+  		display: block;
+  	}
+
+  }
+}
+
+.lives-wrap {
+	height: 40px;
+	.life {
+		background-image: url('/images/like.png');
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+
+		@include transition(all, 0.5s);
+
+		&.loss {
+			background-filter: grayscale(100%);
+		}
+	}
 }
 
 .timer-wrap {
-	border: 1px solid $tinder-black;
-	background-color: $tinder-red;
-	border-radius: 40px;
+	color: $tinder-red;
 	height: 80px;
 	width: 80px;
 	display: inline-block;
+	float: left;
+	margin-top: 20px;
+
+	#time {
+		line-height: 80px;
+		font-size: 42px;
+	}
 }
 
 .buttons {

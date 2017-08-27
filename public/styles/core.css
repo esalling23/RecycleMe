@@ -145,12 +145,10 @@ button:not(:disabled):focus, button:not(:disabled):active, .btn:not(:disabled):f
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   outline: 0px !important; }
-
 button:not(:disabled).minimal:hover, button:not(:disabled).minimal:focus, .btn:not(:disabled).minimal:hover, .btn:not(:disabled).minimal:focus, input:not(:disabled).minimal:hover, input:not(:disabled).minimal:focus {
   background-color: white;
   color: #d00000;
   border: 2px solid #d00000; }
-
 button:disabled, .btn:disabled, input:disabled {
   color: #ffd0d0;
   border: 2px solid #ffd0d0; }
@@ -256,7 +254,7 @@ button:disabled, .btn:disabled, input:disabled {
   margin-top: 0px;
   background: rgba(0, 0, 0, 0.9); }
   .special .option {
-    background-color: #4d4c4c;
+    background-color: #4d4d4d;
     height: 180px;
     width: 140px;
     margin: 10px auto;
@@ -311,7 +309,7 @@ button:disabled, .btn:disabled, input:disabled {
   #rules-glide .glide__bullets {
     bottom: 20px; }
   #rules-glide .glide__bullet {
-    background-color: #818080; }
+    background-color: #818181; }
     #rules-glide .glide__bullet.active {
       background-color: #343434; }
       #rules-glide .glide__bullet.active:hover, #rules-glide .glide__bullet.active:focus {
@@ -468,7 +466,6 @@ section.tinderslide {
   height: 40px;
   width: 100px;
   font-size: 16px; }
-
 .end #back-btn {
   bottom: 20px;
   position: absolute;
@@ -578,14 +575,33 @@ section.tinderslide {
   border-radius: 50%;
   border: 2px solid #343434;
   line-height: 76px; }
+  #points-counter.free #points-tag {
+    display: block; }
+
+.lives-wrap {
+  height: 40px; }
+  .lives-wrap .life {
+    background-image: url("/images/like.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    -moz-transition: all, 0.5s;
+    -o-transition: all, 0.5s;
+    -webkit-transition: all, 0.5s;
+    transition: all, 0.5s; }
+    .lives-wrap .life.loss {
+      background-filter: grayscale(100%); }
 
 .timer-wrap {
-  border: 1px solid #343434;
-  background-color: #ff6a6a;
-  border-radius: 40px;
+  color: #ff6a6a;
   height: 80px;
   width: 80px;
-  display: inline-block; }
+  display: inline-block;
+  float: left;
+  margin-top: 20px; }
+  .timer-wrap #time {
+    line-height: 80px;
+    font-size: 42px; }
 
 .buttons {
   max-width: 450px;
@@ -639,17 +655,14 @@ section.tinderslide {
   @media (max-width: 400px) {
     .section.profile h3 {
       margin: 0px auto; } }
-
 .section.profile .update-info .row {
   margin: 10px 0px; }
-
 .section.profile .update-info .input {
   border: 1px solid black; }
-
 .section.profile .edit {
   margin-top: 40px;
   padding-bottom: 80px;
-  border-top: 2px solid #818080; }
+  border-top: 2px solid #818181; }
   .section.profile .edit img {
     height: 150px;
     width: 150px; }
@@ -687,13 +700,10 @@ section.tinderslide {
     text-align: center;
     width: 50%;
     margin: 0px 25%; }
-
 .section.profile .col-sm-4 {
   margin: 20px auto; }
-
 .section.profile .col-xs-6 {
   padding: 0px; }
-
 .section.profile .grade {
   border: 3px solid #fff;
   border-radius: 50%;
@@ -744,7 +754,6 @@ section.tinderslide {
   .section.leaderboard .leader-nav .btn.active {
     color: #343434;
     border-color: #343434; }
-
 .section.leaderboard .board {
   height: 200px;
   overflow: hidden;
@@ -766,16 +775,13 @@ section.tinderslide {
       display: inline-block; }
     .section.leaderboard .board li div {
       text-align: center; }
-
 .section.leaderboard ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px; }
-
 .section.leaderboard ::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
-
 .section.leaderboard .points {
   border: 2px solid #fff;
   border-radius: 50%;
@@ -788,20 +794,24 @@ section.tinderslide {
 @media (max-height: 480px) {
   .level-group .minimal {
     margin: 6px; }
+
   .section.leaderboard .board {
     height: 150px; }
+
   .section, .subsection {
     margin-top: 8px; }
     .section button.nav-bar, .subsection button.nav-bar {
       top: -42px; } }
-
 @media (max-height: 680px) {
   h1, h2, h3, h4 {
     margin: 4px; }
+
   h2 {
     font-size: 28px; }
+
   h3 {
     font-size: 22px; }
+
   .section.profile .edit .cloudinary-button {
     font-size: 12px; }
   .section.profile .edit .image_upload {
