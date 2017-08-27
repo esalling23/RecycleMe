@@ -271,16 +271,40 @@ button, .btn, input {
 	position: absolute;
 	left: auto;
 	right: auto; 
+	height:100%;
+	width:100%;
 }
 
 // Get Ready (Speed Round)
-#get-ready {
-	background: $tinder-red;
+#ready-timer {
+	background: $tinder-black;
 	color: $tinder-white;
 	z-index: 500000;
-	opacity: 0;
 	font-size: 24px;
+	display: none;
+	height:100%;
+	width:100%;
+
+	.text {
+		* {
+			margin-top: 8px;
+		}
+	}
+
+	.timer {
+		height: 80px;
+		width: 80px;
+		margin: 10px auto;
+	}
+
+	#skip {
+		position: absolute;
+		bottom: 20px;
+		left: calc(50% - 50px);
+		width: 100px;
+	}
 }
+
 
 // Login
 .welcome p {
@@ -621,7 +645,7 @@ section.tinderslide {
 
 		 	// Speed Level
 		 	&.loss {
-		 		opacity: 0;
+		 		display:none;
 		 	}
 		 }
 	}
@@ -1085,6 +1109,10 @@ section.tinderslide {
 // Media Breakpoints
 
 @media(max-height: 480px) {
+
+	.level-group .minimal {
+		margin: 6px;
+	}
 
 	.section.leaderboard .board {
 		height:150px;

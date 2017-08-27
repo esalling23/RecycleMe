@@ -9,6 +9,8 @@
       tutorial = false,
       level = window.level;
 
+  console.log(level, " level")
+
   ion.sound({
     sounds: [
         {
@@ -23,30 +25,70 @@
     preload: true
   });
 
+  function clearScreen() {
+
+    // Hide elements
+    $('.modal').hide();
+
+    // Special Option reset
+    SpecialReset();
+
+  }
+
+  function SpecialReset() {
+      $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
+      $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
+      $('.option.open').removeClass('open');
+      $('.option').show();
+  }
+
   if (level == '*') {
 
-    var display = $('#time');
-    var readyDisplay = $('#ready-timer');
-    var counting = false;
-    var countdown = null;
+    var display = $('#time'), 
+        readyDisplay = $('#ready-timer'), 
+        counting = false, 
+        countdown = null;
 
-    function timer(duration, display, callback) {
+    function timer(duration, display, bar, callback) {
       counting = true;
       var time = duration;
-      $(display).text(time);
+
+      if (!bar)
+        $(display).text(time);
 
       clearInterval(countdown);
 
       countdown = setInterval(function() {
 
-        console.log(time)
+        if (bar) {
+          // var circle = new ProgressBar.Circle(
+          //   '#ready-timer-text', 
+          //   {
+          //     color: '#fff',
+          //     duration: duration*1000,
+          //     easing: 'easeInOut',
+          //     strokeWidth: 6,
+          //     trailColor: '#f4f4f4',
+          //     trailWidth: 0.8,
+          //     fill: '#00c5c2',
+          //     from: { color: '#00c5c2', width: 1 },
+          //     to: { color: '#fff', width: 4 },
+          //     // Set default step function for all animate calls
+          //     step: function(state, circle) {
+          //       circle.path.setAttribute('stroke', state.color);
+          //       circle.path.setAttribute('stroke-width', state.width);
+          //       circle.setText(time);
+          //     }
+          //   }
+          // });
+        }
+        
+        if (time >= 0 && !bar)
+          $(display).text(time);
 
-        $(display).text(time);
         time = time - 1;
 
-        console.log(time)
-
-        if(time < 0) {
+        if(time <= -1) {
           counting = false;
           callback();
         }
@@ -55,35 +97,63 @@
     }
 
     function getReady() {
-      $(readyDisplay).show().animate({
-        opacity: 1
-      }, 500);
+      console.log("get ready")
+      $(readyDisplay).show(function(){
 
-      setTimeout(function(){
-        // Are you ready countdown
-        timer(3, $(readyDisplay).find('.timer'), function(){
-          $(readyDisplay).hide();
-          free();
-        });
-      }, 3000)
+        setTimeout(function(){
+
+          var text = $(readyDisplay).find('#ready-timer-text');
+
+          $(text).show(function() {
+              // Are you ready countdown
+            timer(5, text, false, function(){
+              $(readyDisplay).hide();
+              free();
+            });
+            // Skip the countdown for advanced players
+            $(readyDisplay).find('#skip').on('click', function(){
+              clearInterval(countdown);
+              $(readyDisplay).hide();
+              free();
+            });
+          });
+          
+        }, 1000);
+
+      });
       
     }
 
     // Each Item Count
     function free() {
 
+      // Was that the last item?? Stop the loop
+      if ($('.level .item:not(.gone)').length == 0)
+        return;
+
+      // Catch for current item
       if (!currentItem)
         currentItem = $(document).find('.level .item:not(.gone)').last();
 
-      nextItem = $(currentItem).next('.item:not(.gone)');
-
       clearInterval(countdown);
 
-      timer(5, display, function(){
+      // Timer
+      timer(5, display, true, function(){
+        // They haven't chosen in time
         UpdateScore(-1);
+
+        currentItem = $(document).find('.level .item:not(.gone)').last();
         $(currentItem).addClass('gone').addClass('loss');
-        clearInterval(timer);
+
+        clearInterval(countdown);
+        clearScreen();
+
+        // Was that the last item?? Stop the loop
+        if ($('.level .item:not(.gone)').length == 0 || $('.level .item.loss').length == 3)
+          return;
+
         free();
+
       });
 
     }
@@ -251,8 +321,10 @@
     } else {
       // Check Item
 
-      if (!tutorial && counting == true)
-        clearInterval(timer);
+      if (!tutorial && counting == true) {
+        free();
+        clearScreen();
+      }
 
       $(currentItem).addClass('gone').addClass('trashed');
       CheckTrash(currentItem, tutorial);
@@ -295,8 +367,10 @@
     } else {
       // Check Item
 
-      if (!tutorial && counting == true)
-        clearInterval(timer);
+      if (!tutorial && counting == true) {
+        free();
+        clearScreen();
+      }
 
       $(currentItem).addClass('gone').addClass('trashed');
       CheckTrash($(currentItem), tutorial);
@@ -339,8 +413,10 @@
       });
     } else {
       // Check Item
-      if (!tutorial && counting == true)
-        clearInterval(timer);
+      if (!tutorial && counting == true) {
+        free();
+        clearScreen();
+      }
 
       $(currentItem).addClass('gone').addClass('recycled');
       CheckRecycle(currentItem, tutorial);
@@ -383,8 +459,10 @@
       });
     } else {
       // Check Item
-      if (!tutorial && counting == true)
-        clearInterval(timer);
+      if (!tutorial && counting == true) {
+        free();
+        clearScreen();
+      }
 
       $(currentItem).addClass('gone').addClass('recycled');
       CheckRecycle($(currentItem), tutorial);
@@ -427,8 +505,10 @@
       });
     } else {
       // Check Item
-      if (!tutorial && counting == true)
-        clearInterval(timer);
+      if (!tutorial && counting == true) {
+        free();
+        clearScreen();
+      }
 
       $(currentItem).addClass('gone').addClass('composted');
       CheckCompost(currentItem, tutorial);
@@ -451,7 +531,7 @@
       });
       $('.option').unbind('click').on('click', function(e){
 
-        if (counting == false)
+        if (counting == false || $(this).hasClass('open'))
           return;
 
         var option = $(this);
@@ -493,10 +573,8 @@
                     // Check Item
                     $(currentItem).addClass('gone').addClass('specialPick');
                     CheckSpecial(currentItem, option.attr('id'));
-                    $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
-                    $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
-                    $('.option.open').removeClass('open');
-                    $('.option').show();
+                    SpecialReset();
+
                     $('.modal.special').fadeOut();
                     
                     $(this).unbind('click');
@@ -508,25 +586,21 @@
                 });
               } else {
                 // Check Item
-                if (!tutorial && counting == true)
-                  clearInterval(timer);
+                if (!tutorial && counting == true) {
+                  free();
+                  clearScreen();
+                }
 
                 $(currentItem).addClass('gone').addClass('specialPick');
                 CheckSpecial(currentItem, option.attr('id'), tutorial);
-                $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
-                $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
-                $('.option').removeClass('open');
-                $('.option').show();
+                SpecialReset();
 
                 $('.modal.special').fadeOut();
                 clicking = false;
               }
 
             } else if ($(this).data('action') === 'back') {
-              $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
-              $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
-              $('.option').removeClass('open');
-              $('.option').hide();
+              SpecialReset();
               setTimeout(function(){
                   $('.option').fadeIn();
               }, 100)
@@ -645,13 +719,14 @@
     $('#points-counter').html(points);
 
   	// Check if this is the last card in the stack - end the level
-  	if ($('.level .item:not(.gone)').length == 0)
+  	if ($('.level .item:not(.gone)').length == 0 || $('.level .item:not(.gone)').length)
   		end = true;
   	
-
-    console.log(end)
-
   	if (end === true) {
+
+      if (tutorial)
+        clearInterval(countdown);
+
 	  	// Send player data
 	  	var data = {
 			  id: window.playerId,

@@ -34,7 +34,9 @@ Game.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
 	defaultProfilePic: { type: Types.CloudinaryImage, folder: 'RecycleMe', label: 'Default Profile Picture'},
-	rulesPictures: { type: Types.CloudinaryImages, folder: 'RecycleMe', label: 'Rules Pictures'}
+	rulesPictures: { type: Types.CloudinaryImages, folder: 'RecycleMe', label: 'Rules Pictures'}, 
+
+	speed: { type: Number, label: '# of Seconds per item in speed level'}
 	
 });
 

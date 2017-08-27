@@ -10,8 +10,8 @@
  * @static
  **/
 
-var keystone = require('keystone');
-var _ = require('underscore');
+var keystone = require('keystone'),
+    _ = require('underscore');
 
 /**
 	Initialises the standard view locals
@@ -32,6 +32,8 @@ exports.initLocals = function(req, res, next) {
     }];
 
     locals.user = req.user;
+
+
 
     next();
 

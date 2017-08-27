@@ -3,6 +3,7 @@ var Player = keystone.list('Player'),
     Item = keystone.list('Item'),
     Material = keystone.list('Material'),
     Team = keystone.list('Team'),
+    Game = keystone.list('Game'),
     Special = keystone.list('SpecialOption'),
     appRoot = require('app-root-path'),
     TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
@@ -209,60 +210,75 @@ exports.level = function(req, res) {
         });
     };
 
-    Item.model.find({}).populate('material specialStatus specialStatusOr').exec((err, item) => {
+    // Game Config
+    Game.model.findOne( { sort: { 'createdAt': -1 } }).exec((err, config) => {
 
-        if (req.query.level === '*') {
-            data.level = 'Free';
-            data.items = _.sample(item, 31);
-        }
-        else
-            data.items = level(item, req.query.level);
+        locals.config = config;
 
-        Player.model.findOne({ '_id': req.query.player }).exec((err, player) => {
+        Item.model.find({}).populate('material specialStatus specialStatusOr').exec((err, item) => {
 
-            if (player.new)
-                player.new = false;
+            if (req.query.level === '*') {
+                data.level = 'Free';
+                data.items = _.sample(item, 31);
+            }
+            else
+                data.items = level(item, req.query.level);
 
-            player.save();
+            Player.model.findOne({ '_id': req.query.player }).exec((err, player) => {
 
-            data.player = player;
+                if (player.new)
+                    player.new = false;
 
-            Special.model.find({}).exec((err, special) => {
+                player.save();
 
-                data.special = special;
+                data.player = player;
 
-                if (data.level === "Three" || data.level === 'Free') {
+                Special.model.find({}).exec((err, special) => {
 
-                    Templates.Load('partials/special', data, (html) => {
+                    data.special = special;
 
-                        data.specialHtml = html;
+                    if (data.level === "Three" || data.level === 'Free') {
+
+                        Templates.Load('partials/special', data, (html) => {
+
+                            data.specialHtml = html;
+
+                        });
+                    }
+
+                    if (data.level === 'Free') {
+
+                        Templates.Load('partials/timer', data, (html) => {
+
+                            data.timerHtml = html;
+
+                        });
+
+                        Templates.Load('partials/ready', data, (html) => {
+
+                            data.readyHtml = html;
+
+                        });
+
+                        Templates.Load('partials/lives', data, (html) => {
+
+                            data.livesHtml = html;
+
+                        });
+
+                    }
+
+                    Templates.Load('partials/level', data, (html) => {
+
+                        data.html = html;
+
+                        res.send(data);
 
                     });
-                }
-
-                if (data.level === 'Free') {
-
-                    Templates.Load('partials/timer', data, (html) => {
-
-                        data.timerHtml = html;
-
-                    });
-
-                }
-
-                Templates.Load('partials/level', data, (html) => {
-
-                    data.html = html;
-
-                    res.send(data);
-
                 });
-            })
-
-            
-
+            });
         });
-    });
+    })
 
 };
 

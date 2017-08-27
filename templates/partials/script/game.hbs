@@ -206,28 +206,34 @@ $('[data-level]').on('click', function(e) {
 
     $.get("/api/game/level", data, function(data){
 
-      if (data.specialHtml)
-        $('.modal.special').html(data.specialHtml);
-
-      if (data.timerHtml)
-        $('.timer-wrap').html(data.timerHtml);
-
       // Notify success
       $(".game-level").html(data.html);
       slideheight = $(window).height() - 260;
 
       $('.item:not(.open)').height(slideheight);
 
-      imagesLoaded($(document), function() {
-
         $('.game-level').fadeIn(function(){
+
+          {{!-- Special option modal --}}
+          if (data.specialHtml)
+            $('.modal.special').html(data.specialHtml);
+
+          {{!-- Timer --}}
+          if (data.timerHtml)
+            $('.timer-wrap').html(data.timerHtml).show();
+
+          {{!-- Get Ready Modal --}}
+          if (data.readyHtml)
+            $('#ready-timer').html(data.readyHtml);
+
+          {{!-- Lives Count --}}
+          if (data.livesHtml)
+            $('.lives-wrap').html(data.livesHtml).show();
+
           window.playerId = '{{playerId}}';
           window.level = num;
 
           $.getScript( '/js/level.js' );
-
-          if (data.timerHtml)
-            $('.timer-wrap').show().html(data.timerHtml);
 
           // enable/disable buttons
           if (num == 2) {
@@ -293,7 +299,7 @@ $('[data-level]').on('click', function(e) {
             $('.level.header').show();
           });
 
-          if (num != 1) {
+          if (num != 1 && num != '*') {
             $('.alert .full').show(function(){
               if (num == 2 && data.player.triesTwo == 0){
                 $('.alert .msg').text('Welcome to level two. In this level you can compost items using the blue super like button on the right.').show();
@@ -309,7 +315,6 @@ $('[data-level]').on('click', function(e) {
           }
 
         });
-      });
     });
 	}
 
@@ -329,10 +334,3 @@ $('[data-level]').on('click', function(e) {
 
   });
 
-
-
-
-{{#if admin}}
-// ADMIN
-
-{{/if}}
