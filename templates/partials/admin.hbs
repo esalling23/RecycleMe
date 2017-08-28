@@ -11,10 +11,14 @@
 
 	Or  --}}
 
-	<div class="row">
-		<input id="csv-file" type="file">
-		<button class="btn" id="btn-create-player-csv">Upload New Player CSV</button>
-	</row>
+	<div class="row" id="inputs">
+		<input id="files" type="file" name="files[]" multiple>
+		{{!-- <button class="btn" id="btn-create-player-csv">Upload New Player CSV</button> --}}
+	</div>
+
+	<ul id="contents"></ul>
+
+
 	
 </div>
 

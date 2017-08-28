@@ -13,7 +13,7 @@ exports.get = function(req, res) {
 
 	query.exec((err, player) => {
 
-	    if (err || !player) return res.json({ error_code: "no_profile", msg: "no profile for that email" });
+	    if (err || !player) return res.json({ error_code: "no_profile", msg: "No profile for that email" });
 
 	    var data = {};
 	    data.player = player.id;

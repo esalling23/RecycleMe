@@ -525,7 +525,8 @@ section.tinderslide {
 		-webkit-backface-visibility: hidden;
 
 		background-repeat: no-repeat;
-		background-size: cover;
+		background-size: contain;
+		background-position: center;
 
 		h2 {
 			text-align: left;
@@ -660,6 +661,7 @@ section.tinderslide {
 		height: 40px;
 		width: 100px;
 		font-size: 16px;
+		margin: 8px auto;
 	}
 	#back-btn {
 	    bottom: 20px;
@@ -668,6 +670,7 @@ section.tinderslide {
 	    width: 200px;
 	    height: 40px;
 	    font-size: 24px;
+	    margin: 0 auto;
 	}
 
 	&.match {
@@ -858,6 +861,7 @@ section.tinderslide {
 	    bottom: 20px;
 	    left: calc(50% - 50px);
 	    width: 100px;
+	    margin: 0 auto;
 	}
 }
 
@@ -1029,6 +1033,14 @@ section.tinderslide {
 		padding-bottom: 80px;
 		border-top: 2px solid lighten($tinder-black, 30%);
 
+		#team {
+			border: 1px solid $tinder-black;
+		}
+
+		#username {
+			border: 1px solid $tinder-black;
+		}
+
 		img {
 			height: 150px;
 			width: 150px;
@@ -1141,11 +1153,30 @@ section.tinderslide {
 		width: 60%;
 		height: 80px;
 		font-size: 18px;
-		margin: 12px;
+		margin: 12px auto;
+		&.complete {
+			height: 50px;
+			width: 40%;
+
+			&:nth-child(4) {
+				margin-bottom: 40px;
+			}
+		}
 	}
+
 }
 
 .section.leaderboard {
+
+	#coming-soon {
+    height: 80px;
+    line-height: 64px;
+    background: $tinder-red;
+    color: white;
+    margin-top: 120px;
+    padding: 8px;
+
+	}
 
 	.leader-nav {
 		.btn {
@@ -1242,6 +1273,32 @@ section.tinderslide {
 		}
 	}
 
+	.section.profile .edit {
+		p {
+			line-height: 1;
+			font-size: 10px;
+		}
+
+		#btn-save-profile {
+			bottom: 0px !important;
+		}
+	}
+
+	.match {
+		h3 {
+			margin-top: 16px;
+			font-size: 3em;
+		}
+		img {
+			height: 100px;
+		}
+		p {
+			margin: 0px 16px;
+			line-height: 1;
+			font-size: 1.2em;
+		}
+	}
+
 }
 
 @media(max-height: 680px) {
@@ -1258,8 +1315,18 @@ section.tinderslide {
 	}
 
 	.section.profile .edit {
+
+		p {
+			line-height: 1.2;
+		}
+
+		#btn-save-profile {
+			bottom: -20px;
+		}
+
 		.cloudinary-button {
 			font-size: 12px;
+			padding: 4px;
 		}
 		.image_upload {
 			margin: 4px;
@@ -1271,8 +1338,21 @@ section.tinderslide {
 			margin-top: 20px;
 		}
 	}
+
+	.match {
+		h3 {
+			margin-top: 16px;
+		}
+		p {
+			margin: 0px 16px;
+			line-height: 1;
+			font-size: 1.2em;
+		}
+	}
 }
 
+	
+	
 @media(max-width: 426px) {
 
 	.timer-wrap {

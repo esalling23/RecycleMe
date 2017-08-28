@@ -9,7 +9,26 @@ var Player = keystone.list('Player'),
     TemplateLoader = require(appRoot + '/lib/TemplateLoader'),
     _ = require('underscore');
 
+// Creating Players Admin
+exports.create = function(req, res) {
+    console.log(req.body);
 
+    var player = req.body;
+    var newPlayer = new Player.model(player);
+
+    newPlayer.save(function(err) {
+        if (err) throw err;
+
+        res.send({
+            success: true, 
+            player: player
+        });
+
+    });
+
+}
+
+// Update player at end of game
 exports.update = function(req, res) {
 
     var grade = '', 
@@ -104,6 +123,7 @@ exports.update = function(req, res) {
 
                     passed = true;
 
+                    score = parseInt(score);
                     player.pointsTwo = score;
 
                     if (!player.gradeTwo || player.gradeTwo == 0){
@@ -133,6 +153,7 @@ exports.update = function(req, res) {
 
                     passed = true;
 
+                    score = parseInt(score);
                     player.pointsThree = score;
 
                     if (!player.gradeThree || player.gradeThree == 0) {
@@ -141,7 +162,8 @@ exports.update = function(req, res) {
                     } else {
                         player.gradeThree = ratio * 100;
                     }
-                }
+                } else
+                    passed = false;
 
             } else {
                 var itemList = items;
