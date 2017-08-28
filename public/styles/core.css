@@ -145,10 +145,12 @@ button:not(:disabled):focus, button:not(:disabled):active, .btn:not(:disabled):f
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   outline: 0px !important; }
+
 button:not(:disabled).minimal:hover, button:not(:disabled).minimal:focus, .btn:not(:disabled).minimal:hover, .btn:not(:disabled).minimal:focus, input:not(:disabled).minimal:hover, input:not(:disabled).minimal:focus {
   background-color: white;
   color: #d00000;
   border: 2px solid #d00000; }
+
 button:disabled, .btn:disabled, input:disabled {
   color: #ffd0d0;
   border: 2px solid #ffd0d0; }
@@ -199,16 +201,19 @@ button:disabled, .btn:disabled, input:disabled {
   background: #343434;
   color: #fff;
   z-index: 500000;
-  font-size: 24px;
   display: none;
   height: 100%;
   width: 100%; }
-  #ready-timer .text * {
-    margin-top: 8px; }
+  #ready-timer .text {
+    padding: 10px; }
+    #ready-timer .text * {
+      margin-top: 20px; }
   #ready-timer .timer {
-    height: 80px;
+    height: 120px;
     width: 80px;
-    margin: 10px auto; }
+    line-height: 120px;
+    margin: 10px auto;
+    font-size: 46px; }
   #ready-timer #skip {
     position: absolute;
     bottom: 20px;
@@ -254,7 +259,7 @@ button:disabled, .btn:disabled, input:disabled {
   margin-top: 0px;
   background: rgba(0, 0, 0, 0.9); }
   .special .option {
-    background-color: #4d4d4d;
+    background-color: #4d4c4c;
     height: 180px;
     width: 140px;
     margin: 10px auto;
@@ -309,7 +314,7 @@ button:disabled, .btn:disabled, input:disabled {
   #rules-glide .glide__bullets {
     bottom: 20px; }
   #rules-glide .glide__bullet {
-    background-color: #818181; }
+    background-color: #818080; }
     #rules-glide .glide__bullet.active {
       background-color: #343434; }
       #rules-glide .glide__bullet.active:hover, #rules-glide .glide__bullet.active:focus {
@@ -415,7 +420,7 @@ section.tinderslide {
       height: calc(100% - 120px) !important;
       max-height: 100%;
       left: 0px;
-      top: -105px;
+      top: -80px;
       z-index: 2500; }
     section.tinderslide .item .image-glider {
       height: 100%;
@@ -466,6 +471,7 @@ section.tinderslide {
   height: 40px;
   width: 100px;
   font-size: 16px; }
+
 .end #back-btn {
   bottom: 20px;
   position: absolute;
@@ -473,6 +479,48 @@ section.tinderslide {
   width: 200px;
   height: 40px;
   font-size: 24px; }
+
+.end.match button {
+  height: 30px;
+  line-height: 26px; }
+
+.end.match #back-btn {
+  bottom: 10px; }
+
+.end.match .match-list {
+  visibility: hidden;
+  height: calc(100% - 320px);
+  overflow: hidden;
+  margin: 20px auto;
+  border: 1px solid #fff; }
+  .end.match .match-list .match-scroll {
+    height: calc(100% - 12px);
+    padding: 0px 4px;
+    overflow-y: scroll;
+    overflow-x: hidden; }
+    .end.match .match-list .match-scroll .match-inner {
+      background-color: #ff6a6a;
+      height: 80px;
+      width: 100%;
+      display: table;
+      margin: 5px auto;
+      padding: 4px 8px; }
+      .end.match .match-list .match-scroll .match-inner * {
+        display: table-cell;
+        vertical-align: middle; }
+      .end.match .match-list .match-scroll .match-inner img {
+        height: 60px;
+        width: 60px;
+        margin: 5px; }
+      .end.match .match-list .match-scroll .match-inner p {
+        line-height: 1; }
+
+.end.match h3 {
+  font-size: 3em; }
+
+.end.match p {
+  font-size: 1em;
+  margin-top: 10px; }
 
 .alert {
   z-index: 3000;
@@ -547,7 +595,8 @@ section.tinderslide {
     border: 2px white solid; }
   .match p {
     margin: 16px;
-    font-size: 1.5em; }
+    font-size: 1.5em;
+    line-height: 1; }
   .match input {
     background: #3c3c3c;
     border: 1px white solid;
@@ -558,7 +607,8 @@ section.tinderslide {
     width: 100px; }
 
 .level.header {
-  margin-top: -20px; }
+  margin-top: -20px;
+  height: 100px; }
 
 .game-level {
   height: 100%; }
@@ -568,37 +618,52 @@ section.tinderslide {
   height: 80px;
   background: #ff6a6a;
   color: #fff;
-  position: relative;
-  display: inline-block;
-  width: 80px;
-  margin: 20px auto;
-  border-radius: 50%;
-  border: 2px solid #343434;
-  line-height: 76px; }
-  #points-counter.free #points-tag {
-    display: block; }
+  position: absolute;
+  width: 50%;
+  margin: 0px auto;
+  margin-top: 20px;
+  border: 0px;
+  left: 25%; }
+  #points-counter #points-tag {
+    font-size: 18px;
+    display: block;
+    height: 24px;
+    line-height: 32px; }
+  #points-counter #points-text {
+    display: block;
+    height: 42px;
+    line-height: 1.5; }
 
 .lives-wrap {
-  height: 40px; }
+  height: auto;
+  width: 10%;
+  position: absolute;
+  right: 40px;
+  top: 10px; }
   .lives-wrap .life {
     background-image: url("/images/like.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    height: 20px;
+    position: relative;
+    display: block;
+    width: 40px;
     -moz-transition: all, 0.5s;
     -o-transition: all, 0.5s;
     -webkit-transition: all, 0.5s;
     transition: all, 0.5s; }
     .lives-wrap .life.loss {
-      background-filter: grayscale(100%); }
+      filter: grayscale(100%); }
 
 .timer-wrap {
   color: #ff6a6a;
   height: 80px;
-  width: 80px;
+  width: 40px;
   display: inline-block;
   float: left;
-  margin-top: 20px; }
+  margin-top: 20px;
+  margin-left: 10%; }
   .timer-wrap #time {
     line-height: 80px;
     font-size: 42px; }
@@ -655,14 +720,17 @@ section.tinderslide {
   @media (max-width: 400px) {
     .section.profile h3 {
       margin: 0px auto; } }
+
 .section.profile .update-info .row {
   margin: 10px 0px; }
+
 .section.profile .update-info .input {
   border: 1px solid black; }
+
 .section.profile .edit {
   margin-top: 40px;
   padding-bottom: 80px;
-  border-top: 2px solid #818181; }
+  border-top: 2px solid #818080; }
   .section.profile .edit img {
     height: 150px;
     width: 150px; }
@@ -700,10 +768,13 @@ section.tinderslide {
     text-align: center;
     width: 50%;
     margin: 0px 25%; }
+
 .section.profile .col-sm-4 {
   margin: 20px auto; }
+
 .section.profile .col-xs-6 {
   padding: 0px; }
+
 .section.profile .grade {
   border: 3px solid #fff;
   border-radius: 50%;
@@ -754,6 +825,7 @@ section.tinderslide {
   .section.leaderboard .leader-nav .btn.active {
     color: #343434;
     border-color: #343434; }
+
 .section.leaderboard .board {
   height: 200px;
   overflow: hidden;
@@ -775,13 +847,16 @@ section.tinderslide {
       display: inline-block; }
     .section.leaderboard .board li div {
       text-align: center; }
+
 .section.leaderboard ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px; }
+
 .section.leaderboard ::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
+
 .section.leaderboard .points {
   border: 2px solid #fff;
   border-radius: 50%;
@@ -794,24 +869,22 @@ section.tinderslide {
 @media (max-height: 480px) {
   .level-group .minimal {
     margin: 6px; }
-
   .section.leaderboard .board {
     height: 150px; }
-
   .section, .subsection {
     margin-top: 8px; }
     .section button.nav-bar, .subsection button.nav-bar {
-      top: -42px; } }
+      top: -42px; }
+  .end.match .matchList {
+    height: calc(100% - 260px); } }
+
 @media (max-height: 680px) {
   h1, h2, h3, h4 {
     margin: 4px; }
-
   h2 {
     font-size: 28px; }
-
   h3 {
     font-size: 22px; }
-
   .section.profile .edit .cloudinary-button {
     font-size: 12px; }
   .section.profile .edit .image_upload {
@@ -820,5 +893,9 @@ section.tinderslide {
     height: 100px;
     width: 100px;
     margin-top: 20px; } }
+
+@media (max-width: 426px) {
+  .timer-wrap {
+    margin-left: 5%; } }
 
 /*# sourceMappingURL=core.css.map */

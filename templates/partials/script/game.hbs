@@ -186,8 +186,6 @@ $('#btn-save-profile').on('click', function(e) {
 
 $('[data-level]').on('click', function(e) {
 
-    console.log($(this).data('level'));
-
     if (playing == false)
       StartLevel($(this).data('level'));
 
@@ -291,7 +289,7 @@ $('[data-level]').on('click', function(e) {
 
           // Fade in the game, out the profile
           $('.ACTIVE').removeClass('ACTIVE').fadeOut(function(){
-            $('#points-counter').html('0');
+            $('#points-counter #points-text').html('0');
             $('.game').addClass('ACTIVE').fadeIn();
             playing = true;
 

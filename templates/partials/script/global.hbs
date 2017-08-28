@@ -158,9 +158,11 @@ $(document).ready(function() {
 
 		$('.item:not(.open)').height(slideheight);
 
+		// Match List Height check
+
 		// Get all absolutely-positioned elements
 		var outerAbsolutes = 
-		$('#wrapper :not(.leaderboard, .subsection, .section, .tinderslide *, .buttons, .nav-bar, .alert *, .glide *, .modal)')
+		$('#wrapper :not(.leaderboard, .subsection, .section, .tinderslide *, .buttons, .nav-bar, #points-counter, .lives-wrap, .alert *, .glide *, .modal, #back-btn)')
 		.filter(function(){
 		  return ($(this).css('position') == 'absolute');
 		});

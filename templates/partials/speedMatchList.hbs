@@ -1,24 +1,31 @@
-<div class="modal-wrap match">
-	<div class="modal-inner match">
+<div class="modal-wrap match end">
+	<div class="modal-inner match end">
 
-		<h3 class="message">{{message}}</h3>
-
-		<div class="match-list">
-
-		{{#each match}}
-
-			<div class="match-inner">
-				<img src="{{{cloudinaryUrl profiles.[0] width=200 height=200 quality=80}}}" />
-				{{{rationale.html}}}
-			</div>
-
-		{{/each}}
-
-		</div>
+		<h3>You got {{score}} points! </h3>
+		<p>Check out where you stand on the leaderboard by going back to the menu, or replay to get a higher score!</p>
 
 		<div class="button-group">
 
-			<input id="back-btn" data-keep_enabled="true" class="submit" type="submit" name="submit" value="continue">
+			<button class="minimal btn replay" id="replay-btn">replay</button>
+
+			<button onclick="location.reload()" id="back-btn" class="submit minimal btn">back to menu</button>
+
+		</div>
+
+		<div class="match-list">
+
+			<div class="match-scroll">
+
+			{{#each matchList}}
+
+				<div class="match-inner">
+					<img src="{{{cloudinaryUrl profiles.[0] width=80 height=80 quality=80}}}" />
+					{{{rationale.html}}}
+				</div>
+
+			{{/each}}
+
+			</div>
 
 		</div>
 

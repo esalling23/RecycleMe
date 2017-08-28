@@ -280,21 +280,23 @@ button, .btn, input {
 	background: $tinder-black;
 	color: $tinder-white;
 	z-index: 500000;
-	font-size: 24px;
 	display: none;
 	height:100%;
 	width:100%;
 
 	.text {
+		padding: 10px;
 		* {
-			margin-top: 8px;
+			margin-top: 20px;
 		}
 	}
 
 	.timer {
-		height: 80px;
+		height: 120px;
 		width: 80px;
+		line-height: 120px;
 		margin: 10px auto;
+		font-size: 46px;
 	}
 
 	#skip {
@@ -577,7 +579,7 @@ section.tinderslide {
 		 	height: calc(100% - 120px) !important;
 		 	max-height: 100%;
 		 	left: 0px;
-		 	top: -105px;
+		 	top: -80px;
 		 	z-index: 2500;
 
 		 }
@@ -660,13 +662,75 @@ section.tinderslide {
 		font-size: 16px;
 	}
 	#back-btn {
-    bottom: 20px;
-    position: absolute;
-    left: calc(50% - 100px);
-    width: 200px;
-    height: 40px;
-    font-size: 24px;
+	    bottom: 20px;
+	    position: absolute;
+	    left: calc(50% - 100px);
+	    width: 200px;
+	    height: 40px;
+	    font-size: 24px;
 	}
+
+	&.match {
+
+		button {
+			height: 30px;
+			line-height: 26px;
+		}
+
+		#back-btn {
+			bottom: 10px;
+		}
+
+		.match-list {
+			visibility: hidden;
+			height: calc(100% - 320px);
+			overflow: hidden;
+			margin: 20px auto;
+			border: 1px solid $tinder-white;
+
+			.match-scroll {
+				height: calc(100% - 12px);
+				padding: 0px 4px;
+				overflow-y: scroll;
+				overflow-x: hidden;
+
+				.match-inner {
+					background-color: $tinder-red;
+					height: 80px;
+					width: 100%;
+					display: table;
+					margin: 5px auto;
+					padding: 4px 8px;
+
+					* {
+						display: table-cell;
+						vertical-align: middle;
+					}
+
+					img {
+						height: 60px;
+						width: 60px;
+						margin: 5px; 
+					}
+
+					p {
+						line-height: 1;
+					}
+
+				}
+			}
+		}
+
+		h3 { 
+			font-size: 3em;
+		}
+
+		p {
+			font-size: 1em;
+			margin-top: 10px;
+		}
+	}
+
 }
 
 .alert {
@@ -783,6 +847,7 @@ section.tinderslide {
 	p {
 		margin: 16px;
 		font-size: 1.5em;
+		line-height: 1;
 	}
 
 	input {
@@ -798,6 +863,7 @@ section.tinderslide {
 
 .level.header {
 	margin-top: -20px;
+	height: 100px;
 }
 
 .game-level {
@@ -810,37 +876,48 @@ section.tinderslide {
   height: 80px;
   background: $tinder-red;
   color: $tinder-white;
-  position: relative;
-  display: inline-block;
-  width: 80px;
-  margin: 20px auto;
-  border-radius: 50%;
-  border: 2px solid $tinder-black;
-  line-height: 76px;
+  position: absolute;
+  width: 50%;
+  margin: 0px auto;
+  margin-top: 20px;
+  border: 0px;
+  left: 25%;
 
-
-  // Switch it up for free level
-  &.free {
-
-  	#points-tag {
-  		display: block;
+	#points-tag {
+	    font-size: 18px;
+	    display: block;
+	    height: 24px;
+	    line-height: 32px;
   	}
 
-  }
+  	#points-text {
+	    display: block;
+	    height: 42px;
+	    line-height: 1.5;
+  	}
+
 }
 
 .lives-wrap {
-	height: 40px;
+	height: auto;
+    width: 10%;
+    position: absolute;
+    right: 40px;
+    top: 10px;
 	.life {
 		background-image: url('/images/like.png');
 		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
+	    height: 20px;
+	    position: relative;
+	    display: block;
+	    width: 40px;
 
 		@include transition(all, 0.5s);
 
 		&.loss {
-			background-filter: grayscale(100%);
+			filter: grayscale(100%);
 		}
 	}
 }
@@ -848,10 +925,11 @@ section.tinderslide {
 .timer-wrap {
 	color: $tinder-red;
 	height: 80px;
-	width: 80px;
+	width: 40px;
 	display: inline-block;
 	float: left;
 	margin-top: 20px;
+	margin-left: 10%;
 
 	#time {
 		line-height: 80px;
@@ -1157,6 +1235,13 @@ section.tinderslide {
 		}
 	}
 
+	.end.match {
+
+		.matchList {
+			height: calc(100% - 260px);
+		}
+	}
+
 }
 
 @media(max-height: 680px) {
@@ -1185,8 +1270,12 @@ section.tinderslide {
 			width: 100px;
 			margin-top: 20px;
 		}
-
 	}
-	
+}
 
+@media(max-width: 426px) {
+
+	.timer-wrap {
+		margin-left: 5%;
+	}
 }

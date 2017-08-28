@@ -45,14 +45,12 @@
     var display = $('#time'), 
         readyDisplay = $('#ready-timer'), 
         counting = false, 
-        countdown = null;
+        countdown = null, 
+        timerSize;
 
     function timer(duration, display, anim, callback) {
       counting = true;
       var time = duration;
-
-      if (anim)
-        $(display).css('font-size', '42px');
 
       $(display).text(time);
 
@@ -61,7 +59,7 @@
       countdown = setInterval(function() {
 
         if (anim) {
-          $(display).css('font-size', '42px');
+          $(display).css('font-size', timerSize);
           $(display).animate({
             'font-size': '0px'
           }, 900)
@@ -74,6 +72,7 @@
 
         if(time <= -1) {
           counting = false;
+          $(display).css('font-size', timerSize);
           callback();
         }
       }, 1000);
@@ -81,24 +80,24 @@
     }
 
     function getReady() {
-      console.log("get ready")
       $(readyDisplay).show(function(){
 
         setTimeout(function(){
 
           var text = $(readyDisplay).find('#ready-timer-text');
+          timerSize = $(text).css('font-size');
 
           $(text).show(function() {
               // Are you ready countdown
-            timer(5, text, false, function(){
+            timer(5, text, true, function(){
               $(readyDisplay).hide();
-              free();
+              free(true);
             });
             // Skip the countdown for advanced players
             $(readyDisplay).find('#skip').on('click', function(){
               clearInterval(countdown);
               $(readyDisplay).hide();
-              free();
+              free(true);
             });
           });
           
@@ -109,7 +108,10 @@
     }
 
     // Each Item Count
-    function free() {
+    function free(first) {
+
+      if (first)
+        timerSize = $(display).css('font-size');
 
       // Was that the last item?? Stop the loop
       if ($('.level .item:not(.gone)').length == 0)
@@ -124,10 +126,10 @@
       // Timer
       timer(5, display, true, function(){
         // They haven't chosen in time
-        UpdateScore(-1);
-
         currentItem = $(document).find('.level .item:not(.gone)').last();
-        $(currentItem).addClass('gone').addClass('loss');
+        ShowMatch(currentItem, false);
+
+        $(currentItem).addClass('gone');
 
         clearInterval(countdown);
         clearScreen();
@@ -161,8 +163,13 @@
       // Save Matches/Misses for the end
       matchList.push({ item: modalId, match: match });
 
-      if (!match)
+      if (!match) {
+        $(item).addClass('loss');
         $('.lives-wrap').find('.life:not(.loss)').first().addClass('loss');
+        UpdateScore(-1);
+      } else {
+        UpdateScore(1);
+      }
 
       return;
     }
@@ -201,48 +208,10 @@
     });
   }
 
-  function CheckSpecial(item, special) {
-    // check if item is recyclable
-    if ($(item).hasClass(special)) {
-      UpdateScore(1);
-      ShowMatch(item, true);
-    } else {
-      ShowMatch(item, false);
-      UpdateScore(-1);
-    }
-  }
+  function CheckItem(item, match) {
 
-  function CheckTrash(item) {
-    // check if item is trash
-    if ($(item).hasClass('Trash')) {
-      UpdateScore(1);
-      ShowMatch(item, true);
-    } else {
-      ShowMatch(item, false);
-      UpdateScore(-1);
-    }
-  }
+    ShowMatch(item, match);
 
-  function CheckRecycle(item) {
-    // check if item is recyclable
-    if ($(item).hasClass('Recycle')) {
-      UpdateScore(1);
-      ShowMatch(item, true);
-    } else {
-      ShowMatch(item, false);
-      UpdateScore(-1);
-    }
-  }
-
-  function CheckCompost(item) {
-    // check if item is recyclable
-    if ($(item).hasClass('Compost')) {
-      UpdateScore(1);
-      ShowMatch(item, true);
-    } else {
-      ShowMatch(item, false);
-      UpdateScore(-1);
-    }
   }
 
   $('.btn-handler').unbind('click').on('click', function(e){
@@ -282,7 +251,7 @@
              e.preventDefault();
             // Check Item
             $(currentItem).addClass('gone').addClass('trashed');
-            CheckTrash(currentItem);
+            CheckItem(currentItem, $(currentItem).hasClass('Trash'));
 
             $(this).unbind('click');
 
@@ -293,15 +262,15 @@
           });
       });
     } else {
-      // Check Item
 
+      // Check Item
       if (!tutorial && counting == true) {
         free();
         clearScreen();
       }
 
       $(currentItem).addClass('gone').addClass('trashed');
-      CheckTrash(currentItem);
+      CheckItem(currentItem, $(currentItem).hasClass('Trash'));
       clicking = false;
     }
 
@@ -331,7 +300,7 @@
            e.preventDefault();
           // Check Item
           $(currentItem).addClass('gone').addClass('trashed');
-          CheckTrash($(currentItem));
+          CheckItem(currentItem, $(currentItem).hasClass('Trash'));
           $(this).unbind('click');
           $('.alert').fadeOut();
           $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
@@ -347,7 +316,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('trashed');
-      CheckTrash($(currentItem));
+      CheckItem($(currentItem), $(currentItem).hasClass('Trash'));
       clicking = false;
     }
 
@@ -378,7 +347,8 @@
              e.stopPropagation();
              e.preventDefault();
             $(currentItem).addClass('gone').addClass('recycled');
-            CheckRecycle($(currentItem));
+
+            CheckItem(currentItem, $(currentItem).hasClass('Recycle'));
             $(this).unbind('click');
             $('.alert').fadeOut();
             $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
@@ -393,7 +363,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('recycled');
-      CheckRecycle(currentItem);
+      CheckItem(currentItem, $(currentItem).hasClass('Recycle'));
       clicking = false;
     }
     
@@ -423,7 +393,7 @@
              e.preventDefault();
             // Check Item
             $(currentItem).addClass('gone').addClass('recycled');
-            CheckRecycle($(currentItem));
+            CheckItem(currentItem, $(currentItem).hasClass('Recycle'));
             $(this).unbind('click');
             $('.alert').fadeOut();
             $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
@@ -439,7 +409,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('recycled');
-      CheckRecycle($(currentItem));
+      CheckItem(currentItem, $(currentItem).hasClass('Recycle'));
       clicking = false;
     }
 
@@ -469,7 +439,7 @@
              e.stopPropagation();
             // Check item
             $(currentItem).addClass('gone').addClass('composted');
-            CheckCompost(currentItem);
+            CheckItem(currentItem, $(currentItem).hasClass('Compost'));
             $(this).unbind('click');
             $('.alert').fadeOut();
             $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
@@ -485,7 +455,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('composted');
-      CheckCompost(currentItem);
+      CheckItem(currentItem, $(currentItem).hasClass('Compost'));
       clicking = false;
     }
 
@@ -546,7 +516,10 @@
                     e.stopPropagation();
                     // Check Item
                     $(currentItem).addClass('gone').addClass('specialPick');
-                    CheckSpecial(currentItem, option.attr('id'));
+
+                    var choice = option.attr('id');
+                    CheckItem(currentItem, $(currentItem).hasClass(choice));
+
                     SpecialReset();
 
                     $('.modal.special').fadeOut();
@@ -566,7 +539,10 @@
                 }
 
                 $(currentItem).addClass('gone').addClass('specialPick');
-                CheckSpecial(currentItem, option.attr('id'));
+
+                var choice = option.attr('id');
+                CheckItem(currentItem, $(currentItem).hasClass(choice));
+
                 SpecialReset();
 
                 $('.modal.special').fadeOut();
@@ -690,38 +666,46 @@
   	points = points + num;
 
     // Update player score
-    $('#points-counter #points-text').html(points);
+    $('#points-counter #points-text').text(points);
 
   	// Check if this is the last card in the stack - end the level
-  	if ($('.level .item:not(.gone)').length == 0 || $('.level .item.loss').length >= 3)
+  	if ($('.level .item:not(.gone)').length == 0 || $('.level .life.loss').length >= 3)
   		end = true;
   	
   	if (end === true) {
 
-      if (tutorial) {
-        clearInterval(countdown);
-      }
-
-	  	// Send player data
-	  	var data = {
-			  id: window.playerId,
-			  score: points, 
-			  level: $('.level.tinderslide').data('level')
+      // Send player data
+      var data = {
+        id: window.playerId,
+        score: points, 
+        level: $('.level.tinderslide').data('level')
       };
 
-      var level = $('.game-level .level').data('level');
-      var tries = $('.game-level .level[data-level='+ level +']').data('tries')
+      if (!tutorial) {
+        clearInterval(countdown);
+        data.matchList = matchList;
+      }
+
+      var level = $('.game-level .level').data('level').toString();
+      var tries = $('.game-level .level[data-level="'+ level +'"]').data('tries')
 
       if (!tries)
-        $('.game-level .level[data-level='+ level +']').data('tries', 1);
+        $('.game-level .level[data-level="'+ level +'"]').data('tries', 1);
       else
-        $('.game-level .level[data-level='+ level +']').data('tries', tries + 1);
+        $('.game-level .level[data-level="'+ level +'"]').data('tries', tries + 1);
 
 	  	$.get("/api/game/", data, function(data){
+
 	  		// Show that end-of-level modal
         $('.buttons').hide();
 
 	  		$('.modal.end').html(data.html).fadeIn(function(){
+
+          if ($('.match-list').height() > $('.match-scroll').height()) {
+            $('.match-list').css('height', $('.match-scroll').height());
+          }
+
+          $('.match-list').css('visibility', 'visible')
 
           $('.btn.replay').unbind('click').on('click', function(){
             StartLevel(level);

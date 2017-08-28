@@ -144,26 +144,34 @@ exports.update = function(req, res) {
                 }
 
             } else {
+                var itemList = items;
+                var matchList = [];
+                _.each(itemList, function(item) {
+                    _.each(req.query.matchList, function(match) {
+                        if (item.item_key === match.item) {
+                            item.match = match.match;
+                            matchList.push(item);
+                        }
+                    });
+                });
+
                 player.leader = score;
             }
 
-
-            if (player.levelOne && player.levelTwo && player.levelThree) {
+            if (!player.completed && player.levelOne && player.levelTwo && player.levelThree) {
                 player.completed = true;
             }
 
             player.save();
 
             var data = {
-                player: player, 
-                passed: passed, 
-                score: score, 
-                total: total, 
-                grade: grade, 
-                next: level + 1
+                player: player,  
+                score: score,
             };
 
-            if (level == 'Free') {
+            if (level == '*') {
+
+                data.matchList = matchList;
 
                 Templates.Load('partials/speedMatchList', data, (html) => {
 
@@ -173,6 +181,10 @@ exports.update = function(req, res) {
 
             } else {
 
+                data.total = total;
+                data.grade = grade;
+                data.passed = passed;
+                data.next = level + 1;
 
                 Templates.Load('partials/end', data, (html) => {
 
@@ -220,8 +232,7 @@ exports.level = function(req, res) {
             if (req.query.level === '*') {
                 data.level = 'Free';
                 data.items = _.sample(item, 31);
-            }
-            else
+            } else
                 data.items = level(item, req.query.level);
 
             Player.model.findOne({ '_id': req.query.player }).exec((err, player) => {
