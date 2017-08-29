@@ -646,9 +646,12 @@ section.tinderslide {
 		position: absolute;
 		background-color: white;
 		height: calc(100% - 70px);
+		width: 100%;
 
 		img {
 			height: 60%;
+			width: auto;
+			position: relative;
 			max-height: 160px;
 		}
 	}
