@@ -61,7 +61,7 @@ var clicking = false,
         var csv = event.target.result;
         var players = $.csv.toArrays(csv);
 
-        _.each(players, function(player){
+        _.each(players, function(player, index){
           console.log(player)
           var data = {
             'name.first': player[0],
@@ -74,17 +74,28 @@ var clicking = false,
 
             console.log(data);
 
-            if (!data)
+            if (!data) {
+              // Do some checks
               return;
+            }
+
+
 
             // Notify success
-            $('#contents').append('<li>' + data.player.email + '</li>');
+            $('#contents').append('<li class="success-' + data.success + '">' + data.player.email + '</li>');
 
 
           })
           .error(function(err) {
               alert( "error" + err );
           });
+
+          if (index == players.length - 1) {
+            $('.msg').text('All done! Go check out your new students in Keystone!');
+          } else {
+            $('.msg').text('Working!! Do not reload!');
+          }
+
         });
                 
       };

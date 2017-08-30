@@ -257,19 +257,20 @@ button, .btn, input {
 	display: inline;
 }
 
+// Admin
+.admin {
+	#contents {
+		height: 100%;
 
-.modal-inner {
-	background: white;
-	border: 3px black solid;;
-	width: 100%;
-	height: 100%;
-
-}
-
-.modal {
-	position: absolute;
-	left: auto;
-	right: auto; 
+		li {
+			&.success-true {
+				color: $tinder-red;
+			}
+			&.success-false {
+				color: $tinder-black;
+			}
+		}
+	}
 }
 
 // Login
@@ -302,6 +303,21 @@ button, .btn, input {
 }
 
 // MODALS
+
+
+.modal-inner {
+	background: white;
+	border: 3px black solid;;
+	width: 100%;
+	height: 100%;
+
+}
+
+.modal {
+	position: absolute;
+	left: auto;
+	right: auto; 
+}
 
 .modal-wrap {
 

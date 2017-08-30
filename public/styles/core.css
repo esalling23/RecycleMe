@@ -76,7 +76,7 @@ body, html {
 button.back {
   position: absolute;
   top: -55px;
-  color: #ff6a6a;
+  color: #1cd87d;
   border: 0px;
   background: transparent;
   box-shadow: none; }
@@ -129,12 +129,12 @@ button.nav-bar {
   color: white; }
 
 .minimal {
-  border: 2px solid #ff6a6a;
+  border: 2px solid #1cd87d;
   border-radius: 2%;
   display: inline;
   padding: 0px 4px;
   margin: 0px 4px 0px 0px;
-  color: #ff6a6a;
+  color: #1cd87d;
   background-color: transparent;
   -moz-transition: all, 0.5s;
   -o-transition: all, 0.5s;
@@ -148,26 +148,26 @@ button:not(:disabled):focus, button:not(:disabled):active, .btn:not(:disabled):f
 
 button:not(:disabled).minimal:hover, button:not(:disabled).minimal:focus, .btn:not(:disabled).minimal:hover, .btn:not(:disabled).minimal:focus, input:not(:disabled).minimal:hover, input:not(:disabled).minimal:focus {
   background-color: white;
-  color: #d00000;
-  border: 2px solid #d00000; }
+  color: #0a512f;
+  border: 2px solid #0a512f; }
 
 button:disabled, .btn:disabled, input:disabled {
-  color: #ffd0d0;
-  border: 2px solid #ffd0d0; }
+  color: #6eecaf;
+  border: 2px solid #6eecaf; }
 
 .maximal {
   border: 0px;
   display: inline;
   padding: 8px;
   color: white;
-  background-color: #ff6a6a;
+  background-color: #1cd87d;
   -moz-transition: all, 0.5s;
   -o-transition: all, 0.5s;
   -webkit-transition: all, 0.5s;
   transition: all, 0.5s; }
   .maximal:hover, .maximal:focus {
     background-color: white;
-    color: #ff6a6a; }
+    color: #1cd87d; }
 
 .left-slant {
   transform: rotate(-35deg); }
@@ -177,23 +177,19 @@ button:disabled, .btn:disabled, input:disabled {
   margin: 4px auto; }
   .app-header h2 {
     font-size: 24px;
-    color: #ff6a6a;
+    color: #1cd87d;
     margin-top: 0px;
     margin-bottom: 4px; }
 
 .header * {
   display: inline; }
 
-.modal-inner {
-  background: white;
-  border: 3px black solid;
-  width: 100%;
+.admin #contents {
   height: 100%; }
-
-.modal {
-  position: absolute;
-  left: auto;
-  right: auto; }
+  .admin #contents li.success-true {
+    color: #1cd87d; }
+  .admin #contents li.success-false {
+    color: #343434; }
 
 .welcome p {
   width: 60%;
@@ -212,8 +208,19 @@ button:disabled, .btn:disabled, input:disabled {
     margin-bottom: 10px; }
     #login input.btn:hover, #login input.btn:focus {
       color: #fff;
-      background-color: #ff6a6a;
+      background-color: #1cd87d;
       transition: all .2s ease-in-out; }
+
+.modal-inner {
+  background: white;
+  border: 3px black solid;
+  width: 100%;
+  height: 100%; }
+
+.modal {
+  position: absolute;
+  left: auto;
+  right: auto; }
 
 .modal-wrap {
   position: fixed;
@@ -298,12 +305,12 @@ button:disabled, .btn:disabled, input:disabled {
     margin-bottom: 40px;
     padding: 0px; }
   #rules-glide .glide__arrows .glide__arrow {
-    background-color: #ff6a6a;
+    background-color: #1cd87d;
     color: #fff;
     border: 0px;
     transition: all .1s ease-in-out; }
     #rules-glide .glide__arrows .glide__arrow:not(.disabled):hover, #rules-glide .glide__arrows .glide__arrow:not(.disabled):focus {
-      background-color: #ff6a6a;
+      background-color: #1cd87d;
       color: #fff;
       border: 0px;
       transform-origin: 0 0;
@@ -351,7 +358,8 @@ section.tinderslide {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     background-repeat: no-repeat;
-    background-size: cover; }
+    background-size: contain;
+    background-position: center; }
     section.tinderslide li:not(.glide__slide) h2 {
       text-align: left;
       position: relative; }
@@ -442,7 +450,8 @@ section.tinderslide {
 .end button {
   height: 40px;
   width: 100px;
-  font-size: 16px; }
+  font-size: 16px;
+  margin: 8px auto; }
 
 .end #back-btn {
   bottom: 20px;
@@ -450,7 +459,8 @@ section.tinderslide {
   left: calc(50% - 100px);
   width: 200px;
   height: 40px;
-  font-size: 24px; }
+  font-size: 24px;
+  margin: 0 auto; }
 
 .alert {
   z-index: 3000;
@@ -463,9 +473,12 @@ section.tinderslide {
     padding: 8px;
     position: absolute;
     background-color: white;
-    height: calc(100% - 70px); }
+    height: calc(100% - 70px);
+    width: 100%; }
     .alert .image img {
       height: 60%;
+      width: auto;
+      position: relative;
       max-height: 160px; }
 
 .alert-inner {
@@ -545,7 +558,7 @@ section.tinderslide {
 #points-counter {
   font-size: 36px;
   height: 80px;
-  background: #ff6a6a;
+  background: #1cd87d;
   color: #fff;
   position: relative;
   display: block;
@@ -618,6 +631,10 @@ section.tinderslide {
   margin-top: 40px;
   padding-bottom: 80px;
   border-top: 2px solid #818080; }
+  .section.profile .edit #team {
+    border: 1px solid #343434; }
+  .section.profile .edit #username {
+    border: 1px solid #343434; }
   .section.profile .edit img {
     height: 150px;
     width: 150px; }
@@ -629,11 +646,11 @@ section.tinderslide {
     display: none; }
   .section.profile .edit .cloudinary-button {
     width: 150px;
-    border: 2px solid #ff6a6a;
+    border: 2px solid #1cd87d;
     border-radius: 2%;
     display: inline;
     padding: 4px 8px;
-    color: #ff6a6a;
+    color: #1cd87d;
     background-color: #fff;
     background: #fff !important;
     -moz-transition: all, 0.5s;
@@ -645,8 +662,8 @@ section.tinderslide {
       box-shadow: none !important;
       outline: 0px !important;
       background-color: white;
-      color: #d00000;
-      border: 2px solid #d00000; }
+      color: #0a512f;
+      border: 2px solid #0a512f; }
   .section.profile .edit .image_upload {
     margin: 10px; }
   .section.profile .edit .save-msg {
@@ -668,7 +685,7 @@ section.tinderslide {
   height: 100px;
   width: 100px;
   color: #fff;
-  background-color: #ff6a6a;
+  background-color: #1cd87d;
   display: inline-block; }
   .section.profile .grade div {
     font-size: 36px;
@@ -700,6 +717,14 @@ section.tinderslide {
   height: 80px;
   font-size: 18px;
   margin: 12px; }
+
+.section.leaderboard #coming-soon {
+  height: 80px;
+  line-height: 64px;
+  background: #1cd87d;
+  color: white;
+  margin-top: 120px;
+  padding: 8px; }
 
 .section.leaderboard .leader-nav .btn {
   color: #CECAC1;
@@ -751,7 +776,7 @@ section.tinderslide {
   width: 40px;
   line-height: 40px;
   color: #fff;
-  background-color: #ff6a6a; }
+  background-color: #1cd87d; }
 
 @media (max-height: 480px) {
   .section.leaderboard .board {
@@ -759,7 +784,21 @@ section.tinderslide {
   .section, .subsection {
     margin-top: 8px; }
     .section button.nav-bar, .subsection button.nav-bar {
-      top: -42px; } }
+      top: -42px; }
+  .section.profile .edit p {
+    line-height: 1;
+    font-size: 10px; }
+  .section.profile .edit #btn-save-profile {
+    bottom: 0px !important; }
+  .match h3 {
+    margin-top: 16px;
+    font-size: 3em; }
+  .match img {
+    height: 100px; }
+  .match p {
+    margin: 0px 16px;
+    line-height: 1;
+    font-size: 1.2em; } }
 
 @media (max-height: 680px) {
   h1, h2, h3, h4 {
@@ -768,8 +807,13 @@ section.tinderslide {
     font-size: 28px; }
   h3 {
     font-size: 22px; }
+  .section.profile .edit p {
+    line-height: 1.2; }
+  .section.profile .edit #btn-save-profile {
+    bottom: -20px; }
   .section.profile .edit .cloudinary-button {
-    font-size: 12px; }
+    font-size: 12px;
+    padding: 4px; }
   .section.profile .edit .image_upload {
     margin: 4px; }
   .section.profile .edit .profile-picture {
