@@ -701,8 +701,8 @@
 
 	  		$('.modal.end').html(data.html).fadeIn(function(){
 
-          if ($('.match-list').height() > $('.match-scroll').height()) {
-            $('.match-list').css('height', $('.match-scroll').height());
+          if ($('.match-list').height() > $('.match-inner').length * 100) {
+            $('.match-list').css('height', $('.match-inner').length * 100);
           }
 
           $('.match-list').css('visibility', 'visible')

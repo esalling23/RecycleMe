@@ -927,6 +927,9 @@ section.tinderslide {
 }
 
 .timer-wrap {
+	background: url('/images/stopwatch-2.svg');
+	background-size: 100px 100px;
+	background-repeat: no-repeat;
 	color: $tinder-red;
 	height: 80px;
 	width: 40px;
@@ -1268,7 +1271,7 @@ section.tinderslide {
 
 	.end.match {
 
-		.matchList {
+		.match-list {
 			height: calc(100% - 260px);
 		}
 	}
