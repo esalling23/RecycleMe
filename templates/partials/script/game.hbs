@@ -42,19 +42,19 @@ var clicking = false,
 
       // read the file metadata
       var output = ''
-          output += '<span style="font-weight:bold;">' + escape(file.name) + '</span><br />\n';
+          output += '<span style="font-weight:bold;">' + decodeURI(file.name) + '</span><br />\n';
           output += ' - FileType: ' + (file.type || 'n/a') + '<br />\n';
           output += ' - FileSize: ' + file.size + ' bytes<br />\n';
           output += ' - LastModified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '<br />\n';
 
       // read the file contents
-      printTable(file);
+      printList(file);
 
       // post the results
-      $('#list').append(output);
+      $('#meta-csv').append(output).show();
     }
 
-    function printTable(file) {
+    function printList(file) {
       var reader = new FileReader();
       reader.readAsText(file);
       reader.onload = function(event){
@@ -79,11 +79,23 @@ var clicking = false,
               return;
             }
 
+            var lineBreak = index;
 
+            if (data.success) {
+              // Notify success
+              $('#contents').append('<li class="success-' + data.success + '">' + lineBreak + '. ' + data.player.email + '</li>');
+            } else {
+              var playerID;
+              if (!data.player.email) {
+                playerID = JSON.stringify(data.player, null, '\t');
+              } else 
+                playerID = data.player.email;
 
-            // Notify success
-            $('#contents').append('<li class="success-' + data.success + '">' + data.player.email + '</li>');
+              $('#contents').append("<li class='success-" + data.success + "'>" + lineBreak + ". " + playerID + " - " + data.msg + "</li>");
+            }
 
+            if ($('#contents-scroll-wrap').css('display') == 'none')
+              $('#contents-scroll-wrap').show();
 
           })
           .error(function(err) {

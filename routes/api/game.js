@@ -16,7 +16,7 @@ exports.create = function(req, res) {
     console.log(player.email);
 
     Player.model.findOne({'email': player.email}).exec((err, oldPlayer) => {
-        console.log(err, oldPlayer);
+
         if (oldPlayer) {
             res.send({
                 success: false, 
@@ -28,16 +28,19 @@ exports.create = function(req, res) {
 
             newPlayer.save(function(err, obj) {
 
-                console.log(err, obj);
-
-                if (err) throw err;
-
-                // assert.equal(err.name, 'ValidationError');
-
-                res.send({
-                    success: true, 
-                    player: newPlayer
-                });
+                if (err){
+                    res.send({
+                        success: false, 
+                        msg: 'Error creating player. Stopping at this line.', 
+                        player: player
+                    });
+                    // throw err;
+                } else {
+                    res.send({
+                        success: true, 
+                        player: obj
+                    });
+                }
 
             });
         }
