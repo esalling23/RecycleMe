@@ -278,35 +278,52 @@ button:disabled, .btn:disabled, input:disabled {
   top: -110px; }
 
 .row.special-options {
-  margin-bottom: 60px; }
+  margin-bottom: 60px;
+  height: 500px;
+  overflow: hidden; }
+  .row.special-options .special-scroll {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden; }
 
 .special {
   color: white;
   margin: 0 auto;
   margin-top: 0px;
   background: rgba(0, 0, 0, 0.9); }
-  .special .option {
-    background-color: #4d4d4d;
-    height: 180px;
-    width: 140px;
-    margin: 10px auto;
-    display: inline-block;
-    padding: 5px; }
-    .special .option h3 {
-      font-size: 20px; }
-    .special .option img {
-      height: 80px;
-      width: 80px; }
-    .special .option.selected {
-      border: 1px white solid; }
-    .special .option.open {
-      margin: 0px auto;
-      padding: 20px;
-      height: 100%;
-      width: 300px; }
-      .special .option.open img {
-        height: 180px;
-        width: 180px; }
+  .special .option-wrap {
+    height: 240px;
+    width: 50%;
+    padding: 0px; }
+    .special .option-wrap .option {
+      background-color: #4d4d4d;
+      height: 180px;
+      width: 140px;
+      display: inline-block;
+      padding: 5px; }
+      .special .option-wrap .option h3 {
+        font-size: 20px; }
+      .special .option-wrap .option img {
+        height: 80px;
+        width: 80px; }
+      .special .option-wrap .option.selected {
+        border: 1px white solid; }
+      .special .option-wrap .option.open {
+        margin: 0px auto;
+        padding: 20px;
+        height: 100%;
+        width: 300px; }
+        .special .option-wrap .option.open img {
+          height: 180px;
+          width: 180px; }
+    .special .option-wrap .option-select {
+      width: 140px;
+      margin: 0 auto; }
+      .special .option-wrap .option-select input {
+        width: 70px;
+        border-radius: 0px;
+        margin: 0px;
+        float: left; }
 
 .modal.alert {
   z-index: 1000000; }
@@ -940,6 +957,11 @@ section.tinderslide {
 
   h3 {
     font-size: 22px; }
+
+  .row.special-options {
+    height: 300px; }
+    .row.special-options .profile-text p {
+      line-height: 1; }
 
   .section.profile .edit p {
     line-height: 1.2; }

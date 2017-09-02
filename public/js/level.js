@@ -36,9 +36,13 @@
   function SpecialReset() {
       $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
       $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
+      $('.special-scroll').css('overflow-y', 'scroll');
       $('.option.open').removeClass('open');
-      $('.option').show();
+      $('.option-wrap').css('height', '240px').css('width', '50%');
+      $('.option-wrap, .option-select').show();
+      $('.option-wrap').css('visibility', 'visible');
   }
+
 
   if (level == '*') {
 
@@ -471,23 +475,97 @@
     
     $('.modal.special').fadeIn(function() {
       $(this).find('.btn.close-special').unbind('click').on('click', function(e){
-        $('.modal.special').fadeOut();
+        SpecialReset();
+        setTimeout(function() {
+          $('.modal.special').fadeOut();
+        }, 200)
       });
-      $('.option').unbind('click').on('click', function(e){
+
+      // Option Select
+      $('.option-select input[data-action="select"]').unbind('click').on('click', function(e){
 
         if (counting == false || $(this).hasClass('open'))
           return;
 
-        var option = $(this);
+        console.log()
 
-        $('.option').hide(function(){
+        var option = $(this).closest('.option-wrap').find('.option');
+
+        if (buttonAlertSpecial == true) {
+          // Let the player know what they are doing
+          $('.alert .msg').html('<h2>You are about to choose a special option for this item! Are you sure?</h2>');
+          $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').show();
+          $('.alert').fadeIn(function(){
+            buttonAlertSpecial = false;
+            $(this).find('#alert-abort').on('click', function(e){
+              $(this).unbind('click');
+              $('.alert').fadeOut();
+              $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
+              clicking = false;
+            });
+
+            // Confirm to continue
+            $(this).find('#alert-confirm').on('click', function(e){
+              e.stopPropagation();
+              // Check Item
+              $(currentItem).addClass('gone').addClass('specialPick');
+
+              var choice = option.attr('id');
+              CheckItem(currentItem, $(currentItem).hasClass(choice));
+
+              SpecialReset();
+
+              $('.modal.special').fadeOut();
+              
+              $(this).unbind('click');
+              $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
+              $('.alert').fadeOut();
+              clicking = false;
+              
+            });
+          });
+        } else {
+          // Check Item
+          if (!tutorial && counting == true) {
+            free();
+            clearScreen();
+          }
+
+          $(currentItem).addClass('gone').addClass('specialPick');
+
+          var choice = option.attr('id');
+          CheckItem(currentItem, $(currentItem).hasClass(choice));
+
+          SpecialReset();
+
+          $('.modal.special').fadeOut();
+          clicking = false;
+        }
+      });
+
+      // Option Info
+      $('.option-select input[data-action="info"]').unbind('click').on('click', function(e){
+
+        if (counting == false || $(this).hasClass('open'))
+          return;
+
+        $('.special-scroll').css('overflow', 'hidden');
+        $('.option-select').hide();
+        $('.option-wrap').css('visibility', 'hidden');
+
+        var option = $(this).closest('.option-wrap').find('.option');
+        $(this).closest('.option-wrap').css('height', '100%').css('width', '100%');
+        
+        $('.option-wrap').hide(function(){
           $(option).addClass('open');
           $(option).closest('.col-xs-6').removeClass('col-xs-6').addClass('col-xs-12');
 
           $(option).find('.profile').css('visibility', 'visible').removeClass('hidden');
         });
 
-        $(option).fadeIn(function(){
+        $(option).closest('.option-wrap').fadeIn(function(){
+
+          $(this).css('visibility', 'visible');
 
           $(this).find('.btn').unbind('click').on('click', function(e){
 
@@ -552,7 +630,7 @@
             } else if ($(this).data('action') === 'back') {
               SpecialReset();
               setTimeout(function(){
-                  $('.option').fadeIn();
+                  $('.option-wrap').css('visibility', 'visible');
               }, 100)
 
             }
@@ -560,8 +638,6 @@
           });
 
         });
-
-        
 
       })
     });

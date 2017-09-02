@@ -397,6 +397,14 @@ button, .btn, input {
 
 .row.special-options {
 	margin-bottom: 60px;
+	height: 500px;
+	overflow: hidden;
+
+	.special-scroll {
+		height: 100%;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
 }
 
 .special {
@@ -404,38 +412,53 @@ button, .btn, input {
 	margin: 0 auto;
 	margin-top: 0px;
 	background: rgba(black, .9);
-	.option {
-		background-color: lighten(black, 30%);
-		height: 180px;
-		width: 140px;
-		margin: 10px auto;
-		display: inline-block;
-		padding: 5px;
+	.option-wrap {
+		height: 240px;
+		width: 50%;
+		padding: 0px;
+		.option {
+			background-color: lighten(black, 30%);
+			height: 180px;
+			width: 140px;
+			display: inline-block;
+			padding: 5px;
 
-		h3 {
-			font-size: 20px;
-		}
-
-		img {
-			height: 80px;
-			width: 80px;
-		}
-		&.selected {
-			border: 1px white solid;
-		}
-		&.open {
-			margin: 0px auto;
-			padding: 20px;
-			height: 100%;
-			width: 300px;
-
-			img {
-				height: 180px;
-				width: 180px;
+			h3 {
+				font-size: 20px;
 			}
 
+			img {
+				height: 80px;
+				width: 80px;
+			}
+			&.selected {
+				border: 1px white solid;
+			}
+			&.open {
+				margin: 0px auto;
+				padding: 20px;
+				height: 100%;
+				width: 300px;
+
+				img {
+					height: 180px;
+					width: 180px;
+				}
+
+			}
+		}
+		.option-select {
+			width: 140px;
+			margin: 0 auto;
+			input {
+				width: 70px;
+				border-radius:0px;
+				margin: 0px;
+				float: left;
+			}
 		}
 	}
+	
 }
 .modal.alert {
 	z-index: 1000000;
@@ -1359,6 +1382,16 @@ section.tinderslide {
 	}
 	h3 {
 		font-size: 22px;
+	}
+
+	.row.special-options {
+		height: 300px;
+
+		.profile-text {
+			p {
+				line-height: 1;
+			}
+		}
 	}
 
 	.section.profile .edit {

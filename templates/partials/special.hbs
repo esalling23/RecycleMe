@@ -1,19 +1,26 @@
 <h3>What special action should be taken on this item?</h3>
+<p>Scroll through available options below</p>
 
 <div class="row special-options">
-	{{#each special}}
-	<div class="col-xs-6">
-		<div class="option" id="{{this.key}}">
-			<a class="option-profile">{{{cloudinaryUrl this.image.url width=80}}}</a>
-			<h3>{{this.name}}</h3>
-			<div class="profile profile-text hidden">{{{this.text.html}}}</div>
-			<div class="profile button-group hidden">
-				<input data-keep_enabled="true" data-action="back" class="btn minimal btn-handler submit" type="submit" name="submit" value="back">
-				<input data-keep_enabled="true" data-action="select" class="btn minimal btn-handler submit" type="submit" name="submit" value="select">
+	<div class="special-scroll">
+		{{#each special}}
+		<div class="col-xs-6 option-wrap">
+			<div class="option" id="{{this.key}}">
+				<a class="option-profile">{{{cloudinaryUrl this.image.url width=80}}}</a>
+				<h3>{{this.name}}</h3>
+				<div class="profile profile-text hidden">{{{this.text.html}}}</div>
+				<div class="profile button-group hidden">
+					<input data-keep_enabled="true" data-action="back" class="btn minimal btn-handler submit" type="submit" name="submit" value="back">
+					<input data-keep_enabled="true" data-action="select" class="btn minimal btn-handler submit" type="submit" name="submit" value="select">
+				</div>
+			</div>
+			<div class="option-select">
+				<input data-keep_enabled="true" data-action="info" class="btn maximal btn-handler submit" type="submit" name="submit" value="info">
+				<input data-keep_enabled="true" data-action="select" class="btn maximal btn-handler submit" type="submit" name="submit" value="select">
 			</div>
 		</div>
+		{{/each}}
 	</div>
-	{{/each}}
 </div>
 
-<input data-keep_enabled="true" class="btn minimal btn-handler submit close-special" type="submit" name="submit" value="back">
+<input data-keep_enabled="true" class="btn minimal btn-handler submit close-special" type="submit" name="submit" value="back to game">
