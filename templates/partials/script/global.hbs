@@ -116,24 +116,24 @@ $(document).ready(function() {
 
 			var position = {};
 
-			// Check current positions
-			if ($(item).css('left') !== undefined && $(item).css('left') !== null && $(item).css('left') !== 'auto' && $(item).css('left')) {
-				position.left = $(item).css('left');
-			}
+			// // Check current positions
+			// if ($(item).css('left') !== undefined && $(item).css('left') !== null && $(item).css('left') !== 'auto' && $(item).css('left')) {
+			// 	position.left = $(item).css('left');
+			// }
 
-			if ($(item).css('right') !== undefined &&$(item).css('right') !== null && $(item).css('right') !== 'auto' && $(item).css('right')) {
-				position.right = $(item).css('right');
-			}
+			// if ($(item).css('right') !== undefined &&$(item).css('right') !== null && $(item).css('right') !== 'auto' && $(item).css('right')) {
+			// 	position.right = $(item).css('right');
+			// }
 
-			// If left, set it. 
-			if (position.left){
-				$(item).css('left', wrapperLeft);
-			}
-			//If right, set it.
-			if (position.right) {
-				position.right =+ extraWindow;
-				$(item).css('right', position.right);
-			}
+			// // If left, set it. 
+			// if (position.left){
+			// 	$(item).css('left', wrapperLeft);
+			// }
+			// //If right, set it.
+			// if (position.right) {
+			// 	position.right =+ extraWindow;
+			// 	$(item).css('right', position.right);
+			// }
 
 			if (ind == length - 1) {
 				// Call finish function after xxx milaseconds
@@ -159,6 +159,12 @@ $(document).ready(function() {
 		$('.item:not(.open)').height(slideheight);
 
 		// Match List Height check
+		$('.alert img').each(function(i) {
+		    if ($(this).hasClass('cld-responsive')) {
+		        $(this).removeClass('cld-responsive');
+		        $(this).attr('src', $(this).data('src'));
+		    }
+		});
 
 		// Get all absolutely-positioned elements
 		var outerAbsolutes = 

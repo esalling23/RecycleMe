@@ -12,18 +12,39 @@ var Player = keystone.list('Player'),
 // Creating Players Admin
 exports.create = function(req, res) {
     console.log(req.body);
-
     var player = req.body;
-    var newPlayer = new Player.model(player);
 
-    newPlayer.save(function(err) {
-        if (err) throw err;
+    console.log(player.email);
 
-        res.send({
-            success: true, 
-            player: player
-        });
+    Player.model.findOne({'email': player.email}).exec((err, oldPlayer) => {
 
+        if (oldPlayer) {
+            res.send({
+                success: false, 
+                msg: 'Player exists',
+                player: oldPlayer
+            });
+        } else {
+            var newPlayer = new Player.model(player);
+
+            newPlayer.save(function(err, obj) {
+
+                if (err){
+                    res.send({
+                        success: false, 
+                        msg: 'Error creating player. Stopping at this line.', 
+                        player: player
+                    });
+                    // throw err;
+                } else {
+                    res.send({
+                        success: true, 
+                        player: obj
+                    });
+                }
+
+            });
+        }
     });
 
 }

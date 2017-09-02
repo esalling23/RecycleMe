@@ -258,15 +258,43 @@ button, .btn, input {
 	display: inline;
 }
 
+// Admin
+.admin {
 
-.modal-inner {
-	background: white;
-	border: 3px black solid;;
-	width: 100%;
-	height: 100%;
+	#meta-csv {
+		display: none;
+		text-align: left;
+		border: 2px solid $tinder-black;
+		padding: 8px 4px;
 
+	}
+
+	#contents-scroll-wrap {
+		display:none;
+		overflow: hidden;
+		height: 300px;
+		border: 2px solid $tinder-black;
+		#contents {
+			height: 100%;
+			list-style-type: none;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			padding: 0px;
+
+			li {
+				padding: 4px;
+				word-break: break-word;
+
+				&.success-true {
+					color: $tinder-red;
+				}
+				&.success-false {
+					color: $tinder-black;
+				}
+			}
+		}
+	}
 }
-
 .modal {
 	position: absolute;
 	left: auto;
@@ -338,6 +366,21 @@ button, .btn, input {
 }
 
 // MODALS
+
+
+.modal-inner {
+	background: white;
+	border: 3px black solid;;
+	width: 100%;
+	height: 100%;
+
+}
+
+.modal {
+	position: absolute;
+	left: auto;
+	right: auto; 
+}
 
 .modal-wrap {
 
@@ -750,9 +793,10 @@ section.tinderslide {
 		position: absolute;
 		background-color: white;
 		height: calc(100% - 70px);
+		width: 100%;
 
 		img {
-			height: 60%;
+			position: relative;
 			max-height: 160px;
 		}
 	}
@@ -813,7 +857,6 @@ section.tinderslide {
 
 		&.full {
 			width: 100%;
-
 		}
 
 		&.left {
@@ -1081,6 +1124,7 @@ section.tinderslide {
 				color: darken($tinder-red, 30%);
 				border: 2px solid darken($tinder-red, 30%);
 			}
+
 		}
 
 		.image_upload {
@@ -1354,11 +1398,37 @@ section.tinderslide {
 	}
 }
 
+// Small Phones
+@media (max-width: 320px) {
 	
 	
-@media(max-width: 426px) {
+}
 
+// Medium phones
+@media(max-width: 426px) {
 	.timer-wrap {
 		margin-left: 5%;
 	}
 }
+
+// SPECIAL MEDIA QUERIES
+
+// Desktop medium window
+@media (max-width: 768px) and (min-height: 681px) {
+	.cloudinary-button {
+		position: absolute; 
+		left: 10%;
+	}
+}
+
+// Desktop small window
+@media (width: 420px)  and (min-height: 681px) {
+	.cloudinary-button {
+		position: absolute; 
+		left: 0%;
+	}
+}
+
+
+
+
