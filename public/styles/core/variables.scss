@@ -22,7 +22,8 @@ $color-green: #00CB86;
 // Tinder Pallette
 $tinder-green-light: #1cd87d;
 $tinder-green-dark: #007f34;
-$tinder-red: #1cd87d; // Actually green - temporary
+$tinder-green: $tinder-green-light;
+
 $tinder-red-old: #ff6a6a; // Old Tinder red
 $tinder-creme: #fffcf6;
 $tinder-white: #fff;
@@ -36,3 +37,5 @@ $tinder-gradient: linear-gradient(216deg, #ff8a40, #fd5068, #dc4588);
 // Game Variables
 $tinder-height: 400px;
 $tinder-width: 450px;
+
+$tinder-theme: $tinder-green;

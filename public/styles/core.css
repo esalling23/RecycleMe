@@ -202,7 +202,7 @@ button:disabled, .btn:disabled, input:disabled {
       padding: 4px;
       word-break: break-word; }
       .admin #contents-scroll-wrap #contents li.success-true {
-        color: #1cd87d; }
+        color: #ff6a6a; }
       .admin #contents-scroll-wrap #contents li.success-false {
         color: #343434; }
 
@@ -542,12 +542,13 @@ section.tinderslide {
     overflow-y: scroll;
     overflow-x: hidden; }
     .end.match .match-list .match-scroll .match-inner {
-      background-color: #1cd87d;
       height: 80px;
       width: 100%;
       display: table;
       margin: 5px auto;
       padding: 4px 8px; }
+      .end.match .match-list .match-scroll .match-inner.false {
+        background-color: #ff6a6a; }
       .end.match .match-list .match-scroll .match-inner * {
         display: table-cell;
         vertical-align: middle; }
@@ -700,16 +701,17 @@ section.tinderslide {
       filter: grayscale(100%); }
 
 .timer-wrap {
-  background: url("/images/stopwatch-2.svg");
-  background-size: 100px 100px;
+  background: url("/images/stopwatchPNG.png");
+  background-size: 70px;
   background-repeat: no-repeat;
+  background-position: center top;
   color: #1cd87d;
   height: 80px;
-  width: 40px;
+  width: 80px;
   display: inline-block;
   float: left;
   margin-top: 20px;
-  margin-left: 10%; }
+  margin-left: 5%; }
   .timer-wrap #time {
     line-height: 80px;
     font-size: 42px; }
@@ -984,8 +986,14 @@ section.tinderslide {
     line-height: 1;
     font-size: 1.2em; } }
 @media (max-width: 426px) {
+  #points-counter {
+    width: 40%;
+    left: 30%; }
+
   .timer-wrap {
-    margin-left: 5%; } }
+    margin-left: 0px;
+    background-size: 60px;
+    background-position: center 5px; } }
 @media (max-width: 768px) and (min-height: 681px) {
   .cloudinary-button {
     position: absolute;

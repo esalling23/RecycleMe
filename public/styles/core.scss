@@ -110,7 +110,7 @@ body, html {
 button.back {
 	position:absolute;
 	top: -55px;
-	color: $tinder-red;
+	color: $tinder-theme;
 	border: 0px;
 	background: transparent;
 	box-shadow: none;
@@ -184,12 +184,12 @@ button.nav-bar {
 
 
 .minimal {
-	border: 2px solid $tinder-red;
+	border: 2px solid $tinder-theme;
 	border-radius: 2%;
 	display: inline;
 	padding: 0px 4px;
 	margin: 0px 4px 0px 0px;
-	color: $tinder-red;
+	color: $tinder-theme;
 	background-color: transparent;
 
 	@include transition(all, 0.5s);
@@ -206,15 +206,15 @@ button, .btn, input {
 		&.minimal {
 			&:hover, &:focus {
 				background-color: white;
-				color: darken($tinder-red, 30%);
-				border: 2px solid darken($tinder-red, 30%);
+				color: darken($tinder-theme, 30%);
+				border: 2px solid darken($tinder-theme, 30%);
 			}
 		}
 	}
 
 	&:disabled {
-		color: lighten($tinder-red, 20%);
-		border: 2px solid lighten($tinder-red, 20%);
+		color: lighten($tinder-theme, 20%);
+		border: 2px solid lighten($tinder-theme, 20%);
 	}
 }
 
@@ -223,13 +223,13 @@ button, .btn, input {
 	display: inline;
 	padding: 8px;
 	color: white;
-	background-color: $tinder-red;
+	background-color: $tinder-theme;
 
 	@include transition(all, 0.5s);
 
 	&:hover, &:focus {
 		background-color: white;
-		color: $tinder-red;
+		color: $tinder-theme;
 	}
 }
 
@@ -245,7 +245,7 @@ button, .btn, input {
 
 	h2 {
 		font-size: 24px;
-		color: $tinder-red;
+		color: $tinder-theme;
 		margin-top:0px;
 		margin-bottom: 4px;
 	}
@@ -286,7 +286,7 @@ button, .btn, input {
 				word-break: break-word;
 
 				&.success-true {
-					color: $tinder-red;
+					color: $tinder-red-old;
 				}
 				&.success-false {
 					color: $tinder-black;
@@ -358,7 +358,7 @@ button, .btn, input {
 		&.btn {
 			&:hover, &:focus {
 				color: $tinder-white;
-				background-color: $tinder-red;
+				background-color: $tinder-theme;
 				transition: all .2s ease-in-out;
 			}
 		}
@@ -522,13 +522,13 @@ button, .btn, input {
 	}
 	.glide__arrows {
 		.glide__arrow {
-			background-color: $tinder-red;
+			background-color: $tinder-theme;
 			color: $tinder-white;
 			border: 0px;
 			transition: all .1s ease-in-out;
 			&:not(.disabled) {
 				&:hover, &:focus {
-					background-color: $tinder-red;
+					background-color: $tinder-theme;
 					color: $tinder-white;
 					border: 0px;
 					transform-origin: 0 0;
@@ -764,12 +764,16 @@ section.tinderslide {
 				overflow-x: hidden;
 
 				.match-inner {
-					background-color: $tinder-red;
+					
 					height: 80px;
 					width: 100%;
 					display: table;
 					margin: 5px auto;
 					padding: 4px 8px;
+
+					&.false {
+						background-color: $tinder-red-old;
+					}
 
 					* {
 						display: table-cell;
@@ -944,7 +948,7 @@ section.tinderslide {
 #points-counter {
   font-size: 36px;
   height: 80px;
-  background: $tinder-red;
+  background: $tinder-theme;
   color: $tinder-white;
   position: absolute;
   width: 50%;
@@ -992,17 +996,19 @@ section.tinderslide {
 	}
 }
 
+// Free Play timer
 .timer-wrap {
-	background: url('/images/stopwatch-2.svg');
-	background-size: 100px 100px;
+	background: url('/images/stopwatchPNG.png');
+	background-size: 70px;
 	background-repeat: no-repeat;
-	color: $tinder-red;
+	background-position: center top;
+	color: $tinder-theme;
 	height: 80px;
-	width: 40px;
+	width: 80px;
 	display: inline-block;
 	float: left;
 	margin-top: 20px;
-	margin-left: 10%;
+	margin-left: 5%;
 
 	#time {
 		line-height: 80px;
@@ -1129,11 +1135,11 @@ section.tinderslide {
 
 		.cloudinary-button {
 			width: 150px;
-			border: 2px solid $tinder-red;
+			border: 2px solid $tinder-theme;
 			border-radius: 2%;
 			display: inline;
 		    padding: 4px 8px;
-			color: $tinder-red;
+			color: $tinder-theme;
 			background-color: $tinder-white;
 			background: $tinder-white !important;
 
@@ -1144,8 +1150,8 @@ section.tinderslide {
 				box-shadow:none !important;
 				outline: 0px !important;
 				background-color: white;
-				color: darken($tinder-red, 30%);
-				border: 2px solid darken($tinder-red, 30%);
+				color: darken($tinder-theme, 30%);
+				border: 2px solid darken($tinder-theme, 30%);
 			}
 
 		}
@@ -1178,7 +1184,7 @@ section.tinderslide {
 		height: 100px;
 		width: 100px;
 		color: $tinder-white;
-		background-color: $tinder-red;
+		background-color: $tinder-theme;
 		display: inline-block;
 		div {
 			font-size: 36px;
@@ -1241,7 +1247,7 @@ section.tinderslide {
 	#coming-soon {
     height: 80px;
     line-height: 64px;
-    background: $tinder-red;
+    background: $tinder-theme;
     color: white;
     margin-top: 120px;
     padding: 8px;
@@ -1310,7 +1316,7 @@ section.tinderslide {
 		width: 40px;
 		line-height: 40px;
 		color: $tinder-white;
-		background-color: $tinder-red;
+		background-color: $tinder-theme;
 	}
 }
 
@@ -1439,8 +1445,15 @@ section.tinderslide {
 
 // Medium phones
 @media(max-width: 426px) {
+	#points-counter {
+		width: 40%;
+		left: 30%;
+	}
+
 	.timer-wrap {
-		margin-left: 5%;
+		margin-left: 0px;
+	    background-size: 60px;
+	    background-position: center 5px;
 	}
 }
 
