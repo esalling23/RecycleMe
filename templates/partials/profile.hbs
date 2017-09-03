@@ -1,6 +1,6 @@
 <div class="form" id="player-profile">
 
-	<div class="row report">
+	<div class="row report {{#ifeq player.completed true}}complete{{/ifeq}}">
 
 		<h3>Tutorial Levels: </h3>
 
@@ -44,17 +44,16 @@
 				{{/if}}
 			</div>
 		</div>
-
-	{{!-- Free Level --}}
-		<div class="col-xs-12 free-level {{#ifeq player.completed true}}complete{{/ifeq}}">
-			<div class="grade">
-				<div>Leaderboard Points: {{player.leader}}</div>
-				<button class="btn free-play">Play Speed Level</button>
-			</div>
-		</div>
-	
 	</div>
 
+	{{!-- Free Level --}}
+	<div class="row free-level {{#ifeq player.completed true}}complete{{/ifeq}}">
+		<div class="grade">
+			<div>Leaderboard Points: {{player.leader}}</div>
+			<button class="btn free-play">Play Speed Level</button>
+		</div>
+	</div>
+	
 	<form class="edit form row" action="/api/update/{{player._id}}" method="post" enctype="multipart/form-data">
 
 		<h3>Profile: </h3>

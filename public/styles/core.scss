@@ -1121,7 +1121,7 @@ section.tinderslide {
 		margin: 40px auto;
 
 		@media(max-width: 400px) {
-			margin: 0px auto;
+			margin: 10px auto;
 		}
 
 	}
@@ -1208,6 +1208,7 @@ section.tinderslide {
 
 	.free-level {
 		display:none;
+		margin-top: 10px;
 		&.complete {
 			display: block;
 
@@ -1233,6 +1234,21 @@ section.tinderslide {
 				}
 			}
 		}
+	}
+
+	.report {
+
+		&.complete {
+			width: 70%;
+			margin: 0 auto;
+
+			h3 {
+				font-size: 18px;
+				margin: 2px auto;
+
+			}
+		}
+		
 	}
 
 	.col-sm-4 {
@@ -1310,6 +1326,10 @@ section.tinderslide {
 }
 
 .level-group {
+
+    text-align: center;
+    padding-top: 40px;
+
 	.minimal {
 		width: 60%;
 		height: 80px;
@@ -1426,6 +1446,12 @@ section.tinderslide {
 		button.nav-bar {
 		    top: -42px;
 		}
+
+		&.levels {
+			button.nav-bar {
+				top: -3px;
+			}
+		}
 	}
 
 	.end.match {
@@ -1444,6 +1470,10 @@ section.tinderslide {
 
 		#btn-save-profile {
 			bottom: 0px !important;
+		}
+
+		h3 {
+			margin: 4px auto;
 		}
 	}
 
@@ -1488,6 +1518,7 @@ section.tinderslide {
 	}
 
 	.section.profile .edit {
+		margin-top: 20px;
 
 		p {
 			line-height: 1.2;
@@ -1509,6 +1540,12 @@ section.tinderslide {
 			height: 100px;
 			width: 100px;
 			margin-top: 20px;
+		}
+
+		.update-info {
+			p {
+				margin: 0px;
+			}
 		}
 	}
 

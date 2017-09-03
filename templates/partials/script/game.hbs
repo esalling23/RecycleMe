@@ -152,11 +152,14 @@ if (sessionStorage.getItem('new') == "true") {
 
       $('.section.ACTIVE').css({'left': 'auto', 'right': 'auto'});
 
-      animOpts[direction] = '-=4000px'; 
+      animOpts[direction] = '-=4000px';
+
+      $('[data-section]').css('visibility', 'hidden'); 
       
       $('.section.ACTIVE').animate( animOpts, 500, function(){
 
         $(this).toggleClass('ACTIVE');
+        $('[data-section]').css('visibility', 'visible');
 
         $('.section.' + section)
         .css({
