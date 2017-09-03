@@ -131,7 +131,7 @@
       timer(5, display, true, function(){
         // They haven't chosen in time
         currentItem = $(document).find('.level .item:not(.gone)').last();
-        ShowMatch(currentItem, false);
+        ShowMatch(currentItem, false, 'Loss');
 
         $(currentItem).addClass('gone');
 
@@ -159,13 +159,13 @@
   }
 
 
-  function ShowMatch(item, match) {
+  function ShowMatch(item, match, choice) {
 
     var modalId = $(item).find('.item-pane').attr('id');
 
     if (level == '*') {
       // Save Matches/Misses for the end
-      matchList.push({ item: modalId, match: match });
+      matchList.push({ item: modalId, match: match, choice: choice });
 
       if (!match) {
         $(item).addClass('loss');
@@ -212,9 +212,9 @@
     });
   }
 
-  function CheckItem(item, match) {
+  function CheckItem(item, match, choice) {
 
-    ShowMatch(item, match);
+    ShowMatch(item, match, choice);
 
   }
 
@@ -255,7 +255,7 @@
              e.preventDefault();
             // Check Item
             $(currentItem).addClass('gone').addClass('trashed');
-            CheckItem(currentItem, $(currentItem).hasClass('Trash'));
+            CheckItem(currentItem, $(currentItem).hasClass('Trash'), 'Trash');
 
             $(this).unbind('click');
 
@@ -274,7 +274,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('trashed');
-      CheckItem(currentItem, $(currentItem).hasClass('Trash'));
+      CheckItem(currentItem, $(currentItem).hasClass('Trash'), 'Trash');
       clicking = false;
     }
 
@@ -304,7 +304,7 @@
            e.preventDefault();
           // Check Item
           $(currentItem).addClass('gone').addClass('trashed');
-          CheckItem(currentItem, $(currentItem).hasClass('Trash'));
+          CheckItem(currentItem, $(currentItem).hasClass('Trash'), 'Trash');
           $(this).unbind('click');
           $('.alert').fadeOut();
           $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
@@ -320,7 +320,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('trashed');
-      CheckItem($(currentItem), $(currentItem).hasClass('Trash'));
+      CheckItem($(currentItem), $(currentItem).hasClass('Trash'), 'Trash');
       clicking = false;
     }
 
@@ -352,7 +352,7 @@
              e.preventDefault();
             $(currentItem).addClass('gone').addClass('recycled');
 
-            CheckItem(currentItem, $(currentItem).hasClass('Recycle'));
+            CheckItem(currentItem, $(currentItem).hasClass('Recycle'), 'Recycle');
             $(this).unbind('click');
             $('.alert').fadeOut();
             $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
@@ -367,7 +367,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('recycled');
-      CheckItem(currentItem, $(currentItem).hasClass('Recycle'));
+      CheckItem(currentItem, $(currentItem).hasClass('Recycle'), 'Recycle');
       clicking = false;
     }
     
@@ -397,7 +397,7 @@
              e.preventDefault();
             // Check Item
             $(currentItem).addClass('gone').addClass('recycled');
-            CheckItem(currentItem, $(currentItem).hasClass('Recycle'));
+            CheckItem(currentItem, $(currentItem).hasClass('Recycle'), 'Recycle');
             $(this).unbind('click');
             $('.alert').fadeOut();
             $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
@@ -413,7 +413,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('recycled');
-      CheckItem(currentItem, $(currentItem).hasClass('Recycle'));
+      CheckItem(currentItem, $(currentItem).hasClass('Recycle'), 'Recycle');
       clicking = false;
     }
 
@@ -443,7 +443,7 @@
              e.stopPropagation();
             // Check item
             $(currentItem).addClass('gone').addClass('composted');
-            CheckItem(currentItem, $(currentItem).hasClass('Compost'));
+            CheckItem(currentItem, $(currentItem).hasClass('Compost'), 'Compost');
             $(this).unbind('click');
             $('.alert').fadeOut();
             $('.alert #alert-confirm, .alert #alert-abort, .alert .msg').hide();
@@ -459,7 +459,7 @@
       }
 
       $(currentItem).addClass('gone').addClass('composted');
-      CheckItem(currentItem, $(currentItem).hasClass('Compost'));
+      CheckItem(currentItem, $(currentItem).hasClass('Compost'), 'Compost');
       clicking = false;
     }
 
@@ -511,7 +511,7 @@
               $(currentItem).addClass('gone').addClass('specialPick');
 
               var choice = option.attr('id');
-              CheckItem(currentItem, $(currentItem).hasClass(choice));
+              CheckItem(currentItem, $(currentItem).hasClass(choice), option.find('h3').text());
 
               SpecialReset();
 
@@ -534,7 +534,7 @@
           $(currentItem).addClass('gone').addClass('specialPick');
 
           var choice = option.attr('id');
-          CheckItem(currentItem, $(currentItem).hasClass(choice));
+          CheckItem(currentItem, $(currentItem).hasClass(choice), option.find('h3').text());
 
           SpecialReset();
 
@@ -596,7 +596,7 @@
                     $(currentItem).addClass('gone').addClass('specialPick');
 
                     var choice = option.attr('id');
-                    CheckItem(currentItem, $(currentItem).hasClass(choice));
+                    CheckItem(currentItem, $(currentItem).hasClass(choice), option.find('h3').text());
 
                     SpecialReset();
 
@@ -619,7 +619,7 @@
                 $(currentItem).addClass('gone').addClass('specialPick');
 
                 var choice = option.attr('id');
-                CheckItem(currentItem, $(currentItem).hasClass(choice));
+                CheckItem(currentItem, $(currentItem).hasClass(choice), option.find('h3').text());
 
                 SpecialReset();
 
@@ -725,7 +725,9 @@
       e.stopImmediatePropagation();
       e.stopPropagation();
 
-      $(item).removeClass('open');
+      $(item).removeClass('open').animate({
+        'height': slideheight
+      }, 200);
       $(item).find('.item-bio').hide();
       $(this).css('visibility', 'hidden');
 

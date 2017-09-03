@@ -5,6 +5,8 @@ body, html {
   max-height: 100%;
   height: 100%;
   overflow: hidden; }
+  body p, html p {
+    line-height: 1; }
 
 @media (max-width: 400px) {
   .col-xs-4 {
@@ -145,10 +147,12 @@ button:not(:disabled):focus, button:not(:disabled):active, .btn:not(:disabled):f
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
   outline: 0px !important; }
+
 button:not(:disabled).minimal:hover, button:not(:disabled).minimal:focus, .btn:not(:disabled).minimal:hover, .btn:not(:disabled).minimal:focus, input:not(:disabled).minimal:hover, input:not(:disabled).minimal:focus {
   background-color: white;
   color: #0a512f;
   border: 2px solid #0a512f; }
+
 button:disabled, .btn:disabled, input:disabled {
   color: #6eecaf;
   border: 2px solid #6eecaf; }
@@ -187,6 +191,7 @@ button:disabled, .btn:disabled, input:disabled {
   text-align: left;
   border: 2px solid #343434;
   padding: 8px 4px; }
+
 .admin #contents-scroll-wrap {
   display: none;
   overflow: hidden;
@@ -202,9 +207,9 @@ button:disabled, .btn:disabled, input:disabled {
       padding: 4px;
       word-break: break-word; }
       .admin #contents-scroll-wrap #contents li.success-true {
-        color: #ff6a6a; }
+        color: #1cd87d; }
       .admin #contents-scroll-wrap #contents li.success-false {
-        color: #343434; }
+        color: #ff6a6a; }
 
 .modal {
   position: absolute;
@@ -286,6 +291,13 @@ button:disabled, .btn:disabled, input:disabled {
     overflow-y: scroll;
     overflow-x: hidden; }
 
+.close-special {
+  position: absolute;
+  bottom: 0px;
+  width: 100px;
+  left: calc(50% - 50px);
+  margin: 5px; }
+
 .special {
   color: white;
   margin: 0 auto;
@@ -296,7 +308,7 @@ button:disabled, .btn:disabled, input:disabled {
     width: 50%;
     padding: 0px; }
     .special .option-wrap .option {
-      background-color: #4d4d4d;
+      background-color: #4d4c4c;
       height: 180px;
       width: 140px;
       display: inline-block;
@@ -333,9 +345,9 @@ button:disabled, .btn:disabled, input:disabled {
   background-color: rgba(52, 52, 52, 0.9); }
 
 .modal-inner.material-profile {
-  height: 400px;
+  height: 60%;
   width: 80%;
-  margin: 30% auto;
+  margin: 20% auto;
   border: 10px solid #fff;
   border-radius: 3px;
   color: #343434; }
@@ -358,7 +370,7 @@ button:disabled, .btn:disabled, input:disabled {
   #rules-glide .glide__bullets {
     bottom: 20px; }
   #rules-glide .glide__bullet {
-    background-color: #818181; }
+    background-color: #818080; }
     #rules-glide .glide__bullet.active {
       background-color: #343434; }
       #rules-glide .glide__bullet.active:hover, #rules-glide .glide__bullet.active:focus {
@@ -428,7 +440,6 @@ section.tinderslide {
   section.tinderslide .item {
     padding: 0px;
     border: 0px;
-    height: calc(100% - 200px);
     background-position: center;
     max-width: 450px;
     text-align: left;
@@ -517,6 +528,7 @@ section.tinderslide {
   width: 100px;
   font-size: 16px;
   margin: 8px auto; }
+
 .end #back-btn {
   bottom: 20px;
   position: absolute;
@@ -525,19 +537,23 @@ section.tinderslide {
   height: 40px;
   font-size: 24px;
   margin: 0 auto; }
+
 .end.match button {
   height: 30px;
   line-height: 26px; }
+
 .end.match #back-btn {
   bottom: 10px; }
+
 .end.match .match-list {
   visibility: hidden;
-  height: calc(100% - 320px);
+  height: calc(100% - 300px);
   overflow: hidden;
-  margin: 20px auto;
-  border: 1px solid #fff; }
+  margin: 10px auto;
+  border: 1px solid #CECAC1;
+  background: #CECAC1; }
   .end.match .match-list .match-scroll {
-    height: calc(100% - 12px);
+    height: calc(100% - 6px);
     padding: 0px 4px;
     overflow-y: scroll;
     overflow-x: hidden; }
@@ -546,20 +562,32 @@ section.tinderslide {
       width: 100%;
       display: table;
       margin: 5px auto;
-      padding: 4px 8px; }
-      .end.match .match-list .match-scroll .match-inner.false {
-        background-color: #ff6a6a; }
-      .end.match .match-list .match-scroll .match-inner * {
+      padding: 4px 8px;
+      background: #565151; }
+      .end.match .match-list .match-scroll .match-inner .match-choice {
+        width: 100%;
+        height: 30px;
+        padding: 5px 0px;
+        display: table-caption;
+        border-bottom: 2px solid #fff; }
+        .end.match .match-list .match-scroll .match-inner .match-choice.false {
+          background-color: #ff6a6a; }
+        .end.match .match-list .match-scroll .match-inner .match-choice.true {
+          background-color: #1cd87d; }
+      .end.match .match-list .match-scroll .match-inner *:not(.match-choice) {
         display: table-cell;
-        vertical-align: middle; }
+        vertical-align: middle;
+        text-align: left; }
       .end.match .match-list .match-scroll .match-inner img {
         height: 60px;
         width: 60px;
         margin: 5px; }
       .end.match .match-list .match-scroll .match-inner p {
         line-height: 1; }
+
 .end.match h3 {
   font-size: 3em; }
+
 .end.match p {
   font-size: 1em;
   margin-top: 10px; }
@@ -768,14 +796,17 @@ section.tinderslide {
   @media (max-width: 400px) {
     .section.profile h3 {
       margin: 0px auto; } }
+
 .section.profile .update-info .row {
   margin: 10px 0px; }
+
 .section.profile .update-info .input {
   border: 1px solid black; }
+
 .section.profile .edit {
   margin-top: 40px;
   padding-bottom: 80px;
-  border-top: 2px solid #818181; }
+  border-top: 2px solid #818080; }
   .section.profile .edit #team {
     border: 1px solid #343434; }
   .section.profile .edit #username {
@@ -817,10 +848,34 @@ section.tinderslide {
     text-align: center;
     width: 50%;
     margin: 0px 25%; }
+
+.section.profile .free-level {
+  display: none; }
+  .section.profile .free-level.complete {
+    display: block; }
+    .section.profile .free-level.complete .grade {
+      border-radius: 0px;
+      background: transparent;
+      border: 2px solid #1cd87d;
+      color: #1cd87d;
+      width: 70%;
+      height: 60px;
+      margin-top: 4px;
+      padding-top: 0px; }
+      .section.profile .free-level.complete .grade div {
+        font-size: 16px;
+        padding-top: 6px; }
+      .section.profile .free-level.complete .grade button {
+        font-size: 20px;
+        padding-top: 6px;
+        color: #1cd87d; }
+
 .section.profile .col-sm-4 {
   margin: 20px auto; }
+
 .section.profile .col-xs-6 {
   padding: 0px; }
+
 .section.profile .grade {
   border: 3px solid #fff;
   border-radius: 50%;
@@ -828,7 +883,17 @@ section.tinderslide {
   width: 100px;
   color: #fff;
   background-color: #1cd87d;
-  display: inline-block; }
+  display: inline-block;
+  padding: 2px; }
+  .section.profile .grade.complete {
+    height: 70px;
+    width: 70px;
+    padding: 2px 5%; }
+    .section.profile .grade.complete div {
+      font-size: 24px;
+      padding-top: 4px; }
+    .section.profile .grade.complete button.replay {
+      font-size: 10px; }
   .section.profile .grade div {
     font-size: 36px;
     padding-top: 12px;
@@ -844,7 +909,8 @@ section.tinderslide {
     box-shadow: none;
     word-break: break-word;
     word-wrap: break-word;
-    white-space: pre-wrap; }
+    white-space: pre-wrap;
+    line-height: 1; }
     .section.profile .grade button.replay {
       font-size: 14px; }
     .section.profile .grade button.grade-empty {
@@ -858,6 +924,7 @@ section.tinderslide {
   width: 60%;
   height: 80px;
   font-size: 18px;
+  line-height: 1;
   margin: 12px auto; }
   .level-group .minimal.complete {
     height: 50px;
@@ -872,6 +939,7 @@ section.tinderslide {
   color: white;
   margin-top: 120px;
   padding: 8px; }
+
 .section.leaderboard .leader-nav .btn {
   color: #CECAC1;
   background: white;
@@ -883,6 +951,7 @@ section.tinderslide {
   .section.leaderboard .leader-nav .btn.active {
     color: #343434;
     border-color: #343434; }
+
 .section.leaderboard .board {
   height: 200px;
   overflow: hidden;
@@ -904,13 +973,16 @@ section.tinderslide {
       display: inline-block; }
     .section.leaderboard .board li div {
       text-align: center; }
+
 .section.leaderboard ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px; }
+
 .section.leaderboard ::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
+
 .section.leaderboard .points {
   border: 2px solid #fff;
   border-radius: 50%;
@@ -923,24 +995,21 @@ section.tinderslide {
 @media (max-height: 480px) {
   .level-group .minimal {
     margin: 6px; }
-
   .section.leaderboard .board {
     height: 150px; }
-
   .section, .subsection {
     margin-top: 8px; }
     .section button.nav-bar, .subsection button.nav-bar {
       top: -42px; }
-
   .end.match .match-list {
-    height: calc(100% - 260px); }
-
-  .section.profile .edit p {
-    line-height: 1;
-    font-size: 10px; }
-  .section.profile .edit #btn-save-profile {
-    bottom: 0px !important; }
-
+    height: calc(100% - 240px); }
+  .section.profile .edit {
+    margin-top: 10px; }
+    .section.profile .edit p {
+      line-height: 1;
+      font-size: 10px; }
+    .section.profile .edit #btn-save-profile {
+      bottom: 0px !important; }
   .match h3 {
     margin-top: 16px;
     font-size: 3em; }
@@ -950,21 +1019,18 @@ section.tinderslide {
     margin: 0px 16px;
     line-height: 1;
     font-size: 1.2em; } }
+
 @media (max-height: 680px) {
   h1, h2, h3, h4 {
     margin: 4px; }
-
   h2 {
     font-size: 28px; }
-
   h3 {
     font-size: 22px; }
-
   .row.special-options {
     height: 300px; }
     .row.special-options .profile-text p {
       line-height: 1; }
-
   .section.profile .edit p {
     line-height: 1.2; }
   .section.profile .edit #btn-save-profile {
@@ -978,26 +1044,27 @@ section.tinderslide {
     height: 100px;
     width: 100px;
     margin-top: 20px; }
-
   .match h3 {
     margin-top: 16px; }
   .match p {
     margin: 0px 16px;
     line-height: 1;
     font-size: 1.2em; } }
+
 @media (max-width: 426px) {
   #points-counter {
     width: 40%;
     left: 30%; }
-
   .timer-wrap {
     margin-left: 0px;
     background-size: 60px;
     background-position: center 5px; } }
+
 @media (max-width: 768px) and (min-height: 681px) {
   .cloudinary-button {
     position: absolute;
     left: 10%; } }
+
 @media (width: 420px) and (min-height: 681px) {
   .cloudinary-button {
     position: absolute;

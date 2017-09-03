@@ -34,7 +34,8 @@ $(document).ready(function() {
 	var windowsize = $(window).width(),
 		bodysize = $('#wrapper').width(),
 		wrapperLeft = $('#wrapper').offset().left,
-		extraWindow = (windowsize - bodysize)/2;
+		extraWindow = (windowsize - bodysize)/2, 
+		slideheight;
 
 	var imageLoaded = function(parentElem, callback) {
 

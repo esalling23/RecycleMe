@@ -2,15 +2,16 @@
 	<div class="modal-inner match end">
 
 		<h3>You got {{score}} points! </h3>
-		<p>Check out where you stand on the leaderboard by going back to the menu, or replay to get a higher score!</p>
 
-		<div class="button-group">
+		<div class="button-group" style="margin: 10px auto">
 
 			<button class="minimal btn replay" id="replay-btn">replay</button>
 
 			<button onclick="location.reload()" id="back-btn" class="submit minimal btn">back to menu</button>
 
 		</div>
+
+		<p>Scroll through what you got right (green) and wrong (red) below.</p> 
 
 		<div class="match-list">
 
@@ -19,8 +20,10 @@
 			{{#each matchList}}
 
 				<div class="match-inner {{match}}">
-					<img src="{{{cloudinaryUrl profiles.[0] width=80 height=80 quality=80}}}" />
+					<div class="match-choice {{match}}">{{#ifeq choice 'Loss'}}Not sorted on time{{else}}{{#ifeq match 'true'}}Nice! {{/ifeq}}You chose {{choice}}{{/ifeq}}</div>
+
 					{{{rationale.html}}}
+					<img src="{{{cloudinaryUrl profiles.[0] width=80 height=80 quality=80}}}" />
 				</div>
 
 			{{/each}}

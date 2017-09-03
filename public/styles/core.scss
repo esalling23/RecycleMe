@@ -13,6 +13,11 @@ body, html {
 	max-height: 100%;
 	height:100%;
 	overflow: hidden;
+
+	p {
+		line-height: 1;
+	}
+
 }
 
 .col-xs-4 {
@@ -20,6 +25,8 @@ body, html {
 		padding: 0px;
 	}
 }
+
+
 
 
 // Body
@@ -286,10 +293,10 @@ button, .btn, input {
 				word-break: break-word;
 
 				&.success-true {
-					color: $tinder-red-old;
+					color: $tinder-theme;
 				}
 				&.success-false {
-					color: $tinder-black;
+					color: $tinder-red-old;
 				}
 			}
 		}
@@ -407,6 +414,14 @@ button, .btn, input {
 	}
 }
 
+.close-special {
+	position: absolute;
+    bottom: 0px;
+    width: 100px;
+    left: calc(50% - 50px);
+    margin: 5px;
+}
+
 .special {
 	color: white;
 	margin: 0 auto;
@@ -468,9 +483,9 @@ button, .btn, input {
 	background-color: rgba($tinder-black, 0.9);
 }
 .modal-inner.material-profile {
-	height: 400px;
+	height: 60%;
 	width: 80%;
-	margin: 30% auto;
+	margin: 20% auto;
 	border: 10px solid $tinder-white;
 	border-radius: 3px;
 	color: $tinder-black;
@@ -604,7 +619,6 @@ section.tinderslide {
 	.item {
 		padding: 0px;
 		border: 0px;
-		height: calc(100% - 200px);
 		background-position: center;
 		max-width: $tinder-width;
 		text-align: left;
@@ -752,13 +766,14 @@ section.tinderslide {
 
 		.match-list {
 			visibility: hidden;
-			height: calc(100% - 320px);
+			height: calc(100% - 300px);
 			overflow: hidden;
-			margin: 20px auto;
-			border: 1px solid $tinder-white;
+			margin: 10px auto;
+			border: 1px solid $tinder-grey;
+			background: $tinder-grey;
 
 			.match-scroll {
-				height: calc(100% - 12px);
+				height: calc(100% - 6px);
 				padding: 0px 4px;
 				overflow-y: scroll;
 				overflow-x: hidden;
@@ -770,14 +785,36 @@ section.tinderslide {
 					display: table;
 					margin: 5px auto;
 					padding: 4px 8px;
+					background: $tinder-grey-dark;
 
-					&.false {
-						background-color: $tinder-red-old;
+					// &.false {
+					// 	background-color: $tinder-red-old;
+					// }
+
+					// &.true {
+					// 	background-color: $tinder-theme;
+					// }
+
+					.match-choice {
+						width: 100%;
+					    height: 30px;
+					    padding: 5px 0px;
+					    display: table-caption;
+					    border-bottom: 2px solid $tinder-white;
+
+					    &.false {
+							background-color: $tinder-red-old;
+						}
+
+						&.true {
+							background-color: $tinder-theme;
+						}
 					}
 
-					* {
+					*:not(.match-choice) {
 						display: table-cell;
 						vertical-align: middle;
+						text-align: left;
 					}
 
 					img {
@@ -1169,6 +1206,35 @@ section.tinderslide {
 		}
 	}
 
+	.free-level {
+		display:none;
+		&.complete {
+			display: block;
+
+			.grade {
+				border-radius: 0px;
+				background: transparent;
+				border: 2px solid $tinder-theme;
+				color: $tinder-theme;
+				width: 70%;
+				height: 60px;
+				margin-top: 4px; 
+				padding-top: 0px;
+
+				div {
+					font-size: 16px;
+					padding-top: 6px;
+				}
+
+				button {
+					font-size: 20px; 
+					padding-top: 6px;
+					color: $tinder-theme;
+				}
+			}
+		}
+	}
+
 	.col-sm-4 {
 		margin: 20px auto;
 
@@ -1186,6 +1252,24 @@ section.tinderslide {
 		color: $tinder-white;
 		background-color: $tinder-theme;
 		display: inline-block;
+		padding: 2px;
+
+		&.complete {
+			height: 70px;
+			width: 70px;
+			padding: 2px 5%;
+
+			div {
+				font-size: 24px;
+				padding-top: 4px;
+			}
+
+			button.replay {
+				font-size: 10px;
+			}
+
+		}
+
 		div {
 			font-size: 36px;
 		    padding-top: 12px;
@@ -1204,6 +1288,7 @@ section.tinderslide {
 		    word-break: break-word;
 		    word-wrap: break-word;
 		    white-space: pre-wrap;
+		    line-height: 1;
 
 			&.replay {
 				font-size: 14px;
@@ -1229,6 +1314,7 @@ section.tinderslide {
 		width: 60%;
 		height: 80px;
 		font-size: 18px;
+		line-height: 1;
 		margin: 12px auto;
 		&.complete {
 			height: 50px;
@@ -1345,11 +1431,12 @@ section.tinderslide {
 	.end.match {
 
 		.match-list {
-			height: calc(100% - 260px);
+			height: calc(100% - 240px);
 		}
 	}
 
 	.section.profile .edit {
+		margin-top: 10px;
 		p {
 			line-height: 1;
 			font-size: 10px;
