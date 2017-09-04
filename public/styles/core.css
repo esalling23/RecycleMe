@@ -446,10 +446,10 @@ section.tinderslide {
       left: 5%;
       top: 0;
       bottom: auto;
-      -moz-transition: all, 1s;
-      -o-transition: all, 1s;
-      -webkit-transition: all, 1s;
-      transition: all, 1s; }
+      -moz-transition: all, 0.5s;
+      -o-transition: all, 0.5s;
+      -webkit-transition: all, 0.5s;
+      transition: all, 0.5s; }
       section.tinderslide .item.gone.trashed {
         left: -1000px;
         right: auto; }

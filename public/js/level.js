@@ -28,9 +28,18 @@
   function ShowMatch(item, match) {
 
     var modalId = $(item).find('.item-pane').attr('id');
+    var end = false;
+
+    // Disable all buttons
+    $('.buttons input').prop('disabled', true);
 
     if (matchOpen == true || !modalId)
       return;
+
+
+    setTimeout(function(){
+      item.remove();
+    }, 500);
 
     matchOpen = true;
 
@@ -41,26 +50,81 @@
 
     $.get("/api/game/match", data, function(data){
 
+      ion.sound.stop();
       if (match == true) {
         ion.sound.play("tada", {volume: 0.2});
       } else {
         ion.sound.play("wahwah");
       }
-
-      setTimeout(function(){
-        item.remove();
-      }, 1000);
+      
+      $(".modal.match").css('opacity', 1);
 
       $(".modal.match").html(data.html).fadeIn(function(){
+
+        if ($(item))
+          item.remove();
+
+        // Check if this is the last card in the stack - end the level
+        if ($('.item').length <= 1)
+          end = true;
+
+        console.log(end, $('.item').length)
+
+        if (end === true) {
+          // Send player data
+          var data = {
+            id: window.playerId,
+            score: points, 
+            level: $('.level.tinderslide').data('level')
+          };
+
+          var level = $('.game-level .level').data('level');
+          var tries = $('.game-level .level[data-level='+ level +']').data('tries')
+
+          if (!tries)
+            $('.game-level .level[data-level='+ level +']').data('tries', 1);
+          else
+            $('.game-level .level[data-level='+ level +']').data('tries', tries + 1);
+
+          $.get("/api/game/", data, function(data){
+            // Show that end-of-level modal
+            $('.buttons').hide();
+            $('.modal.end').html(data.html).fadeIn(function(){
+
+              $('.btn.replay').unbind('click').on('click', function(){
+                StartLevel(level);
+                $('.modal.end').hide();
+              });
+
+              $('.btn.next-lvl').unbind('click').on('click', function(){
+                StartLevel(level + 1);
+                $('.modal.end').hide();
+              });
+
+            });
+            
+          });
+        }
 
         $(this).find('#back-btn').on('click', function() {
 
           $('.modal.match .modal-wrap').remove();
-          $('.modal.match').fadeOut();
-          matchOpen = false;
+          $('.modal.match').animate({ 
+            'opacity': 0 
+          }, 100, function(){
+            console.log("animation finished")
+            matchOpen = false;
+            $('.modal.match').hide();
+            // Enable all buttons
+            $('.buttons input').prop('disabled', false);
+          });
+
         });
+
       });
+
     });
+
   }
 
   function CheckSpecial(item, special) {
@@ -162,6 +226,9 @@
 	// If a player chooses to trash an item
   $('#trash').unbind('click').on('click', function(e) {
 
+    if (matchOpen)
+      return;
+
     currentItem = $(document).find('.level .item').last();
 
     if (buttonAlertTrash == true) {
@@ -240,6 +307,9 @@
   // If a player chooses to recycle
   $('#recycle').unbind('click').on('click', function(e) {
 
+    if (matchOpen)
+      return;
+
     currentItem = $(document).find('.level .item').last();
 
     if (buttonAlertRecycle == true) {
@@ -278,6 +348,9 @@
   // If a player chooses to compost
   $('#compost').unbind('click').on('click', function() {
 
+    if (matchOpen)
+      return;
+
     currentItem = $(document).find('.level .item').last();
 
     if (buttonAlertSuper == true) {
@@ -315,6 +388,9 @@
 
   // If a player chooses 'special'
   $('#special').unbind('click').on('click', function() {
+
+    if (matchOpen)
+      return;
 
     currentItem = $(document).find('.level .item').last();
     
@@ -504,55 +580,10 @@
 
   function UpdateScore(num) {
 
-  	var end = false;
-
   	points = points + num;
 
     // Update player score
-    $('#points-counter').html(points);
-
-  	// Check if this is the last card in the stack - end the level
-  	if ($('.level .item:not(.gone)').length == 0)
-  		end = true;
-  	
-
-    console.log(end)
-
-  	if (end === true) {
-	  	// Send player data
-	  	var data = {
-			  id: window.playerId,
-			  score: points, 
-			  level: $('.level.tinderslide').data('level')
-      };
-
-      var level = $('.game-level .level').data('level');
-      var tries = $('.game-level .level[data-level='+ level +']').data('tries')
-
-      if (!tries)
-        $('.game-level .level[data-level='+ level +']').data('tries', 1);
-      else
-        $('.game-level .level[data-level='+ level +']').data('tries', tries + 1);
-
-	  	$.get("/api/game/", data, function(data){
-	  		// Show that end-of-level modal
-        $('.buttons').hide();
-	  		$('.modal.end').html(data.html).fadeIn(function(){
-
-          $('.btn.replay').unbind('click').on('click', function(){
-            StartLevel(level);
-            $('.modal.end').hide();
-          });
-
-          $('.btn.next-lvl').unbind('click').on('click', function(){
-            StartLevel(level + 1);
-            $('.modal.end').hide();
-          });
-
-        });
-        
-  		});
-  	} 
+    $('#points-counter').html(points); 
   }
 
   //# sourceURL=level.js
