@@ -31,10 +31,9 @@ exports.create = function(req, res) {
                 if (err){
                     res.send({
                         success: false, 
-                        msg: 'Error creating player. Stopping at this line.', 
+                        msg: 'Error creating player. Skipping this line.', 
                         player: player
                     });
-                    // throw err;
                 } else {
                     res.send({
                         success: true, 
