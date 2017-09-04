@@ -34,10 +34,30 @@ Game.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
 	defaultProfilePic: { type: Types.CloudinaryImage, folder: 'RecycleMe', label: 'Default Profile Picture'},
-	rulesPictures: { type: Types.CloudinaryImages, folder: 'RecycleMe', label: 'Rules Pictures'}, 
 
+	rulesPictures: { type: Types.CloudinaryImages, folder: 'RecycleMe', label: 'Rules Pictures'},
+	rulesText: { type: Types.TextArray, label: 'Rules Picture Captions'},
+
+	countdown: { type: Number, label: '# of Seconds during Get-Ready countdown'},
 	speed: { type: Number, label: '# of Seconds per item in speed level'}
 	
+});
+
+Game.schema.pre('save', function(next) {
+
+    // Save state for post hook
+	if (this.rulesPictures.length > 0 && (this.rulesText.length < this.rulesPictures.length)) {
+        var err = new Error('You cannot have more images than captions.');
+        next(err);
+    }
+
+    if (this.rulesText.length > 0 && (this.rulesPictures.length < this.rulesText.length)) {
+        var err = new Error('You cannot have more captions than images.');
+        next(err);
+    }
+
+    next();
+
 });
 
 /**

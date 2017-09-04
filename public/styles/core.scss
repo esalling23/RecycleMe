@@ -48,6 +48,7 @@ body, html {
 	text-align: center;
 }
 
+
 .desktop-only {
 	// Hide for mobile
 	@include mobile-only {

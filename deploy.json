@@ -12,7 +12,7 @@
   "deploy" : {
     "sdk-staging" : {
       "user": "node",
-      "host": "159.203.169.136",
+      "host": "104.236.245.109",
       "repo": "https://github.com/esalling23/el-web-sdk.git",
       "ref": "origin/master",
       "path": "/srv/framework",
@@ -25,7 +25,7 @@
 
     "staging" : {
       "user": "node",
-      "host": "159.203.169.136",
+      "host": "104.236.245.109",
       "repo": "https://github.com/esalling23/RecycleMe.git",
       "ref": "origin/staging",
       "path": "/srv/RecycleMe",

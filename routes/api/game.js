@@ -269,9 +269,11 @@ exports.level = function(req, res) {
     };
 
     // Game Config
-    Game.model.findOne( { sort: { 'createdAt': -1 } }).exec((err, config) => {
+    Game.model.findOne( {}, {}, { 
+        sort: { 'createdAt': -1 } 
+    }).exec((err, config) => {
 
-        locals.config = config;
+        data.config = config;
 
         Item.model.find({}).populate('material specialStatus specialStatusOr').exec((err, item) => {
 

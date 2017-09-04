@@ -46,6 +46,8 @@
 
   if (level == '*') {
 
+    console.log(readyCount, speed)
+
     var display = $('#time'), 
         readyDisplay = $('#ready-timer'), 
         counting = false, 
@@ -93,9 +95,17 @@
 
           $(text).show(function() {
               // Are you ready countdown
-            timer(5, text, true, function(){
-              $(readyDisplay).hide();
-              free(true);
+            timer(readyCount, text, true, function(){
+              clearInterval(countdown);
+              $(text).text('Go!').css('font-size', timerSize);
+              setTimeout(function(){
+                $(readyDisplay).animate({
+                  'left': '600px'
+                }, 500, function(){
+                  free(true);
+                });
+              }, 500)
+              
             });
             // Skip the countdown for advanced players
             $(readyDisplay).find('#skip').on('click', function(){
@@ -128,7 +138,7 @@
       clearInterval(countdown);
 
       // Timer
-      timer(5, display, true, function(){
+      timer(speed, display, true, function(){
         // They haven't chosen in time
         currentItem = $(document).find('.level .item:not(.gone)').last();
         ShowMatch(currentItem, false, 'Loss');
