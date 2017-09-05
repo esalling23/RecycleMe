@@ -6,7 +6,7 @@
       nextItem,
       matchOpen, 
       matchList = [],
-      tutorial = false,
+      tutorial = false, 
       level = window.level;
 
   ion.sound({
@@ -22,6 +22,8 @@
     path: sfxPath,
     preload: true
   });
+
+  console.log(level);
 
   function clearScreen() {
 
@@ -45,8 +47,6 @@
 
 
   if (level == '*') {
-
-    console.log(readyCount, speed)
 
     var display = $('#time'), 
         readyDisplay = $('#ready-timer'), 
@@ -128,28 +128,28 @@
         timerSize = $(display).css('font-size');
 
       // Was that the last item?? Stop the loop
-      if ($('.level .item:not(.gone)').length == 0)
+      if ($('.level .item').length <= 1 || $('.level .life.loss').length == 3)
         return;
 
       // Catch for current item
       if (!currentItem)
-        currentItem = $(document).find('.level .item:not(.gone)').last();
+        currentItem = $(document).find('.level .item').last();
 
       clearInterval(countdown);
 
       // Timer
       timer(speed, display, true, function(){
         // They haven't chosen in time
-        currentItem = $(document).find('.level .item:not(.gone)').last();
+        currentItem = $(document).find('.level .item').last();
         ShowMatch(currentItem, false, 'Loss');
 
-        $(currentItem).addClass('gone');
+        $(currentItem).addClass('gone').addClass('loss');
 
         clearInterval(countdown);
         clearScreen();
 
         // Was that the last item?? Stop the loop
-        if ($('.level .item:not(.gone)').length == 0 || $('.level .item.loss').length == 3)
+        if ($('.level .item').length <= 1 || $('.level .life.loss').length == 3)
           return;
 
         free();
@@ -177,118 +177,183 @@
     // Disable all buttons
     $('.buttons input').prop('disabled', true);
 
-    if (level == '*') {
+    level = window.level;
+
+    if (level == "*") {
+
       // Save Matches/Misses for the end
       matchList.push({ item: modalId, match: match, choice: choice });
+
+      ion.sound.stop();
+      if (match == true) {
+      } else {
+        ion.sound.play("wahwah");
+      }
 
       if (!match) {
         $(item).addClass('loss');
         $('.lives-wrap').find('.life:not(.loss)').first().addClass('loss');
         UpdateScore(-1);
+        ion.sound.play("wahwah");
       } else {
         UpdateScore(1);
-      }
-
-      return;
-    }
-
-    if (matchOpen == true || !modalId)
-      return;
-
-
-    setTimeout(function(){
-      item.remove();
-    }, 500);
-
-    matchOpen = true;
-
-    var data = {
-      match: match, 
-      id: modalId
-    };
-
-    $.get("/api/game/match", data, function(data){
-
-      ion.sound.stop();
-      if (match == true) {
         ion.sound.play("tada", {volume: 0.2});
-      } else {
-        ion.sound.play("wahwah");
       }
-      
-      $(".modal.match").css('opacity', 1);
 
-      $(".modal.match").html(data.html).fadeIn(function(){
+      if ($('.level .item').length <= 1 || $('.level .life.loss').length == 3)
+        end = true;
 
-        if ($(item))
-          item.remove();
+      setTimeout(function(){
+        item.remove();
+      }, 500);
 
-        // Check if this is the last card in the stack - end the level
-        if ($('.item').length <= 1)
-          end = true;
+      if (end === true) {
+        // Send player data
+        var data = {
+          id: window.playerId,
+          score: points, 
+          matchList: matchList,
+          level: $('.level.tinderslide').data('level')
+        };
 
-        console.log(end, $('.item').length)
+        clearInterval(countdown);
 
-        if (end === true) {
-          // Send player data
-          var data = {
-            id: window.playerId,
-            score: points, 
-            level: $('.level.tinderslide').data('level')
-          };
+        var level = $('.game-level .level').data('level');
+        var tries = $('.game-level .level[data-level="'+ level +'"]').data('tries')
 
-          var level = $('.game-level .level').data('level');
-          var tries = $('.game-level .level[data-level='+ level +']').data('tries')
+        if (!tries)
+          $('.game-level .level[data-level="'+ level +'"]').data('tries', 1);
+        else
+          $('.game-level .level[data-level="'+ level +'"]').data('tries', tries + 1);
 
-          if (!tries)
-            $('.game-level .level[data-level='+ level +']').data('tries', 1);
-          else
-            $('.game-level .level[data-level='+ level +']').data('tries', tries + 1);
+        $.get("/api/game/", data, function(data){
+          // Show that end-of-level modal
+          $('.buttons').hide();
+          $('.modal.end').html(data.html).fadeIn(function(){
 
-          $.get("/api/game/", data, function(data){
-            // Show that end-of-level modal
-            $('.buttons').hide();
-            $('.modal.end').html(data.html).fadeIn(function(){
+            $('.match-list').css('visibility', 'visible');
 
-              $('.btn.replay').unbind('click').on('click', function(){
-                StartLevel(level);
-                $('.modal.end').hide();
-              });
-
-              $('.btn.next-lvl').unbind('click').on('click', function(){
-                StartLevel(level + 1);
-                $('.modal.end').hide();
-              });
-
+            $('.btn.replay').unbind('click').on('click', function(){
+              StartLevel(level);
+              $('.modal.end').hide();
             });
-            
+
+            $('.btn.next-lvl').unbind('click').on('click', function(){
+              StartLevel(level + 1);
+              $('.modal.end').hide();
+            });
+
           });
+          
+        });
+      }
+
+      // Enable all buttons
+      $('.buttons input').prop('disabled', false);
+
+      return;
+
+    } else {
+      if (matchOpen == true || !modalId)
+        return;
+
+
+      setTimeout(function(){
+        item.remove();
+      }, 500);
+
+      matchOpen = true;
+
+      var data = {
+        match: match, 
+        id: modalId
+      };
+
+      $.get("/api/game/match", data, function(data){
+
+        ion.sound.stop();
+        if (match == true) {
+          ion.sound.play("tada", {volume: 0.2});
+        } else {
+          ion.sound.play("wahwah");
         }
+        
+        $(".modal.match").css('opacity', 1);
 
-        $(this).find('#back-btn').on('click', function() {
+        $(".modal.match").html(data.html).fadeIn(function(){
 
-          $('.modal.match .modal-wrap').remove();
-          $('.modal.match').animate({ 
-            'opacity': 0 
-          }, 100, function(){
-            console.log("animation finished")
-            matchOpen = false;
-            $('.modal.match').hide();
-            // Enable all buttons
-            $('.buttons input').prop('disabled', false);
+          if ($(item))
+            item.remove();
+
+          // Check if this is the last card in the stack/player has no more lives - end the level
+          if ($('.item').length <= 1)
+            end = true;
+
+          if (end === true) {
+            // Send player data
+            var data = {
+              id: window.playerId,
+              score: points, 
+              level: $('.level.tinderslide').data('level')
+            };
+
+            var level = $('.game-level .level').data('level');
+            var tries = $('.game-level .level[data-level='+ level +']').data('tries')
+
+            if (!tries)
+              $('.game-level .level[data-level='+ level +']').data('tries', 1);
+            else
+              $('.game-level .level[data-level='+ level +']').data('tries', tries + 1);
+
+            $.get("/api/game/", data, function(data){
+              // Show that end-of-level modal
+              $('.buttons').hide();
+              $('.modal.end').html(data.html).fadeIn(function(){
+
+                $('.btn.replay').unbind('click').on('click', function(){
+                  StartLevel(level);
+                  $('.modal.end').hide();
+                });
+
+                $('.btn.next-lvl').unbind('click').on('click', function(){
+                  StartLevel(level + 1);
+                  $('.modal.end').hide();
+                });
+
+              });
+              
+            });
+          }
+
+          $(this).find('#back-btn').on('click', function() {
+
+            $('.modal.match .modal-wrap').remove();
+            $('.modal.match').animate({ 
+              'opacity': 0 
+            }, 100, function(){
+              matchOpen = false;
+              $('.modal.match').hide();
+              // Enable all buttons
+              $('.buttons input').prop('disabled', false);
+            });
+
           });
 
         });
 
       });
-
-    });
+    }
 
   }
 
   function CheckItem(item, match, choice) {
 
-    ShowMatch(item, match, choice);
+    if (level == "*")
+      freeLevel = true;
+    else 
+      freeLevel == false;
+
+    ShowMatch(item, match, choice, freeLevel);
 
   }
 

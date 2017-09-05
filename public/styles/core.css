@@ -506,10 +506,10 @@ section.tinderslide {
       top: 0;
       bottom: auto;
       opacity: 1;
-      -moz-transition: all, 1s;
-      -o-transition: all, 1s;
-      -webkit-transition: all, 1s;
-      transition: all, 1s; }
+      -moz-transition: all, 0.5s;
+      -o-transition: all, 0.5s;
+      -webkit-transition: all, 0.5s;
+      transition: all, 0.5s; }
       section.tinderslide .item.gone.trashed {
         left: -1000px;
         right: auto; }
@@ -1067,8 +1067,6 @@ section.tinderslide {
     margin-top: 8px; }
     .section button.nav-bar, .subsection button.nav-bar {
       top: -42px; }
-    .section.levels button.nav-bar, .subsection.levels button.nav-bar {
-      top: -3px; }
 
   .end.match .match-list {
     height: calc(100% - 240px); }

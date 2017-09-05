@@ -11,10 +11,7 @@ var Player = keystone.list('Player'),
 
 // Creating Players Admin
 exports.create = function(req, res) {
-    console.log(req.body);
     var player = req.body;
-
-    console.log(player.email);
 
     Player.model.findOne({'email': player.email}).exec((err, oldPlayer) => {
 
@@ -191,11 +188,9 @@ exports.update = function(req, res) {
                 _.each(itemList, function(item) {
                     _.each(req.query.matchList, function(match) {
                         if (item.item_key === match.item) {
-                            console.log(match)
                             item.match = match.match;
                             item.choice = match.choice;
                             matchList.push(item);
-                            console.log(item)
                         }
                     });
                 });

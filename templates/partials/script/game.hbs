@@ -6,7 +6,8 @@ var clicking = false,
     buttonAlertRecycle,
     buttonAlertTrash,
     buttonAlertSpecial,
-    buttonAlertSuper;
+    buttonAlertSuper, 
+    level;
 
 
 // ADMIN
@@ -353,6 +354,7 @@ $('[data-level]').on('click', function(e) {
             $('.lives-wrap').html(data.livesHtml).show();
 
           window.playerId = '{{playerId}}';
+          
           window.level = num;
 
           $.getScript( '/js/level.js' );
