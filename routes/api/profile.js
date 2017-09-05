@@ -49,13 +49,18 @@ exports.update = function(req, res) {
 
         result.save();
 
-        Team.model.findOne({ _id: result.team }).exec((err, result) => {
+        if (result.team) {
+           Team.model.findOne({ _id: result.team }).exec((err, result) => {
             
-            data.team = result;
+                data.team = result;
 
+                res.send(data);
+
+            }); 
+        } else {
             res.send(data);
-
-        });
+        }
+        
 
     });
 

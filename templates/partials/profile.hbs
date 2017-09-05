@@ -66,6 +66,7 @@
 
 			<div class="image_upload">
 				<a href="#" id="upload_widget_opener">Upload Profile Image</a>
+				<div class="save-msg" style="display: none;"></div>
 			</div>
 		</div>
 
@@ -75,9 +76,9 @@
 				{{#if player.username}}
 				<p>You appear as "<span id="username-text">{{player.username}}</span>" on the leaderboard.</p>
 				{{else}}
-				<p>Hide your name from the leaderboard with a username.</p>
+				<p>Stay anonymous with a username.</p>
 				{{/if}}
-				<input type="text" placeholder="{{#if player.username}}{{player.username}}{{else}} username{{/if}}" id="username">
+				<input type="text" class="input" placeholder="{{#if player.username}}{{player.username}}{{else}} username{{/if}}" id="username">
 			</div>
 
 			<div class="row">
@@ -87,19 +88,23 @@
 				<p>Choose a team to compete with your class!</p>
 				{{/if}}
 
-				<select id="team">
+				<select id="team" class="input">
 					<option class="team-select" value="Choose a team"{{#if player.team}}{{else}} selected{{/if}}>Select Team</option>
 					{{#each teams}}
 					<option class="team-select" id="{{this._id}}" value="{{this.name}}"{{#ifeq this.name ../player.team.name}} selected{{/ifeq}}>{{this.name}}</option>
 					{{/each}}
 				</select>
+
+			</div>
+			
+			<div class="row">
+				<input type='submit' class="btn minimal" id="btn-save-profile" value="save">
+				<div class="save-msg" style="display: none;"></div>
 			</div>
 
 		</div>
 
-		<input type='submit' class="btn minimal" id="btn-save-profile" value="save">
-
-		<div class="save-msg" style="display: none;"></div>
+		
 
 	</form>
 

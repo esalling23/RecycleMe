@@ -226,6 +226,10 @@ button:disabled, .btn:disabled, input:disabled {
     padding: 10px; }
     #ready-timer .text * {
       margin-top: 20px; }
+    #ready-timer .text p {
+      width: 70%;
+      margin: 0px auto;
+      margin-top: 20px; }
   #ready-timer .timer {
     height: 120px;
     width: 80px;
@@ -789,8 +793,30 @@ section.tinderslide {
       margin: 10px auto; } }
 .section.profile .update-info .row {
   margin: 10px 0px; }
+.section.profile .update-info * {
+  width: 100%;
+  border-radius: 0px; }
+.section.profile .update-info p {
+  margin: 4px auto; }
 .section.profile .update-info .input {
   border: 1px solid black; }
+.section.profile .update-info .save-msg {
+  position: relative;
+  bottom: 0px;
+  text-align: center;
+  width: 50%;
+  display: inline; }
+.section.profile .update-info input {
+  color: #1cd87d;
+  border: 2px solid #1cd87d; }
+.section.profile .update-info .select2 {
+  width: 100% !important; }
+  .section.profile .update-info .select2 * {
+    width: 100% !important; }
+    .section.profile .update-info .select2 *.select2-selection__arrow {
+      width: 20px !important; }
+      .section.profile .update-info .select2 *.select2-selection__arrow [role="presentation"] {
+        width: auto !important; }
 .section.profile .edit {
   margin-top: 40px;
   padding-bottom: 80px;
@@ -830,12 +856,11 @@ section.tinderslide {
       border: 2px solid #0a512f; }
   .section.profile .edit .image_upload {
     margin: 10px; }
-  .section.profile .edit .save-msg {
-    position: relative;
-    bottom: 0px;
-    text-align: center;
-    width: 50%;
-    margin: 0px 25%; }
+    .section.profile .edit .image_upload .save-msg {
+      position: relative;
+      bottom: 0px;
+      text-align: center;
+      width: 100%; }
 .section.profile .free-level {
   display: none;
   margin-top: 10px; }
@@ -912,8 +937,7 @@ section.tinderslide {
       font-size: 18px; }
 
 .level-group {
-  text-align: center;
-  padding-top: 40px; }
+  text-align: center; }
   .level-group .minimal {
     width: 60%;
     height: 80px;
@@ -922,7 +946,8 @@ section.tinderslide {
     margin: 12px auto; }
     .level-group .minimal.complete {
       height: 50px;
-      width: 40%; }
+      width: 40%;
+      display: block; }
       .level-group .minimal.complete:nth-child(4) {
         margin-bottom: 40px; }
 
@@ -981,42 +1006,6 @@ section.tinderslide {
   color: #fff;
   background-color: #1cd87d; }
 
-@media (max-height: 480px) {
-  .level-group .minimal {
-    margin: 6px; }
-
-  .section.leaderboard .board {
-    height: 150px; }
-
-  .section, .subsection {
-    margin-top: 8px; }
-    .section button.nav-bar, .subsection button.nav-bar {
-      top: -42px; }
-    .section.levels button.nav-bar, .subsection.levels button.nav-bar {
-      top: -3px; }
-
-  .end.match .match-list {
-    height: calc(100% - 240px); }
-
-  .section.profile .edit {
-    margin-top: 10px; }
-    .section.profile .edit p {
-      line-height: 1;
-      font-size: 10px; }
-    .section.profile .edit #btn-save-profile {
-      bottom: 0px !important; }
-    .section.profile .edit h3 {
-      margin: 4px auto; }
-
-  .match h3 {
-    margin-top: 16px;
-    font-size: 3em; }
-  .match img {
-    height: 100px; }
-  .match p {
-    margin: 0px 16px;
-    line-height: 1;
-    font-size: 1.2em; } }
 @media (max-height: 680px) {
   h1, h2, h3, h4 {
     margin: 4px; }
@@ -1042,16 +1031,74 @@ section.tinderslide {
       font-size: 12px;
       padding: 4px; }
     .section.profile .edit .image_upload {
-      margin: 4px; }
+      margin: 4px auto;
+      width: 100px; }
     .section.profile .edit .profile-picture {
       height: 100px;
       width: 100px;
       margin-top: 20px; }
-    .section.profile .edit .update-info p {
-      margin: 0px; }
+    .section.profile .edit .update-info {
+      text-align: left; }
+      .section.profile .edit .update-info .row {
+        margin: 0px;
+        margin-bottom: 4px; }
+      .section.profile .edit .update-info * {
+        width: 100%;
+        border-radius: 0px; }
+      .section.profile .edit .update-info p {
+        margin: 4px auto; }
+      .section.profile .edit .update-info .save-msg {
+        bottom: -20px !important; }
 
   .match h3 {
     margin-top: 16px; }
+  .match p {
+    margin: 0px 16px;
+    line-height: 1;
+    font-size: 1.2em; } }
+@media (max-height: 480px) {
+  .level-group .minimal {
+    margin: 6px auto; }
+
+  .section.leaderboard .board {
+    height: 150px; }
+
+  .section, .subsection {
+    margin-top: 8px; }
+    .section button.nav-bar, .subsection button.nav-bar {
+      top: -42px; }
+    .section.levels button.nav-bar, .subsection.levels button.nav-bar {
+      top: -3px; }
+
+  .end.match .match-list {
+    height: calc(100% - 240px); }
+
+  .section.profile .edit {
+    margin-top: 10px; }
+    .section.profile .edit p {
+      line-height: 1;
+      font-size: 10px; }
+    .section.profile .edit .update-info .save-msg {
+      bottom: 0px !important; }
+    .section.profile .edit #btn-save-profile {
+      bottom: 0px !important; }
+    .section.profile .edit .image_upload {
+      width: 80px;
+      margin: 4px auto; }
+      .section.profile .edit .image_upload .cloudinary-button {
+        font-size: 10px; }
+    .section.profile .edit .profile-picture {
+      height: 80px;
+      width: 80px;
+      margin-top: 10px; }
+    .section.profile .edit h3 {
+      margin: 4px auto; }
+
+  .match h3 {
+    margin-top: 16px;
+    font-size: 3em; }
+  .match img {
+    height: 100px; }
   .match p {
     margin: 0px 16px;
     line-height: 1;

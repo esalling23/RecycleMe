@@ -219,6 +219,9 @@ if (sessionStorage.getItem('new') == "true") {
 
 // PROFILE 
 
+// Trigger Select2
+$("#team").select2();
+
 $('#btn-save-profile').on('click', function(e) {
 	e.preventDefault();
 	e.bubbles = false;
@@ -242,9 +245,9 @@ $('#btn-save-profile').on('click', function(e) {
       $.post("/api/update/{{playerId}}", data, function(data){
 
         // Notify success
-        $('.save-msg').text('Nice! Saved.').fadeIn(function(){
+        $('.update-info .save-msg').text('Nice! Saved.').fadeIn(function(){
         	setTimeout(function(){
-        		$('.save-msg').fadeOut();
+            $('.update-info .save-msg').fadeOut();
         	}, 2000);
         });
 
@@ -276,15 +279,19 @@ $('#btn-save-profile').on('click', function(e) {
       multiple: false, 
       tags: '{{playerId}}'
     }, function(error, result) { 
+
+      if (!result[0])
+        return;
+        
       console.log(result[0]);
 
       // Do some stuff with the display
     $.post("/api/update/image_upload/{{playerId}}", { image: result[0] }, function(data){
       
       // Notify success
-      $('.save-msg').text('Nice! Saved.').fadeIn(function(){
+      $('.update-picture .save-msg').text('Nice! Saved.').fadeIn(function(){
         setTimeout(function(){
-          $('.save-msg').fadeOut();
+          $('.update-picture .save-msg').fadeOut();
         }, 2000)
       });
 
