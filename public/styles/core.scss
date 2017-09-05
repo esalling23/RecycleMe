@@ -711,7 +711,7 @@ section.tinderslide {
 		 	bottom: auto;
 		 	opacity: 1;
 
-		 	@include transition(all, 1s);
+		 	@include transition(all, 0.5s);
 
 		 	&.trashed {
 		 		left: -1000px;

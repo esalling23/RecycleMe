@@ -172,6 +172,10 @@
   function ShowMatch(item, match, choice) {
 
     var modalId = $(item).find('.item-pane').attr('id');
+    var end = false;
+
+    // Disable all buttons
+    $('.buttons input').prop('disabled', true);
 
     if (level == '*') {
       // Save Matches/Misses for the end
@@ -191,6 +195,11 @@
     if (matchOpen == true || !modalId)
       return;
 
+
+    setTimeout(function(){
+      item.remove();
+    }, 500);
+
     matchOpen = true;
 
     var data = {
@@ -200,26 +209,81 @@
 
     $.get("/api/game/match", data, function(data){
 
+      ion.sound.stop();
       if (match == true) {
         ion.sound.play("tada", {volume: 0.2});
       } else {
         ion.sound.play("wahwah");
       }
-
-      setTimeout(function(){
-        item.remove();
-      }, 1000);
+      
+      $(".modal.match").css('opacity', 1);
 
       $(".modal.match").html(data.html).fadeIn(function(){
+
+        if ($(item))
+          item.remove();
+
+        // Check if this is the last card in the stack - end the level
+        if ($('.item').length <= 1)
+          end = true;
+
+        console.log(end, $('.item').length)
+
+        if (end === true) {
+          // Send player data
+          var data = {
+            id: window.playerId,
+            score: points, 
+            level: $('.level.tinderslide').data('level')
+          };
+
+          var level = $('.game-level .level').data('level');
+          var tries = $('.game-level .level[data-level='+ level +']').data('tries')
+
+          if (!tries)
+            $('.game-level .level[data-level='+ level +']').data('tries', 1);
+          else
+            $('.game-level .level[data-level='+ level +']').data('tries', tries + 1);
+
+          $.get("/api/game/", data, function(data){
+            // Show that end-of-level modal
+            $('.buttons').hide();
+            $('.modal.end').html(data.html).fadeIn(function(){
+
+              $('.btn.replay').unbind('click').on('click', function(){
+                StartLevel(level);
+                $('.modal.end').hide();
+              });
+
+              $('.btn.next-lvl').unbind('click').on('click', function(){
+                StartLevel(level + 1);
+                $('.modal.end').hide();
+              });
+
+            });
+            
+          });
+        }
 
         $(this).find('#back-btn').on('click', function() {
 
           $('.modal.match .modal-wrap').remove();
-          $('.modal.match').fadeOut();
-          matchOpen = false;
+          $('.modal.match').animate({ 
+            'opacity': 0 
+          }, 100, function(){
+            console.log("animation finished")
+            matchOpen = false;
+            $('.modal.match').hide();
+            // Enable all buttons
+            $('.buttons input').prop('disabled', false);
+          });
+
         });
+
       });
+
     });
+
   }
 
   function CheckItem(item, match, choice) {
@@ -297,6 +361,7 @@
       return;
 
     currentItem = $(document).find('.level .item:not(.gone)').last();
+
 
     if (buttonAlertTrash == true) {
       // Let the player know what they are doing
@@ -497,8 +562,6 @@
         if (counting == false || $(this).hasClass('open'))
           return;
 
-        console.log()
-
         var option = $(this).closest('.option-wrap').find('.option');
 
         if (buttonAlertSpecial == true) {
@@ -581,8 +644,6 @@
 
             e.stopImmediatePropagation();
             e.bubble = false;
-
-            console.log($(this).data('action'))
 
             if ($(this).data('action') === 'select') {
 
@@ -749,66 +810,10 @@
 
   function UpdateScore(num) {
 
-  	var end = false;
-
   	points = points + num;
 
     // Update player score
-    $('#points-counter #points-text').text(points);
-
-  	// Check if this is the last card in the stack - end the level
-  	if ($('.level .item:not(.gone)').length == 0 || $('.level .life.loss').length >= 3)
-  		end = true;
-  	
-  	if (end === true) {
-
-      // Send player data
-      var data = {
-        id: window.playerId,
-        score: points, 
-        level: $('.level.tinderslide').data('level')
-      };
-
-      if (!tutorial) {
-        clearInterval(countdown);
-        data.matchList = matchList;
-      }
-
-      var level = $('.game-level .level').data('level').toString();
-      var tries = $('.game-level .level[data-level="'+ level +'"]').data('tries')
-
-      if (!tries)
-        $('.game-level .level[data-level="'+ level +'"]').data('tries', 1);
-      else
-        $('.game-level .level[data-level="'+ level +'"]').data('tries', tries + 1);
-
-	  	$.get("/api/game/", data, function(data){
-
-	  		// Show that end-of-level modal
-        $('.buttons').hide();
-
-	  		$('.modal.end').html(data.html).fadeIn(function(){
-
-          if ($('.match-list').height() > $('.match-inner').length * 100) {
-            $('.match-list').css('height', $('.match-inner').length * 100);
-          }
-
-          $('.match-list').css('visibility', 'visible')
-
-          $('.btn.replay').unbind('click').on('click', function(){
-            StartLevel(level);
-            $('.modal.end').hide();
-          });
-
-          $('.btn.next-lvl').unbind('click').on('click', function(){
-            StartLevel(level + 1);
-            $('.modal.end').hide();
-          });
-
-        });
-        
-  		});
-  	} 
+    $('#points-counter').html(points); 
   }
 
   //# sourceURL=level.js
