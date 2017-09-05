@@ -1353,14 +1353,16 @@ section.tinderslide {
 			}
 
 			&.grade-empty {
-				padding-top: 20px;
+				padding-top: 25px;
 				font-size: 14px;
+				
+				&.play {
+					padding-top: 30px;
+					font-size: 18px;
+				}
 			}
 
-			&.play {
-				padding-top: 24px;
-				font-size: 18px;
-			}
+			
 		}
 
 	}
