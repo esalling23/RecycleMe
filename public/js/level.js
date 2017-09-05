@@ -184,12 +184,6 @@
       // Save Matches/Misses for the end
       matchList.push({ item: modalId, match: match, choice: choice });
 
-      ion.sound.stop();
-      if (match == true) {
-      } else {
-        ion.sound.play("wahwah");
-      }
-
       if (!match) {
         $(item).addClass('loss');
         $('.lives-wrap').find('.life:not(.loss)').first().addClass('loss');
@@ -257,7 +251,6 @@
       if (matchOpen == true || !modalId)
         return;
 
-
       setTimeout(function(){
         item.remove();
       }, 500);
@@ -273,8 +266,10 @@
 
         ion.sound.stop();
         if (match == true) {
+          UpdateScore(1);
           ion.sound.play("tada", {volume: 0.2});
         } else {
+          UpdateScore(-1);
           ion.sound.play("wahwah");
         }
         
@@ -347,14 +342,7 @@
   }
 
   function CheckItem(item, match, choice) {
-
-    if (level == "*")
-      freeLevel = true;
-    else 
-      freeLevel == false;
-
-    ShowMatch(item, match, choice, freeLevel);
-
+    ShowMatch(item, match, choice);
   }
 
   $('.btn-handler').unbind('click').on('click', function(e){
@@ -878,7 +866,7 @@
   	points = points + num;
 
     // Update player score
-    $('#points-counter').html(points); 
+    $('#points-counter #points-text').html(points); 
   }
 
   //# sourceURL=level.js
