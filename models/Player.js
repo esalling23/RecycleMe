@@ -23,6 +23,7 @@ Player.add({
 }, 'Player Data', {
 	new: { type: Boolean, label: 'New Player?', default: true },
 	login: { type: Boolean, label: 'Have they logged in?', default: false },
+	lastLogin: { type: Types.Datetime, label: 'Last Login', default: Date.now },
 
 	leader: { type: Number, label: 'Leaderboard Points'},
 	team: { 
