@@ -269,7 +269,7 @@
           UpdateScore(1);
           ion.sound.play("tada", {volume: 0.2});
         } else {
-          UpdateScore(-1);
+          UpdateScore(0);
           ion.sound.play("wahwah");
         }
         
