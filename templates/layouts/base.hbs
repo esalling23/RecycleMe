@@ -15,6 +15,8 @@
 		{{!-- Open Graph --}}
 		<meta property="og:image" content="{{config.icon.secureUrl}}" />
 
+		<link rel="icon" href="{{#if config.favicon}}{{cloudinaryUrl config.favicon}}?v=2{{else}}favicon.ico?v=2{{/if}}">
+
 		{{!-- Load our CSS/docs --}}
 		{{> css environment=env}}
 		

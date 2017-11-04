@@ -21,9 +21,11 @@ var Types = keystone.Field.Types;
  */
 var Game = new keystone.List('Game', 
 	{
-		label: 'Games',
-		singular: 'Game',
-		autokey: { path: 'Game_key', from: 'name', unique: true }
+		label: 'Game Configs',
+		singular: 'Game Config',
+		autokey: { path: 'Game_key', from: 'name', unique: true }, 
+		nodelete: true, 
+		nocreate: true
 	});
 
 /**
@@ -33,9 +35,9 @@ var Game = new keystone.List('Game',
 Game.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
-	favicon: { type: Types.CloudinaryImages, label: 'Favicon Images', folder:'RecycleMe'}, 
+	favicon: { type: Types.CloudinaryImage, label: 'Favicon Image', folder:'RecycleMe'}, 
 	icon: { type: Types.CloudinaryImage, label: 'Meta Search Icon', folder: 'RecycleMe'},
-	title: { type: String, label: 'Meta Description'},
+	title: { type: String, label: 'Meta Title'},
 	description: { type: Types.Textarea, label: 'Meta Description'},
 
 	defaultProfilePic: { type: Types.CloudinaryImage, folder: 'RecycleMe', label: 'Default Profile Picture'},

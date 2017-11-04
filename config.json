@@ -1,9 +1,8 @@
 {
-	"name": "RecycleMe",
-	"directory": "recycle-me",
+	"name": "Recyclr",
 	"database": "recycle-me",
 	"admin_nav": { 
 					"Game Content": ["Player", "Item", "Material", "SpecialOption", "Team", "Game"], 
-					"Game Other": ["CSV", "Index", "User"]
+					"Game Other": ["CSV", "User"]
 				 }
 }

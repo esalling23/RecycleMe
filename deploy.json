@@ -1,6 +1,6 @@
 {
   "apps" : [{
-    "name": "Recycle Me",
+    "name": "Recyclr",
     "script": "app.js",
     "env_production": {
       "NODE_ENV": "production"

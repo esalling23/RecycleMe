@@ -1,6 +1,6 @@
 {
-  "name": "recycle-me",
-  "description": "RecycleMe",
+  "name": "recyclr",
+  "description": "Recyclr: An Emerson College Recycling Game",
   "version": "0.0.3",
   "repository": {
     "type": "git",

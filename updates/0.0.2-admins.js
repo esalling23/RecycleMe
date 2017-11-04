@@ -9,6 +9,9 @@
 
 exports.create = {
 	User: [
-	  { 'name.first': 'Dev', 'name.last': 'User', email: 'user@admin.edu', password: 'password', isAdmin: true }
+	    { 'name.first': 'Dev', 'name.last': 'User', email: 'user@admin.edu', password: 'password', isAdmin: true }
+	], 
+	Game: [
+		{ 'name': 'Config', 'countdown': 10, 'speed': 5 }
 	]
 };

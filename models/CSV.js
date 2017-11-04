@@ -25,6 +25,8 @@ var CSV = new keystone.List('CSV',
 		label: 'CSV files',
 		singular: 'CSV file',
 		autokey: { path: 'key', from: 'name', unique: true },
+    noedit: true, 
+    nodelete: true
 	});
 
 var myStorage = new keystone.Storage({

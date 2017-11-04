@@ -24,6 +24,7 @@ var Item = new keystone.List('Item',
 	{
 		label: 'Items',
 		singular: 'Item',
+		track: true,
 		autokey: { path: 'item_key', from: 'name', unique: true }
 	});
 
