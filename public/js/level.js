@@ -23,7 +23,15 @@
     preload: true
   });
 
-  console.log(level);
+  function SpecialReset() {
+      $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
+      $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
+      $('.special-scroll').css('overflow-y', 'scroll');
+      $('.option.open').removeClass('open');
+      $('.option-wrap').css('height', '240px').css('width', '50%');
+      $('.option-wrap, .option-select').show();
+      $('.option-wrap').css('visibility', 'visible');
+  }
 
   function clearScreen() {
 
@@ -35,139 +43,10 @@
 
   }
 
-  function SpecialReset() {
-      $('.option.open .profile').css('visibility', 'hidden').addClass('hidden');
-      $('.special-options .col-xs-12').removeClass('col-xs-12').addClass('col-xs-6');
-      $('.special-scroll').css('overflow-y', 'scroll');
-      $('.option.open').removeClass('open');
-      $('.option-wrap').css('height', '240px').css('width', '50%');
-      $('.option-wrap, .option-select').show();
-      $('.option-wrap').css('visibility', 'visible');
-  }
-
-
-  if (level == '*') {
-
-    var display = $('#time'), 
-        readyDisplay = $('#ready-timer'), 
-        counting = false, 
-        countdown = null, 
-        timerSize;
-
-    function timer(duration, display, anim, callback) {
-      counting = true;
-      var time = duration;
-
-      $(display).text(time);
-
-      clearInterval(countdown);
-
-      countdown = setInterval(function() {
-
-        if (anim) {
-          $(display).css('font-size', timerSize);
-          $(display).animate({
-            'font-size': '0px'
-          }, 900)
-        }
-        
-        if (time >= 0)
-          $(display).text(time);
-
-        time = time - 1;
-
-        if(time <= -1) {
-          counting = false;
-          $(display).css('font-size', timerSize);
-          callback();
-        }
-      }, 1000);
-
-    }
-
-    function getReady() {
-      $(readyDisplay).show(function(){
-
-        setTimeout(function(){
-
-          var text = $(readyDisplay).find('#ready-timer-text');
-          timerSize = $(text).css('font-size');
-
-          $(text).show(function() {
-              // Are you ready countdown
-            timer(readyCount, text, true, function(){
-              clearInterval(countdown);
-              $(text).text('Go!').css('font-size', timerSize);
-              setTimeout(function(){
-                $(readyDisplay).animate({
-                  'left': '600px'
-                }, 500, function(){
-                  free(true);
-                });
-              }, 500)
-              
-            });
-            // Skip the countdown for advanced players
-            $(readyDisplay).find('#skip').on('click', function(){
-              clearInterval(countdown);
-              $(readyDisplay).hide();
-              free(true);
-            });
-          });
-          
-        }, 1000);
-
-      });
-      
-    }
-
-    // Each Item Count
-    function free(first) {
-
-      if (first)
-        timerSize = $(display).css('font-size');
-
-      // Was that the last item?? Stop the loop
-      if ($('.level .item').length <= 1 || $('.level .life.loss').length == 3)
-        return;
-
-      // Catch for current item
-      if (!currentItem)
-        currentItem = $(document).find('.level .item').last();
-
-      clearInterval(countdown);
-
-      // Timer
-      timer(speed, display, true, function(){
-        // They haven't chosen in time
-        currentItem = $(document).find('.level .item').last();
-        ShowMatch(currentItem, false, 'Loss');
-
-        $(currentItem).addClass('gone').addClass('loss');
-
-        clearInterval(countdown);
-        clearScreen();
-
-        // Was that the last item?? Stop the loop
-        if ($('.level .item').length <= 1 || $('.level .life.loss').length == 3)
-          return;
-
-        free();
-
-      });
-
-    }
-
-    getReady();
-    
-  } else 
-    tutorial = true;
-
   function Reload() {
     points = 0;
     $('#points-counter #points-text').text(points);
   }
-
 
   function ShowMatch(item, match, choice) {
 
@@ -339,11 +218,132 @@
       });
     }
 
-  }
+  } // End Show Match
 
   function CheckItem(item, match, choice) {
     ShowMatch(item, match, choice);
   }
+
+  if (level == '*') {
+
+    var display = $('#time'), 
+        readyDisplay = $('#ready-timer'), 
+        counting = false, 
+        countdown = null, 
+        timerSize;
+
+    // Countdown Timer
+    function timer(duration, display, anim, callback) {
+      counting = true;
+      var time = duration;
+
+      $(display).text(time);
+
+      clearInterval(countdown);
+
+      countdown = setInterval(function() {
+
+        if (anim) {
+          $(display).css('font-size', timerSize);
+          $(display).animate({
+            'font-size': '0px'
+          }, 900)
+        }
+        
+        if (time >= 0)
+          $(display).text(time);
+
+        time = time - 1;
+
+        if(time <= -1) {
+          counting = false;
+          $(display).css('font-size', timerSize);
+          callback();
+        }
+      }, 1000);
+
+    }
+
+    // Each Item Count
+    function free(first) {
+
+      if (first)
+        timerSize = $(display).css('font-size');
+
+      // Was that the last item?? Stop the loop
+      if ($('.level .item').length <= 1 || $('.level .life.loss').length == 3)
+        return;
+
+      // Catch for current item
+      if (!currentItem)
+        currentItem = $(document).find('.level .item').last();
+
+      clearInterval(countdown);
+
+      // Timer
+      timer(speed, display, true, function(){
+        // They haven't chosen in time
+        currentItem = $(document).find('.level .item').last();
+        ShowMatch(currentItem, false, 'Loss');
+
+        $(currentItem).addClass('gone').addClass('loss');
+
+        clearInterval(countdown);
+        clearScreen();
+
+        // Was that the last item?? Stop the loop
+        if ($('.level .item').length <= 1 || $('.level .life.loss').length == 3)
+          return;
+
+        free();
+
+      });
+
+    }
+
+
+    // Get Ready Countdown
+    function getReady() {
+      $(readyDisplay).show(function(){
+
+        setTimeout(function(){
+
+          var text = $(readyDisplay).find('#ready-timer-text');
+          timerSize = $(text).css('font-size');
+
+          $(text).show(function() {
+              // Are you ready countdown
+            timer(readyCount, text, true, function(){
+              clearInterval(countdown);
+              $(text).text('Go!').css('font-size', timerSize);
+              setTimeout(function(){
+                $(readyDisplay).animate({
+                  'left': '600px'
+                }, 500, function(){
+                  free(true);
+                });
+              }, 500)
+              
+            });
+            // Skip the countdown for advanced players
+            $(readyDisplay).find('#skip').on('click', function(){
+              clearInterval(countdown);
+              $(readyDisplay).hide();
+              free(true);
+            });
+          });
+          
+        }, 1000);
+
+      });
+      
+    }
+
+    getReady();
+    
+  } else // Not Level '*'
+    tutorial = true;
+
 
   $('.btn-handler').unbind('click').on('click', function(e){
     e.bubbles = false;
@@ -839,7 +839,6 @@
       e.stopPropagation();
       e.stopImmediatePropagation();
       e.bubbles = false;
-      console.log(" open click ")
       return;
     });
 
