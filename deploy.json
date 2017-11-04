@@ -17,7 +17,7 @@
       "ref": "origin/master",
       "path": "/srv/framework",
       "pre-deploy-local" : "echo 'Cloning and running npm install. Be patient.'",
-      "post-deploy" : "npm install ; npm update ; grunt compile --sites=recycle-me --env production ; pm2 restart 'server' -- recycle-me --env production",
+      "post-deploy" : "npm install ; npm update ; grunt compile --sites=recyclr --env production ; pm2 restart 'server' -- recyclr --env production",
       "env": {
         "NODE_ENV": "production"
       }
@@ -29,8 +29,8 @@
       "repo": "https://github.com/esalling23/RecycleMe.git",
       "ref": "origin/staging",
       "path": "/srv/RecycleMe",
-      "pre-deploy-local" : "echo 'NPM linking recycle-me and restarting app.';",
-      "post-deploy" : "npm i ; cd /srv/framework/source/ ; grunt compile --sites=recycle-me --env production ; NODE_ENV=production pm2 restart server.js -- recycle-me --env production"
+      "pre-deploy-local" : "echo 'NPM linking recyclr and restarting app.';",
+      "post-deploy" : "npm i ; cd /srv/framework/source/ ; grunt compile --sites=recyclr --env production ; NODE_ENV=production pm2 restart server.js -- recyclr --env production"
     }, 
 
     "sdk-production" : {
@@ -40,7 +40,7 @@
       "ref": "origin/master",
       "path": "/srv/framework",
       "pre-deploy-local" : "echo 'Cloning and running npm install. Be patient.'",
-      "post-deploy" : "npm install ; npm update ; grunt compile --sites=recycle-me --env production ; pm2 restart 'server' -- recycle-me --env production",
+      "post-deploy" : "npm install ; npm update ; grunt compile --sites=recyclr --env production ; pm2 restart 'server' -- recyclr --env production",
       "env": {
         "NODE_ENV": "production"
       }
@@ -52,8 +52,8 @@
       "repo": "https://github.com/esalling23/RecycleMe.git",
       "ref": "origin/master",
       "path": "/srv/RecycleMe",
-      "pre-deploy-local" : "echo 'NPM linking recycle-me and restarting app.';",
-      "post-deploy" : "npm i ; cd /srv/framework/source/ ; grunt compile --sites=recycle-me --env production ; NODE_ENV=production pm2 restart server.js -- recycle-me --env production"
+      "pre-deploy-local" : "echo 'NPM linking recyclr and restarting app.';",
+      "post-deploy" : "npm i ; cd /srv/framework/source/ ; grunt compile --sites=recyclr --env production ; NODE_ENV=production pm2 restart server.js -- recyclr --env production"
     }
 
   }
