@@ -9,7 +9,8 @@ var Types = keystone.Field.Types;
 
 var Player = new keystone.List('Player', {
 	label: 'Players',
-	singular: 'Player'
+	singular: 'Player', 
+	track: true
 	// autokey: { path: 'key', from: 'name', unique: true }
 });
 
@@ -29,7 +30,7 @@ Player.add({
 	team: { 
 		type: Types.Relationship, 
 		ref: 'Team', 
-		label: 'Player Team',
+		label: 'Player Team'
 	},
 
 	completed: { type: Boolean, label: 'Game Completed?', note: 'Enables free play level' }
@@ -89,17 +90,8 @@ Player.schema.statics.removeResourceRef = function(resourceId, callback) {
 
 };
 
-// Player.schema.post('save', function(next){
-// 	if (this.levelOne && this.levelTwo && this.levelThree) {
-// 		this.completed = true;
-// 		this.save();
-// 		next();
-// 	} else 
-// 		next();
-	
-// });
 
-// Player.schema.post('save', function(next) {
+// Player.schema.statics.sendPlayerEmail = function(resourceId, callback) {
 //     // Not the movie transporter!
 //     var transporter = nodemailer.createTransport({
 //         service: 'Gmail',

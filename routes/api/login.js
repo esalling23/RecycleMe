@@ -28,7 +28,7 @@ exports.get = function(req, res) {
 				if (player.new)
 					data.new = true;
 
-				player.lastLogin = Date.now;
+				player.lastLogin = Date.now();
 
 				player.save();
 

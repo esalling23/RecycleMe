@@ -75,16 +75,11 @@ CSV.schema.post('save', function(next) {
         Player: postJson
       },function(err, stats) {
         if (err) return res.json(err);
-        //stats && console.log(stats.message);
-        // res.redirect('/keystone/posts');
       });
     });
 
     //read from file
     fileStream.pipe(csvConverter);
-
-
-    	// next();
 });
 
 /**

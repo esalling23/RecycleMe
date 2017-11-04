@@ -33,6 +33,11 @@ var Game = new keystone.List('Game',
 Game.add({
 
 	name: { type: String, label: 'Name', required: true, initial: true },
+	favicon: { type: Types.CloudinaryImages, label: 'Favicon Images', folder:'RecycleMe'}, 
+	icon: { type: Types.CloudinaryImage, label: 'Meta Search Icon', folder: 'RecycleMe'},
+	title: { type: String, label: 'Meta Description'},
+	description: { type: Types.Textarea, label: 'Meta Description'},
+
 	defaultProfilePic: { type: Types.CloudinaryImage, folder: 'RecycleMe', label: 'Default Profile Picture'},
 
 	rulesPictures: { type: Types.CloudinaryImages, folder: 'RecycleMe', label: 'Rules Pictures'},

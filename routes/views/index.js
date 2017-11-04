@@ -12,6 +12,7 @@
  * ==========
  */
 var keystone = require('keystone'),
+    Game = keystone.list('Game'),
     _ = require('underscore');
 
 exports = module.exports = function(req, res) {
@@ -24,7 +25,19 @@ exports = module.exports = function(req, res) {
 
     view.on('init', function(next) {
 
+        var queryGame = Game.model.findOne({}, {}, {
+                            sort: {
+                                'createdAt': -1
+                            }
+                        });
+
+        queryGame.exec(function(err, result) {
+            if (err) throw err;
+
+            locals.config = result;
             next();
+
+        });
 
     });
 

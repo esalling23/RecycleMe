@@ -2,9 +2,8 @@
 	"name": "RecycleMe",
 	"directory": "recycle-me",
 	"database": "recycle-me",
-	"subdomain": "recycle",
 	"admin_nav": { 
-					"Game Content": ["Item", "Material"], 
-					"Game Other": ["Player", "Game"]
+					"Game Content": ["Player", "Item", "Material", "SpecialOption", "Team", "Game"], 
+					"Game Other": ["CSV", "Index", "User"]
 				 }
 }

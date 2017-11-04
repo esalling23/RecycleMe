@@ -4,16 +4,16 @@
 <html lang="en">
 	<!--<![endif]-->
 	<head>
-		<meta charset="utf-8">
-		<title>Recycle Me</title>
-		<meta name="description" content="Recycle Me">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>{{#if config.title}}{{config.title}}{{else}}Recyclr - A Sorting Game About Recycling, Composting, and More at Emerson College{{/if}}</title>
+		<meta name="description" content={{#if config.description}}"{{config.description}}"{{else}}"Recyclr is a game built alongside Emerson College to educate students and staff about recyclying, trash, and composting standards on campus."{{/if}}>
 		<meta name="author" content="Erica Salling">
 		<!-- Mobile Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		{{!-- <meta name="theme-color" content="#78cbd1"> --}}
 
 		{{!-- Open Graph --}}
-		{{!-- <meta property="og:image" content="http://res.cloudinary.com/engagement-lab-home/image/upload/v1455896685/site/about/logo_color.png" /> --}}
+		<meta property="og:image" content="{{config.icon.secureUrl}}" />
 
 		{{!-- Load our CSS/docs --}}
 		{{> css environment=env}}
@@ -28,13 +28,11 @@
 
 		{{!-- {{> nav}} --}}
 
-		{{!-- modals --}}
-
 		<!-- page wrapper start -->
 		<!-- ================ -->
 		<div class="page-wrapper" id="wrapper">
 
-
+		{{!-- Modals --}}
 		<div class="modal end"></div>	
 
 		<div class="modal alert">{{>alert}}</div>
